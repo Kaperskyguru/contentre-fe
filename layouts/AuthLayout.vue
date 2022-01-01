@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AuthNavBar />
+    <NavBar />
     <b-container id="auth_wrapper" fluid>
       <b-row>
         <b-col id="backdrop__container">

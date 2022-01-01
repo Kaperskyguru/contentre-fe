@@ -1,25 +1,25 @@
 <template>
   <div>
     <PageTitle title="Sign In" />
-    <InputField placeholder="Enter your email address" label="Email address" />
-    <InputField
+    <TextField placeholder="Enter your email address" label="Email address" />
+    <TextField
       type="password"
       placeholder="Enter your full password"
       label="Password"
     />
     <div class="sign-in-options">
       <CheckBox>Remember me</CheckBox>
-      <NuxtLink
+      <Hyperlink
         id="sign-in-option-link"
         class="gilroy-bold"
         to="/forgot-password"
-        >Forgot Password?</NuxtLink
+        >Forgot Password?</Hyperlink
       >
     </div>
-    <SubmitButton>Sign In</SubmitButton>
+    <Button>Sign In</Button>
     <p class="gilroy-bold text-center">
       Don't have an account?
-      <NuxtLink to="/">Create Account</NuxtLink>
+      <Hyperlink to="/">Create Account</Hyperlink>
     </p>
   </div>
 </template>

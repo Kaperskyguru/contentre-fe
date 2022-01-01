@@ -1,33 +1,28 @@
 <template>
   <div>
     <PageTitle />
-    <InputField
+    <TextField
       placeholder="www.contentr.me/ username"
       label="Choose your portfolio address"
     />
-    <InputField placeholder="Enter your full name" label="Full name" />
-    <InputField placeholder="Enter your email address" label="Email address" />
-    <InputField
+    <TextField placeholder="Enter your full name" label="Full name" />
+    <TextField placeholder="Enter your email address" label="Email address" />
+    <TextField
       placeholder="Create password"
       label="Create a strong password"
       type="password"
     />
-    <InputField
+    <TextField
       placeholder="Re-enter password"
       label="Re-enter your password"
       type="password"
     />
-    <CorrectPasswordIdentifier />
-    <CorrectPasswordIdentifier
-      correct
-      text="Password should contain a special character"
-    />
-    <CorrectPasswordIdentifier
-      text="Password should have an uppercase letter"
-    />
-    <SubmitButton>Create Account</SubmitButton>
+    <PasswordMeter text="Password should be at least 6 characters" />
+    <PasswordMeter correct text="Password should contain a special character" />
+    <PasswordMeter text="Password should have an uppercase letter" />
+    <Button>Create Account</Button>
     <p class="gilroy-bold text-center">
-      Already have an account? <NuxtLink to="sign-in">Sign In</NuxtLink>
+      Already have an account? <Hyperlink to="sign-in">Sign In</Hyperlink>
     </p>
   </div>
 </template>
