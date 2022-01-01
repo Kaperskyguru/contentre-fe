@@ -18,27 +18,27 @@ import EyeOpen from '~/assets/img/auth-nav/eye-opened.svg'
 import EyeClosed from '~/assets/img/auth-nav/eye-closed.svg'
 
 export default {
-  name: 'InputField',
+  name: 'TextField',
   inheritAttrs: false,
   props: {
     label: {
       type: String,
-      default: '',
+      default: ''
     },
     type: {
       type: String,
-      default: 'text',
-    },
+      default: 'text'
+    }
   },
   data: () => ({
     openedEye: EyeOpen,
     closedEye: EyeClosed,
-    actualType: 'text',
+    actualType: 'text'
   }),
   computed: {
     closeEyes() {
       return this.actualType === 'password'
-    },
+    }
   },
   mounted() {
     this.actualType = this.type
@@ -46,8 +46,8 @@ export default {
   methods: {
     togglePasswordType() {
       this.actualType = this.actualType === 'password' ? 'text' : 'password'
-    },
-  },
+    }
+  }
 }
 </script>
 
