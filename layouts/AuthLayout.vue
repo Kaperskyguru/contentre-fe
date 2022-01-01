@@ -1,22 +1,26 @@
 <template>
   <div>
-    <AuthNavBar/>
+    <AuthNavBar />
     <b-container id="auth_wrapper" fluid>
       <b-row>
         <b-col id="backdrop__container">
           <div class="backdrop__container__text__wrapper">
             <b-container>
-              <h1 class="gilroy-bold">Paste your Author Link and get all your contents in one place.</h1>
-              <p class="gilroy-medium">Save all your writings and articles in one platform and view the statistics.</p>
+              <h1 class="gilroy-bold">
+                Paste your Author Link and get all your contents in one place.
+              </h1>
+              <p class="gilroy-medium">
+                Save all your writings and articles in one platform and view the
+                statistics.
+              </p>
             </b-container>
-
           </div>
         </b-col>
         <b-col id="auth__content">
           <b-container>
             <b-row>
               <b-col lg="9">
-                <Nuxt/>
+                <Nuxt />
               </b-col>
             </b-row>
           </b-container>
@@ -28,45 +32,45 @@
 
 <script>
 export default {
-  name: "AuthLayout",
+  name: 'AuthLayout',
 }
 </script>
 
 <style>
 @font-face {
-  src: url("~assets/fonts/Helvetica/Helvetica-Bold.ttf");
-  font-family: "Helvetica-Bold"
+  src: url('~assets/fonts/Helvetica/Helvetica-Bold.ttf');
+  font-family: 'Helvetica-Bold';
 }
 
 @font-face {
-  src: url("~assets/fonts/Gilroy/Gilroy-Bold.ttf");
-  font-family: "Gilroy-Bold"
+  src: url('~assets/fonts/Gilroy/Gilroy-Bold.ttf');
+  font-family: 'Gilroy-Bold';
 }
 
 @font-face {
-  src: url("~assets/fonts/Gilroy/Gilroy-Medium.ttf");
-  font-family: "Gilroy-Medium"
+  src: url('~assets/fonts/Gilroy/Gilroy-Medium.ttf');
+  font-family: 'Gilroy-Medium';
 }
 
 @font-face {
-  src: url("~assets/fonts/Gilroy/Gilroy-Regular.ttf");
-  font-family: "Gilroy-Regular"
+  src: url('~assets/fonts/Gilroy/Gilroy-Regular.ttf');
+  font-family: 'Gilroy-Regular';
 }
 
 .helvetica-bold {
-  font-family: "Helvetica-Bold", sans-serif;
+  font-family: 'Helvetica-Bold', sans-serif;
 }
 
 .gilroy-bold {
-  font-family: "Gilroy-Bold", sans-serif;
+  font-family: 'Gilroy-Bold', sans-serif;
 }
 
 .gilroy-medium {
-  font-family: "Gilroy-Medium", sans-serif;
+  font-family: 'Gilroy-Medium', sans-serif;
 }
 
 .gilroy-regular {
-  font-family: "Gilroy-Regular", sans-serif;
+  font-family: 'Gilroy-Regular', sans-serif;
 }
 </style>
 <style scoped>
@@ -76,7 +80,7 @@ export default {
 }
 
 #backdrop__container {
-  background: url("~assets/img/auth-nav/backdrop.svg") no-repeat center;
+  background: url('~assets/img/auth-nav/backdrop.svg') no-repeat center;
   background-size: cover;
   min-height: 100vh;
 }
