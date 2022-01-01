@@ -8,7 +8,7 @@
       label="Password"
     />
     <div class="sign-in-options">
-      <CheckBox>Remember me</CheckBox>
+      <CheckField>Remember me</CheckField>
       <Hyperlink
         id="sign-in-option-link"
         class="gilroy-bold"
@@ -27,7 +27,7 @@
 <script>
 export default {
   name: 'SignIn',
-  layout: 'AuthLayout',
+  layout: 'AuthLayout'
 }
 </script>
 
