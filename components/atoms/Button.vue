@@ -1,14 +1,14 @@
 <template>
   <div class="auth-submit-button__wrapper">
     <button v-bind="$attrs" class="auth-submit-button gilroy-bold">
-      <slot></slot>
+      <slot />
     </button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SubmitButton",
+  name: 'Button'
 }
 </script>
 
@@ -17,10 +17,9 @@ export default {
   display: flex;
   width: 100%;
   justify-content: center;
-
 }
 .auth-submit-button {
-  background: #4FD1C5;
+  background: #4fd1c5;
   border-radius: 5px;
   color: white;
   padding: 16px 55px;
