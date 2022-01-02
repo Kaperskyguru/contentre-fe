@@ -1,15 +1,25 @@
 <template>
   <div>
-    <AuthPageTitle title="Sign In"/>
-    <AuthInputField placeholder="Enter your email address" label="Email address"/>
-    <AuthInputField type="password" placeholder="Enter your full password" label="Password"/>
+    <PageTitle title="Sign In" />
+    <TextField placeholder="Enter your email address" label="Email address" />
+    <TextField
+      type="password"
+      placeholder="Enter your full password"
+      label="Password"
+    />
     <div class="sign-in-options">
-      <AuthCheckBox>Remember me</AuthCheckBox>
-      <NuxtLink id="sign-in-option-link" class="gilroy-bold" to="/forgot-password">Forgot Password?</NuxtLink>
+      <CheckField>Remember me</CheckField>
+      <Hyperlink
+        id="sign-in-option-link"
+        class="gilroy-bold"
+        to="/forgot-password"
+        >Forgot Password?</Hyperlink
+      >
     </div>
-    <AuthSubmitButton>Sign In</AuthSubmitButton>
-    <p class="gilroy-bold text-center">Don't have an account?
-      <NuxtLink to="/">Create Account</NuxtLink>
+    <Button>Sign In</Button>
+    <p class="gilroy-bold text-center">
+      Don't have an account?
+      <Hyperlink to="/">Create Account</Hyperlink>
     </p>
   </div>
 </template>
@@ -17,13 +27,13 @@
 <script>
 export default {
   name: 'SignIn',
-  layout: "AuthLayout"
+  layout: 'AuthLayout'
 }
 </script>
 
 <style scoped>
 p {
-  color: #102A27;
+  color: #102a27;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.02em;
@@ -31,7 +41,7 @@ p {
 }
 
 p a {
-  color: #4FD1C5;
+  color: #4fd1c5;
   text-decoration: none;
 }
 
@@ -42,7 +52,7 @@ p a {
 }
 
 #sign-in-option-link {
-  color: #4FD1C5;
+  color: #4fd1c5;
   letter-spacing: 0.02em;
   font-size: 16px;
   line-height: 24px;

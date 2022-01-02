@@ -2,34 +2,38 @@
   <div class="auth-input__wrapper">
     <label v-if="label" class="gilroy-medium">{{ label }}</label>
     <div class="auth-input__container">
-      <input class="gilroy-medium" :type="actualType" v-bind="$attrs"/>
-      <img v-if="type === 'password'" :src="closeEyes ? closedEye : openedEye"
-           :alt="closeEyes ? 'Show Password' : 'Hide Password'" @click="togglePasswordType"/>
+      <input class="gilroy-medium" :type="actualType" v-bind="$attrs" />
+      <img
+        v-if="type === 'password'"
+        :src="closeEyes ? closedEye : openedEye"
+        :alt="closeEyes ? 'Show Password' : 'Hide Password'"
+        @click="togglePasswordType"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import EyeOpen from "~/assets/img/auth-nav/eye-opened.svg"
-import EyeClosed from "~/assets/img/auth-nav/eye-closed.svg"
+import EyeOpen from '~/assets/img/auth-nav/eye-opened.svg'
+import EyeClosed from '~/assets/img/auth-nav/eye-closed.svg'
 
 export default {
-  name: "InputField",
+  name: 'TextField',
   inheritAttrs: false,
   props: {
     label: {
       type: String,
-      default: ""
+      default: ''
     },
     type: {
       type: String,
-      default: "text"
+      default: 'text'
     }
   },
   data: () => ({
     openedEye: EyeOpen,
     closedEye: EyeClosed,
-    actualType: "text"
+    actualType: 'text'
   }),
   computed: {
     closeEyes() {
@@ -37,7 +41,7 @@ export default {
     }
   },
   mounted() {
-    this.actualType = this.type;
+    this.actualType = this.type
   },
   methods: {
     togglePasswordType() {
@@ -65,14 +69,14 @@ export default {
 }
 
 .auth-input__wrapper label {
-  color: #102A27;
+  color: #102a27;
   line-height: 24px;
   font-size: 16px;
   margin-bottom: 8px;
 }
 
 .auth-input__wrapper input::placeholder {
-  color: #BDBDBD
+  color: #bdbdbd;
 }
 
 .auth-input__container {
