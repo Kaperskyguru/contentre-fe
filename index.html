@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>contentr.io</title>
+  </head>
+  <body>
+    <div class="relative">
+      <!-- header -->
+      <div
+        class="
+          bg-white
+          rounded-t
+          shadow-2xl
+          nav-line
+          fixed
+          top-0
+          left-0
+          right-0
+          m-6
+        "
+      >
+        <header>
+          <nav
+            class="
+              flex flex-wrap
+              items-center
+              justify-between
+              w-full
+              py-4
+              md:py-0
+              px-4
+              text-gray-700
+            "
+          >
+            <div>
+              <a href="#">
+                <img
+                  class="pl-3 icon"
+                  src="./assets/img/icon.png"
+                  width="60"
+                  alt="logo"
+                />
+                <span class="text logo-text">Contentr.io</span>
+              </a>
+            </div>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="menu-button"
+              class="h-6 w-6 cursor-pointer md:hidden block"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+
+            <div
+              class="hidden w-full md:flex md:items-center md:w-auto"
+              id="menu"
+            >
+              <ul
+                class="
+                  uppercase
+                  pt-4
+                  text-gray-700
+                  md:flex md:justify-between md:pt-0
+                "
+              >
+                <li>
+                  <a
+                    class="
+                      md:p-4
+                      py-2
+                      block
+                      hover:text-purple-400
+                      transition
+                      ease-in
+                      duration-150
+                    "
+                    href="dashboard.html"
+                  >
+                    <img
+                      class="icon"
+                      src="https://cdn2.iconfinder.com/data/icons/neutro-essential/32/dashboard-256.png"
+                      width="20"
+                      alt="image"
+                    />
+
+                    <span class="text">Dashboard</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="
+                      md:p-4
+                      py-2
+                      block
+                      hover:text-purple-400
+                      transition
+                      ease-in
+                      duration-150
+                    "
+                    href="#"
+                  >
+                    <img
+                      class="icon"
+                      src="https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_user-256.png"
+                      width="20"
+                      alt="image"
+                    />
+
+                    <span class="text">Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="
+                      md:p-4
+                      py-2
+                      block
+                      hover:text-purple-400
+                      transition
+                      ease-in
+                      duration-150
+                    "
+                    href="index.html"
+                  >
+                    <img
+                      class="icon"
+                      src="https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_user2-256.png"
+                      width="20"
+                      alt="image"
+                    />
+
+                    <span class="text">Sign up</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="
+                      md:p-4
+                      py-2
+                      block
+                      hover:text-purple-400
+                      transition
+                      ease-in
+                      duration-150
+                    "
+                    href="sign-in.html"
+                  >
+                    <img
+                      class="icon"
+                      src="https://cdn0.iconfinder.com/data/icons/zondicons/20/key-256.png"
+                      width="20"
+                      alt="image"
+                    />
+
+                    <span class="text">Sign in</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+      </div>
+      <!-- end of header -->
+
+      <!-- main page -->
+
+      <main class="text-black-100">
+        <div class="flex items-center min-h-screen bg-gray-50 min-w-full">
+          <div class="flex-1 h-full bg-white">
+            <div class="flex flex-col md:flex-row">
+              <div
+                class="
+                  h-32
+                  md:h-auto md:w-1/2
+                  form-bg
+                  -space-x-2
+                  overflow-hidden
+                "
+              >
+                <img
+                  class="object-cover w-full h-full inline-block"
+                  src="./assets/img/form-bg.png"
+                  alt="img"
+                />
+                <img
+                  class="object-cover w-full h-full inline-block"
+                  src="./assets/img/form-bg2.png"
+                  alt="img"
+                />
+              </div>
+              <div
+                class="flex items-center justify-center p-6 sm:p-12 md:w-1/2"
+              >
+                <div class="w-full">
+                  <h1 class="mb-4 text-2xl font-bold text-center text-gray-700">
+                    Create Account
+                  </h1>
+                  <div>
+                    <label class="block text-sm">
+                      Choose your portfolio address
+                    </label>
+                    <input
+                      type="text"
+                      class="
+                        w-full
+                        mt-2
+                        p-4
+                        text-sm
+                        border
+                        rounded-md
+                        focus:border-blue-400
+                        focus:outline-none
+                        focus:ring-1
+                        focus:ring-blue-600
+                      "
+                      placeholder="Www.contentr.me/username"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm pt-6"> Full Name </label>
+                    <input
+                      type="text"
+                      class="
+                        w-full
+                        mt-2
+                        p-4
+                        text-sm
+                        border
+                        rounded-md
+                        focus:border-blue-400
+                        focus:outline-none
+                        focus:ring-1
+                        focus:ring-blue-600
+                      "
+                      placeholder="Enter your full name"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm pt-6"> Email Address </label>
+                    <input
+                      type="email"
+                      class="
+                        w-full
+                        mt-2
+                        p-4
+                        text-sm
+                        border
+                        rounded-md
+                        focus:border-blue-400
+                        focus:outline-none
+                        focus:ring-1
+                        focus:ring-blue-600
+                      "
+                      placeholder="Enter your email address"
+                    />
+                  </div>
+
+                  <label class="block text-sm pt-6"> Create Password </label>
+                  <input
+                    class="
+                      w-full
+                      mt-2
+                      p-4
+                      text-sm
+                      border
+                      rounded-md
+                      focus:border-blue-400
+                      focus:outline-none
+                      focus:ring-1
+                      focus:ring-blue-600
+                    "
+                    placeholder="Create a password"
+                    type="password"
+                  />
+                  <!-- <div
+                      class="
+                        absolute
+                        inset-y-0
+                        right-0
+                        pr
+                        flex
+                        items-center
+                        text-sm
+                        leading-5
+                      "
+                    >
+                      <svg
+                        class="h-6 text-gray-700"
+                        fill="none"
+                        @click="show = !show"
+                        :class="{'hidden': !show, 'block':show }"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewbox="0 0 576 512"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"
+                        ></path>
+                      </svg>
+
+                      <svg
+                        class="h-6 text-gray-700"
+                        fill="none"
+                        @click="show = !show"
+                        :class="{'block': !show, 'hidden':show }"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewbox="0 0 640 512"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 0 0 0 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 0 1-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0 0 81.25-102.07 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 0 0-147.32 37.7L45.46 3.37A16 16 0 0 0 23 6.18L3.37 31.45A16 16 0 0 0 6.18 53.9l588.36 454.73a16 16 0 0 0 22.46-2.81l19.64-25.27a16 16 0 0 0-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 0 0 416 256a94.76 94.76 0 0 0-121.31-92.21A47.65 47.65 0 0 1 304 192a46.64 46.64 0 0 1-1.54 10l-73.61-56.89A142.31 142.31 0 0 1 320 112a143.92 143.92 0 0 1 144 144c0 21.63-5.29 41.79-13.9 60.11z"
+                        ></path>
+                      </svg>
+                    </div> -->
+
+                  <label class="block text-sm pt-6">Re-Enter Password </label>
+                  <input
+                    class="
+                      w-full
+                      mt-2
+                      p-4
+                      text-sm
+                      border
+                      rounded-md
+                      focus:border-blue-400
+                      focus:outline-none
+                      focus:ring-1
+                      focus:ring-blue-600
+                    "
+                    placeholder="Re-enter yourpassword"
+                    type="password"
+                  />
+                  <!-- <div
+                    class="
+                      absolute
+                      inset-y-0
+                      right-0
+                      pr
+                      flex
+                      items-center
+                      text-sm
+                      leading-5
+                    "
+                  >
+                    <svg
+                      class="h-6 text-gray-700"
+                      fill="none"
+                      @click="show = !show"
+                      :class="{'hidden': !show, 'block':show }"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewbox="0 0 576 512"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"
+                      ></path>
+                    </svg>
+
+                    <svg
+                      class="h-6 text-gray-700"
+                      fill="none"
+                      @click="show = !show"
+                      :class="{'block': !show, 'hidden':show }"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewbox="0 0 640 512"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 0 0 0 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 0 1-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0 0 81.25-102.07 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 0 0-147.32 37.7L45.46 3.37A16 16 0 0 0 23 6.18L3.37 31.45A16 16 0 0 0 6.18 53.9l588.36 454.73a16 16 0 0 0 22.46-2.81l19.64-25.27a16 16 0 0 0-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 0 0 416 256a94.76 94.76 0 0 0-121.31-92.21A47.65 47.65 0 0 1 304 192a46.64 46.64 0 0 1-1.54 10l-73.61-56.89A142.31 142.31 0 0 1 320 112a143.92 143.92 0 0 1 144 144c0 21.63-5.29 41.79-13.9 60.11z"
+                      ></path>
+                    </svg>
+                  </div> -->
+
+                  <fieldset>
+                    <div class="mt-4 space-y-4">
+                      <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                          <input
+                            id="comments"
+                            name="comments"
+                            type="checkbox"
+                            class="
+                              focus:ring-indigo-500
+                              h-4
+                              w-4
+                              text-indigo-600
+                              border-gray-300
+                              rounded
+                            "
+                          />
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <label
+                            for="comments"
+                            class="font-medium text-gray-500"
+                            >Password should be atleast 6 characters long</label
+                          >
+                        </div>
+                      </div>
+                      <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                          <input
+                            id="candidates"
+                            name="candidates"
+                            type="checkbox"
+                            class="
+                              focus:ring-indigo-500
+                              h-4
+                              w-4
+                              text-indigo-600
+                              border-gray-300
+                              rounded
+                            "
+                          />
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <label
+                            for="candidates"
+                            class="font-medium text-gray-500"
+                            >Password should contain a special character</label
+                          >
+                        </div>
+                      </div>
+                      <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                          <input
+                            id="offers"
+                            name="offers"
+                            type="checkbox"
+                            class="
+                              focus:ring-indigo-500
+                              h-4
+                              w-4
+                              text-indigo-600
+                              border-gray-300
+                              rounded
+                            "
+                          />
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <label for="offers" class="font-medium text-gray-500"
+                            >Password should have uppercase letter</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div class="flex justify-center mt-4">
+                    <button
+                      class="
+                        form-btn
+                        py-4
+                        px-10
+                        mt-4
+                        text-sm
+                        font-bold
+                        leading-5
+                        text-center text-white
+                        transition-colors
+                        duration-150
+                        bg-teal-300
+                        border border-transparent
+                        rounded-md
+                        active:bg-blue-600
+                        hover:bg-blue-700
+                        focus:outline-none focus:shadow-outline-blue
+                      "
+                      href="#"
+                    >
+                      Create an Account
+                    </button>
+                  </div>
+
+                  <div class="mt-6 text-center">
+                    <p class="text-sm">
+                      Already have an account?
+                      <a
+                        href="sign-in.html"
+                        class="form-footer hover:underline"
+                      >
+                        Sign In</a
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="./assets/script/script.js"></script>
+  </body>
+</html>
