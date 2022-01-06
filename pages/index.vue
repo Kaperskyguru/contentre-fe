@@ -1,48 +1,25 @@
 <template>
-  <div>
-    <PageTitle />
-    <TextField
-      placeholder="www.contentr.me/ username"
-      label="Choose your portfolio address"
-    />
-    <TextField placeholder="Enter your full name" label="Full name" />
-    <TextField placeholder="Enter your email address" label="Email address" />
-    <TextField
-      placeholder="Create password"
-      label="Create a strong password"
-      type="password"
-    />
-    <TextField
-      placeholder="Re-enter password"
-      label="Re-enter your password"
-      type="password"
-    />
-    <PasswordMeter text="Password should be at least 6 characters" />
-    <PasswordMeter correct text="Password should contain a special character" />
-    <PasswordMeter text="Password should have an uppercase letter" />
-    <Button>Create Account</Button>
-    <p class="gilroy-bold text-center">
-      Already have an account? <Hyperlink to="sign-in">Sign In</Hyperlink>
-    </p>
-  </div>
+<div class="p-5">
+  <PageTitle>Create Account</PageTitle>
+  <TextField label="Choose your portfolio address" placeholder="www.contentr.me/ username"></TextField>
+  <TextField placeholder="Enter your full name" label="Full name"></TextField>
+  <TextField label="Email Address" placeholder="Enter your email address"></TextField>
+  <TextField type="password" placeholder="Create a strong password" label="Create password"></TextField>
+  <TextField type="password" placeholder="Re-enter your password" label="Re-enter password"></TextField>
+  <PasswordMeter text="Password should be at least 6 characters long" />
+  <PasswordMeter text="Password should be at least 6 characters long" :correct="true" />
+  <AuthButton>Create Account</AuthButton>
+  <p class="font-gilroy font-bold text-center text-body-text-color text-base">Already have an account? <NuxtLink class="text-primary-teal" to="sign-in">Sign In</NuxtLink></p>
+</div>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage',
+  name: "IndexPage",
   layout: 'AuthLayout',
 }
 </script>
 
 <style scoped>
-p {
-  color: #102a27;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.02em;
-}
-p a {
-  color: #4fd1c5;
-  text-decoration: none;
-}
+
 </style>

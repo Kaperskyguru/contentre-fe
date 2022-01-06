@@ -1,12 +1,13 @@
 <template>
-  <div class="auth-input__wrapper">
-    <label v-if="label" class="gilroy-medium">{{ label }}</label>
-    <div class="auth-input__container">
-      <input class="gilroy-medium" :type="actualType" v-bind="$attrs" />
+  <div class="mb-6">
+    <label v-if="label" class="font-gilroy text-body-text-color font-medium tracking-wide mb-2 block">{{ label }}</label>
+    <div class="relative">
+      <input class="font-gilroy focus:border-body-text-color focus:outline-none border-solid border border-border-inner rounded py-4 pl-5 pr-12 font-medium block w-full" v-bind="$attrs" :type="actualType" />
       <img
         v-if="type === 'password'"
         :src="closeEyes ? closedEye : openedEye"
         :alt="closeEyes ? 'Show Password' : 'Hide Password'"
+        class="absolute top-5 right-5"
         @click="togglePasswordType"
       />
     </div>
@@ -14,11 +15,11 @@
 </template>
 
 <script>
-import EyeOpen from '~/assets/img/auth-nav/eye-opened.svg'
-import EyeClosed from '~/assets/img/auth-nav/eye-closed.svg'
+import EyeOpen from "~/assets/img/auth-nav/eye-opened.svg";
+import EyeClosed from "~/assets/img/auth-nav/eye-closed.svg";
 
 export default {
-  name: 'TextField',
+  name: "TextFieldTW",
   inheritAttrs: false,
   props: {
     label: {
@@ -52,43 +53,5 @@ export default {
 </script>
 
 <style scoped>
-.auth-input__wrapper {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  margin-bottom: 24px;
-}
 
-.auth-input__wrapper input {
-  border: 1px solid rgba(153, 153, 153, 0.6);
-  border-radius: 5px;
-  padding: 15px 30px;
-  font-size: 16px;
-  display: block;
-  width: 100%;
-}
-
-.auth-input__wrapper label {
-  color: #102a27;
-  line-height: 24px;
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-
-.auth-input__wrapper input::placeholder {
-  color: #bdbdbd;
-}
-
-.auth-input__container {
-  position: relative;
-  width: 100%;
-  display: block;
-}
-
-.auth-input__container img {
-  position: absolute;
-  right: 5%;
-  top: calc(50% - 12px);
-  cursor: pointer;
-}
 </style>

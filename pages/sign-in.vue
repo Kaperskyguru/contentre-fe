@@ -1,61 +1,24 @@
 <template>
-  <div>
-    <PageTitle title="Sign In" />
-    <TextField placeholder="Enter your email address" label="Email address" />
-    <TextField
-      type="password"
-      placeholder="Enter your full password"
-      label="Password"
-    />
-    <div class="sign-in-options">
-      <CheckField>Remember me</CheckField>
-      <Hyperlink
-        id="sign-in-option-link"
-        class="gilroy-bold"
-        to="/forgot-password"
-        >Forgot Password?</Hyperlink
-      >
+  <div class="p-5">
+    <PageTitle>Sign In</PageTitle>
+    <TextField label="Email Address" placeholder="Enter your email address"></TextField>
+    <TextField type="password" placeholder="Enter your full password" label="Password"></TextField>
+    <div class="flex justify-between">
+      <CheckBox>Remember me</CheckBox>
+      <NuxtLink to="forgot-password" class="text-base font-bold font-gilroy text-primary-teal">Forgot Password?</NuxtLink>
     </div>
-    <Button>Sign In</Button>
-    <p class="gilroy-bold text-center">
-      Don't have an account?
-      <Hyperlink to="/">Create Account</Hyperlink>
-    </p>
+    <AuthButton>Sign In</AuthButton>
+    <p class="font-gilroy font-bold text-center text-body-text-color text-base">Don't have an account? <NuxtLink class="text-primary-teal" to="/">Create Account</NuxtLink></p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SignIn',
-  layout: 'AuthLayout'
+  name: "SignIn",
+  layout: 'AuthLayout',
 }
 </script>
 
 <style scoped>
-p {
-  color: #102a27;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.02em;
-  margin-top: 20px;
-}
 
-p a {
-  color: #4fd1c5;
-  text-decoration: none;
-}
-
-.sign-in-options {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 40px;
-}
-
-#sign-in-option-link {
-  color: #4fd1c5;
-  letter-spacing: 0.02em;
-  font-size: 16px;
-  line-height: 24px;
-  text-decoration: none;
-}
 </style>
