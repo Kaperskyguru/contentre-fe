@@ -1,15 +1,25 @@
 <template>
   <div class="mb-6">
-    <label v-if="label" class="font-gilroy text-body-text-color font-medium tracking-wide mb-2 block">{{ label }}</label>
-    <div class="relative">
-      <input class="font-gilroy focus:border-body-text-color focus:outline-none border-solid border border-border-inner rounded py-4 pl-5 pr-12 font-medium block w-full" v-bind="$attrs" :type="actualType" />
-      <img
-        v-if="type === 'password'"
-        :src="closeEyes ? closedEye : openedEye"
-        :alt="closeEyes ? 'Show Password' : 'Hide Password'"
-        class="absolute top-5 right-5"
-        @click="togglePasswordType"
-      />
+    <div>
+      <label v-if="label" class="font-gilroy text-body-text-color font-medium tracking-wide mb-2 block">{{
+          label
+        }}</label>
+      <div class="relative">
+        <input
+              :value="value"
+               class="font-gilroy focus:border-body-text-color focus:outline-none border-solid border border-border-inner rounded py-4 pl-5 pr-12 font-medium block w-full"
+               v-bind="$attrs" :type="actualType" @input="onInput"/>
+        <img
+          v-if="type === 'password'"
+          :src="closeEyes ? closedEye : openedEye"
+          :alt="closeEyes ? 'Show Password' : 'Hide Password'"
+          class="absolute top-5 right-5"
+          @click="togglePasswordType"
+        />
+      </div>
+    </div>
+    <div class="mt-3">
+      <slot name="error"></slot>
     </div>
   </div>
 </template>
@@ -29,6 +39,10 @@ export default {
     type: {
       type: String,
       default: 'text'
+    },
+    value: {
+      type: [String, Number],
+      default: "",
     }
   },
   data: () => ({
@@ -47,7 +61,10 @@ export default {
   methods: {
     togglePasswordType() {
       this.actualType = this.actualType === 'password' ? 'text' : 'password'
-    }
+    },
+    onInput(e) {
+      this.$emit("input", e.target.value);
+    },
   }
 }
 </script>

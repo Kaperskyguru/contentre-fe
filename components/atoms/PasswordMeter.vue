@@ -1,8 +1,10 @@
 <template>
-<div class="flex items-start">
-  <div class="inline-block mt-1 mr-1.5 bg-default-grey rounded-full w-2.5 h-2.5"></div>
-  <small class="font-gilroy text-placeholder text-sm">{{text}}</small>
-</div>
+  <div class="flex items-start">
+    <div :class="[correct ? 'bg-primary-teal' : 'bg-default-grey']" class="inline-block mt-1 mr-1.5 rounded-full w-2.5 h-2.5"></div>
+    <small
+          :class="[correct ? 'text-body-text-color' : 'text-placeholder']"
+           class="font-gilroy text-sm">{{ text }}</small>
+  </div>
 </template>
 
 <script>
