@@ -1,4 +1,4 @@
-import AuthButton from '~/components/atoms/AuthButton.vue'
+import AuthButton from '~/components/atoms/Button.vue'
 
 import {
   actionsToMethods,
