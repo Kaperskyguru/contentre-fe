@@ -22,7 +22,7 @@ export default {
   css: ['@/assets/css/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/vuelidate', '~/plugins/utils'],
+  plugins: ['~/plugins/vuelidate', '~/plugins/utils', '~/plugins/toast'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
@@ -39,7 +39,15 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+
+    '@nuxtjs/svg',
+
+    // https://composition-api.nuxtjs.org/
+    '@nuxtjs/composition-api/module',
+
+    // https://github.com/harlan-zw/nuxt-build-optimisations
+    'nuxt-build-optimisations'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -77,11 +85,20 @@ export default {
         tailwindcss: {},
         autoprefixer: {}
       }
+    },
+    babel: {
+      plugins: [
+        ['@babel/plugin-proposal-private-property-in-object', { loose: true }]
+      ]
     }
   },
 
   env: {
     APP_NAME: process.env.APP_NAME,
     API_URL: process.env.API_URL
+  },
+
+  buildOptimisations: {
+    profile: process.env.NODE_ENV === 'development' ? 'risky' : 'safe'
   }
 }

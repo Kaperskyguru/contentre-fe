@@ -66,7 +66,11 @@
         text="Password should have an uppercase letter"
       />
       <PasswordMeter :correct="passwordsMatch" text="Passwords should match" />
-      <AuthButton :disabled="!shouldEnableButton">Create Account</AuthButton>
+      <div class="flex my-9 w-full justify-center">
+        <Button :disabled="!shouldEnableButton" :waiting="sending"
+          >Create Account</Button
+        >
+      </div>
     </form>
     <p class="font-gilroy font-bold text-center text-body-text-color text-base">
       Already have an account?
@@ -213,8 +217,7 @@ export default {
 
         await this.$router.push('/auth/signup/verify-email')
       } catch (error) {
-        // this.$toast.negative(error.message)
-        alert(error.message)
+        this.$toast.negative(error.message)
         this.sending = false
       }
     },
