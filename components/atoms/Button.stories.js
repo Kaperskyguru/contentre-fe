@@ -1,4 +1,4 @@
-import Button from '~/components/atoms/Button.vue'
+import AuthButton from '~/components/atoms/Button.vue'
 
 import {
   actionsToMethods,
@@ -8,11 +8,11 @@ import {
 } from '~/plugins/helpers/storybook'
 
 export default {
-  title: 'Atoms/Button',
-  component: Button,
+  title: 'Atoms/AuthButton',
+  component: AuthButton,
   argTypes: {
     // Slots
-    default: argTypeSlot('Button')
+    default: argTypeSlot('AuthButton')
 
     // Props
   }
@@ -22,12 +22,12 @@ const methods = actionsToMethods('click', 'dblclick')
 const events = methodsToEvents(methods)
 
 export const UnityTest = (_args, { argTypes }) => ({
-  components: { Button },
+  components: { AuthButton },
   props: argsToProps(argTypes),
   methods,
   template: `
-    <Button v-bind="$props" ${events}>
+    <AuthButton v-bind="$props" ${events}>
       <span>{{ $props.default }}</span>
-    </Button>
+    </AuthButton>
   `
 })

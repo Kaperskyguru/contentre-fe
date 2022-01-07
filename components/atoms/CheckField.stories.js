@@ -1,4 +1,4 @@
-import CheckField from '~/components/atoms/CheckField'
+import CheckBox from '~/components/atoms/CheckBox'
 
 import {
   actionsToMethods,
@@ -8,11 +8,11 @@ import {
 } from '~/plugins/helpers/storybook'
 
 export default {
-  title: 'Atoms/CheckField',
-  component: CheckField,
+  title: 'Atoms/CheckBox',
+  component: CheckBox,
   argTypes: {
     // Slots
-    default: argTypeSlot('CheckField')
+    default: argTypeSlot('CheckBox')
 
     // Props
   }
@@ -22,12 +22,12 @@ const methods = actionsToMethods('click', 'dblclick')
 const events = methodsToEvents(methods)
 
 export const UnityTest = (_args, { argTypes }) => ({
-  components: { CheckField },
+  components: { CheckBox },
   props: argsToProps(argTypes),
   methods,
   template: `
-    <CheckField v-bind="$props" ${events}>
+    <CheckBox v-bind="$props" ${events}>
       <span>{{ $props.default }}</span>
-    </CheckField>
+    </CheckBox>
   `
 })
