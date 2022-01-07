@@ -1,0 +1,5 @@
+export * from 'vuelidate/lib/validators'
+export * from './hasLetter'
+export * from './hasNumber'
+export * from './hasSymbol'
+export * from './isURL'
