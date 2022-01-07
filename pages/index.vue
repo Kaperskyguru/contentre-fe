@@ -188,6 +188,8 @@ export default {
 
       if (await this.isValidationInvalid()) return
 
+      this.sending = true
+
       try {
         await this.$apollo.mutate({
           mutation: VERIFY_USERNAME,
@@ -195,8 +197,6 @@ export default {
             username: this.fieldUsername
           }
         })
-
-        this.sending = true
 
         await this.createNewUser({
           email: this.fieldEmail,
