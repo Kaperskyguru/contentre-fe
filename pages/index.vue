@@ -77,8 +77,14 @@
 
 <script>
 import { email, maxLength, minLength, required } from '~/plugins/validators'
+import { CREATE_USER, GET_CURRENT_USER, VERIFY_USERNAME } from '~/graphql'
+import { SEND_EMAIL_CODE } from '~/graphql/auth/mutations'
+import { currentUser } from '~/components/mixins'
 export default {
   name: 'IndexPage',
+
+  mixins: [currentUser],
+
   layout: 'AuthLayout',
 
   data: () => ({
@@ -88,7 +94,8 @@ export default {
     fieldName: '',
     honeyPot: '',
     fieldPassword: '',
-    fieldPasswordConfirmation: ''
+    fieldPasswordConfirmation: '',
+    usernameError: ''
   }),
 
   validations: {
@@ -162,18 +169,72 @@ export default {
         this.passwordLengthOK &&
         this.passwordContainsSpecialChars &&
         this.passwordHasCapital &&
-        this.username &&
-        this.email &&
-        this.full_name &&
-        this.password &&
+        this.fieldUsername &&
+        this.fieldEmail &&
+        this.fieldName &&
+        this.fieldPassword &&
         this.usernameIsValid &&
         this.fullNameIsValid
       )
     }
   },
   methods: {
-    handleSubmission() {
-      this.$store.dispatch('registration/registerUser')
+    async handleSubmission() {
+      if (this.honeyPot) return
+
+      if (await this.isValidationInvalid()) return
+
+      try {
+        await this.$apollo.mutate({
+          mutation: VERIFY_USERNAME,
+          variables: {
+            username: this.fieldUsername
+          }
+        })
+
+        this.sending = true
+
+        await this.createNewUser({
+          email: this.fieldEmail,
+          username: this.fieldUsername,
+          name: this.fieldName,
+          password: this.fieldPassword
+          // signedUpThrough: 'CONTENTRE'
+        })
+
+        if (!this.currentUser.emailConfirmed) {
+          await this.$apollo.mutate({
+            mutation: SEND_EMAIL_CODE,
+            variables: {
+              email: this.currentUser.email
+            }
+          })
+        }
+
+        await this.$router.push('/auth/signup/verify-email')
+      } catch (error) {
+        // this.$toast.negative(error.message)
+        alert(error.message)
+        this.sending = false
+      }
+    },
+
+    async createNewUser(input) {
+      await this.$apollo.mutate({
+        mutation: CREATE_USER,
+        variables: {
+          input: {
+            ...input
+            // language: this.$i18n.getLocaleCookie()
+          }
+        },
+        update: (cache, { data: { createUser } }) => {
+          cache.writeQuery({
+            query: GET_CURRENT_USER,
+            data: { getCurrentUser: createUser }
+          })
+        }
+      })
     }
   }
 }
