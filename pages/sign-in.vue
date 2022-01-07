@@ -60,7 +60,7 @@ export default {
     sending: false,
     fieldEmail: '',
     honeyPot: '',
-    fieldRemember: '',
+    fieldRemember: false,
     fieldPassword: ''
   }),
 

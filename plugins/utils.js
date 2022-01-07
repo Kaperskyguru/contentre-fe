@@ -155,7 +155,8 @@ export const errors = (type, params) => {
     isURL: 'Value is not a valid URL address',
     hasLetter: 'Please provide at least one letter',
     hasNumber: 'Please provide at least one number',
-    hasSymbol: 'Please provide at least one special character'
+    hasSymbol: 'Please provide at least one special character',
+    hasCapital: 'Please provide at least one capital character'
   }
 
   return messages[type]

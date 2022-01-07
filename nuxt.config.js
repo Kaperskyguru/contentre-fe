@@ -21,7 +21,12 @@ export default {
   css: ['@/assets/css/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/vuelidate', '~/plugins/utils', '~/plugins/toast'],
+  plugins: [
+    '~/plugins/vuelidate',
+    '~/plugins/utils',
+    '~/plugins/toast',
+    '~/plugins/currentUser'
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
