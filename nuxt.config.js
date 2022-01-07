@@ -37,6 +37,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    'nuxt-graphql-request'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -73,4 +74,45 @@ export default {
   env: {
     APP_NAME: 'Contentre',
   },
+  graphql: {
+    /**
+     * An Object of your GraphQL clients
+     */
+    clients: {
+      default: {
+        /**
+         * The client endpoint url
+         */
+        endpoint: 'https://contentre-api.herokuapp.com/graphql',
+        /**
+         * Per-client options overrides
+         * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
+         */
+        options: {},
+      },
+      secondClient: {
+        // ...client config
+      },
+      // ...your other clients
+    },
+
+    /**
+     * Options
+     * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
+     */
+    options: {},
+
+    /**
+     * Optional
+     * default: true (this includes cross-fetch/polyfill before creating the graphql client)
+     */
+    useFetchPolyfill: true,
+
+    /**
+     * Optional
+     * default: false (this includes graphql-tag for node_modules folder)
+     */
+    includeNodeModules: true,
+  },
+
 }

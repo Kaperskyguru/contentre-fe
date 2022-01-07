@@ -137,7 +137,7 @@ export default {
   },
   methods: {
     handleSubmission() {
-      alert("Call GraphQL endpoint")
+      this.$store.dispatch("registration/registerUser")
     },
 
   }
