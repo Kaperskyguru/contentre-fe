@@ -10,17 +10,6 @@ export const CHANGE_PASSWORD = gql`
   ${userFragments.user}
 `
 
-// export const CREATE_PASSWORD = gql`
-//   mutation createPassword($password: String!) {
-//     createPassword(password: $password) {
-//       ...user
-//       ...userRelations
-//     }
-//   }
-//   ${userFragments.user}
-//   ${userFragments.userRelations}
-// `
-
 export const LOGIN_USER = gql`
   mutation loginUser($input: LoginUserInput!) {
     loginUser(data: $input) {

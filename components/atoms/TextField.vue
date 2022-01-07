@@ -31,6 +31,11 @@
           v-bind="$attrs"
           :type="actualType"
           @input="onInput"
+          @keydown="emitProxy('keydown', $event)"
+          @keypress.enter="emitProxy('keypress', $event)"
+          @keypress="validateKeypress($event, lazy ? lazyInput : value)"
+          @keyup="emitProxy('keyup', $event)"
+          @change="emitProxy('change', $event)"
         />
         <img
           v-if="type === 'password'"
@@ -69,17 +74,28 @@ export default {
       default: 'text'
     },
 
+    lazy: {
+      default: false,
+      type: Boolean
+    },
+
     error: { default: null, type: [String, Boolean] },
 
     value: {
       type: [String, Number],
       default: ''
+    },
+
+    validateKeypress: {
+      default: () => {},
+      type: Function
     }
   },
   data: () => ({
     openedEye: EyeOpen,
     closedEye: EyeClosed,
-    actualType: 'text'
+    actualType: 'text',
+    lazyInput: ''
   }),
   computed: {
     closeEyes() {
@@ -95,6 +111,9 @@ export default {
     },
     onInput(e) {
       this.$emit('input', e.target.value)
+    },
+    emitProxy(name, args) {
+      this.$emit(name, args)
     }
   }
 }
