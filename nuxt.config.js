@@ -1,4 +1,10 @@
 export default {
+  ssr: false,
+
+  target: 'static',
+
+  modern: 'client',
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'contentre',
@@ -9,6 +15,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    // link: [{ rel: 'preconnect', href: process.env.API_URL }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -32,8 +39,7 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/apollo'
+    '@nuxtjs/tailwindcss'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -41,7 +47,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/apollo'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
