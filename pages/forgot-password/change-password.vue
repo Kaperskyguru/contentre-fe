@@ -69,6 +69,8 @@ export default {
   name: 'ChangePassword',
   layout: 'AuthLayout',
 
+  middleware: ['isAuthenticated', 'isEmailConfirmed'],
+
   data: () => ({
     sending: false,
     fieldPassword: ''

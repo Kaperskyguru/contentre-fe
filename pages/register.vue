@@ -104,6 +104,8 @@ export default {
 
   layout: 'AuthLayout',
 
+  middleware: 'notAuthenticated',
+
   data: () => ({
     sending: false,
     fieldEmail: '',
