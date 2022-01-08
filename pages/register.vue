@@ -54,16 +54,20 @@
         label="Re-enter password"
       ></TextField>
       <PasswordMeter
-        :correct="passwordLengthOK"
+        :correct="$v.fieldPassword.required && $v.fieldPassword.minLength"
         text="Password should be at least 6 characters long"
       />
       <PasswordMeter
         text="Password should contain a special character"
-        :correct="passwordContainsSpecialChars"
+        :correct="$v.fieldPassword.required && $v.fieldPassword.hasSymbol"
       />
       <PasswordMeter
-        :correct="passwordHasCapital"
+        :correct="$v.fieldPassword.required && $v.fieldPassword.hasCapital"
         text="Password should have an uppercase letter"
+      />
+      <PasswordMeter
+        :correct="$v.fieldPassword.required && $v.fieldPassword.hasNumber"
+        text="Password should contain at least one number"
       />
       <PasswordMeter :correct="passwordsMatch" text="Passwords should match" />
       <div class="flex my-9 w-full justify-center">
@@ -80,7 +84,16 @@
 </template>
 
 <script>
-import { email, maxLength, minLength, required } from '~/plugins/validators'
+import {
+  email,
+  maxLength,
+  minLength,
+  required,
+  hasLetter,
+  hasNumber,
+  hasSymbol,
+  hasCapital
+} from '~/plugins/validators'
 import { CREATE_USER, GET_CURRENT_USER, VERIFY_USERNAME } from '~/graphql'
 import { SEND_EMAIL_CODE } from '~/graphql/auth/mutations'
 import { currentUser } from '~/components/mixins'
@@ -90,6 +103,8 @@ export default {
   mixins: [currentUser],
 
   layout: 'AuthLayout',
+
+  middleware: 'notAuthenticated',
 
   data: () => ({
     sending: false,
@@ -112,7 +127,11 @@ export default {
     fieldPassword: {
       required,
       minLength: minLength(6),
-      maxLength: maxLength(50)
+      maxLength: maxLength(50),
+      hasNumber,
+      hasLetter,
+      hasSymbol,
+      hasCapital
     },
     fieldPasswordConfirmation: {
       required,
@@ -139,40 +158,21 @@ export default {
     usernameIsValid() {
       return /^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/.test(this.username)
     },
-    passwordContainsSpecialChars() {
-      return (
-        /[!-/:-@[-`{-~]/.test(this.fieldPassword) &&
-        this.fieldPassword.length >= 1
-      )
-    },
-    passwordLengthOK() {
-      return this.fieldPassword.length >= 6
-    },
+
     passwordsMatch() {
       return (
         this.fieldPassword === this.fieldPasswordConfirmation &&
         this.fieldPassword.length >= 6
       )
     },
-    passwordHasCapital() {
-      let hasCapital = false
-      for (let i = 0; i < this.fieldPassword.length; i++) {
-        if (
-          this.fieldPassword[i].toUpperCase() === this.fieldPassword[i] &&
-          /[A-Za-z]/.test(this.fieldPassword[i])
-        ) {
-          hasCapital = true
-        }
-      }
-      return hasCapital
-    },
 
     shouldEnableButton() {
       return (
         this.passwordsMatch &&
-        this.passwordLengthOK &&
-        this.passwordContainsSpecialChars &&
-        this.passwordHasCapital &&
+        this.$v.fieldPassword.minLength &&
+        this.$v.fieldPassword.maxLength &&
+        this.$v.fieldPassword.hasSymbol &&
+        this.$v.fieldPassword.hasCapital &&
         this.fieldUsername &&
         this.fieldEmail &&
         this.fieldName &&
