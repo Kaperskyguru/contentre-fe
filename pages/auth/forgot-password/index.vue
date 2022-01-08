@@ -1,45 +1,46 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <PageTitle>Forgot Password</PageTitle>
+  <div class="p-5">
+    <form @submit.prevent="onSubmit">
+      <PageTitle>Forgot Password</PageTitle>
+      <p class="font-gilroy">
+        Enter the email address associated with your account before changing
+        your password.
+      </p>
 
-    <p>
-      Enter the email address associated with your account before changing your
-      password.
-    </p>
+      <br />
+      <input
+        v-model="$v.honeyPot.$model"
+        type="text"
+        class="absolute invisible"
+      />
 
-    <br />
-    <input
-      v-model="$v.honeyPot.$model"
-      type="text"
-      class="absolute invisible"
-    />
+      <TextField
+        id="email"
+        v-model="$v.fieldEmail.$model"
+        type="email"
+        name="email"
+        autofocus
+        autocomplete="email"
+        label="Email address"
+        enterkeyhint="send"
+        maxlength="320"
+        :error="getValidationMessage($v.fieldEmail)"
+      />
 
-    <TextField
-      id="email"
-      v-model="$v.fieldEmail.$model"
-      type="email"
-      name="email"
-      autofocus
-      autocomplete="email"
-      label="Email address"
-      enterkeyhint="send"
-      maxlength="320"
-      :error="getValidationMessage($v.fieldEmail)"
-    />
+      <div class="flex my-9 w-full justify-center">
+        <Button
+          type="button"
+          appearance="secondary"
+          :disabled="sending"
+          @click.prevent="onGoBack"
+        >
+          Back
+        </Button>
 
-    <div class="flex my-9 w-full justify-center">
-      <Button
-        type="button"
-        appearance="secondary"
-        :disabled="sending"
-        @click.prevent="onGoBack"
-      >
-        Back
-      </Button>
-
-      <Button type="submit" :waiting="sending"> Next </Button>
-    </div>
-  </form>
+        <Button type="submit" :waiting="sending"> Next</Button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -92,7 +93,7 @@ export default {
         await this.$nextTick()
 
         await this.$router.push({
-          path: '/forgot-password/verify-email',
+          path: '/auth/forgot-password/verify-email',
           query: { email: this.fieldEmail }
         })
       } catch (error) {

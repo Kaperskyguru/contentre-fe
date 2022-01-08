@@ -71,12 +71,12 @@ export default {
       },
       {
         text: 'Sign Up',
-        to: '/register',
+        to: '/auth/register',
         icon: SignUpIcon
       },
       {
         text: 'Sign In',
-        to: '/login',
+        to: '/auth/login',
         icon: SignInIcon
       }
     ]
