@@ -1,1 +1,1 @@
-web: nuxt deploy
+web: yarn deploy
