@@ -159,7 +159,7 @@ export default {
           }
         })
 
-        await this.$router.push('/forgot-password/change-password')
+        await this.$router.push('/auth/forgot-password/change-password')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

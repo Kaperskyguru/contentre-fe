@@ -8,7 +8,7 @@ export default async ({ route, redirect, $getCurrentUser, $toast }) => {
 
     // Otherwise, force redirect to sign in.
     return redirect({
-      path: 'auth/sign-in',
+      path: '/auth/login',
       query: { redirect: route.path }
     })
   } catch (error) {

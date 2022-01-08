@@ -102,15 +102,12 @@ export default {
               query: GET_CURRENT_USER,
               data: { getCurrentUser: loginUser }
             })
-
-            // this.$pusher.subscribe(`presence-online-${loginUser?.id}`)
           }
         })
-
-        alert('Login successfully')
         this.sending = false
 
-        // await this.$router.push('/auth/signup/verify-email')
+        // GO to 2FA
+        await this.$router.push('/') // '/auth/signup/verify-email')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

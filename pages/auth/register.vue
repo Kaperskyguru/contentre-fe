@@ -215,7 +215,7 @@ export default {
           })
         }
 
-        await this.$router.push('/auth/signup/verify-email')
+        await this.$router.push('/auth/verify-email')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

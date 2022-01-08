@@ -3,11 +3,11 @@
     <form @submit.prevent="onSubmit">
       <PageTitle>Forgot Password</PageTitle>
       <p class="font-gilroy">
-        Enter the email address associated with your account before changing your
-        password.
+        Enter the email address associated with your account before changing
+        your password.
       </p>
 
-      <br/>
+      <br />
       <input
         v-model="$v.honeyPot.$model"
         type="text"
@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import {email, required} from '~/plugins/validators'
-import {SEND_PASSWORD_RESET_CODE} from '~/graphql'
+import { email, required } from '~/plugins/validators'
+import { SEND_PASSWORD_RESET_CODE } from '~/graphql'
 
 export default {
   name: 'ForgotPassword',
@@ -61,7 +61,7 @@ export default {
   }),
 
   validations: {
-    fieldEmail: {required, email},
+    fieldEmail: { required, email },
     honeyPot: {}
   },
 
@@ -93,8 +93,8 @@ export default {
         await this.$nextTick()
 
         await this.$router.push({
-          path: '/forgot-password/verify-email',
-          query: {email: this.fieldEmail}
+          path: '/auth/forgot-password/verify-email',
+          query: { email: this.fieldEmail }
         })
       } catch (error) {
         this.$toast.negative(error.message)

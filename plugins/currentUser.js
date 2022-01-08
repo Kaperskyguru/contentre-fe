@@ -27,7 +27,7 @@ export default ({ app }, inject) => {
       await apolloClient.clearStore()
     } finally {
       if (window.$nuxt) {
-        await window.$nuxt.$router.push('/auth/signin')
+        await window.$nuxt.$router.push('/auth/login')
       }
     }
   })
