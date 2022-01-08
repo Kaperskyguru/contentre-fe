@@ -48,7 +48,10 @@ import { SEND_PASSWORD_RESET_CODE } from '~/graphql'
 
 export default {
   name: 'ForgotPassword',
+
   layout: 'AuthLayout',
+
+  middleware: 'notAuthenticated',
 
   data: () => ({
     sending: false,

@@ -80,6 +80,8 @@ export default {
   name: 'ForgotPassword',
   layout: 'AuthLayout',
 
+  middleware: 'notAuthenticated',
+
   data: () => ({
     sending: false,
     resendSeconds: MIN_RESEND_SECONDS,
