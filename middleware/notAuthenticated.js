@@ -3,8 +3,6 @@ export default async ({ redirect, $getCurrentUser, $toast }) => {
     // Force load any logged in user first.
     const currentUser = await $getCurrentUser()
 
-    await this.$logoutUser()
-
     // Allow access route only when no user logged in.
     if (!currentUser) return
 
