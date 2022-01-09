@@ -1,9 +1,9 @@
 export default {
-  ssr: false,
+  // ssr: false,
 
-  target: 'static',
+  // target: 'static',
 
-  modern: 'client',
+  // modern: 'client',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -14,7 +14,23 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://demo.themesberg.com/windster/app.bundle.js',
+        body: true
+      },
+      {
+        src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js',
+        body: true
+      },
+      {
+        src: '/js/scripts.js',
+        body: true
+        // async: true,
+        // defer: true,
+      }
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

@@ -1,0 +1,15 @@
+<svg class="
+                    w-6
+                    h-6
+                    text-gray-500
+                    flex-shrink-0
+                    group-hover:text-gray-900
+                    transition
+                    duration-75
+                    hover:text-white
+                  " fill="currentColor" viewBox="0 0 24 24">
+    <path class="pf ma" :class="page === 'analytics' &amp;&amp; 'text-gray-500'" d="M0 20h24v2H0z"></path>
+    <path class="pf ml" :class="page === 'analytics' &amp;&amp; 'text-gray-500'"
+        d="M4 18h2a1 1 0 001-1V8a1 1 0 00-1-1H4a1 1 0 00-1 1v9a1 1 0 001 1zM11 18h2a1 1 0 001-1V3a1 1 0 00-1-1h-2a1 1 0 00-1 1v14a1 1 0 001 1zM17 12v5a1 1 0 001 1h2a1 1 0 001-1v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1z">
+    </path>
+</svg>
