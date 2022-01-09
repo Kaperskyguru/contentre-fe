@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,12 +6,12 @@
 @layer base {
   @font-face {
     src: url('~assets/fonts/Helvetica/Helvetica.ttf');
-    font-family: "Helvetica";
+    font-family: 'Helvetica';
     font-weight: normal;
   }
   @font-face {
     src: url('~assets/fonts/Helvetica/Helvetica-Bold.ttf');
-    font-family: "Helvetica";
+    font-family: 'Helvetica';
     font-weight: bold;
   }
   @font-face {
@@ -45,5 +46,194 @@
     font-family: 'Gilroy';
     font-weight: normal;
     font-style: italic;
+  }
+}
+
+/* body {
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #F8F9FA;
+  color: #181819;
+  font-family: "Roboto", sans-serif;
+}
+.trace > * {
+  border: 1px solid red !important;
+}
+#main_wrapper {
+  margin: 0 auto;
+  width: 100%;
+  min-width: 320px;
+}
+#main_wrapper #sidebar {
+  background: #083430;
+  color: rgba(255, 255, 255, 0.7);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+#main_wrapper .header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  min-width: 320px;
+  max-width: 100%;
+  width: auto;
+  -webkit-box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
+          box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
+}
+#sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1032;
+  width: 100%;
+  will-change: transform;
+}
+@media (min-width: 992px) {
+  #sidebar {
+    width: 230px;
+  }
+}
+.header {
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+.header_content {
+  padding: 17px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-right: 30px;
+}
+# sourceMappingURL=dashboard.css.map  */
+
+body {
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #f8f9fa;
+  color: #181819;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navside-bs {
+  background: #ffffff;
+  min-height: 60px;
+  width: 100%;
+  /* position: fixed;
+    z-index: 1001; */
+  /* box-shadow: 0px 0px 5px rgba(18, 23, 39, 0.5); */
+  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
+}
+
+aside {
+  background: #083430;
+  position: fixed;
+  z-index: 10032;
+  /* box-shadow: 0px 0px 5px rgba(18, 23, 39, 0.5); */
+  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
+}
+
+.aside-header {
+  top: -50px;
+  color: white;
+  font-size: 20px;
+}
+
+.aside-footer {
+  bottom: -80px;
+  background: #4fd1c5;
+}
+
+.progress {
+  background: #dcf6f3;
+}
+
+.progress-bg {
+  background: #102a27;
+}
+
+.aside-footer-footer {
+  font-size: 12px;
+}
+
+.img-fluid {
+  height: 3.5rem;
+}
+
+.card-arrow {
+  top: 5px;
+}
+
+.card-header {
+  font-size: 16px;
+}
+
+@media (max-width: 640px) {
+  body > aside,
+  body > main {
+    grid-area: stack;
+  }
+}
+
+#sidenav-open {
+  --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration: 0.6s;
+  display: grid;
+  grid-template-columns: [nav] 1fr [escape] 2fr;
+}
+
+@media (max-width: 640px) {
+  #sidenav-open {
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    overflow: hidden auto;
+    overscroll-behavior: contain;
+    visibility: hidden;
+    transform: translateX(-110vw);
+    will-change: transform;
+    transition: transform var(--duration) var(--easeOutExpo),
+      visibility 0s linear var(--duration);
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  #sidenav-open:target {
+    visibility: visible;
+    transform: translateX(0);
+    transition: transform var(--duration) var(--easeOutExpo);
+  }
+
+  #sidenav-open:target ~ main {
+    filter: blur(0.5em);
+    z-index: -1;
+  }
+}
+
+.grid-cols-auto-1fr-auto {
+  grid-template-columns: auto 1fr auto;
+}
+
+#profile-progress {
+  border: 1em solid white;
+  border-right-color: #4a00e0;
+  border-top-color: #4a00e0;
+  border-bottom-color: #4a00e0;
+  animation: thickening 1s 0.5s linear normal;
+  border-left-color: white;
+  border-radius: 50%;
+}
+
+@keyframes thickening {
+  from {
+    border-width: 0.2em;
+  }
+  to {
+    border-width: 1em;
   }
 }
