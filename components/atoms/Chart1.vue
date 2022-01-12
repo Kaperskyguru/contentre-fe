@@ -2,10 +2,10 @@
   <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
     <div class="mb-4 flex items-center justify-between">
       <div class="flex-shrink-0">
-        <span class="text-2xl sm:text-2xl font-bold text-gray-900"
+        <span class="text-2xl sm:text-2xl font-helvetica font-bold text-gray-900"
           >Fintech Solutions</span
         >
-        <h3 class="text-base font-normal text-gray-500">
+        <h3 class="text-base font-helvetica font-normal text-gray-500">
           <span class="text-green-500 text-base">(+23)</span> than last week
         </h3>
       </div>

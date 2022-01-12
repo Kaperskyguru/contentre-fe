@@ -1,12 +1,9 @@
 <svg class="
                     w-6
                     h-6
-                    text-gray-500
                     flex-shrink-0
-                    group-hover:text-gray-900
                     transition
                     duration-75
-                    hover:text-white
                   " fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" stroke="currentColor"
     viewBox="0 0 24 24">
     <path

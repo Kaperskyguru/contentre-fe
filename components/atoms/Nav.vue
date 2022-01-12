@@ -111,7 +111,7 @@
                       class="w-full h-full object-cover"
                     />
                   </div>
-                  <div class="dark:text-white text-gray-900 text-sm">
+                  <div class="dark:text-white font-gilroy font-medium text-gray-900 text-sm">
                     <div class="cursor-pointer">
                       Jane Smith
                       <svg
@@ -285,7 +285,10 @@
 
 <script>
 export default {
-  name: 'DasboardNav'
+  name: 'DasboardNav',
+  data: () => ({
+    open: false
+  })
 }
 </script>
 

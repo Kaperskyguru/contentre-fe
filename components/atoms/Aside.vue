@@ -35,7 +35,7 @@
             <div class="logo absolute aside-header">
               <a href="#" class="font-bold flex items-center lg:ml-2.5">
                 <img
-                  src="~/assets/img/Logo.svg"
+                  src="~/assets/img/dashboard_logo.svg"
                   class="img-fluid"
                   alt="contentr Logo"
                 />
@@ -46,8 +46,9 @@
               <a
                 href="dashboard.html"
                 class="
-                  text-base text-gray-500
+                   text-base text-gray-500
                   font-normal
+                  font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -56,8 +57,10 @@
                   group
                 "
               >
-                <DashboardIcon />
-                <span class="ml-3">Dashboard</span>
+                <span class="text-white">
+                <DashboardIcon class="text-aside-icon-grey fill-aside-icon-grey group-hover:text-white group-hover:text-aside-icon-grey" />
+                </span>
+                <span class="ml-3 flex-1 whitespace-nowrap">Dashboard</span>
               </a>
             </li>
             <li>
@@ -66,6 +69,7 @@
                 class="
                   text-base text-gray-500
                   font-normal
+                  font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -84,6 +88,7 @@
                 class="
                   text-base text-gray-500
                   font-normal
+                  font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -102,6 +107,7 @@
                 class="
                   text-base text-gray-500
                   font-normal
+                  font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -120,6 +126,7 @@
                 class="
                   text-base text-gray-500
                   font-normal
+                  font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -138,6 +145,7 @@
                 class="
                   text-base text-gray-500
                   font-normal
+                  font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -156,6 +164,7 @@
                 class="
                   text-base text-gray-500
                   font-normal
+                  font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -164,7 +173,7 @@
                   group
                 "
               >
-                <SettingIcon />
+                <SettingIcon id="settings-icon" />
                 <span class="ml-3 flex-1 whitespace-nowrap">Settings</span>
               </a>
             </li>
@@ -185,15 +194,15 @@
             >
               <div class="flex justify-between items-center py-2 px-2">
                 <div class="">
-                  <p class="text-white text-base">Storage</p>
+                  <p class="text-white font-roboto text-base">Storage</p>
                 </div>
                 <div class="">
-                  <p>Upgrade</p>
+                  <p class="font-roboto">Upgrade</p>
                 </div>
               </div>
 
               <div class="aside-footer-footer px-2 pb-2">
-                <p class="text-white pb-4">
+                <p class="text-white font-roboto pb-4">
                   3.4 GB <span class="text-light">of 15 GB</span>
                 </p>
                 <div class="w-full h-2 progress-bg rounded-full">
@@ -233,5 +242,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+ul svg {
+  fill: #6B8583;
+
+}
+
+ul svg#settings-icon {
+  fill: none;
+  color: #6B8583;
+}
+
+ul li > a:hover svg {
+  fill: white;
+}
+
+ul li > a:hover svg#settings-icon {
+  fill: none;
+  color: white;
+}
 </style>

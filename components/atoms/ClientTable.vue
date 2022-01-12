@@ -1,7 +1,7 @@
 <template>
   <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
     <div class="pb-4 px-4 pt-4">
-      <h2 class="text-2xl font-semibold leading-tight">Grouping</h2>
+      <h2 class="text-2xl font-gilroy font-semibold leading-tight">Grouping</h2>
     </div>
     <table class="min-w-full">
       <thead class="bg-white border-b">
@@ -14,6 +14,7 @@
               bg-gray-100
               text-left text-xs
               font-semibold
+              font-roboto
               text-gray-600
               uppercase
               tracking-wider
@@ -31,6 +32,7 @@
               font-semibold
               text-gray-600
               uppercase
+              font-roboto
               tracking-wider
             "
           >
@@ -46,6 +48,7 @@
               font-semibold
               text-gray-600
               uppercase
+              font-roboto
               tracking-wider
             "
           >
@@ -61,6 +64,7 @@
               font-semibold
               text-gray-600
               uppercase
+              font-roboto
               tracking-wider
             "
           >
@@ -85,21 +89,21 @@
                 <input type="checkbox" />
               </div>
               <div class="ml-3">
-                <p class="text-gray-900 whitespace-no-wrap">Medium.com</p>
+                <p class="text-gray-900 font-roboto whitespace-no-wrap">Medium.com</p>
               </div>
             </div>
           </td>
 
           <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">howtopleaseamaninbed</p>
+            <p class="text-gray-900 font-roboto whitespace-nowrap">howtopleaseamaninbed</p>
           </td>
 
           <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">3,450k</p>
+            <p class="text-gray-900 font-roboto whitespace-nowrap">3,450k</p>
           </td>
 
           <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">Jun 14,12:33Pm</p>
+            <p class="text-gray-900 font-roboto whitespace-nowrap">Jun 14,12:33Pm</p>
           </td>
         </tr>
         <tr
@@ -112,13 +116,13 @@
             hover:bg-gray-100
           "
         >
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
+          <td class="px-5 font-roboto py-2 whitespace-nowrap text-sm">
             <div class="flex items-center">
               <div class="flex-shrink-0 w-10 h-10 p-2">
                 <input type="checkbox" />
               </div>
               <div class="ml-3">
-                <p class="text-gray-900 whitespace-no-wrap">
+                <p class="text-gray-900 font-roboto whitespace-no-wrap">
                   twitterstuffor.com
                 </p>
               </div>
@@ -126,7 +130,7 @@
           </td>
 
           <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">
+            <p class="text-gray-900 font-roboto whitespace-nowrap">
               howtomaximizeyourexpenses
             </p>
           </td>
