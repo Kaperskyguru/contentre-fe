@@ -5,6 +5,45 @@
 
 @layer base {
   @font-face {
+    src: url('~assets/fonts/Roboto/Roboto-Regular.ttf');
+    font-family: 'Roboto';
+    font-weight: normal;
+  }
+
+  @font-face {
+    src: url('~assets/fonts/Roboto/Roboto-Italic.ttf');
+    font-family: 'Roboto';
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  @font-face {
+    src: url('~assets/fonts/Roboto/Roboto-Bold.ttf');
+    font-family: 'Roboto';
+    font-weight: bold;
+  }
+
+  @font-face {
+    src: url('~assets/fonts/Roboto/Roboto-BoldItalic.ttf');
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  @font-face {
+    src: url('~assets/fonts/Roboto/Roboto-Medium.ttf');
+    font-family: 'Roboto';
+    font-weight: 500;
+  }
+
+  @font-face {
+    src: url('~assets/fonts/Roboto/Roboto-MediumItalic.ttf');
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  @font-face {
     src: url('~assets/fonts/Helvetica/Helvetica.ttf');
     font-family: 'Helvetica';
     font-weight: normal;
@@ -162,15 +201,13 @@ aside {
 }
 
 .img-fluid {
-  height: 3.5rem;
+  height: 2rem;
+  margin-top: 1rem;
+
 }
 
 .card-arrow {
   top: 5px;
-}
-
-.card-header {
-  font-size: 16px;
 }
 
 @media (max-width: 640px) {

@@ -12,12 +12,12 @@
   >
     <div class="flex items-start justify-between">
       <div class="flex flex-col space-y-2">
-        <span class="text-gray-400 card-header">AVG.CLICK RATE</span>
-        <span class="text-lg font-semibold">56,8%</span>
+        <span class="text-gray-400 text-xs font-gilroy tracking-wide font-medium card-header">AVG. CLICK RATE</span>
+        <span class="text-2xl font-gilroy tracking-wide font-bold font-gilroy">56,8%</span>
       </div>
       <div class="px-1 mt-8">
         <div class="flex flex row items-start rounded-lg">
-          <div class="bg-teal-300 text-white rounded-lg p-2">
+          <div class="bg-teal-300 teal-300 text-white rounded-lg p-2">
             <svg
               class="fill-current text-grey md:h-6 md:w-6 h-4 w-4"
               fill="none"
@@ -55,5 +55,8 @@
 export default {}
 </script>
 
-<style>
+<style scoped>
+.teal-300 {
+  background: #4FD1C5
+}
 </style>
