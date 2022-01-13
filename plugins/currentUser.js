@@ -2,7 +2,7 @@ import { GET_CURRENT_USER, LOGOUT_USER } from '~/graphql'
 
 export default ({ app }, inject) => {
   const getCurrentUser = async () => {
-    if (localStorage['storybook-layout']) return null
+    // if (localStorage['storybook-layout']) return null
 
     const apolloClient = app.apolloProvider.defaultClient
     const result = await apolloClient.query({ query: GET_CURRENT_USER })
