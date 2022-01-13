@@ -1,7 +1,7 @@
 <template>
   <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
     <div class="pb-4 px-4 pt-4">
-      <h2 class="text-2xl font-semibold leading-tight">Grouping</h2>
+      <h2 class="text-2xl font-semibold leading-tight">Clients</h2>
     </div>
     <table class="min-w-full">
       <thead class="bg-white border-b">
@@ -34,7 +34,7 @@
               tracking-wider
             "
           >
-            Article link
+            Profile link
           </th>
           <th
             class="
@@ -49,7 +49,7 @@
               tracking-wider
             "
           >
-            Total click
+            Total Contents
           </th>
           <th
             class="

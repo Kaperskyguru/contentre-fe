@@ -43,7 +43,7 @@
               </a>
             </div>
             <li>
-              <nuxt-link
+              <Hyperlink
                 to="/"
                 class="
                   text-base text-gray-500
@@ -58,10 +58,10 @@
               >
                 <DashboardIcon />
                 <span class="ml-3">Dashboard</span>
-              </nuxt-link>
+              </Hyperlink>
             </li>
             <li>
-              <nuxt-link
+              <Hyperlink
                 to="analytics"
                 class="
                   text-base text-gray-500
@@ -76,7 +76,7 @@
               >
                 <AnalyticIcon />
                 <span class="ml-3 flex-1 whitespace-nowrap">Analytics</span>
-              </nuxt-link>
+              </Hyperlink>
             </li>
             <li>
               <a
