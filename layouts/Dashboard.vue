@@ -12,7 +12,9 @@
 
 <script>
 export default {
-  name: 'DashboardNav'
+  name: 'DashboardNav',
+
+  middleware: ['isAuthenticated', 'isEmailConfirmed']
 }
 </script>
 
