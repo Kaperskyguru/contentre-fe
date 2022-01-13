@@ -43,8 +43,8 @@
               </a>
             </div>
             <li>
-              <a
-                href="dashboard.html"
+              <Hyperlink
+                to="/"
                 class="
                    text-base text-gray-500
                   font-normal
@@ -58,14 +58,14 @@
                 "
               >
                 <span class="text-white">
-                <DashboardIcon class="text-aside-icon-grey fill-aside-icon-grey group-hover:text-white group-hover:text-aside-icon-grey" />
+                <DashboardIcon />
                 </span>
                 <span class="ml-3 flex-1 whitespace-nowrap">Dashboard</span>
-              </a>
+              </Hyperlink>
             </li>
             <li>
-              <a
-                href="analytics.html"
+              <Hyperlink
+                to="analytics"
                 class="
                   text-base text-gray-500
                   font-normal
@@ -80,7 +80,7 @@
               >
                 <AnalyticIcon />
                 <span class="ml-3 flex-1 whitespace-nowrap">Analytics</span>
-              </a>
+              </Hyperlink>
             </li>
             <li>
               <a

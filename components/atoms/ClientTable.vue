@@ -36,7 +36,7 @@
               tracking-wider
             "
           >
-            Article link
+            Profile link
           </th>
           <th
             class="
@@ -52,7 +52,7 @@
               tracking-wider
             "
           >
-            Total click
+            Total Contents
           </th>
           <th
             class="
