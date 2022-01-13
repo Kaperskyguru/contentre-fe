@@ -43,8 +43,8 @@
               </a>
             </div>
             <li>
-              <a
-                href="dashboard.html"
+              <nuxt-link
+                to="/"
                 class="
                   text-base text-gray-500
                   font-normal
@@ -58,11 +58,11 @@
               >
                 <DashboardIcon />
                 <span class="ml-3">Dashboard</span>
-              </a>
+              </nuxt-link>
             </li>
             <li>
-              <a
-                href="analytics.html"
+              <nuxt-link
+                to="analytics"
                 class="
                   text-base text-gray-500
                   font-normal
@@ -76,7 +76,7 @@
               >
                 <AnalyticIcon />
                 <span class="ml-3 flex-1 whitespace-nowrap">Analytics</span>
-              </a>
+              </nuxt-link>
             </li>
             <li>
               <a
