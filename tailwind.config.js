@@ -16,11 +16,13 @@ module.exports = {
         'border-inner': '#99999999',
         'default-grey': '#c4c4c4',
         'grey-shade': '#88888888',
-        current: 'currentColor'
+        current: 'currentColor',
+        'aside-icon-grey': '#6B8583'
       },
       fontFamily: {
         gilroy: ['Gilroy', 'sans-serif'],
-        helvetica: ['Helvetica', 'sans-serif']
+        helvetica: ['Helvetica', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
       },
       backgroundImage: {
         'auth-background': 'url(~assets/img/auth-nav/backdrop.svg)'
