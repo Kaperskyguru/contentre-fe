@@ -1,74 +1,3 @@
- /* body {
-  font-weight: 400;
-  line-height: 1.5;
-  background-color: #F8F9FA;
-  color: #181819;
-  font-family: "Roboto", sans-serif;
-}
-
-.trace > * {
-  border: 1px solid red !important;
-}
-
-#main_wrapper {
-  margin: 0 auto;
-  width: 100%;
-  min-width: 320px;
-}
-
-#main_wrapper #sidebar {
-  background: #083430;
-  color: rgba(255, 255, 255, 0.7);
-  -webkit-box-shadow: none;
-          box-shadow: none;
-}
-
-#main_wrapper .header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1030;
-  min-width: 320px;
-  max-width: 100%;
-  width: auto;
-  -webkit-box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
-          box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
-}
-
-#sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1032;
-  width: 100%;
-  will-change: transform;
-}
-
-@media (min-width: 992px) {
-  #sidebar {
-    width: 230px;
-  }
-}
-
-.header {
-  margin: 0 auto;
-  background-color: #ffffff;
-}
-
-.header_content {
-  padding: 17px 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  padding-right: 30px;
-}
-# sourceMappingURL=dashboard.css.map  */
-
 
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap");
 
@@ -126,8 +55,21 @@ font-size: 20px;
   
 }
 
+.form-btn{
+  background:#4FD1C5;
+}
 
+.form-btn:hover{
+background:#4FD1C5;
+}
 
+.profilelink-a{
+  font-size:8px;
+}
+
+.text-unknown{
+  color:#048FBB;
+}
 .img-fluid{
   height: 3.5rem;
 }
@@ -140,6 +82,73 @@ font-size: 20px;
     font-size: 16px;
 }
 
+.calender-font li a{
+  font-size:20px;
+}
+
+.dot-color{
+  background:#4F5CD1;
+}
+
+.dotlast-color{
+  background:#CE4FD1;
+}
+
+.dotfont{
+  font-size: 9px;
+}
+.dots{
+  width:12px;
+  height:12px;
+}
+.analyticsfooter-footer{
+width: 12px;
+height: 26px;
+background: #4FD1C5;
+border-radius: 5px
+}
+
+.footer2-progress{
+background: #E2E8F0;
+margin-top: 10px;
+}
+
+.footer2-progressball{
+background: #4FD1C5;
+}
+
+.links{
+  font-size:12px;
+}
+
+/* settings page */
+
+.pro-info{
+  font-size:15px;
+}
+
+.pro-check{
+  font-size:13px;
+}
+
+/* end of settings page */
+
+
+
+/* notification mega-dropdown */
+
+.mega-dropdown{
+  width: 28rem;
+  margin-left: -22rem;
+
+}
+
+.date-icon{
+right: 28px;
+margin-top: -36px;
+color: #c1c1c1;
+}
+/* end of notification mega-dropdown */
 
 
 @media (max-width: 640px) {

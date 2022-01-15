@@ -25,6 +25,10 @@ border-radius: 15px;
        background:#4FD1C5;
    }
 
+   .form-btn:hover{
+    background:#4FD1C5;
+   }
+
    .form-footer{
     color:#4FD1C5;
 }
