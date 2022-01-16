@@ -1,9 +1,9 @@
 export default {
-  // ssr: false,
+  ssr: false,
 
-  // target: 'static',
+  target: 'static',
 
-  // modern: 'client',
+  modern: 'client',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -23,12 +23,6 @@ export default {
       {
         src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js',
         body: true
-      },
-      {
-        src: '/js/scripts.js',
-        body: true
-        // async: true,
-        // defer: true,
       }
     ]
   },
@@ -38,10 +32,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/vuelidate',
-    '~/plugins/utils',
-    '~/plugins/toast',
-    '~/plugins/currentUser'
+    { src: '~/plugins/vuelidate', mode: 'client' },
+    { src: '~/plugins/utils', mode: 'client' },
+    { src: '~/plugins/toast', mode: 'client' },
+    { src: '~/plugins/currentUser', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
