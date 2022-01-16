@@ -7,7 +7,7 @@ export default async ({ redirect, $getCurrentUser, $toast }) => {
     if (!currentUser.phoneConfirmed) return
 
     // Force redirect to home.
-    return redirect('/')
+    return redirect('/app')
   } catch (error) {
     $toast.message = error.message
   }
