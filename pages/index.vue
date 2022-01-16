@@ -1,7 +1,5 @@
 <template>
   <main>
-    <!-- first page -->
-
     <div id="hero" class="h-full">
       <div class="relative bg-teal-100">
         <div
@@ -1107,9 +1105,8 @@
 <script>
 export default {
   name: 'HomePage',
-  //   middleware: 'notAuthenticated'
-
   layout: 'HomeLayout'
+  // middleware: 'notAuthenticated'
 }
 </script>
 

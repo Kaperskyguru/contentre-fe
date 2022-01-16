@@ -1,17 +1,16 @@
 <template>
   <div class="min-h-screen">
-    <div class="bg-transparent w-2/3 fixed top-0 left-0 right-0 px-8 pt-2 z-10">
+    <div id="hero" class="bg-transpaent w-full px-8 pt-2 z-10">
       <header>
         <nav
           class="
             flex flex-wrap
             items-center
             justify-between
-            w-full
             py-4
             md:py-0
-            px-6
-            text-gray-700
+            z-30
+            w-full
           "
         >
           <div>
@@ -42,10 +41,7 @@
             />
           </svg>
 
-          <div
-            id="menu"
-            class="hidden w-full md:flex md:items-center md:w-auto"
-          >
+          <div id="menu" class="w-full md:flex md:items-center md:w-auto">
             <ul class="pt-4 text-gray-700 md:flex md:justify-between md:pt-0">
               <li>
                 <a class="md:p-4 py-2 block" href="#">
@@ -67,11 +63,19 @@
                   <span class="">Contact</span>
                 </a>
               </li>
-
-              <li>
-                <a class="md:p-4 py-2 block ml-4" href="sign-in.html">
+            </ul>
+          </div>
+          <div id="menu" class="w-full md:flex md:items-center md:w-auto">
+            <ul class="pt-4 text-gray-700 md:flex md:justify-between md:pt-0">
+              <li class="pr-5">
+                <Button href="auth/login">
                   <span class="">Log In</span>
-                </a>
+                </Button>
+              </li>
+              <li class="items-center">
+                <Button class="" href="auth/login">
+                  <span class="">Get Started</span>
+                </Button>
               </li>
             </ul>
           </div>

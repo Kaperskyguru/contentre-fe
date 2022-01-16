@@ -33,22 +33,21 @@
         <div class="flex-1 px-3 bg-teal space-y-1">
           <ul class="space-y-2 py-4 border-t border-gray-500">
             <div class="logo absolute aside-header">
-              <a href="#" class="font-bold flex items-center lg:ml-2.5">
+              <Hyperlink to="/" class="font-bold flex items-center lg:ml-2.5">
                 <img
                   src="~/assets/img/dashboard_logo.svg"
                   class="img-fluid"
                   alt="contentr Logo"
                 />
                 <!-- <span class="self-center whitespace-nowrap">contentr</span> -->
-              </a>
+              </Hyperlink>
             </div>
             <li>
               <Hyperlink
                 to="/"
                 class="
-                   text-base text-gray-500
-                  font-normal
-                  font-roboto
+                  text-base text-gray-500
+                  font-normal font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -58,7 +57,7 @@
                 "
               >
                 <span class="text-white">
-                <DashboardIcon />
+                  <DashboardIcon />
                 </span>
                 <span class="ml-3 flex-1 whitespace-nowrap">Dashboard</span>
               </Hyperlink>
@@ -68,8 +67,7 @@
                 to="analytics"
                 class="
                   text-base text-gray-500
-                  font-normal
-                  font-roboto
+                  font-normal font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -87,8 +85,7 @@
                 href="#"
                 class="
                   text-base text-gray-500
-                  font-normal
-                  font-roboto
+                  font-normal font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -106,8 +103,7 @@
                 href="#"
                 class="
                   text-base text-gray-500
-                  font-normal
-                  font-roboto
+                  font-normal font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -125,8 +121,7 @@
                 href="#"
                 class="
                   text-base text-gray-500
-                  font-normal
-                  font-roboto
+                  font-normal font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -144,8 +139,7 @@
                 href="#"
                 class="
                   text-base text-gray-500
-                  font-normal
-                  font-roboto
+                  font-normal font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -163,8 +157,7 @@
                 href="#"
                 class="
                   text-base text-gray-500
-                  font-normal
-                  font-roboto
+                  font-normal font-roboto
                   rounded-lg
                   hover:text-white
                   flex
@@ -244,13 +237,12 @@ export default {
 
 <style scoped>
 ul svg {
-  fill: #6B8583;
-
+  fill: #6b8583;
 }
 
 ul svg#settings-icon {
   fill: none;
-  color: #6B8583;
+  color: #6b8583;
 }
 
 ul li > a:hover svg {
