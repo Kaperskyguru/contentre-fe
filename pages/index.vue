@@ -65,7 +65,8 @@
                       look like readable English.
                     </p>
                     <Button
-                      to="google.com"
+                      type="link"
+                      href="#"
                       class="form-btn text-white rounded shadow py-3 px-12"
                     >
                       Get Started</Button

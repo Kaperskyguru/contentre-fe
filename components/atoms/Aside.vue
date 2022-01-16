@@ -33,10 +33,7 @@
         <div class="flex-1 px-3 bg-teal space-y-1">
           <ul class="space-y-2 py-4 border-t border-gray-500">
             <div class="logo absolute aside-header">
-              <Hyperlink
-                to="/app/"
-                class="font-bold flex items-center lg:ml-2.5"
-              >
+              <Hyperlink to="/" class="font-bold flex items-center lg:ml-2.5">
                 <img
                   src="~/assets/img/dashboard_logo.svg"
                   class="img-fluid"
@@ -47,7 +44,7 @@
             </div>
             <li>
               <Hyperlink
-                to="/"
+                to="/app/"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
