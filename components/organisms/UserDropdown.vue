@@ -170,7 +170,7 @@
                 </li>
                 <hr class="dark:border-gray-700" />
                 <li class="font-medium">
-                  <a
+                  <button
                     href="#"
                     class="
                       flex
@@ -181,6 +181,7 @@
                       border-r-4 border-transparent
                       hover:border-red-600
                     "
+                    @click.prevent="onLogout"
                   >
                     <div class="mr-3 text-red-600">
                       <svg
@@ -199,7 +200,7 @@
                       </svg>
                     </div>
                     Logout
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -230,11 +231,21 @@ export default {
     toggleDropdown() {
       this.open = !this.open
 
-      if (this.isDropdownOpen) {
+      if (this.open) {
         document.addEventListener('keyup', this.onKeyUp)
       } else {
         document.removeEventListener('keyup', this.onKeyUp)
       }
+    },
+
+    onLogout() {
+      this.$emit('logout')
+      this.closeDropdown()
+    },
+
+    closeDropdown() {
+      this.open = false
+      document.removeEventListener('keyup', this.onKeyUp)
     },
 
     onKeyUp(event) {

@@ -1,6 +1,5 @@
 <template>
   <button
-    v-if="to"
     v-bind="$attrs"
     :tabindex="disabled || (active && activeAutoDisables) ? -1 : 0"
     :class="classNames"
@@ -19,28 +18,6 @@
       </div>
     </template>
   </button>
-
-  <a
-    v-else
-    v-bind="$attrs"
-    :href="to"
-    :tabindex="disabled || (active && activeAutoDisables) ? -1 : 0"
-    :class="classNames"
-    :disabled="disabled || waiting"
-    :aria-label="waiting ? 'Please wait…' : undefined"
-    v-on="$listeners"
-  >
-    <div v-if="waiting" class="custom-icon" role="presentation">
-      <SvgLoader class="-my-px" />
-    </div>
-
-    <template v-else>
-      <slot />
-      <div v-if="$slots.icon" class="custom-icon" role="presentation">
-        <slot name="icon" />
-      </div>
-    </template>
-  </a>
 </template>
 
 <script>
@@ -74,10 +51,7 @@ export default defineComponent({
       type: Boolean,
       default: true
     },
-    to: {
-      default: '',
-      type: String
-    },
+
     appearance: {
       type: String,
       validate: (value) => ['primary', 'secondary', 'tertiary'].includes(value),

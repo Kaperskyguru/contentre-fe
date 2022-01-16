@@ -57,7 +57,7 @@
         </div> -->
       </div>
       <!-- User Dropdown -->
-      <UserDropdown :user="currentUser" />
+      <UserDropdown :user="currentUser" @logout="$emit('logout')" />
     </div>
   </div>
   <!-- </nav> -->
