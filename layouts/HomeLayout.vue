@@ -22,7 +22,7 @@
                 width="60"
                 alt="logo"
               />
-              <span class="text logo-text">Contentr.io</span>
+              <span class="text logo-text">Contentre.io</span>
             </a>
           </div>
 

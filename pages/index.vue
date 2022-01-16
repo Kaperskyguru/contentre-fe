@@ -58,7 +58,7 @@
                     >
                       Manage your articles as <br />a writer from one place.
                     </h1>
-                    <p class="text-sm md:text-base text-gray-50 mb-4">
+                    <p class="text-sm md:text-base text-black-50 mb-4">
                       It is a long established fact that a reader will be
                       distracted by the readable content of a page when looking
                       at its layout. The point of using Lorem Ipsum is that it
@@ -67,7 +67,7 @@
                       look like readable English.
                     </p>
                     <Button
-                      href="google.com"
+                      to="google.com"
                       class="form-btn text-white rounded shadow py-3 px-12"
                     >
                       Get Started</Button
@@ -153,6 +153,7 @@
           class="
             flex flex-col
             items-center
+            mx-auto
             flex-wrap
             lg:flex-row lg:items-stretch lg:flex-no-wrap lg:justify-between
           "
@@ -388,10 +389,8 @@
               <div class="flex justify-center">
                 <ul>
                   <li>
-                    <a
+                    <span
                       class="flex items-center text-black dark:text-gray-100"
-                      href="#"
-                      target="_blank"
                     >
                       <i class="far fa-check-circle"></i>
                       <div class="bg-gray-200 rounded-lg px-4 py-4 ml-2">
@@ -400,14 +399,12 @@
                           Fintech industry.</span
                         >
                       </div>
-                    </a>
+                    </span>
                   </li>
 
                   <li class="mt-3">
-                    <a
+                    <span
                       class="flex items-center text-black dark:text-gray-100"
-                      href="#"
-                      target="_blank"
                     >
                       <i class="far fa-check-circle"></i>
                       <div class="bg-gray-200 rounded-lg px-4 py-4 ml-2">
@@ -416,14 +413,12 @@
                           Fintech industry.</span
                         >
                       </div>
-                    </a>
+                    </span>
                   </li>
 
                   <li class="mt-3">
-                    <a
+                    <span
                       class="flex items-center text-black dark:text-gray-100"
-                      href="#"
-                      target="_blank"
                     >
                       <i class="far fa-check-circle"></i>
                       <div class="bg-gray-200 rounded-lg px-4 py-4 ml-2">
@@ -432,7 +427,7 @@
                           Fintech industry.</span
                         >
                       </div>
-                    </a>
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -499,10 +494,8 @@
               <div class="flex justify-center">
                 <ul>
                   <li>
-                    <a
+                    <span
                       class="flex items-center text-black dark:text-gray-100"
-                      href="#"
-                      target="_blank"
                     >
                       <i class="far fa-check-circle"></i>
                       <div class="bg-gray-200 rounded-lg px-4 py-4 ml-2">
@@ -511,14 +504,12 @@
                           Fintech industry.</span
                         >
                       </div>
-                    </a>
+                    </span>
                   </li>
 
                   <li class="mt-3">
-                    <a
+                    <span
                       class="flex items-center text-black dark:text-gray-100"
-                      href="#"
-                      target="_blank"
                     >
                       <i class="far fa-check-circle"></i>
                       <div class="bg-gray-200 rounded-lg px-4 py-4 ml-2">
@@ -527,14 +518,12 @@
                           Fintech industry.</span
                         >
                       </div>
-                    </a>
+                    </span>
                   </li>
 
                   <li class="mt-3">
-                    <a
+                    <span
                       class="flex items-center text-black dark:text-gray-100"
-                      href="#"
-                      target="_blank"
                     >
                       <i class="far fa-check-circle"></i>
                       <div class="bg-gray-200 rounded-lg px-4 py-4 ml-2">
@@ -543,7 +532,7 @@
                           Fintech industry.</span
                         >
                       </div>
-                    </a>
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -611,10 +600,8 @@
               <div class="flex justify-center">
                 <ul>
                   <li>
-                    <a
+                    <span
                       class="flex items-center text-black dark:text-gray-100"
-                      href="#"
-                      target="_blank"
                     >
                       <i class="far fa-check-circle"></i>
                       <div class="bg-gray-200 rounded-lg px-4 py-4 ml-2">
@@ -623,14 +610,12 @@
                           Fintech industry.</span
                         >
                       </div>
-                    </a>
+                    </span>
                   </li>
 
                   <li class="mt-3">
-                    <a
+                    <span
                       class="flex items-center text-black dark:text-gray-100"
-                      href="#"
-                      target="_blank"
                     >
                       <i class="far fa-check-circle"></i>
                       <div class="bg-gray-200 rounded-lg px-4 py-4 ml-2">
@@ -639,14 +624,12 @@
                           Fintech industry.</span
                         >
                       </div>
-                    </a>
+                    </span>
                   </li>
 
                   <li class="mt-3">
-                    <a
+                    <span
                       class="flex items-center text-black dark:text-gray-100"
-                      href="#"
-                      target="_blank"
                     >
                       <i class="far fa-check-circle"></i>
                       <div class="bg-gray-200 rounded-lg px-4 py-4 ml-2">
@@ -655,7 +638,7 @@
                           Fintech industry.</span
                         >
                       </div>
-                    </a>
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -767,6 +750,7 @@
             flex flex-col
             items-center
             flex-wrap
+            mx-auto
             lg:flex-row lg:items-stretch lg:flex-no-wrap lg:justify-between
           "
         >
@@ -927,7 +911,8 @@
           <div
             class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left"
           >
-            <a
+            <Hyperlink
+              to="#"
               class="
                 flex
                 title-font
@@ -945,7 +930,7 @@
                 width="60"
               />
               <span class="ml-3 text-xl text-white">Contentr</span>
-            </a>
+            </Hyperlink>
             <p class="mt-2 text-sm text-white">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry.
@@ -977,19 +962,23 @@
               </h2>
               <nav class="list-none mb-10">
                 <li>
-                  <a class="text-white hover:text-teal-300" href="#">Lorem</a>
-                </li>
-                <li>
-                  <a class="text-white hover:text-teal-300" href="#"
-                    >Portfolio</a
+                  <Hyperlink class="text-white hover:text-teal-300" to="#"
+                    >Lorem</Hyperlink
                   >
                 </li>
                 <li>
-                  <a class="text-white hover:text-teal-300" href="#">Careers</a>
+                  <Hyperlink class="text-white hover:text-teal-300" to="#"
+                    >Portfolio</Hyperlink
+                  >
                 </li>
                 <li>
-                  <a class="text-white hover:text-teal-300" href="#"
-                    >Contact us</a
+                  <Hyperlink class="text-white hover:text-teal-300" to="#"
+                    >Careers</Hyperlink
+                  >
+                </li>
+                <li>
+                  <Hyperlink class="text-white hover:text-teal-300" to="#"
+                    >Contact us</Hyperlink
                   >
                 </li>
               </nav>
@@ -1028,7 +1017,7 @@
                       sm:justify-start
                     "
                   >
-                    <a class="text-gray-200">
+                    <Hyperlink to="#" class="text-gray-200">
                       <svg
                         fill="currentColor"
                         stroke-linecap="round"
@@ -1041,8 +1030,8 @@
                           d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
                         ></path>
                       </svg>
-                    </a>
-                    <a class="ml-3 text-gray-200">
+                    </Hyperlink>
+                    <Hyperlink to="#" class="ml-3 text-gray-200">
                       <svg
                         fill="currentColor"
                         stroke-linecap="round"
@@ -1055,8 +1044,8 @@
                           d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
                         ></path>
                       </svg>
-                    </a>
-                    <a class="ml-3 text-gray-200">
+                    </Hyperlink>
+                    <Hyperlink to="#" class="ml-3 text-gray-200">
                       <svg
                         fill="none"
                         stroke="currentColor"
@@ -1078,8 +1067,8 @@
                           d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"
                         ></path>
                       </svg>
-                    </a>
-                    <a class="ml-3 text-gray-200">
+                    </Hyperlink>
+                    <Hyperlink to="#" class="ml-3 text-gray-200">
                       <svg
                         fill="currentColor"
                         stroke="currentColor"
@@ -1095,7 +1084,7 @@
                         ></path>
                         <circle cx="4" cy="4" r="2" stroke="none"></circle>
                       </svg>
-                    </a>
+                    </Hyperlink>
                   </span>
                 </li>
               </nav>
