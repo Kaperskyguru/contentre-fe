@@ -68,12 +68,12 @@
           <div id="menu" class="w-full md:flex md:items-center md:w-auto">
             <ul class="pt-4 text-gray-700 md:flex md:justify-between md:pt-0">
               <li class="pr-5">
-                <Button href="auth/login">
+                <Button type="link" href="auth/login">
                   <span class="">Log In</span>
                 </Button>
               </li>
               <li class="items-center">
-                <Button class="" href="auth/register">
+                <Button type="link" class="" href="auth/login">
                   <span class="">Get Started</span>
                 </Button>
               </li>

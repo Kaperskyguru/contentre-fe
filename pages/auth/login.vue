@@ -88,6 +88,7 @@ export default {
       this.sending = true
 
       try {
+        console.log(this.fieldEmail)
         await this.$apollo.mutate({
           mutation: LOGIN_USER,
           variables: {
@@ -107,7 +108,7 @@ export default {
         this.sending = false
 
         // GO to 2FA
-        await this.$router.push('/') // '/auth/signup/verify-email')
+        await this.$router.push('/app') // '/auth/signup/verify-email')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false
