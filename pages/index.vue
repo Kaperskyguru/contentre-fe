@@ -858,6 +858,7 @@
                       rounded-md
                       mb-3
                     "
+                    href="auth/register"
                   >
                     Get Started
                   </Button>

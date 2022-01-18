@@ -43,7 +43,7 @@
     </form>
     <p class="font-gilroy font-bold text-center text-body-text-color text-base">
       Don't have an account?
-      <NuxtLink class="text-primary-teal" to="/">Create Account</NuxtLink>
+      <NuxtLink class="text-primary-teal" to="/auth/register">Create Account</NuxtLink>
     </p>
   </div>
 </template>
