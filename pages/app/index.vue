@@ -1,12 +1,27 @@
 <template>
   <section class="h-full lg:ml-64 px-3 md:px-12">
     <div class="flex items-center justify-between py-4">
-      <h1 class="mx-2 text-2xl font-gilroy font-bold tracking-wide text-gray-900 pt-4">Dashboard</h1>
+      <h1
+        class="
+          mx-2
+          text-2xl
+          font-gilroy font-bold
+          tracking-wide
+          text-gray-900
+          pt-4
+        "
+      >
+        Dashboard
+      </h1>
     </div>
     <section class="container mx-auto">
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Stat box 1 -->
-        <StatBox v-for="(stat, key) in stats" :key="`stat-${key}`" :stat="stat" />
+        <StatBox
+          v-for="(stat, key) in stats"
+          :key="`stat-${key}`"
+          :stat="stat"
+        />
       </div>
     </section>
 
@@ -48,12 +63,13 @@
 </template>
 
 <script>
-import Rocket from "~/assets/icons/rocket.svg"
-import Show from "~/assets/icons/Show.svg"
-import Heart from "~/assets/icons/Heart.svg"
-import Chat from "~/assets/icons/Chat.svg"
+import Rocket from '~/assets/icons/rocket.svg'
+import Show from '~/assets/icons/Show.svg'
+import Heart from '~/assets/icons/Heart.svg'
+import Chat from '~/assets/icons/Chat.svg'
 export default {
   name: 'HomePage',
+  layout: 'Dashboard',
   data: () => ({
     stats: [
       {
@@ -81,8 +97,7 @@ export default {
         icon: Chat
       }
     ]
-  }),
-  layout: 'Dashboard'
+  })
 }
 </script>
 
