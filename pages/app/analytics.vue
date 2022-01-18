@@ -6,10 +6,11 @@
     <section class="container mx-auto">
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Stat box 1 -->
-        <StatBox />
-        <StatBox />
-        <StatBox />
-        <StatBox />
+        <StatBox
+          v-for="(stat, key) in stats"
+          :key="`stat-${key}`"
+          :stat="stat"
+        />
       </div>
     </section>
 
@@ -138,9 +139,42 @@
 </template>
 
 <script>
+import Rocket from '~/assets/icons/rocket.svg'
+import Show from '~/assets/icons/Show.svg'
+import Heart from '~/assets/icons/Heart.svg'
+import Chat from '~/assets/icons/Chat.svg'
 export default {
   name: 'AnalyticPage',
-  layout: 'Dashboard'
+  layout: 'Dashboard',
+
+  data: () => ({
+    stats: [
+      {
+        text: 'Avg. Click Rate',
+        value: '56.8%',
+        increment: '19.3%',
+        icon: Rocket
+      },
+      {
+        text: 'Page Views',
+        value: '56.8%',
+        increment: '19.3%',
+        icon: Show
+      },
+      {
+        text: 'Total Likes',
+        value: '56.8%',
+        increment: '19.3%',
+        icon: Heart
+      },
+      {
+        text: 'Total Comments',
+        value: '56.8%',
+        increment: '19.3%',
+        icon: Chat
+      }
+    ]
+  })
 }
 </script>
 
