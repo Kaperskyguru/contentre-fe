@@ -73,7 +73,7 @@
                 </Button>
               </li>
               <li class="items-center">
-                <Button class="" href="auth/login">
+                <Button class="" href="auth/register">
                   <span class="">Get Started</span>
                 </Button>
               </li>

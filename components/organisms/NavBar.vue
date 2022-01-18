@@ -4,7 +4,9 @@
       id="auth-navbar"
       class="flex items-center justify-between w-full py-4 pr-4 pl-2 lg:w-80vw"
     >
-      <img src="~/assets/img/Logo.svg" :alt="appName" />
+      <NuxtLink to="/">
+        <img src="~/assets/img/Logo.svg" :alt="appName"/>
+      </NuxtLink>
       <div class="lg:hidden" @click.prevent="toggleDropdown">
         <div class="h-1 w-6 bg-body-text-color mb-1"></div>
         <div class="h-1 w-6 bg-body-text-color mb-1"></div>
@@ -37,10 +39,10 @@
           class="pb-3 first:mt-5 lg:pb-0 lg:pl-3 lg:first:pl-0 lg:mt-0"
         >
           <div class="flex">
-            <img class="pr-1" :src="link.icon" :alt="link.text" />
+            <img class="pr-1" :src="link.icon" :alt="link.text"/>
             <span class="text-helvetica text-bold text-xs">{{
-              link.text.toUpperCase()
-            }}</span>
+                link.text.toUpperCase()
+              }}</span>
           </div>
         </NuxtLink>
       </div>

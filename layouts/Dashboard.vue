@@ -14,7 +14,7 @@
 export default {
   name: 'DashboardNav',
 
-  middleware: ['isAuthenticated', 'isEmailConfirmed']
+  // middleware: ['isAuthenticated', 'isEmailConfirmed']
 }
 </script>
 

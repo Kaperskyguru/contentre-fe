@@ -65,7 +65,7 @@
                       look like readable English.
                     </p>
                     <Button
-                      to="google.com"
+                      href="auth/register"
                       class="form-btn text-white rounded shadow py-3 px-12"
                     >
                       Get Started</Button
@@ -857,6 +857,7 @@
                       rounded-md
                       mb-3
                     "
+                    href="auth/register"
                   >
                     Get Started
                   </Button>

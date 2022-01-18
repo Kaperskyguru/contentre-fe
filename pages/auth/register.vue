@@ -78,7 +78,7 @@
     </form>
     <p class="font-gilroy font-bold text-center text-body-text-color text-base">
       Already have an account?
-      <NuxtLink class="text-primary-teal" to="sign-in">Sign In</NuxtLink>
+      <NuxtLink class="text-primary-teal" to="login">Sign In</NuxtLink>
     </p>
   </div>
 </template>
