@@ -46,7 +46,6 @@
 
 <script>
 import IncrementIcon from '~/assets/icons/increment.svg?inline'
-
 export default {
   components: { IncrementIcon },
   props: {
