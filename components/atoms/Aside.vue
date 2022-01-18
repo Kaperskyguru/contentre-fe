@@ -44,7 +44,7 @@
             </div>
             <li>
               <Hyperlink
-                to="/app/"
+                :to="{ name: 'app' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
@@ -64,7 +64,7 @@
             </li>
             <li>
               <Hyperlink
-                to="app/analytics"
+                :to="{ name: 'app/analytics' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto

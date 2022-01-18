@@ -86,6 +86,10 @@ export default {
     }
   },
 
+  router: {
+    routeNameSplitter: '/'
+  },
+
   apollo: {
     clientConfigs: {
       default: '~/plugins/apollo.js'
