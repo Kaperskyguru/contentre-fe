@@ -5,8 +5,8 @@
         <span class="text-2xl sm:text-2xl font-helvetica font-bold text-gray-900"
         >Content Overview</span
         >
-        <h3 class="text-base font-normal font-helvetica text-gray-500">
-          <span class="text-green-500 text-base">(+5) more</span> in 2021
+        <h3 class="text-base font-medium font-gilroy text-gray-500">
+          <span class="text-green-500 text-base font-bold font-gilroy">(+5) more</span> in 2021
         </h3>
       </div>
     </div>

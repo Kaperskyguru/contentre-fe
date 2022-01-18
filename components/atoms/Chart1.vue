@@ -17,9 +17,23 @@
         <span class="text-2xl sm:text-2xl font-helvetica font-bold text-gray-900"
         >Fintech Solutions</span
         >
-        <h3 class="text-base font-helvetica font-normal text-gray-500">
-          <span class="text-green-500 text-base">(+23)</span> than last week
+        <h3 class="text-base font-gilroy font-medium text-gray-500">
+          <span class="text-green-500 text-base font-bold">(+23)</span> than last week
         </h3>
+      </div>
+    </div>
+    <div class="flex mt-3">
+      <div class="flex">
+        <div class="flex">
+          <div class="header-icon"></div>
+          <h6>Views</h6>
+        </div>
+        <div class="flex">
+          <p>32,984</p>
+        </div>
+        <div class="flex">
+
+        </div>
       </div>
     </div>
   </div>
@@ -90,9 +104,9 @@ export default {
 
 <style scoped>
 .line-chart-wrapper {
-  height: 300px;
+  /*height: 300px;*/
   width: 100%;
-  max-height: 300px;
+  /*max-height: 300px;*/
   border-radius: 12px;
   position: relative;
   background: linear-gradient(81.62deg, #313860 2.25%, #151928 79.87%);
@@ -103,8 +117,8 @@ export default {
 }
 
 .line-chart__actual-wrapper {
-  width: calc(100% - 30px);
-  height: calc(100% - 30px);
+  /*width: calc(100% - 30px);*/
+  /*height: calc(100% - 30px);*/
   position: relative;
 }
 </style>
