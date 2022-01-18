@@ -81,8 +81,8 @@
               </Hyperlink>
             </li>
             <li>
-              <a
-                href="#"
+              <Hyperlink
+                :to="{ name: 'app/clients' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
@@ -96,7 +96,7 @@
               >
                 <ClientIcon />
                 <span class="ml-3 flex-1 whitespace-nowrap">Clients</span>
-              </a>
+              </Hyperlink>
             </li>
             <li>
               <a
@@ -135,8 +135,8 @@
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <Hyperlink
+                :to="{ name: 'app/profile' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
@@ -150,11 +150,11 @@
               >
                 <ProfileIcon />
                 <span class="ml-3 flex-1 whitespace-nowrap">Profile</span>
-              </a>
+              </Hyperlink>
             </li>
             <li>
-              <a
-                href="#"
+              <Hyperlink
+                :to="{ name: 'app/settings' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
@@ -168,7 +168,7 @@
               >
                 <SettingIcon id="settings-icon" />
                 <span class="ml-3 flex-1 whitespace-nowrap">Settings</span>
-              </a>
+              </Hyperlink>
             </li>
 
             <!-- Aside Footer -->

@@ -1,7 +1,8 @@
 <template>
   <section class="h-full lg:ml-64 px-3 md:px-12">
     <div class="flex items-center justify-between py-4">
-      <h1 class="mx-2 text-xl font-bold text-gray-900 pt-4">Analytics</h1>
+      <!-- <h1 class="mx-2 text-xl font-bold text-gray-900 pt-4">Analytics</h1> -->
+      <PageTitle>Analytics</PageTitle>
     </div>
     <section class="container mx-auto">
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
