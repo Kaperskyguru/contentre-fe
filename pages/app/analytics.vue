@@ -141,9 +141,9 @@
 
 <script>
 import Rocket from '~/assets/icons/rocket.svg'
-import Show from '~/assets/icons/Show.svg'
-import Heart from '~/assets/icons/Heart.svg'
-import Chat from '~/assets/icons/Chat.svg'
+import Show from '~/assets/icons/show.svg'
+import Heart from '~/assets/icons/heart.svg'
+import Chat from '~/assets/icons/chat.svg'
 export default {
   name: 'AnalyticPage',
   layout: 'Dashboard',
