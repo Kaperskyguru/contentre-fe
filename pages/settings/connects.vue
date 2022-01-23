@@ -23,34 +23,38 @@
     <!-- End of about section -->
 
     <!-- contact -->
-    <div class="bg-white shadow-sm rounded-sm px-2 py-2">
-      <div class="w-full px-3 py-2 block bg-white text-gray-700">
-        <div class="block text-black font-normal pb-2">
+    <div class="bg-white shadow-sm rounded-sm px-4 py-6">
+      <div
+        class="
+          w-full
+          px-3
+          py-6
+          block
+          bg-white
+          text-gray-700
+          border border-gray-200
+          rounded-lg
+        "
+      >
+        <div class="block text-black font-bold pb-2">
+          <p class="text-sm mb-4">Referrals</p>
+        </div>
+        <div class="block text-black font-normal">
           <p class="text-base text-gray-500">
-            Copy and share your contentr link with others
+            Copy and share your contentre link with others
           </p>
         </div>
 
         <div class="grid grid-cols-3 gap-4">
-          <div class="col-span-2 pb-4">
-            <input
+          <div class="col-span-2 pb-2">
+            <TextField
               type="email"
-              class="
-                w-full
-                mt-2
-                p-4
-                text-sm
-                border
-                rounded-md
-                focus:border-blue-400
-                focus:outline-none
-                focus:ring-1
-                focus:ring-blue-600
-              "
-              placeholder="https://www.nation.so/Joyce-Eboh-0d027018a40d4245bd58a8e6081e90f1"
+              class="w-full text-sm"
+              :disabled="true"
+              :value="`https://www.contentre.io/referrals/${currentUser.username}`"
             />
           </div>
-          <div class="pt-2">
+          <div>
             <div
               class="
                 w-full
@@ -63,40 +67,24 @@
                 focus:shadow-outline
               "
             >
-              <button
-                class="text-white font-bold py-4 px-2 rounded-lg"
-                type="submit"
-              >
-                Copy Link
-              </button>
+              <Button type="submit"> Copy Link </Button>
             </div>
           </div>
         </div>
 
         <div class="block text-black font-normal pb-2 mt-6">
-          <p class="text-base text-gray-500">Invite friends to Contentr</p>
+          <p class="text-base text-gray-500">Invite friends to Contentre</p>
         </div>
 
-        <div class="grid grid-cols-3 gap-4 mb-8">
+        <div class="grid grid-cols-3 gap-4 mb-5">
           <div class="col-span-2 pb-4">
-            <input
+            <TextField
               type="email"
-              class="
-                w-full
-                mt-2
-                p-4
-                text-sm
-                border
-                rounded-md
-                focus:border-blue-400
-                focus:outline-none
-                focus:ring-1
-                focus:ring-blue-600
-              "
-              placeholder="Enter your friend's email or contact link"
+              class="w-full text-sm"
+              placeholder="Enter your friend's email"
             />
           </div>
-          <div class="pt-2">
+          <div>
             <div
               class="
                 w-full
@@ -109,26 +97,97 @@
                 focus:shadow-outline
               "
             >
-              <button
-                class="text-white font-bold py-4 px-2 rounded-lg"
-                type="submit"
-              >
-                Invite
-              </button>
+              <Button type="submit"> Invite </Button>
             </div>
           </div>
         </div>
+
+        <CustomText
+          :text="`Total users referred: ${currentUser.totalUsersReferred}`"
+        />
       </div>
     </div>
 
     <!-- End of contact --->
+
+    <div class="bg-white shadow-sm rounded-sm px-4 py-6">
+      <div
+        class="
+          w-full
+          px-3
+          py-6
+          block
+          bg-white
+          text-gray-700
+          border border-gray-200
+          rounded-lg
+        "
+      >
+        <div class="block text-black font-bold pb-2">
+          <p class="text-sm mb-4">Teams Members</p>
+        </div>
+
+        <div class="block text-black font-normal pb-2 mt-">
+          <p class="text-base text-gray-500">
+            Invite team members to Contentre
+          </p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mb-8">
+          <div class="col-span-2 pb-4">
+            <TextField
+              type="email"
+              class="w-full text-sm"
+              placeholder="Enter your team member email"
+            />
+          </div>
+          <div>
+            <div
+              class="
+                w-full
+                px-3
+                flex
+                items-center
+                justify-center
+                shadow
+                form-btn
+                focus:shadow-outline
+              "
+            >
+              <Button type="submit"> Invite </Button>
+            </div>
+          </div>
+        </div>
+
+        <section class="bg-white container mx-auto px-4">
+          <div class="-mx-4 sm:-mx-8 px-4 overflow-x-auto">
+            <Table title="Team Members" :headers="headers" :row-data="data" />
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { currentUser } from '~/components/mixins'
 export default {
   name: 'ConnectS',
-  layout: 'SettingsLayout'
+
+  mixins: [currentUser],
+  layout: 'SettingsLayout',
+
+  data: () => ({
+    headers: ['Website', 'Profile link', 'Total Contents'],
+    data: [
+      {
+        id: 'aas-dsd-xx-ad-cdad',
+        name: 'Solomon Eseme',
+        username: 'Kap',
+        date: 'here'
+      }
+    ]
+  })
 }
 </script>
 

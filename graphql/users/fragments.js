@@ -16,6 +16,7 @@ export const userFragments = {
       homeAddress
       portfolio
       jobTitle
+      totalUsersReferred
       lastActivityAt
       phoneNumber
       phoneConfirmed

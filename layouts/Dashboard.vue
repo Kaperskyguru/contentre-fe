@@ -7,6 +7,8 @@
       <Aside />
     </div>
     <Nuxt />
+
+    <Toast />
   </main>
 </template>
 

@@ -4,20 +4,24 @@
     <!-- Profile tab -->
     <!-- About Section -->
     <div class="bg-white shadow-sm rounded-xl">
-      <div
-        class="
-          flex
-          items-center
-          space-x-2
-          font-semibold
-          text-gray-900
-          leading-8
-          px-4
-          border-b-2
-          py-6
-        "
-      >
-        <span class="tracking-wide">Connected Apps</span>
+      <div class="border-b-2 flex justify-between">
+        <div
+          class="
+            flex
+            w-full
+            items-center
+            font-semibold
+            text-gray-900
+            leading-8
+            px-4
+            py-6
+          "
+        >
+          <span class="tracking-wide">Connected Apps</span>
+        </div>
+        <div class="w-full px-3 flex items-end justify-end my-6">
+          <Button>Connect Apps</Button>
+        </div>
       </div>
     </div>
     <!-- End of about section -->

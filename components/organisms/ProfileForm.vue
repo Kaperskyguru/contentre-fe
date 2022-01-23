@@ -15,7 +15,7 @@
         <TextField
           v-model="$v.fieldLastname.$model"
           type="text"
-          class="w-full text-sm 0"
+          class="w-full text-sm"
           label="Last Name"
           placeholder="Enter Lastname"
           :error="getValidationMessage($v.fieldLastname)"
@@ -183,7 +183,6 @@ export default {
 
         this.$toast.positive('User updated successfully')
         this.sending = false
-        console.log(this.currentUser.emailConfirmed)
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

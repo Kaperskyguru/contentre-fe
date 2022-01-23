@@ -22,14 +22,14 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
-      {
-        src: 'https://demo.themesberg.com/windster/app.bundle.js',
-        body: true
-      },
-      {
-        src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js',
-        body: true
-      }
+      // {
+      //   src: 'https://demo.themesberg.com/windster/app.bundle.js',
+      //   body: true
+      // },
+      // {
+      //   src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js',
+      //   body: true
+      // }
     ]
   },
 
@@ -38,10 +38,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/vuelidate', mode: 'client' },
-    { src: '~/plugins/utils', mode: 'client' },
-    { src: '~/plugins/toast', mode: 'client' },
-    { src: '~/plugins/currentUser', mode: 'client' }
+    '~/plugins/vuelidate',
+    '~/plugins/utils',
+    '~/plugins/toast',
+    '~/plugins/currentUser'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
