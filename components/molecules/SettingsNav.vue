@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 my-8 pt-4 space-y-6">
     <Hyperlink
-      :to="{ name: 'app/settings' }"
+      :to="{ name: 'settings' }"
       class="
         flex
         items-center
@@ -43,7 +43,7 @@
     </Hyperlink>
 
     <Hyperlink
-      :to="{ name: 'app/settings/notifications' }"
+      :to="{ name: 'settings/notifications' }"
       class="
         flex
         items-center
@@ -85,7 +85,7 @@
     </Hyperlink>
 
     <Hyperlink
-      :to="{ name: 'app/settings/apps' }"
+      :to="{ name: 'settings/apps' }"
       class="
         flex
         items-center
@@ -127,7 +127,7 @@
     </Hyperlink>
 
     <Hyperlink
-      :to="{ name: 'app/settings/connects' }"
+      :to="{ name: 'settings/connects' }"
       class="
         flex
         items-center
@@ -169,7 +169,7 @@
     </Hyperlink>
 
     <Hyperlink
-      :to="{ name: 'app/settings/accounts' }"
+      :to="{ name: 'settings/accounts' }"
       class="
         flex
         items-center
