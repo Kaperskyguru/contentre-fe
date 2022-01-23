@@ -44,7 +44,7 @@
             </div>
             <li>
               <Hyperlink
-                :to="{ name: 'app' }"
+                :to="{ name: 'index' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
