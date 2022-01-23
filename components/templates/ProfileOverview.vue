@@ -1,27 +1,30 @@
 <template>
   <div class="shadow rounded-xl bg-white">
     <!-- Profile Card -->
-    <ProfileCard />
+    <ProfileCard :user="currentUser" />
     <!-- End of profile card -->
 
     <!-- Text -->
     <div class="px-4 border-t-2 text-center py-6">
-      <CustomText />
+      <CustomText :text="currentUser.bio" />
     </div>
     <!-- End of Text -->
 
     <!-- Link -->
-    <ProfileLinks />
+    <ProfileLinks :user="currentUser" />
     <!-- End of link -->
 
     <!-- Contact details -->
-    <ProfileContact />
+    <ProfileContact :user="currentUser" />
     <!-- End of contact details -->
   </div>
 </template>
 
 <script>
-export default {}
+import { currentUser } from '../mixins'
+export default {
+  mixins: [currentUser]
+}
 </script>
 
 <style>

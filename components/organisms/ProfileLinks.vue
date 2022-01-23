@@ -34,7 +34,7 @@
 
       <div class="bg-teal-100 leading-6 rounded-lg pl-2 my-4 links">
         <a href="#" class="text-gray-600">
-          https://www.notion.so/Joyce-Eboh-0d027018a40d4245bd58a8e6081e90f1
+          {{ user.portfolio }}
         </a>
       </div>
     </div>
@@ -114,7 +114,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    user: {
+      type: [Array, Object],
+      default: () => {}
+    }
+  }
+}
 </script>
 
 <style>

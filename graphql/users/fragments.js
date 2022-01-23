@@ -10,6 +10,12 @@ export const userFragments = {
       emailConfirmed
       name
       username
+      firstname
+      lastname
+      bio
+      homeAddress
+      portfolio
+      jobTitle
       lastActivityAt
       phoneNumber
       phoneConfirmed

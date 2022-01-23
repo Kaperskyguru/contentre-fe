@@ -7,9 +7,10 @@ export default async ({ redirect, $getCurrentUser, $toast }) => {
     if (!currentUser.emailConfirmed) return
 
     // Otherwise, if has finished the onboarding flow...
-    // if (currentUser.hasFinishedOnboarding) {
-    // Force redirect to home.
-    return redirect('/app')
+    if (currentUser.emailConfirmed) {
+      // Force redirect to home.
+      return redirect('/')
+    }
     // } else {
     //   // Force redirect to next onboarding step.
     //   return redirect('/auth/signup/add-phone')
