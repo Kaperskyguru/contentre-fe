@@ -52,9 +52,9 @@
         </div>
         <div>
           <span class="block">Phone Number</span>
-          <span class="block text-teal-600 text-xs italic"
-            >+234 90 533 161 31</span
-          >
+          <span class="block text-teal-600 text-xs italic">{{
+            user.phoneNumber
+          }}</span>
         </div>
       </div>
 
@@ -77,9 +77,9 @@
         </div>
         <div>
           <span class="block">Email Address</span>
-          <span class="block text-teal-600 text-xs italic"
-            >janesmith@gmail.com</span
-          >
+          <span class="block text-teal-600 text-xs italic">{{
+            user.email
+          }}</span>
         </div>
       </div>
 
@@ -102,9 +102,9 @@
         </div>
         <div>
           <span class="block">Home Address</span>
-          <span class="block text-teal-600 text-xs italic"
-            >Challenge, Ibadan, Oyo, Nigeria</span
-          >
+          <span class="block text-teal-600 text-xs italic">{{
+            user.homeAddress
+          }}</span>
         </div>
       </div>
 
@@ -135,7 +135,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    user: {
+      type: [Array, Object],
+      default: () => {}
+    }
+  }
+}
 </script>
 
 <style>

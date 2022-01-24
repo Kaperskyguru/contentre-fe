@@ -22,27 +22,6 @@
           your account and personal details?
         </p>
       </div>
-      <div class="pb-4">
-        <div
-          class="
-            w-full
-            px-3
-            flex
-            items-center
-            justify-center
-            shadow
-            form-btn
-            focus:shadow-outline
-          "
-        >
-          <button
-            class="text-white font-bold py-4 px-4 rounded-lg"
-            type="submit"
-          >
-            Enable
-          </button>
-        </div>
-      </div>
     </div>
 
     <div class="py-6">

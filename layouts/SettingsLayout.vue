@@ -25,6 +25,7 @@
         <Nuxt />
       </div>
     </section>
+    <Toast />
   </main>
 </template>
 

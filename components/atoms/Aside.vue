@@ -44,7 +44,7 @@
             </div>
             <li>
               <Hyperlink
-                :to="{ name: 'app' }"
+                :to="{ name: 'index' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
@@ -64,7 +64,7 @@
             </li>
             <li>
               <Hyperlink
-                :to="{ name: 'app/analytics' }"
+                :to="{ name: 'analytics' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
@@ -82,7 +82,7 @@
             </li>
             <li>
               <Hyperlink
-                :to="{ name: 'app/clients' }"
+                :to="{ name: 'clients' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
@@ -136,7 +136,7 @@
             </li>
             <li>
               <Hyperlink
-                :to="{ name: 'app/profile' }"
+                :to="{ name: 'profile' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
@@ -154,7 +154,7 @@
             </li>
             <li>
               <Hyperlink
-                :to="{ name: 'app/settings' }"
+                :to="{ name: 'settings' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto

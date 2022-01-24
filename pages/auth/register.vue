@@ -202,7 +202,8 @@ export default {
           email: this.fieldEmail,
           username: this.fieldUsername,
           name: this.fieldName,
-          password: this.fieldPassword
+          password: this.fieldPassword,
+          referrer: this.$route.query.referrer
           // signedUpThrough: 'CONTENTRE'
         })
 

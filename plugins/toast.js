@@ -10,6 +10,7 @@ export default (_context, inject) => {
       timeout: 5000,
 
       negative(message = '', timeout = 5000) {
+        console.log(message)
         this.type = 'negative'
         this.message = message
         this.timeout = timeout

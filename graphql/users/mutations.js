@@ -11,7 +11,7 @@ export const CREATE_USER = gql`
 `
 
 export const UPDATE_USER = gql`
-  mutation updateUser($input: UserInput!) {
+  mutation updateUser($input: UpdateUserInput!) {
     updateUser(input: $input) {
       ...user
     }
@@ -20,8 +20,8 @@ export const UPDATE_USER = gql`
 `
 
 export const DELETE_USER = gql`
-  mutation {
-    deleteUser
+  mutation deleteUser($oldPassword: String!, $feedback: String) {
+    deleteUser(oldPassword: $oldPassword, feedback: $feedback)
   }
 `
 

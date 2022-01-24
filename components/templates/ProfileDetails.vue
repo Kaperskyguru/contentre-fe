@@ -22,13 +22,25 @@
 
     <!-- Personal Details -->
     <div class="bg-white shadow-sm rounded-sm px-4 border-b-2 py-6">
-      <div class="space-x-3 font-normal text-gray-900 text-sm leading-8 pb-4">
-        <span>Personal Details</span>
+      <div
+        class="
+          border border-gray-200
+          rounded-lg
+          px-3
+          py-6
+          block
+          bg-white
+          text-gray-700
+        "
+      >
+        <div class="space-x-3 font-normal text-gray-900 text-sm leading-8 pb-4">
+          <span>Personal Details</span>
+        </div>
+
+        <!-- FORM -->
+
+        <ProfileForm />
       </div>
-
-      <!-- FORM -->
-
-      <ProfileForm />
 
       <div
         class="
@@ -40,6 +52,7 @@
           text-gray-700
           border border-gray-200
           rounded-lg
+          my-8
         "
       >
         <div class="space-x-3 font-normal text-gray-900 text-sm leading-8 pb-4">

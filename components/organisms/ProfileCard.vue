@@ -8,10 +8,10 @@
       />
     </div>
     <h1 class="text-gray-900 font-bold text-xl leading-8 my-1 mb-2">
-      Jane Smith
+      {{ user.name || '' }}
     </h1>
     <h3 class="text-gray-600 font-lg text-semibold leading-6 mb-2">
-      Content Creator | Article Writer
+      {{ user.jobTitle || '' }}
     </h3>
 
     <!-- social media Icons -->
@@ -139,7 +139,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    user: {
+      type: [Array, Object],
+      default: () => {}
+    }
+  }
+}
 </script>
 
 <style>

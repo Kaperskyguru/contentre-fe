@@ -80,7 +80,7 @@ export default {
   name: 'ForgotPassword',
   layout: 'AuthLayout',
 
-  middleware: 'notAuthenticated',
+  middleware: 'notEmailConfirmed',
 
   data: () => ({
     sending: false,

@@ -16,42 +16,12 @@
       }
     ]"
   >
-    <label
-      class="
-        inline-flex
-        relative
-        items-center
-        pl-9
-        cursor-pointer
-        text-sm
-        select-none
-      "
-    >
-      <span class="font-gilroy text-medium text-grey-shade">
-        <slot></slot>
-      </span>
-      <input
-        :id="uid"
-        ref="field"
-        :type="type"
-        :checked="isChecked"
-        :value="value"
-        v-bind="attrsButClass"
-        :disabled="disabled"
-        class="absolute hidden opacity-0 cursor-pointer h-0 w-0"
-        @input="onInput"
-        @focusin="onFocusIn"
-        @focusout="onFocusOut"
-      />
+    <label class="flex cursor-pointer text-sm select-none" for="chc">
       <div
         class="
-          absolute
           peer-checked:bg-primary-teal
           justify-center
           items-center
-          inline-flex
-          top-0
-          left-0
           h-[30px]
           w-[30px]
           border
@@ -63,6 +33,23 @@
         <img v-if="isChecked" :src="Checked" alt="Checked" />
         <img v-else :src="Unchecked" alt="Unchecked" />
       </div>
+
+      <span class="font-gilroy text-medium text-grey-shade ml-3">
+        <slot></slot>
+      </span>
+      <input
+        id="chc"
+        ref="field"
+        :type="type"
+        :checked="isChecked"
+        :value="value"
+        v-bind="attrsButClass"
+        :disabled="disabled"
+        class="absolute hidden opacity-0 cursor-pointer h-0 w-0"
+        @input="onInput"
+        @focusin="onFocusIn"
+        @focusout="onFocusOut"
+      />
     </label>
   </div>
 </template>
@@ -208,7 +195,7 @@ export default {
 
 <style>
 .check-field {
-  @apply relative inline-flex items-center text-left p-0.5 -m-0.5 transition-all rounded leading-none;
+  @apply relative  inline-flex items-center text-left p-0.5 -m-0.5 transition-all  leading-none;
 }
 
 .check-field.has-focus {
@@ -220,7 +207,6 @@ export default {
 }
 
 .check-field.check-on-left label {
-  @apply pl-6;
 }
 
 .check-field.check-on-right label {
@@ -250,7 +236,7 @@ export default {
 }
 
 .check-field.size-large input {
-  /* @apply w-4.5 h-4.5; */
+  @apply w-3.5 h-3.5;
 }
 
 .check-field.check-on-right input {
@@ -258,7 +244,7 @@ export default {
 }
 
 .check-field::before {
-  @apply absolute flex-grow-0 flex-shrink-0 border transition-all pointer-events-none;
+  @apply absolute flex-grow-0 flex-shrink-0 hidden  transition-all pointer-events-none;
 
   content: '';
 }
@@ -298,7 +284,7 @@ export default {
 }
 
 .check-field::after {
-  @apply absolute flex-grow-0 flex-shrink-0 rounded-full transition-all opacity-0 transform scale-0 pointer-events-none;
+  @apply absolute flex-grow-0 flex-shrink-0 rounded-full hidden transition-all opacity-0 transform scale-0 pointer-events-none;
 
   content: '';
 }
