@@ -2,6 +2,8 @@
   <section class="h-full lg:ml-64 px-3 md:px-12">
     <div class="flex items-center justify-between py-4">
       <PageTitle>Clients</PageTitle>
+
+      <Button>Add Client</Button>
     </div>
 
     <!-- calender -->

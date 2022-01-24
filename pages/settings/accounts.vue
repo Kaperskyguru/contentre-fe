@@ -23,64 +23,140 @@
 
     <!-- contact -->
     <div class="bg-white shadow-sm rounded-sm px-2 py-2">
-      <div class="w-full px-3 py-2 block bg-white text-gray-700">
-        <div class="col-span-2 pb-4">
-          <TextField
-            :rows="10"
-            type="email"
-            class="w-full text-sm"
-            placeholder="|"
-            label="Please tell us why you wish to delete your account"
-          />
+      <form @submit.prevent="onClickConfirm">
+        <div class="w-full px-3 py-2 block bg-white text-gray-700">
+          <div class="col-span-2 pb-4">
+            <TextField
+              v-model="$v.fieldFeedback.$model"
+              :rows="10"
+              class="w-full text-sm"
+              placeholder="|"
+              label="Please tell us why you wish to delete your account"
+              :error="getValidationMessage($v.fieldFeedback)"
+            />
+          </div>
+
+          <div class="block text-black font-normal pb-2">
+            <p class="text-base text-black">Enter your password</p>
+          </div>
+
+          <div class="col-span-2 pb-">
+            <TextField
+              v-model="$v.fieldPassword.$model"
+              type="password"
+              class="w-full text-sm"
+              placeholder="Enter your password"
+              :error="getValidationMessage($v.fieldPassword)"
+            />
+          </div>
         </div>
 
-        <div class="block text-black font-normal pb-2">
-          <p class="text-base text-black">Enter your password</p>
+        <div class="w-full px-3 text-center my-6">
+          <p>Are you sure you want to delete your Account?</p>
+          <p>
+            All your files and report on Contentre will be unretrievable if you
+            do.
+          </p>
         </div>
 
-        <div class="col-span-2 pb-">
-          <TextField
-            type="password"
-            class="w-full text-sm"
-            placeholder="Enter your password"
-          />
+        <div class="w-full px-3 flex items-center justify-center my-6">
+          <button
+            class="
+              shadow
+              bg-red-500
+              w-1/2
+              focus:shadow-outline
+              text-white
+              font-bold
+              py-4
+              px-6
+              rounded-lg
+            "
+            type="submit"
+          >
+            Delete my Account
+          </button>
         </div>
-      </div>
-
-      <div class="w-full px-3 text-center my-6">
-        <p>Are you sure you want to delete your Account?</p>
-        <p>
-          All your files and report on Contentre will be unretrievable if you
-          do.
-        </p>
-      </div>
-
-      <div class="w-full px-3 flex items-center justify-center my-6">
-        <button
-          class="
-            shadow
-            bg-red-500
-            w-1/2
-            focus:shadow-outline
-            text-white
-            font-bold
-            py-4
-            px-6
-            rounded-lg
-          "
-          type="submit"
-        >
-          Delete my Account
-        </button>
-      </div>
+      </form>
     </div>
+
+    <Dialog
+      v-model="isConfirmModalVisible"
+      primary-text="Confirm"
+      secondary-text="Cancel"
+      @answer="deleteAccount"
+    >
+      <template #icon>
+        <IconInformationCircle class="w-18 h-18" />
+      </template>
+      <p>Are you sure you want to delete your account?</p>
+    </Dialog>
   </div>
 </template>
 
 <script>
+import { DELETE_USER, GET_CURRENT_USER } from '~/graphql'
+import { required } from '~/plugins/validators'
 export default {
   name: 'AccountSettings',
-  layout: 'SettingsLayout'
+
+  components: {
+    IconInformationCircle: () =>
+      import('~/assets/icons/information-circle.svg?inline')
+  },
+  layout: 'SettingsLayout',
+
+  data: () => ({
+    fieldPassword: '',
+    fieldFeedback: '',
+    isConfirmModalVisible: false
+  }),
+
+  validations: {
+    fieldFeedback: {},
+    fieldPassword: {
+      required
+    },
+    honeyPot: {}
+  },
+  methods: {
+    async onClickConfirm() {
+      if (this.honeyPot) return
+
+      if (await this.isValidationInvalid()) return
+
+      this.isConfirmModalVisible = true
+    },
+    async deleteAccount() {
+      if (this.honeyPot) return
+
+      if (await this.isValidationInvalid()) return
+
+      this.sending = true
+
+      try {
+        await this.$apollo.mutate({
+          mutation: DELETE_USER,
+          variables: {
+            oldPassword: this.fieldPassword,
+            feedback: this.fieldFeedback
+          },
+          update: (cache, { data: { updateUser } }) => {
+            cache.writeQuery({
+              query: GET_CURRENT_USER,
+              data: { getCurrentUser: updateUser }
+            })
+          }
+        })
+
+        this.$toast.positive('User deleted successfully')
+        this.sending = false
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+      }
+    }
+  }
 }
 </script>
 

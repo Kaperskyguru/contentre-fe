@@ -13,7 +13,7 @@
           text-center
         "
       >
-        <span>Websites / Portfolio</span>
+        <span>Portfolio Link</span>
         <span class="text-black">
           <svg
             aria-hidden="true"
@@ -33,7 +33,7 @@
       </div>
 
       <div class="bg-teal-100 leading-6 rounded-lg pl-2 my-4 links">
-        <a href="#" class="text-gray-600">
+        <a :href="user.portfolio" target="_blank" class="text-gray-600">
           {{ user.portfolio }}
         </a>
       </div>

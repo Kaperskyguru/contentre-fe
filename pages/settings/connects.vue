@@ -51,7 +51,7 @@
               type="email"
               class="w-full text-sm"
               :disabled="true"
-              :value="`https://www.contentre.io/referrals/${currentUser.username}`"
+              :value="`https://www.contentre.io/register?referrer=${currentUser.username}`"
             />
           </div>
           <div>
