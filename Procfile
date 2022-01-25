@@ -1,1 +1,1 @@
-web: yarn generate
+web: nuxt start
