@@ -45,8 +45,8 @@
               shadow-lg
               outline-none
               border border-whitesmoke
-              flex flex-col
             "
+            :class="{ 'flex flex-col': $slots.icon }"
             tabindex="0"
             @click.stop
           >
@@ -54,11 +54,14 @@
               <slot name="icon" />
             </div>
 
-            <div class="text-sm md:text-base text-center">
+            <div :class="{ 'text-sm md:text-base text-center': $slots.icon }">
               <slot />
             </div>
 
-            <div v-if="primaryText || secondaryText" class="mt-8 space-x-3">
+            <div
+              v-if="primaryText || secondaryText"
+              class="mt-8 space-x-3 text-center"
+            >
               <Button
                 v-if="secondaryText"
                 appearance="secondary"

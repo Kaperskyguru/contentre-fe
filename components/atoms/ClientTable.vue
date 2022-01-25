@@ -1,9 +1,9 @@
 <template>
   <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
     <div class="pb-4 px-4 pt-4">
-      <h2 class="text-2xl font-gilroy font-semibold leading-tight">Grouping</h2>
+      <h2 class="text-2xl font-gilroy font-semibold leading-tight">Clients</h2>
     </div>
-    <table class="min-w-full">
+    <table v-if="clients" class="min-w-full">
       <thead class="bg-white border-b">
         <tr>
           <th
@@ -13,8 +13,7 @@
               border-b-2 border-gray-200
               bg-gray-100
               text-left text-xs
-              font-semibold
-              font-roboto
+              font-semibold font-roboto
               text-gray-600
               uppercase
               tracking-wider
@@ -74,6 +73,8 @@
       </thead>
       <tbody>
         <tr
+          v-for="(client, index) in clients"
+          :key="index"
           class="
             bg-white
             border-b
@@ -82,48 +83,16 @@
             ease-in-out
             hover:bg-gray-100
           "
+          @click="openPane(client.id)"
         >
           <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0 w-10 h-10 p-2">
-                <input type="checkbox" />
-              </div>
-              <div class="ml-3">
-                <p class="text-gray-900 font-roboto whitespace-no-wrap">Medium.com</p>
-              </div>
-            </div>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 font-roboto whitespace-nowrap">howtopleaseamaninbed</p>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 font-roboto whitespace-nowrap">3,450k</p>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 font-roboto whitespace-nowrap">Jun 14,12:33Pm</p>
-          </td>
-        </tr>
-        <tr
-          class="
-            bg-white
-            border-b
-            transition
-            duration-300
-            ease-in-out
-            hover:bg-gray-100
-          "
-        >
-          <td class="px-5 font-roboto py-2 whitespace-nowrap text-sm">
             <div class="flex items-center">
               <div class="flex-shrink-0 w-10 h-10 p-2">
                 <input type="checkbox" />
               </div>
               <div class="ml-3">
                 <p class="text-gray-900 font-roboto whitespace-no-wrap">
-                  twitterstuffor.com
+                  {{ client.name }}
                 </p>
               </div>
             </div>
@@ -131,160 +100,20 @@
 
           <td class="px-5 py-2 whitespace-nowrap text-sm">
             <p class="text-gray-900 font-roboto whitespace-nowrap">
-              howtomaximizeyourexpenses
+              {{ client.profile }}
             </p>
           </td>
 
           <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">2,384k</p>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">Jun 14,12:33Pm</p>
-          </td>
-        </tr>
-        <tr
-          class="
-            bg-white
-            border-b
-            transition
-            duration-300
-            ease-in-out
-            hover:bg-gray-100
-          "
-        >
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0 w-10 h-10 p-2">
-                <input type="checkbox" />
-              </div>
-              <div class="ml-3">
-                <p class="text-gray-900 whitespace-nowrap">
-                  Mediumarticles.com
-                </p>
-              </div>
-            </div>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">
-              maintainingbeardwithoil
+            <p class="text-gray-900 font-roboto whitespace-nowrap">
+              {{ client.totalContents }}
             </p>
           </td>
 
           <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">2,190k</p>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">Jun 14,12:33Pm</p>
-          </td>
-        </tr>
-        <tr
-          class="
-            bg-white
-            border-b
-            transition
-            duration-300
-            ease-in-out
-            hover:bg-gray-100
-          "
-        >
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0 w-10 h-10 p-2">
-                <input type="checkbox" />
-              </div>
-              <div class="ml-3">
-                <p class="text-gray-900 whitespace-nowrap">writerstage.com</p>
-              </div>
-            </div>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">
-              freelancewritingasawriter
+            <p class="text-gray-900 font-roboto whitespace-nowrap">
+              {{ client.createdAt }}
             </p>
-          </td>
-
-          <td class="px-5 py-5 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">3,468k</p>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">Jun 14,12:33Pm</p>
-          </td>
-        </tr>
-        <tr
-          class="
-            bg-white
-            border-b
-            transition
-            duration-300
-            ease-in-out
-            hover:bg-gray-100
-          "
-        >
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0 w-10 h-10 p-2">
-                <input type="checkbox" />
-              </div>
-              <div class="ml-3">
-                <p class="text-gray-900 whitespace-nowrap">
-                  twitterarticles.com
-                </p>
-              </div>
-            </div>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">
-              growingasatechieinthespave
-            </p>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">5,129k</p>
-          </td>
-
-          <td class="px-5 py-5 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-no-wrap">Jun 14,12:33Pm</p>
-          </td>
-        </tr>
-        <tr
-          class="
-            bg-white
-            border-b
-            transition
-            duration-300
-            ease-in-out
-            hover:bg-gray-100
-          "
-        >
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0 w-10 h-10 p-2">
-                <input type="checkbox" />
-              </div>
-              <div class="ml-3">
-                <p class="text-gray-900 whitespace-nowrap">zikokoarticle.com</p>
-              </div>
-            </div>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-nowrap">
-              10bestfintechappsinnigeria
-            </p>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-no-wrap">4,763k</p>
-          </td>
-
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <p class="text-gray-900 whitespace-no-wrap">Jun 14,12:33Pm</p>
           </td>
         </tr>
       </tbody>
@@ -356,11 +185,37 @@
         </div>
       </div>
     </div>
+
+    <ClientEdit v-model="clientId"></ClientEdit>
   </div>
 </template>
 
 <script>
-export default {}
+import { GET_CLIENTS } from '~/graphql'
+export default {
+  data: () => ({
+    clientId: null
+  }),
+  apollo: {
+    clients: {
+      query: GET_CLIENTS,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        return data.getClients
+      },
+      variables: {
+        size: 10,
+        skip: 0
+      }
+    }
+  },
+
+  methods: {
+    openPane(id) {
+      this.clientId = id
+    }
+  }
+}
 </script>
 
 <style>

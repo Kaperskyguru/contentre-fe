@@ -127,8 +127,8 @@ export default {
 
       this.isConfirmModalVisible = true
     },
-    async deleteAccount() {
-      if (this.honeyPot) return
+    async deleteAccount(shouldDelete) {
+      if (this.honeyPot || !shouldDelete) return
 
       if (await this.isValidationInvalid()) return
 

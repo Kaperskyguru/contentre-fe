@@ -42,36 +42,6 @@
         <ProfileForm />
       </div>
 
-      <div
-        class="
-          w-full
-          px-3
-          py-6
-          block
-          bg-white
-          text-gray-700
-          border border-gray-200
-          rounded-lg
-          my-8
-        "
-      >
-        <div class="space-x-3 font-normal text-gray-900 text-sm leading-8 pb-4">
-          <div
-            class="md:flex md:items-center block text-black font-bold pl-2 pb-4"
-          >
-            <span class="text-sm"> Profile Links </span>
-            <span class="pl-2"> <i class="fas fa-plus"></i></span>
-          </div>
-        </div>
-
-        <div
-          class="flex justify-between w-full px-3 block bg-white text-gray-700"
-        >
-          <!-- FORM 2 -->
-          <ProfileLinkForm />
-        </div>
-      </div>
-
       <!-- DIV 2 -->
       <div class="social media my-8">
         <div class="space-x-3 font-normal text-gray-900 text-sm leading-8 pb-4">
