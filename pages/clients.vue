@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between py-4">
       <PageTitle>Clients</PageTitle>
 
-      <Button>Add Client</Button>
+      <Button @click.prevent="onAddClient">Add Client</Button>
     </div>
 
     <!-- calender -->
@@ -26,13 +26,31 @@
         <ClientTable />
       </div>
     </section>
+
+    <Dialog v-model="isConfirmModalVisible">
+      <div class="w-full block bg-white text-gray-700">
+        <div class="flex justify-between w-full block bg-white text-gray-700">
+          <AddClient @create:success="onAddClient" />
+        </div>
+      </div>
+    </Dialog>
   </section>
 </template>
 
 <script>
 export default {
   name: 'ClientTw',
-  layout: 'Dashboard'
+  layout: 'Dashboard',
+
+  data: () => ({
+    isConfirmModalVisible: false
+  }),
+
+  methods: {
+    onAddClient() {
+      this.isConfirmModalVisible = !this.isConfirmModalVisible
+    }
+  }
 }
 </script>
 
