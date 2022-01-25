@@ -120,9 +120,9 @@ export default {
   env: {
     APP_NAME: process.env.APP_NAME,
     API_URL: process.env.API_URL
-  },
-
-  buildOptimisations: {
-    profile: process.env.NODE_ENV === 'development' ? 'risky' : 'safe'
   }
+
+  // buildOptimisations: {
+  //   profile: process.env.NODE_ENV === 'development' ? 'risky' : 'safe'
+  // }
 }
