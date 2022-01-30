@@ -30,10 +30,13 @@
         "
       >
         <!-- Chart 1 -->
-        <Chart />
-
+        <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 md:col-span-2">
+          <Chart />
+        </div>
         <!-- Chart 2-->
-        <Chart1 />
+        <div class="bg-white shadow rounded-lg p-2 sm:p-3 xl:p-5">
+          <Chart1 />
+        </div>
       </div>
     </section>
 

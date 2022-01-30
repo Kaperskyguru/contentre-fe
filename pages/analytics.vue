@@ -35,9 +35,24 @@
           xl:grid-cols-3
         "
       >
-        <Chart />
+        <div
+          class="bg-white shadow-lg rounded-lg p-4 sm:p-6 xl:p-8 md:col-span-2"
+        >
+          <Chart />
+        </div>
 
-        <div class="w-full lg:px-2 my-20 bg-white rounded-lg pt-4 shadow-lg">
+        <div
+          class="
+            w-full
+            lg:px-2
+            bg-white
+            rounded-lg
+            pt-4
+            shadow-lg
+            sm:col-span-2
+            md:col-span-1
+          "
+        >
           <!-- Card -->
           <div class="overflow-hidden">
             <header class="leading-tight px-2">
@@ -49,51 +64,10 @@
               </h3>
             </header>
 
-            <div class="flex items-center justify-evenly">
-              <div class="">
-                <img
-                  alt="Placeholder"
-                  class="block h-auto w-full"
-                  src="~/assets/img/graph2.png"
-                />
-              </div>
-
-              <div class="relative">
-                <div class="relative">
-                  <span
-                    class="
-                      inline-block
-                      relative
-                      bg-teal-300
-                      rounded-lg
-                      dots
-                      dot-color
-                    "
-                  ></span>
-                  <span class="pl-1 dotfont"> Delivery: 70%</span>
-                </div>
-
-                <div class="relative">
-                  <span
-                    class="inline-block relative bg-teal-300 rounded-lg dots"
-                  ></span>
-                  <span class="pl-1 dotfont"> Engagement: 60%</span>
-                </div>
-
-                <div class="relative">
-                  <span
-                    class="
-                      inline-block
-                      relative
-                      bg-teal-300
-                      rounded-lg
-                      dots
-                      dotlast-color
-                    "
-                  ></span>
-                  <span class="pl-1 dotfont"> Consistency: 65%</span>
-                </div>
-              </div>
+            <div class="">
+              <!-- <div class=""> -->
+              <Column type="doughnut" />
+              <!-- </div> -->
             </div>
           </div>
           <!-- END Card -->
@@ -128,11 +102,21 @@
         <h1 class="text-3xl font-bold text-gray-900 pt-4">Top Articles</h1>
       </div>
       <div class="flex flex-wrap">
-        <Column />
-
-        <Column />
-
-        <Column />
+        <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:px-2">
+          <div class="bg-white rounded-lg p-2 sm:p-3 xl:p-5">
+            <Column />
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:px-2">
+          <div class="bg-white rounded-lg p-2 sm:p-3 xl:p-5">
+            <Column />
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:px-2">
+          <div class="bg-white rounded-lg p-2 sm:p-3 xl:p-5">
+            <Column />
+          </div>
+        </div>
       </div>
     </section>
     <!-- end of footer Articles -->
@@ -174,7 +158,50 @@ export default {
         increment: '19.3%',
         icon: Chat
       }
-    ]
+    ],
+
+    chartData: {
+      labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+      datasets: [
+        {
+          label: '',
+          data: [32984, 24200, 12340, 320],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 4
+        }
+      ]
+    },
+
+    options: {
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [
+          {
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              fontColor: '#fff'
+            }
+          }
+        ],
+        xAxes: [
+          {
+            gridLines: {
+              display: false
+            }
+          }
+        ]
+      },
+      responsive: true,
+      maintainAspectRatio: false
+    }
   })
 }
 </script>

@@ -3,7 +3,7 @@
     <form class="w-full" @submit.prevent="updateClient">
       <div class="">
         <TextField
-          :value="$v.fieldName.$model"
+          v-model="$v.fieldName.$model"
           type="text"
           class="w-full text-sm"
           label="Client Name"
@@ -18,7 +18,7 @@
       />
       <div class="w-full">
         <TextField
-          :value="$v.fieldWebsite.$model"
+          v-model="$v.fieldWebsite.$model"
           type="text"
           class="w-full text-sm"
           label="Client Website"
@@ -29,7 +29,7 @@
 
       <section class="">
         <TextField
-          :value="$v.fieldProfile.$model"
+          v-model="$v.fieldProfile.$model"
           type="text"
           class="w-full text-sm"
           label="Profile Link"
@@ -85,12 +85,17 @@ export default {
       }
     }
   },
-  async updated() {
-    await this.$nextTick()
-    if (this.client) {
-      this.fieldProfile = this.client.profile
-      this.fieldWebsite = this.client.website
-      this.fieldName = this.client.name
+  watch: {
+    client: {
+      handler(newItem) {
+        if (this.client) {
+          this.fieldProfile = newItem?.profile
+          this.fieldWebsite = newItem?.website
+          this.fieldName = newItem?.name
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
   apollo: {
@@ -119,6 +124,7 @@ export default {
       this.sending = true
 
       try {
+        console.log(this.fieldProfile)
         await this.$apollo.mutate({
           mutation: UPDATE_CLIENT,
           variables: {

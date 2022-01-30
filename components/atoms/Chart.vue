@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 col-span-2">
+  <div>
     <div class="flex items-center justify-between mb-4">
       <div class="flex-shrink-0">
         <span

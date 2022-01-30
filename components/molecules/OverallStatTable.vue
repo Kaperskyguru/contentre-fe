@@ -3,15 +3,7 @@
     <div class="flex items-center justify-between py-4">
       <h1 class="text-3xl font-bold text-gray-900 pt-4">Overall Stats</h1>
     </div>
-    <div
-      class="
-        bg-gray-100 bg-gray-100
-        font-sans
-        overflow-x-auto
-        shadow
-        rounded-lg
-      "
-    >
+    <div class="bg-gray-100 bg-gray-100 font-sans overflow-x-auto rounded-lg">
       <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
         <div class="bg-white shadow-md rounded">
           <table class="min-w-full table-auto">
