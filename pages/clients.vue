@@ -1,6 +1,6 @@
 <template>
-  <section class="h-full lg:ml-64 px-3 md:px-12">
-    <div class="flex items-center justify-between py-4">
+  <section class="px-3 h-full md:px-12 lg:ml-64">
+    <div class="flex justify-between items-center py-4">
       <PageTitle>Clients</PageTitle>
 
       <Button @click.prevent="onAddClient">Add Client</Button>
@@ -21,15 +21,28 @@
     <!-- ====== Cards Section End -->
     <!-- end of statistic -->
 
-    <section class="bg-white mt-8 container mx-auto px-4">
-      <div class="-mx-4 sm:-mx-8 px-4 overflow-x-auto">
-        <ClientTable />
+    <section
+      class="
+        container
+        overflow-y-auto
+        flex-1
+        shrink-0
+        px-4
+        mx-auto
+        mt-8
+        min-h-80vh
+        bg-white
+        md:shrink
+      "
+    >
+      <div class="overflow-y-auto px-4 -mx-4 sm:-mx-8">
+        <ClientTable :checked.sync="checked" />
       </div>
     </section>
 
     <Dialog v-model="isConfirmModalVisible">
-      <div class="w-full block bg-white text-gray-700">
-        <div class="flex justify-between w-full block bg-white text-gray-700">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
           <AddClient @create:success="onAddClient" />
         </div>
       </div>
@@ -38,12 +51,17 @@
 </template>
 
 <script>
+import fragment from 'vue-frag'
 export default {
   name: 'ClientTw',
-  layout: 'Dashboard',
+  directives: {
+    fragment
+  },
 
+  layout: 'Dashboard',
   data: () => ({
-    isConfirmModalVisible: false
+    isConfirmModalVisible: false,
+    checked: []
   }),
 
   methods: {

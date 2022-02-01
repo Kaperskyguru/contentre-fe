@@ -31,17 +31,17 @@
         >
         <NuxtLink
           to="forgot-password"
-          class="text-base font-bold font-gilroy text-primary-teal"
+          class="font-gilroy text-base font-bold text-primary-teal"
           >Forgot Password?
         </NuxtLink>
       </div>
-      <div class="flex my-9 w-full justify-center">
+      <div class="flex justify-center my-9 w-full">
         <Button :disabled="!shouldEnableButton" :waiting="sending"
           >Sign In</Button
         >
       </div>
     </form>
-    <p class="font-gilroy font-bold text-center text-body-text-color text-base">
+    <p class="font-gilroy text-base font-bold text-center text-body-text-color">
       Don't have an account?
       <NuxtLink class="text-primary-teal" to="/auth/register"
         >Create Account</NuxtLink

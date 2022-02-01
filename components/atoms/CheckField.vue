@@ -16,36 +16,39 @@
       }
     ]"
   >
-    <label class="flex cursor-pointer text-sm select-none" for="chc">
+    <label
+      class="flex text-sm cursor-pointer select-none"
+      :for="uid"
+      :class="labelClass"
+    >
       <div
         class="
-          peer-checked:bg-primary-teal
           justify-center
           items-center
-          h-[30px]
           w-[30px]
-          border
-          rounded
+          h-[30px]
           bg-transparent
-          border-placeholder
+          peer-checked:bg-primary-teal
+          rounded
+          border border-placeholder
         "
       >
         <img v-if="isChecked" :src="Checked" alt="Checked" />
         <img v-else :src="Unchecked" alt="Unchecked" />
       </div>
 
-      <span class="font-gilroy text-medium text-grey-shade ml-3">
+      <span class="ml-3 font-gilroy text-grey-shade text-medium">
         <slot></slot>
       </span>
       <input
-        id="chc"
+        :id="uid"
         ref="field"
         :type="type"
         :checked="isChecked"
         :value="value"
         v-bind="attrsButClass"
         :disabled="disabled"
-        class="absolute hidden opacity-0 cursor-pointer h-0 w-0"
+        class="hidden absolute w-0 h-0 opacity-0 cursor-pointer"
         @input="onInput"
         @focusin="onFocusIn"
         @focusout="onFocusOut"
@@ -116,6 +119,7 @@ export default {
       default: false
     }
   },
+
   emits: ['changed'],
 
   data: () => ({
@@ -123,13 +127,17 @@ export default {
     Unchecked,
     Checked
   }),
+
   computed: {
     uid() {
       return this.$utils.uidGenerator(this.id)
     },
-    computedValue() {
-      return this.value === '' ? this.label : this.value
+
+    attrsButClass() {
+      const { class: className, ...attrs } = this.$attrs
+      return attrs
     },
+
     isChecked() {
       if (typeof this.checked !== 'boolean' || this.type === 'radio') {
         if (!this.value) return false
@@ -143,10 +151,6 @@ export default {
 
       return this.checked
     },
-    attrsButClass() {
-      const { class: className, ...attrs } = this.$attrs
-      return attrs
-    },
 
     model: {
       get() {
@@ -158,6 +162,7 @@ export default {
       }
     }
   },
+
   methods: {
     onInput(event) {
       const target = event.target

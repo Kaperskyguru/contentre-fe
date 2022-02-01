@@ -117,8 +117,8 @@
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <Hyperlink
+                :to="{ name: 'contents' }"
                 class="
                   text-base text-gray-500
                   font-normal font-roboto
@@ -132,7 +132,7 @@
               >
                 <ContentIcon />
                 <span class="ml-3 flex-1 whitespace-nowrap">Content</span>
-              </a>
+              </Hyperlink>
             </li>
             <li>
               <Hyperlink
