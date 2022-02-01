@@ -9,7 +9,7 @@
         <div class="relative bg-teal-100">
           <div
             class="py-40 bg-center bg-cover"
-            style="background-image: url('~/assets/img/temp-pic1.png')"
+            :style="{ backgroundImage: `url(${image})` }"
           >
             <div class="relative container px-6 mx-auto">
               <div class="lg:flex items-center">
@@ -111,7 +111,7 @@
                   "
                   style="background: #00aeff"
                 >
-                  Writing Services
+                  Contact me
                 </button>
               </div>
             </div>
@@ -277,7 +277,12 @@
 </template>
 
 <script>
-export default {}
+import ImageBG from 'assets/img/temp-pic1.png'
+export default {
+  data: () => ({
+    image: ImageBG
+  })
+}
 </script>
 
 <style>
