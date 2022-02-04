@@ -2,19 +2,19 @@
   <aside
     id="sidebar"
     class="
+      flex
       fixed
-      z-30
-      h-full
       top-0
       left-0
+      z-30
+      flex-col
+      shrink-0
       pt-16
-      flex
-      lg:flex
-      flex-shrink-0 flex-col
       w-64
-      transition-width
+      h-full
       duration-75
-      hidden
+      lg:flex
+      transition-width
       aside
     "
     aria-label="Sidebar"
@@ -22,22 +22,22 @@
     <div
       class="
         relative
-        flex-1 flex flex-col
+        pt-0
         min-h-0
+        flex-1 flex flex-col
         border-r border-gray-200
         bg-teal
-        pt-0
       "
     >
-      <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-        <div class="flex-1 px-3 bg-teal space-y-1">
-          <ul class="space-y-2 py-4 border-t border-gray-500">
-            <div class="logo absolute aside-header">
-              <Hyperlink to="/" class="font-bold flex items-center lg:ml-2.5">
+      <div class="flex overflow-y-auto flex-col flex-1 pt-5 pb-4">
+        <div class="flex-1 px-3 space-y-1 bg-teal">
+          <ul class="py-4 space-y-2 border-t border-gray-500">
+            <div class="absolute logo aside-header">
+              <Hyperlink to="/" class="flex items-center font-bold lg:ml-2.5">
                 <img
                   src="~/assets/img/dashboard_logo.svg"
                   class="img-fluid"
-                  alt="contentr Logo"
+                  alt="contentre logo"
                 />
                 <!-- <span class="self-center whitespace-nowrap">contentr</span> -->
               </Hyperlink>
@@ -46,128 +46,128 @@
               <Hyperlink
                 :to="{ name: 'index' }"
                 class="
-                  text-base text-gray-500
-                  font-normal font-roboto
-                  rounded-lg
-                  hover:text-white
+                  group
                   flex
                   items-center
                   p-2
-                  group
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
                 "
               >
                 <span class="text-white">
                   <DashboardIcon />
                 </span>
-                <span class="ml-3 flex-1 whitespace-nowrap">Dashboard</span>
+                <span class="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
               </Hyperlink>
             </li>
             <li>
               <Hyperlink
                 :to="{ name: 'analytics' }"
                 class="
-                  text-base text-gray-500
-                  font-normal font-roboto
-                  rounded-lg
-                  hover:text-white
+                  group
                   flex
                   items-center
                   p-2
-                  group
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
                 "
               >
                 <AnalyticIcon />
-                <span class="ml-3 flex-1 whitespace-nowrap">Analytics</span>
+                <span class="flex-1 ml-3 whitespace-nowrap">Analytics</span>
               </Hyperlink>
             </li>
             <li>
               <Hyperlink
                 :to="{ name: 'clients' }"
                 class="
-                  text-base text-gray-500
-                  font-normal font-roboto
-                  rounded-lg
-                  hover:text-white
+                  group
                   flex
                   items-center
                   p-2
-                  group
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
                 "
               >
                 <ClientIcon />
-                <span class="ml-3 flex-1 whitespace-nowrap">Clients</span>
+                <span class="flex-1 ml-3 whitespace-nowrap">Clients</span>
               </Hyperlink>
             </li>
             <li>
               <a
                 href="#"
                 class="
-                  text-base text-gray-500
-                  font-normal font-roboto
-                  rounded-lg
-                  hover:text-white
+                  group
                   flex
                   items-center
                   p-2
-                  group
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
                 "
               >
                 <PorfolioIcon />
-                <span class="ml-3 flex-1 whitespace-nowrap">Portfolio</span>
+                <span class="flex-1 ml-3 whitespace-nowrap">Portfolio</span>
               </a>
             </li>
             <li>
               <Hyperlink
                 :to="{ name: 'contents' }"
                 class="
-                  text-base text-gray-500
-                  font-normal font-roboto
-                  rounded-lg
-                  hover:text-white
+                  group
                   flex
                   items-center
                   p-2
-                  group
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
                 "
               >
                 <ContentIcon />
-                <span class="ml-3 flex-1 whitespace-nowrap">Content</span>
+                <span class="flex-1 ml-3 whitespace-nowrap">Content</span>
               </Hyperlink>
             </li>
             <li>
               <Hyperlink
                 :to="{ name: 'profile' }"
                 class="
-                  text-base text-gray-500
-                  font-normal font-roboto
-                  rounded-lg
-                  hover:text-white
+                  group
                   flex
                   items-center
                   p-2
-                  group
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
                 "
               >
                 <ProfileIcon />
-                <span class="ml-3 flex-1 whitespace-nowrap">Profile</span>
+                <span class="flex-1 ml-3 whitespace-nowrap">Profile</span>
               </Hyperlink>
             </li>
             <li>
               <Hyperlink
                 :to="{ name: 'settings' }"
                 class="
-                  text-base text-gray-500
-                  font-normal font-roboto
-                  rounded-lg
-                  hover:text-white
+                  group
                   flex
                   items-center
                   p-2
-                  group
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
                 "
               >
                 <SettingIcon id="settings-icon" />
-                <span class="ml-3 flex-1 whitespace-nowrap">Settings</span>
+                <span class="flex-1 ml-3 whitespace-nowrap">Settings</span>
               </Hyperlink>
             </li>
 
@@ -175,31 +175,30 @@
 
             <div
               class="
-                aside-footer
+                overflow-hidden
                 relative
                 bottom-0
-                overflow-hidden
+                p-2
                 rounded-lg
                 shadow-lg
-                py-2
-                px-2
+                aside-footer
               "
             >
-              <div class="flex justify-between items-center py-2 px-2">
+              <div class="flex justify-between items-center p-2">
                 <div class="">
-                  <p class="text-white font-roboto text-base">Storage</p>
+                  <p class="font-roboto text-base text-white">Storage</p>
                 </div>
                 <div class="">
                   <p class="font-roboto">Upgrade</p>
                 </div>
               </div>
 
-              <div class="aside-footer-footer px-2 pb-2">
-                <p class="text-white font-roboto pb-4">
+              <div class="px-2 pb-2 aside-footer-footer">
+                <p class="pb-4 font-roboto text-white">
                   3.4 GB <span class="text-light">of 15 GB</span>
                 </p>
-                <div class="w-full h-2 progress-bg rounded-full">
-                  <div class="w-1/6 h-full progress rounded-full"></div>
+                <div class="w-full h-2 rounded-full progress-bg">
+                  <div class="w-1/6 h-full rounded-full progress"></div>
                 </div>
               </div>
             </div>

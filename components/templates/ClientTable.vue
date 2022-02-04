@@ -45,7 +45,7 @@ export default {
         return { items: data.getClients, total: data.getClients.length }
       },
       variables: {
-        size: 2,
+        size: 10,
         skip: 0
       }
     }
@@ -65,15 +65,14 @@ export default {
         {
           title: 'Website',
           key: 'website',
-          component: ({ website }) =>
-            website ? 'DataGridCellIcon' : 'DataGridCellBlur',
+          component: () => 'DataGridCellIcon',
           componentOptions: this.getWebsiteComponentOptions
         },
         {
           title: 'Profile Link',
           key: 'profile',
-          component: ({ profile }) => {
-            return profile ? 'DataGridCellIcon' : 'DataGridCellBlur'
+          component: () => {
+            return 'DataGridCellIcon'
           },
           componentOptions: this.getProfileComponentOptions
         },
@@ -84,8 +83,8 @@ export default {
           dataClass: ({ totalContents }) => {
             return `${totalContents ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
           },
-          component: ({ totalContents }) => {
-            return totalContents ? 'DataGridCellIcon' : 'DataGridCellBlur'
+          component: () => {
+            return 'DataGridCellIcon'
           },
           componentOptions: this.getTotalContentsComponentOptions
         },
@@ -93,8 +92,7 @@ export default {
           title: 'Created',
           key: 'createdAt',
           titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
-          component: ({ createdAt }) =>
-            createdAt ? 'DataGridCellIcon' : 'DataGridCellBlur',
+          component: () => 'DataGridCellIcon',
           componentOptions: this.getCreatedAtComponentOptions
         }
       ]

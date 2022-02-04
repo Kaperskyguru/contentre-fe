@@ -399,7 +399,7 @@ export default defineComponent({
     },
 
     itemsPerPage: {
-      default: 2,
+      default: 30,
       type: Number
     },
 

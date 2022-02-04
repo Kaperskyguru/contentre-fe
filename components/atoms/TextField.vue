@@ -4,12 +4,11 @@
       <label
         v-if="label"
         class="
-          font-gilroy
-          text-body-text-color
-          font-medium
-          tracking-wide
-          mb-2
           block
+          mb-2
+          tracking-wide
+          text-body-text-color
+          font-gilroy font-medium
         "
         >{{ label }}</label
       >
@@ -20,16 +19,15 @@
           ref="field"
           :value="lazy ? lazyInput : model"
           class="
-            font-gilroy
-            focus:border-body-text-color focus:outline-none
-            border-solid border border-border-inner
-            rounded
-            py-4
-            pl-5
-            pr-12
-            font-medium
             block
+            py-4
+            pr-12
+            pl-5
             w-full
+            rounded
+            focus:border-body-text-color focus:outline-none
+            font-gilroy font-medium
+            border-solid border border-border-inner
           "
           :type="showPassword ? 'text' : $attrs.type"
           v-bind="attrsButClassAndType"
@@ -54,16 +52,16 @@
           v-bind="attrsButClassAndType"
           class="
             block
-            w-full
-            bg-white
-            text-gray-700
-            border border-gray-200
-            rounded-lg
             py-3
             px-4
             mb-3
+            w-full
             leading-tight
+            text-gray-700
+            bg-white
+            rounded-lg
             focus:outline-none focus:bg-white focus:border-gray-500
+            border border-gray-200
           "
           :enterkeyhint="enterkeyhint"
           :mozactionhint="enterkeyhint"
@@ -92,7 +90,7 @@
     </div>
     <div class="mt-3">
       <div v-if="error">
-        <small class="font-bold font-gilroy text-red-600 text-xs">{{
+        <small class="font-gilroy text-xs font-bold text-red-600">{{
           error
         }}</small>
       </div>

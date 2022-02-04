@@ -1,6 +1,6 @@
 <template>
   <main>
-    <nav class="bg-white border-b border-gray-200 fixed z-30 w-full navside-bs">
+    <nav class="fixed z-30 w-full bg-white border-b border-gray-200 navside-bs">
       <Nav @logout="onLogout" />
     </nav>
     <div class="flex pt-16">

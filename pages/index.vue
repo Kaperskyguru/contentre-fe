@@ -1,6 +1,6 @@
 <template>
-  <section class="h-full lg:ml-64 px-3 md:px-12">
-    <div class="flex items-center justify-between py-4">
+  <section class="px-3 h-full md:px-12 lg:ml-64">
+    <div class="flex justify-between items-center py-4">
       <PageTitle>Dashboard</PageTitle>
     </div>
     <section class="container mx-auto">
@@ -19,22 +19,21 @@
     <section class="pt-6">
       <div
         class="
-          w-full
-          grid grid-cols-1
-          xl:grid-cols-2
-          2xl:grid-cols-3
           gap-4
+          w-full
           md:grid-cols-2
           lg:grid-cols-2
           xl:grid-cols-3
+          2xl:grid-cols-3
+          grid grid-cols-1
         "
       >
         <!-- Chart 1 -->
-        <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 md:col-span-2">
+        <div class="p-4 bg-white rounded-lg shadow sm:p-6 md:col-span-2 xl:p-8">
           <Chart />
         </div>
         <!-- Chart 2-->
-        <div class="bg-white shadow rounded-lg p-2 sm:p-3 xl:p-5">
+        <div class="p-2 bg-white rounded-lg shadow sm:p-3 xl:p-5">
           <Chart1 />
         </div>
       </div>
@@ -44,8 +43,8 @@
 
     <!-- table -->
 
-    <section class="bg-white mt-8 container mx-auto px-4">
-      <div class="-mx-4 sm:-mx-8 px-4 overflow-x-auto">
+    <section class="container px-4 mx-auto mt-8 bg-white">
+      <div class="overflow-x-auto px-4 -mx-4 sm:-mx-8">
         <ClientTable />
       </div>
     </section>
