@@ -1,19 +1,24 @@
 <template>
-  <div class="inline-block overflow-hidden min-w-full rounded-lg">
-    <div class="p-4">
-      <h2 class="font-gilroy text-2xl font-semibold leading-tight">Clients</h2>
-    </div>
-    <DataGrid
-      :columns="columns"
-      :checked.sync="computedChecked"
-      :items="clients.items"
-      :total="clients.total"
-      :loading="$apollo.queries.clients.loading"
-      :item-clickable="true"
-      @load-more-data="fetchMore"
-    />
+  <div class="overflow-x-auto px-4 -mx-4 sm:-mx-8">
+    <div class="inline-block overflow-hidden min-w-full rounded-lg">
+      <div class="p-4">
+        <h2 class="font-gilroy text-2xl font-semibold leading-tight">
+          Clients
+        </h2>
+      </div>
+      <DataGrid
+        :columns="columns"
+        :checked.sync="computedChecked"
+        :items="clients.items"
+        :total="clients.total"
+        :loading="$apollo.queries.clients.loading"
+        :item-clickable="true"
+        @load-more-data="fetchMore"
+        @item-click="onItemClick"
+      />
 
-    <ClientEdit v-model="clientId"></ClientEdit>
+      <ClientEdit v-model="clientId"></ClientEdit>
+    </div>
   </div>
 </template>
 
@@ -100,9 +105,10 @@ export default {
   },
 
   methods: {
-    openPane(id) {
+    onItemClick({ id }) {
       this.clientId = id
     },
+
     getWebsiteComponentOptions({ website }) {
       return website
         ? {
@@ -113,7 +119,7 @@ export default {
     },
 
     fetchMore(sizeAndSkip) {
-      console.log(sizeAndSkip)
+      // console.log(sizeAndSkip)
       const itemsKey = 'clients'
       const queryName = 'getClients'
       this.$apollo.queries.clients.fetchMore({
