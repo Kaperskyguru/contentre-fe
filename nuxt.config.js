@@ -42,6 +42,7 @@ export default {
     '~/plugins/utils',
     '~/plugins/toast',
     '~/plugins/currentUser'
+    // '~/plugins/bootstrap-vue'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

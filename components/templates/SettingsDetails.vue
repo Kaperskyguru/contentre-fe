@@ -1,19 +1,19 @@
 <template>
-  <div class="w-full md:w-10/12 mx-2 h-64 shadow rounded-xl bg-white">
+  <div class="mx-2 w-full h-64 bg-white rounded-xl shadow md:w-10/12">
     <!-- Profile tab -->
     <!-- About Section -->
-    <div class="bg-white shadow-sm rounded-xl">
+    <div class="bg-white rounded-xl shadow-sm">
       <div
         class="
           flex
           items-center
+          py-6
+          px-4
           space-x-2
           font-semibold
-          text-gray-900
           leading-8
-          px-4
+          text-gray-900
           border-b-2
-          py-6
         "
       >
         <span class="tracking-wide">Security</span>
@@ -24,14 +24,14 @@
     <!-- Two factor Auth -->
 
     <!-- 2 -->
-    <div class="bg-white shadow-sm rounded-sm px-4 py-6">
+    <div class="py-6 px-4 bg-white rounded-sm shadow-sm">
       <TwoFactor />
     </div>
 
     <!-- End of Two factor Auth --->
 
     <!-- Change Password -->
-    <div class="bg-white shadow-sm rounded-sm px-4 py-6">
+    <div class="py-6 px-4 bg-white rounded-sm shadow-sm">
       <!-- 3 -->
       <ChangePassword />
     </div>
