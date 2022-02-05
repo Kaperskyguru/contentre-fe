@@ -1,0 +1,41 @@
+.nav-line{
+ background: linear-gradient(112.83deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.8) 110.84%);
+border: 1.5px solid #FFFFFF;
+box-shadow: 0px 7px 23px rgba(0, 0, 0, 0.05);
+border-radius: 15px;
+
+}
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+   }
+   
+   .text{
+     display: inline-block;
+     vertical-align: middle;
+     font-size:13px;
+     
+   }
+
+   .form-bg{
+       background: #286963;
+   }
+
+   .form-btn{
+       background:#4FD1C5;
+   }
+
+   .form-btn:hover{
+    background:#4FD1C5;
+   }
+
+   .form-footer{
+    color:#4FD1C5;
+}
+
+   .logo-text{
+       font-size: 1.5rem;
+   }
+
+   /* dashboard */
+   

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>contentr.io</title>
+  </head>
+  <body>
+    <div class="relative">
+      <!-- header -->
+      <div
+        class="
+          bg-white
+          rounded-t
+          shadow-2xl
+          nav-line
+          fixed
+          top-0
+          left-0
+          right-0
+          m-6
+        "
+      >
+        <header>
+          <nav
+            class="
+              flex flex-wrap
+              items-center
+              justify-between
+              w-full
+              py-4
+              md:py-0
+              px-4
+              text-gray-700
+            "
+          >
+            <div>
+              <a href="#">
+                <img
+                  class="pl-3 icon"
+                  src="./assets/img/icon.png"
+                  width="60"
+                  alt="logo"
+                />
+                <span class="text logo-text">Contentr.io</span>
+              </a>
+            </div>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="menu-button"
+              class="h-6 w-6 cursor-pointer md:hidden block"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+
+            <div
+              class="hidden w-full md:flex md:items-center md:w-auto"
+              id="menu"
+            >
+              <ul
+                class="
+                  uppercase
+                  pt-4
+                  text-gray-700
+                  md:flex md:justify-between md:pt-0
+                "
+              >
+                <li>
+                  <a
+                    class="
+                      md:p-4
+                      py-2
+                      block
+                      hover:text-purple-400
+                      transition
+                      ease-in
+                      duration-150
+                    "
+                    href="dashboard.html"
+                  >
+                    <img
+                      class="icon"
+                      src="https://cdn2.iconfinder.com/data/icons/neutro-essential/32/dashboard-256.png"
+                      width="20"
+                      alt="image"
+                    />
+
+                    <span class="text">Dashboard</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="
+                      md:p-4
+                      py-2
+                      block
+                      hover:text-purple-400
+                      transition
+                      ease-in
+                      duration-150
+                    "
+                    href="profile.html"
+                  >
+                    <img
+                      class="icon"
+                      src="https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_user-256.png"
+                      width="20"
+                      alt="image"
+                    />
+
+                    <span class="text">Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="
+                      md:p-4
+                      py-2
+                      block
+                      hover:text-purple-400
+                      transition
+                      ease-in
+                      duration-150
+                    "
+                    href="index.html"
+                  >
+                    <img
+                      class="icon"
+                      src="https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_user2-256.png"
+                      width="20"
+                      alt="image"
+                    />
+
+                    <span class="text">Sign up</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="
+                      md:p-4
+                      py-2
+                      block
+                      hover:text-purple-400
+                      transition
+                      ease-in
+                      duration-150
+                    "
+                    href="sign-in.html"
+                  >
+                    <img
+                      class="icon"
+                      src="https://cdn0.iconfinder.com/data/icons/zondicons/20/key-256.png"
+                      width="20"
+                      alt="image"
+                    />
+
+                    <span class="text">Sign in</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+      </div>
+      <!-- end of header -->
+
+      <!-- main page -->
+
+      <main class="text-black-100">
+        <div class="flex items-center min-h-screen bg-gray-50 min-w-full">
+          <div class="flex-1 h-full bg-white">
+            <div class="flex flex-col md:flex-row">
+              <div
+                class="
+                  h-32
+                  md:h-auto md:w-1/2
+                  form-bg
+                  -space-x-2
+                  overflow-hidden
+                "
+              >
+                <img
+                  class="object-cover w-full h-full inline-block"
+                  src="./assets/img/form-bg.png"
+                  alt="img"
+                />
+                <img
+                  class="object-cover w-full h-full inline-block"
+                  src="./assets/img/form-bg2.png"
+                  alt="img"
+                />
+              </div>
+              <div
+                class="flex items-center justify-center p-6 sm:p-12 md:w-1/2"
+              >
+                <div class="w-full mt-8">
+                  <h1 class="mb-4 text-2xl font-bold text-center text-gray-700">
+                    Sign In
+                  </h1>
+
+                  <div>
+                    <label class="block text-sm pt-6"> Email Address </label>
+                    <input
+                      type="email"
+                      class="
+                        w-full
+                        mt-2
+                        p-4
+                        text-sm
+                        border
+                        rounded-md
+                        focus:border-blue-400
+                        focus:outline-none
+                        focus:ring-1
+                        focus:ring-blue-600
+                      "
+                      placeholder="Enter your email address"
+                    />
+                  </div>
+
+                  <label class="block text-sm pt-6"> Create Password </label>
+                  <input
+                    class="
+                      w-full
+                      mt-2
+                      p-4
+                      text-sm
+                      border
+                      rounded-md
+                      focus:border-blue-400
+                      focus:outline-none
+                      focus:ring-1
+                      focus:ring-blue-600
+                    "
+                    placeholder="Create a password"
+                    type="password"
+                  />
+
+                  <div class="flex justify-center mt-4">
+                    <button
+                      class="
+                        form-btn
+                        py-4
+                        px-10
+                        mt-4
+                        text-sm
+                        font-bold
+                        leading-5
+                        text-center text-white
+                        transition-colors
+                        duration-150
+                        bg-teal-300
+                        border border-transparent
+                        rounded-md
+                        active:bg-blue-600
+                        hover:bg-blue-700
+                        focus:outline-none focus:shadow-outline-blue
+                      "
+                      href="sign-in.html"
+                    >
+                      Sign In
+                    </button>
+                  </div>
+
+                  <div class="mt-6 text-center">
+                    <p class="text-sm">
+                      Dont have an account?
+                      <a href="index.html" class="form-footer hover:underline">
+                        Create Account</a
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="./assets/script/script.js"></script>
+  </body>
+</html>

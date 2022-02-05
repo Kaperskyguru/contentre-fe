@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+  href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
+<link
+rel="stylesheet"
+href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="sass/dashboard.css">
+<title>contentr.io</title>
+</head>
+<body x-data="{panel:false, menu:true}">
+  <div class="flex bg-gray-500 min-h-screen" style="background: #102A27;">
+
+  <div class="flex-grow text-gray-800">
+    <header class="flex items-center h-16 pr-6 fixed w-full  sm:pr-10 bg-white border border-b-8">
+      <div class="w-16 relative" style="background:#083430; width: 68px;">
+      <a href="#" class="inline-flex items-center justify-center">
+        <img src="./assets/img/icon.png" class="img-fluid"  alt="contentr Logo">
+      </a>
+      </div>
+      
+      <div class="relative w-full max-w-md sm:-ml-2">
+        <div x-data="{ open: false }">
+          <div @click="open = !open" class="relative" :class="{'border-indigo-700 transform transition duration-300 ': open}" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100">
+            <div class="space-x-3 cursor-pointer">
+              <div class=" dark:text-white text-gray-900 ">
+                <div class="cursor-pointer ml-8 font-bold text-xl">Portfolio
+                    <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1 rotate-0">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" c="" lip-rule="evenodd"></path></svg>
+                </div>
+              </div>
+    
+            </div>
+            <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute w-60 px-5 py-3 dark:bg-gray-800 bg-white rounded-lg shadow border dark:border-transparent mt-2" style="display: none;">
+              <ul class="space-y-3 dark:text-white">
+                <li class="font-medium">
+                  <a href="#" class="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                    <div class="mr-3">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </div>
+                    Account
+                  </a>
+                </li>
+                <li class="font-medium">
+                  <a href="#" class="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                    <div class="mr-3">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    Setting
+                  </a>
+                </li>
+                <hr class="dark:border-gray-700">
+                <li class="font-medium">
+                  <a href="#" class="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-red-600">
+                    <div class="mr-3 text-red-600">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </div>
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+      </div>
+      </div>
+      <div class="flex flex-shrink-0 items-center ml-auto">
+        <div class="flex flex-wrap items-start justify-end -mb-2">
+          <div class="inline-flex text-dark-900  cursor-pointer" >
+            Preview
+          </div>
+          <div class="inline-flex text-dark-900 ml-6  cursor-pointer">
+            Save
+          </div>
+          <button class="inline-flex px-4 py-1 text-white form-btn rounded-md ml-6 text-sm ">
+            Submit
+          </button>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center ml-auto">
+          <div class="relative inline-flex items-center p-2 cursor-pointer" @click="panel = !panel" @click.away="panel = false">
+            <span class="h-8 w-8 ml-2 sm:ml-3 mr-2 bg-gray-100 border rounded-full overflow-hidden">
+              <img src="./assets/img/avatar.jpg" alt="user profile photo" class="h-full w-full object-cover">
+            </span>
+            <div class="hidden md:flex md:flex-col md:items-end md:leading-tight" >
+              <span class="text-sm text-gray-600">Janet Smith</span>
+            </div>
+            <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="hidden sm:block h-6 w-6 text-gray-300">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg> 
+          </div>
+          <div class="absolute bg-white border rounded-md p-2 w-48"style="top:60px;" x-show="panel" style="display:none">
+            <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+            <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
+            <div class="p-2 hover:bg-blue-100 cursor-pointer">To-Do's</div>
+          </div>
+     
+      </div>
+    </header>
+    
+    <main class=" space-y-6 mt-8 sm:pr-10 ">
+      <div class="mt-16">
+        <aside class="flex flex-col  " style="margin-top:60px;" :class="{'hidden sm:flex sm:flex-col': window.outerWidth > 768}">
+          <div class="flex-grow flex flex-col justify-between text-gray-500 overflow-y-auto">
+            <nav class="flex flex-col hover-triggerBg mr-4 space-y-4 items-center pt-4">
+<div class="relative hover-trigger">
+  <a href="#" class="inline-flex aside-icons items-center hover:text-white focus:text-white px-2" :class="{'justify-start': menu, 'justify-center': menu == false}">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.4">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.33 6.00009H20.66C24.06 6.00009 26 7.92009 26 11.3301V20.6701C26 24.0601 24.07 26.0001 20.67 26.0001H11.33C7.92 26.0001 6 24.0601 6 20.6701V11.3301C6 7.92009 7.92 6.00009 11.33 6.00009ZM16.82 16.8301H19.66C20.12 16.8201 20.49 16.4501 20.49 15.9901C20.49 15.5301 20.12 15.1601 19.66 15.1601H16.82V12.3401C16.82 11.8801 16.45 11.5101 15.99 11.5101C15.53 11.5101 15.16 11.8801 15.16 12.3401V15.1601H12.33C12.11 15.1601 11.9 15.2501 11.74 15.4001C11.59 15.5601 11.5 15.7691 11.5 15.9901C11.5 16.4501 11.87 16.8201 12.33 16.8301H15.16V19.6601C15.16 20.1201 15.53 20.4901 15.99 20.4901C16.45 20.4901 16.82 20.1201 16.82 19.6601V16.8301Z" fill="white"/>
+      </g>
+      </svg>
+  </a>
+                     <div class="fixed z-100 ml-16  
+                         bg-transparent text-gray-900
+                        px-4 py-2 hover-target">
+                        Add
+                    </div>
+</div>
+          <div class="relative hover-trigger2">
+          <a href="#"  class="inline-flex aside-icons items-center hover:text-white focus:text-white px-2" :class="{'justify-start': menu, 'justify-center': menu == false}">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g opacity="0.4">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6662 26H20.3328C23.7231 26 26 23.6219 26 20.0833V11.9167C26 8.37811 23.7231 6 20.3338 6H11.6662C8.2769 6 6 8.37811 6 11.9167V20.0833C6 23.6219 8.2769 26 11.6662 26ZM12.4989 15C11.1202 15 10 13.8783 10 12.5C10 11.1217 11.1202 10 12.4989 10C13.8765 10 14.9977 11.1217 14.9977 12.5C14.9977 13.8783 13.8765 15 12.4989 15ZM23.8208 18.934C24.1557 19.7926 23.9817 20.8246 23.6237 21.6749C23.1994 22.6863 22.3869 23.452 21.3632 23.7864C20.9087 23.935 20.432 24 19.9564 24H11.5286C10.69 24 9.94788 23.7988 9.3395 23.4241C8.95839 23.1889 8.89102 22.646 9.17358 22.2941C9.6462 21.7059 10.1128 21.1156 10.5834 20.5201C11.4804 19.3808 12.0847 19.0506 12.7565 19.3406C13.029 19.4603 13.3025 19.6398 13.584 19.8297C14.3342 20.3395 15.377 21.0402 16.7506 20.2797C17.6906 19.7532 18.2358 18.8501 18.7106 18.0637L18.7185 18.0506C18.7522 17.9954 18.7855 17.9402 18.8187 17.8852C18.9783 17.6212 19.1357 17.3607 19.3138 17.1207C19.5371 16.8204 20.3646 15.8813 21.4366 16.5501C22.1194 16.9711 22.6936 17.5408 23.308 18.1507C23.5423 18.3839 23.7092 18.6491 23.8208 18.934Z" fill="white"/>
+              </g>
+              </svg>
+
+              <div class="fixed z-100 ml-16  
+              bg-transparent text-gray-900
+               px-4 py-2 hover-target2 border-dashed border-x-4
+                border-indigo-500">
+                Image
+              </div>
+          </a>
+          </div>
+
+          <div class="relative hover-trigger2">
+          <a href="#" class="inline-flex aside-icons items-center hover:text-white focus:text-white px-2" :class="{'justify-start': menu, 'justify-center': menu == false}">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 10C20 9.73478 19.8946 9.48043 19.7071 9.29289C19.5196 9.10536 19.2652 9 19 9H7C6.73478 9 6.48043 9.10536 6.29289 9.29289C6.10536 9.48043 6 9.73478 6 10C6 10.2652 6.10536 10.5196 6.29289 10.7071C6.48043 10.8946 6.73478 11 7 11H12V22C12 22.2652 12.1054 22.5196 12.2929 22.7071C12.4804 22.8946 12.7348 23 13 23C13.2652 23 13.5196 22.8946 13.7071 22.7071C13.8946 22.5196 14 22.2652 14 22V11H19C19.2652 11 19.5196 10.8946 19.7071 10.7071C19.8946 10.5196 20 10.2652 20 10ZM25 15H19C18.7348 15 18.4804 15.1054 18.2929 15.2929C18.1054 15.4804 18 15.7348 18 16C18 16.2652 18.1054 16.5196 18.2929 16.7071C18.4804 16.8946 18.7348 17 19 17H21V22C21 22.2652 21.1054 22.5196 21.2929 22.7071C21.4804 22.8946 21.7348 23 22 23C22.2652 23 22.5196 22.8946 22.7071 22.7071C22.8946 22.5196 23 22.2652 23 22V17H25C25.2652 17 25.5196 16.8946 25.7071 16.7071C25.8946 16.5196 26 16.2652 26 16C26 15.7348 25.8946 15.4804 25.7071 15.2929C25.5196 15.1054 25.2652 15 25 15Z" fill="white"/>
+              </svg>
+
+              <div class="fixed z-100 ml-16  
+              bg-transparent text-gray-900
+               px-4 py-2 hover-target2">
+                Text
+              </div>
+            </a>
+          </div>
+
+          <div class="relative hover-trigger4">
+          <a href="#" class="inline-flex aside-icons items-center hover:text-white focus:text-white px-2" :class="{'justify-start': menu, 'justify-center': menu == false}">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g opacity="0.4">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3764 24.0279L22.1628 12.6654C22.6403 12.0527 22.8101 11.3443 22.6509 10.623C22.513 9.96726 22.1097 9.34377 21.5049 8.87078L20.0299 7.69906C18.7459 6.67784 17.1541 6.78534 16.2415 7.95706L15.2546 9.23735C15.1273 9.39752 15.1591 9.63401 15.3183 9.76301C15.3183 9.76301 17.812 11.7625 17.8651 11.8055C18.0349 11.9667 18.1622 12.1817 18.1941 12.4397C18.2471 12.9449 17.8969 13.4179 17.377 13.4824C17.1329 13.5147 16.8994 13.4394 16.7297 13.2997L14.1086 11.2142C13.9813 11.1186 13.7902 11.139 13.6841 11.268L7.45514 19.3303C7.0519 19.8355 6.91395 20.4912 7.0519 21.1255L7.84777 24.5761C7.89021 24.7589 8.04939 24.8879 8.24039 24.8879L11.7422 24.8449C12.3789 24.8341 12.9732 24.5439 13.3764 24.0279ZM18.2797 22.9533H23.9898C24.5469 22.9533 25 23.4123 25 23.9766C25 24.5421 24.5469 25 23.9898 25H18.2797C17.7226 25 17.2695 24.5421 17.2695 23.9766C17.2695 23.4123 17.7226 22.9533 18.2797 22.9533Z" fill="white"/>
+              </g>
+              </svg>
+              
+          </a>
+          <div class="fixed z-100 ml-16  
+              bg-transparent text-gray-900
+               px-4 py-2 hover-target4">
+                Edit
+              </div>
+          </div>
+
+          <div class="relative hover-trigger2">
+          <a href="#" class="inline-flex aside-icons items-center hover:text-white focus:text-white px-2" :class="{'justify-start': menu, 'justify-center': menu == false}">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g opacity="0.4">
+              <path opacity="0.4" d="M20.0756 6H23.4616C24.8639 6 26.0001 7.14585 26.0001 8.55996V11.9745C26.0001 13.3886 24.8639 14.5345 23.4616 14.5345H20.0756C18.6734 14.5345 17.5371 13.3886 17.5371 11.9745V8.55996C17.5371 7.14585 18.6734 6 20.0756 6" fill="white"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8.53852 6H11.9245C13.3268 6 14.463 7.14585 14.463 8.55996V11.9745C14.463 13.3886 13.3268 14.5345 11.9245 14.5345H8.53852C7.13626 14.5345 6 13.3886 6 11.9745V8.55996C6 7.14585 7.13626 6 8.53852 6ZM8.53852 17.4655H11.9245C13.3268 17.4655 14.463 18.6114 14.463 20.0255V23.44C14.463 24.8532 13.3268 26 11.9245 26H8.53852C7.13626 26 6 24.8532 6 23.44V20.0255C6 18.6114 7.13626 17.4655 8.53852 17.4655ZM23.4615 17.4655H20.0755C18.6732 17.4655 17.537 18.6114 17.537 20.0255V23.44C17.537 24.8532 18.6732 26 20.0755 26H23.4615C24.8637 26 26 24.8532 26 23.44V20.0255C26 18.6114 24.8637 17.4655 23.4615 17.4655Z" fill="white"/>
+              </g>
+              </svg>
+              <div class="fixed z-100 ml-16  
+              bg-transparent text-gray-900
+               px-4 py-2 hover-target2">
+                Add App
+              </div>
+          </a>
+          </div>
+
+          <div class="relative hover-trigger2">
+          <a href="#" class="inline-flex aside-icons items-center hover:text-white focus:text-white px-2" :class="{'justify-start': menu, 'justify-center': menu == false}">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g opacity="0.4">
+              <path d="M16.1098 19.39L12.2298 23.27C11.7601 23.7234 11.1327 23.9767 10.4798 23.9767C9.82698 23.9767 9.1996 23.7234 8.72984 23.27C8.49944 23.0405 8.31663 22.7678 8.19189 22.4675C8.06715 22.1672 8.00294 21.8452 8.00294 21.52C8.00294 21.1948 8.06715 20.8728 8.19189 20.5725C8.31663 20.2722 8.49944 19.9995 8.72984 19.77L12.6098 15.89C12.7981 15.7017 12.9039 15.4463 12.9039 15.18C12.9039 14.9137 12.7981 14.6583 12.6098 14.47C12.4215 14.2817 12.1661 14.1759 11.8998 14.1759C11.6335 14.1759 11.3781 14.2817 11.1898 14.47L7.30984 18.36C6.52819 19.2108 6.10546 20.3307 6.12991 21.4858C6.15436 22.6408 6.62412 23.7418 7.44107 24.5588C8.25802 25.3757 9.359 25.8455 10.5141 25.8699C11.6692 25.8944 12.789 25.4716 13.6398 24.69L17.5298 20.81C17.7181 20.6217 17.8239 20.3663 17.8239 20.1C17.8239 19.8337 17.7181 19.5783 17.5298 19.39C17.3415 19.2017 17.0861 19.0959 16.8198 19.0959C16.5535 19.0959 16.2981 19.2017 16.1098 19.39ZM24.6898 7.31C23.8486 6.47401 22.7108 6.00479 21.5248 6.00479C20.3389 6.00479 19.2011 6.47401 18.3598 7.31L14.4698 11.19C14.3766 11.2832 14.3026 11.3939 14.2522 11.5158C14.2017 11.6376 14.1757 11.7681 14.1757 11.9C14.1757 12.0319 14.2017 12.1624 14.2522 12.2843C14.3026 12.4061 14.3766 12.5168 14.4698 12.61C14.5631 12.7032 14.6738 12.7772 14.7956 12.8277C14.9174 12.8781 15.048 12.9041 15.1798 12.9041C15.3117 12.9041 15.4423 12.8781 15.5641 12.8277C15.6859 12.7772 15.7966 12.7032 15.8898 12.61L19.7698 8.73C20.2396 8.27663 20.867 8.02326 21.5198 8.02326C22.1727 8.02326 22.8001 8.27663 23.2698 8.73C23.5002 8.95949 23.683 9.23221 23.8078 9.53252C23.9325 9.83283 23.9967 10.1548 23.9967 10.48C23.9967 10.8052 23.9325 11.1272 23.8078 11.4275C23.683 11.7278 23.5002 12.0005 23.2698 12.23L19.3898 16.11C19.2961 16.203 19.2217 16.3136 19.1709 16.4354C19.1202 16.5573 19.094 16.688 19.094 16.82C19.094 16.952 19.1202 17.0827 19.1709 17.2046C19.2217 17.3264 19.2961 17.437 19.3898 17.53C19.4828 17.6237 19.5934 17.6981 19.7153 17.7489C19.8371 17.7997 19.9678 17.8258 20.0998 17.8258C20.2318 17.8258 20.3626 17.7997 20.4844 17.7489C20.6063 17.6981 20.7169 17.6237 20.8098 17.53L24.6898 13.64C25.5258 12.7988 25.995 11.661 25.995 10.475C25.995 9.28903 25.5258 8.15122 24.6898 7.31ZM12.8298 19.17C12.9233 19.2627 13.0341 19.336 13.1559 19.3858C13.2778 19.4355 13.4082 19.4608 13.5398 19.46C13.6714 19.4608 13.8019 19.4355 13.9237 19.3858C14.0456 19.336 14.1564 19.2627 14.2498 19.17L19.1698 14.25C19.3581 14.0617 19.4639 13.8063 19.4639 13.54C19.4639 13.2737 19.3581 13.0183 19.1698 12.83C18.9815 12.6417 18.7261 12.5359 18.4598 12.5359C18.1935 12.5359 17.9381 12.6417 17.7498 12.83L12.8298 17.75C12.7361 17.843 12.6617 17.9536 12.6109 18.0754C12.5602 18.1973 12.534 18.328 12.534 18.46C12.534 18.592 12.5602 18.7227 12.6109 18.8446C12.6617 18.9664 12.7361 19.077 12.8298 19.17Z" fill="white"/>
+              </g>
+              </svg>
+              <div class="fixed z-100 ml-16  
+              bg-transparent text-gray-900
+               px-4 py-2 hover-target2">
+                Link
+              </div>
+          </a>
+          </div>
+
+
+          <div class="relative hover-trigger2">
+          <a href="#" class="inline-flex aside-icons items-center hover:text-white focus:text-white px-2" :class="{'justify-start': menu, 'justify-center': menu == false}">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g opacity="0.4">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.8777 10.3786C12.8777 12.2452 11.3389 13.7582 9.43887 13.7582C7.53999 13.7582 6 12.2452 6 10.3786C6 8.51298 7.53999 7 9.43887 7C11.3389 7 12.8777 8.51298 12.8777 10.3786ZM24.4933 8.89833C25.3244 8.89833 26 9.56203 26 10.3786C26 11.1962 25.3244 11.8599 24.4933 11.8599H17.9178C17.0856 11.8599 16.4101 11.1962 16.4101 10.3786C16.4101 9.56203 17.0856 8.89833 17.9178 8.89833H24.4933ZM7.50777 19.958H14.0833C14.9155 19.958 15.5911 20.6217 15.5911 21.4393C15.5911 22.2558 14.9155 22.9206 14.0833 22.9206H7.50777C6.67555 22.9206 6 22.2558 6 21.4393C6 20.6217 6.67555 19.958 7.50777 19.958ZM22.5611 24.7778C24.4611 24.7778 26 23.2648 26 21.3992C26 19.5325 24.4611 18.0196 22.5611 18.0196C20.6623 18.0196 19.1223 19.5325 19.1223 21.3992C19.1223 23.2648 20.6623 24.7778 22.5611 24.7778Z" fill="white"/>
+              </g>
+              </svg>
+              <div class="fixed z-100 ml-16  
+              bg-transparent text-gray-900
+               px-4 py-2 hover-target2">
+                Filter
+              </div>
+          </a>
+          </div>
+            </nav>
+
+           
+            <div class="flex flex-col mt-10 h-64  ">
+              <a class="inline-flex  p-3 justify-center border-gray-700 h-15 w-full border-t px-2">
+                <svg width="39" height="49" viewBox="0 0 49 69" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g opacity="0.4">
+                  <path d="M46.4733 13.5267L43.9999 11.0733C44.96 9.87627 45.4249 8.35687 45.2991 6.82753C45.1733 5.2982 44.4664 3.87519 43.3236 2.8511C42.1808 1.82701 40.6891 1.27967 39.1552 1.32165C37.6213 1.36362 36.1618 1.99171 35.0767 3.07676C33.9916 4.16182 33.3636 5.62136 33.3216 7.15528C33.2796 8.68921 33.8269 10.1809 34.851 11.3237C35.8751 12.4664 37.2981 13.1734 38.8275 13.2992C40.3568 13.425 41.8762 12.9601 43.0733 12L45.5266 14.4533C45.5886 14.5158 45.6623 14.5654 45.7436 14.5993C45.8248 14.6331 45.9119 14.6505 45.9999 14.6505C46.0879 14.6505 46.1751 14.6331 46.2563 14.5993C46.3376 14.5654 46.4113 14.5158 46.4733 14.4533C46.5934 14.329 46.6606 14.1629 46.6606 13.99C46.6606 13.8171 46.5934 13.651 46.4733 13.5267ZM39.3333 12C38.4103 12 37.508 11.7263 36.7406 11.2135C35.9732 10.7007 35.375 9.97191 35.0218 9.11919C34.6686 8.26647 34.5762 7.32816 34.7563 6.42291C34.9363 5.51767 35.3808 4.68615 36.0334 4.0335C36.6861 3.38086 37.5176 2.9364 38.4228 2.75634C39.3281 2.57627 40.2664 2.66869 41.1191 3.0219C41.9718 3.37511 42.7007 3.97324 43.2135 4.74067C43.7262 5.5081 43.9999 6.41035 43.9999 7.33333C43.9999 8.57101 43.5083 9.758 42.6331 10.6332C41.7579 11.5083 40.5709 12 39.3333 12Z" fill="white"/>
+                  </g>
+                  <rect x="22.25" y="43.25" width="26.5" height="23.5" fill="black" stroke="white" stroke-width="0.5"/>
+                  <rect x="13.25" y="32.25" width="26.5" height="23.5" fill="white" stroke="black" stroke-width="0.5"/>
+                  <rect x="4.85" y="59.8813" width="8.05" height="8.05" fill="black" stroke="white" stroke-width="0.2"/>
+                  <rect x="2.1" y="56.1" width="8.05" height="8.05" fill="white" stroke="black" stroke-width="0.2"/>
+                  <g opacity="0.4">
+                  <path d="M6.51645 14.1356H11.4921C11.6684 13.5736 11.9884 11.398 12.6629 9.64911C13.5406 7.37371 14.4432 5.38137 13.2964 5.18425C12.384 5.00697 11.9823 6.9616 11.3824 8.21142C11.3824 8.21142 11.3766 6.9902 11.3696 5.65885C11.3622 4.24722 11.5369 2.55073 10.7997 2.60648C10.0393 2.55073 9.98022 4.01953 9.77943 5.1161C9.56433 6.2908 9.36707 7.50734 9.36707 7.50734C9.36707 7.50734 9.16221 6.46828 9.0172 5.02825C8.8856 3.7213 8.82783 1.96767 8.05667 2.00046C7.14303 1.96767 7.32401 3.69886 7.34061 5.0918C7.35362 6.18361 7.31574 7.49761 7.31574 7.49761C7.31574 7.49761 6.82748 6.30365 6.57585 5.63543C6.07938 4.35277 5.64482 3.06881 4.73089 3.4772C3.9214 3.85796 4.65463 5.27899 5.05003 6.73767C5.39693 8.01738 5.74379 9.40079 5.74379 9.40079C5.74379 9.40079 3.39903 6.46045 2.30699 7.42765C1.33982 8.33244 2.84099 9.18892 4.26963 10.9024C5.07977 11.8741 5.93822 13.3839 6.51645 14.1356H6.51645Z" stroke="white"/>
+                  </g>
+                  </svg>
+                  
+              </a>
+              <a class="inline-flex  p-3 justify-center border-gray-700 px-2">
+                <svg width="40" height="18" viewBox="0 0 58 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="37" y="2" width="15" height="11" fill="#DCF6F3" stroke="black" stroke-width="0.2"/>
+                  <rect x="42" y="6" width="15" height="11" fill="#DCF6F3" stroke="black" stroke-width="0.2"/>
+                  <rect x="1" y="1" width="28" height="16" stroke="#DCF6F3" stroke-width="0.5"/>
+                  <circle cx="15" cy="9" r="5.25" stroke="#DCF6F3" stroke-width="0.5" stroke-dasharray="1 1"/>
+                  </svg>
+                  
+              </a>
+            </div>
+          </div>
+        </aside>
+        <div class="bg-teal-900 flex flex-ccol fixed w-full" style="background:#083430">
+          <div class="hamburger text-white border-r-2 " style="width: 66px;">
+            <a href="#" class="inline-flex items-center py-3 hover:text-white focus:text-white focus:text-white px-2" :class="{'justify-start': menu, 'justify-center': menu == false}">
+              <span class="ml-2 font-bold"  x-show="menu">T</span>
+              <svg fill="currentColor" viewBox="0 0 20 20" 
+               class="inline w-4 h-4 mt-1 ml-2 text-white transition-transform duration-200
+                transform md:-mt-1"><path fill-rule="evenodd" 
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 
+                1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" 
+                clip-rule="evenodd"></path></svg>
+          </a>
+            <div class="mx-16 cursor-pointer text-white" @click="menu = !menu"style="margin-left: 12px;" >
+              <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            </div>
+          </div>
+       
+  <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200
+      dark-mode:bg-gray-800 " style="background: #083430;">
+  <div x-data="{ open: false }" 
+  class="flex flex-col max-w-screen-xl pr-4 mx-auto md:items-center  md:flex-row">
+    <div class="p-4 flex flex-row items-center justify-between">
+      <nav :class="{'flex': open, 'hidden': !open}" class="flex-col  flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+        <div @click.away="open = false" class="relative " x-data="{ open: false }">
+          <div @click="open = !open" 
+          class="flex flex-row items-center w-full
+          px-4 py-2 mt-2 text-normal text-xl text-white  text-left bg-teal-900
+            md:w-auto md:inline md:mt-0 md:ml-4 cursor-pointer">
+            <span>Gilroy</span>
+            <svg fill="currentColor" viewBox="0 0 20 20" 
+            :class="{'rotate-180': open, 'rotate-0': !open}"
+             class="inline w-4 h-4 mt-1 ml-16 bg-teal-600 text-white transition-transform duration-200
+              transform md:-mt-1"><path fill-rule="evenodd" 
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 
+              1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" 
+              clip-rule="evenodd"></path></svg>
+          </div>
+          <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48" style="width:11rem">
+            <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #1</a>
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #2</a>
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #3</a>
+            </div>
+          </div>
+        </div>
+        
+        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+          <div @click="open = !open" 
+          class="flex flex-row items-center w-full
+          px-4 py-2 mt-2 text-xl text-white  text-left bg-teal-900
+            md:w-auto md:inline md:mt-0 md:ml-4 cursor-pointer">
+            <span>Medium</span>
+            <svg fill="currentColor" viewBox="0 0 20 20" 
+            :class="{'rotate-180': open, 'rotate-0': !open}" 
+            class="inline w-4 h-4 mt-1 ml-4 text-white bg-teal-600 
+             transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48" style="width: 90%">
+            <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #1</a>
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #2</a>
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #3</a>
+            </div>
+          </div>
+        </div>
+     
+        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+          <div @click="open = !open" class="flex flex-row items-center w-full
+           px-4 py-2 mt-2 text-xl text-white  text-left bg-teal-900
+             md:w-auto md:inline md:mt-0 md:ml-4 cursor-pointer">
+            <span>16</span>
+            <svg fill="currentColor" viewBox="0 0 20 20" 
+            :class="{'rotate-180': open, 'rotate-0': !open}" 
+            class="inline w-4 h-4 mt-1 ml-16 text-white bg-teal-600 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48" style="width: 90%">
+            <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #1</a>
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #2</a>
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #3</a>
+            </div>
+          </div>
+        </div>  
+        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+          <div @click="open = !open" 
+          class="flex flex-row items-center w-full
+           px-4 py-2 mt-2 text-xl text-white  text-left bg-teal-900
+             md:w-auto md:inline md:mt-0 md:ml-4 cursor-pointer">
+            <span>Opacity</span>
+            <svg fill="currentColor" viewBox="0 0 20 20" 
+            :class="{'rotate-180': open, 'rotate-0': !open}" 
+            class="inline w-4 h-4 mt-1 ml-4 text-white bg-teal-600
+             transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div x-show="open" x-transition:enter="transition ease-out duration-100"
+           x-transition:enter-start="transform opacity-0 scale-95" 
+           x-transition:enter-end="transform opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-75" 
+            x-transition:leave-start="transform opacity-100 scale-100"
+             x-transition:leave-end="transform opacity-0 scale-95"
+              class="absolute right-0 w-full mt-2 origin-top-right 
+              rounded-md shadow-lg md:w-48" style="width: 90%">
+            <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #1</a>
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #2</a>
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #3</a>
+            </div>
+          </div>
+        </div>   
+      </nav>
+      <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
+        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+          <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+          <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+
+  </div>
+</div>
+      </div>
+    </div>
+    
+    <div class="flex-grow text-gray-800 ">
+  
+     <div class="pt-6 sm:pt-16 sm:pl-36">
+
+      <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+        <div class="bg-white xl:ml-2 col-span-2 h-full divide-y-4 divide-dashed
+         " style=" height:34rem; background:#F8F9FA;">
+        <div class="flex items-center text-gray-900  pt-6 pb-4 ">
+          <div class="w-full px-4">
+          <div class="sm:flex items-center justify-between px-12">
+           <a class="ml-4 sm:ml-8" href="">
+             <div class="text-normal text-xl text-dark-600 ">
+                 <p>Logo/Name</p>
+             </div>
+         </a>
+
+           <div class="flex items-center">
+             <a class="ml-4 sm:ml-8" href="">
+               <div class="text-normal text-xl text-dark-600 ">
+                   <p>Home</p>
+               </div>
+           </a>
+             <a class="ml-4 sm:ml-8" href="">
+               <div class="text-normal text-xl text-dark-600 ">
+                   <p>About</p>
+               </div>
+           </a>
+             <a class="ml-4 sm:ml-8" href="">
+               <div class="text-normal text-xl text-dark-600 ">
+                   <p>Blog</p>
+               </div>
+           </a>
+             <a class="ml-4 sm:ml-8" href="">
+                 <div class="text-normal font-lighter text-xl text-dark-600 ">
+                     <p>Contact</p>
+                 </div>
+             </a>
+         </div>
+       </div>
+       </div>
+          </div>
+
+          <div class="flex items-center text-gray-900 pt-6 pb-4 ">
+          <div class="w-full px-4">
+          <div class="px-12">
+           <div class="ml-4 sm:ml-8">
+                 <p class="text-normal text-xl text-dark-600">Title</p>
+           </div>
+           <div class="flex justify-center py-8">
+             <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M85 40C83.6739 40 82.4021 40.5268 81.4645 41.4645C80.5268 42.4021 80 43.6739 80 45V61.9L72.6 54.5C69.9871 51.9077 66.4556 50.4531 62.775 50.4531C59.0944 50.4531 55.5629 51.9077 52.95 54.5L49.45 58.05L37.05 45.6C34.4371 43.0077 30.9056 41.5531 27.225 41.5531C23.5444 41.5531 20.0129 43.0077 17.4 45.6L10 53.05V25C10 23.6739 10.5268 22.4021 11.4645 21.4645C12.4021 20.5268 13.6739 20 15 20H55C56.3261 20 57.5979 19.4732 58.5355 18.5355C59.4732 17.5979 60 16.3261 60 15C60 13.6739 59.4732 12.4021 58.5355 11.4645C57.5979 10.5268 56.3261 10 55 10H15C11.0218 10 7.20644 11.5804 4.3934 14.3934C1.58035 17.2064 0 21.0218 0 25V86.1C0.0131753 89.7824 1.48187 93.3103 4.08577 95.9142C6.68968 98.5181 10.2175 99.9868 13.9 100H76.1C77.4549 99.9892 78.8015 99.7872 80.1 99.4C82.9872 98.5902 85.5289 96.8555 87.3353 94.462C89.1417 92.0686 90.1129 89.1486 90.1 86.15V45C90.1001 44.3349 89.9676 43.6764 89.7101 43.0632C89.4526 42.45 89.0753 41.8943 88.6004 41.4286C88.1254 40.963 87.5624 40.5968 86.9441 40.3515C86.3259 40.1062 85.665 39.9867 85 40ZM15 90C13.6739 90 12.4021 89.4732 11.4645 88.5355C10.5268 87.5979 10 86.3261 10 85V67.15L24.45 52.7C25.1808 51.9733 26.1694 51.5654 27.2 51.5654C28.2306 51.5654 29.2192 51.9733 29.95 52.7L67.3 90H15ZM80 85C79.9679 85.9682 79.6552 86.9062 79.1 87.7L56.5 65L60.05 61.5C60.4085 61.1341 60.8363 60.8435 61.3085 60.6451C61.7807 60.4466 62.2878 60.3444 62.8 60.3444C63.3122 60.3444 63.8193 60.4466 64.2915 60.6451C64.7637 60.8435 65.1915 61.1341 65.55 61.5L80 76.05V85ZM95 10H90V5C90 3.67392 89.4732 2.40215 88.5355 1.46447C87.5979 0.526784 86.3261 0 85 0C83.6739 0 82.4021 0.526784 81.4645 1.46447C80.5268 2.40215 80 3.67392 80 5V10H75C73.6739 10 72.4021 10.5268 71.4645 11.4645C70.5268 12.4021 70 13.6739 70 15C70 16.3261 70.5268 17.5979 71.4645 18.5355C72.4021 19.4732 73.6739 20 75 20H80V25C80 26.3261 80.5268 27.5979 81.4645 28.5355C82.4021 29.4732 83.6739 30 85 30C86.3261 30 87.5979 29.4732 88.5355 28.5355C89.4732 27.5979 90 26.3261 90 25V20H95C96.3261 20 97.5979 19.4732 98.5355 18.5355C99.4732 17.5979 100 16.3261 100 15C100 13.6739 99.4732 12.4021 98.5355 11.4645C97.5979 10.5268 96.3261 10 95 10Z" fill="#E6E7E9"/>
+           </svg>
+           </div>
+
+         </div>
+       </div>
+       </div>
+
+       <div class="flex items-center text-gray-900 pt-6 pb-4 ">
+       <div class="w-full px-4">
+       <div class="px-12 ml-4 sm:ml-8">
+        <div class="flex justify-between py-8 flex-wrap">
+          <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <path d="M85 40C83.6739 40 82.4021 40.5268 81.4645 41.4645C80.5268 42.4021 80 43.6739 80 45V61.9L72.6 54.5C69.9871 51.9077 66.4556 50.4531 62.775 50.4531C59.0944 50.4531 55.5629 51.9077 52.95 54.5L49.45 58.05L37.05 45.6C34.4371 43.0077 30.9056 41.5531 27.225 41.5531C23.5444 41.5531 20.0129 43.0077 17.4 45.6L10 53.05V25C10 23.6739 10.5268 22.4021 11.4645 21.4645C12.4021 20.5268 13.6739 20 15 20H55C56.3261 20 57.5979 19.4732 58.5355 18.5355C59.4732 17.5979 60 16.3261 60 15C60 13.6739 59.4732 12.4021 58.5355 11.4645C57.5979 10.5268 56.3261 10 55 10H15C11.0218 10 7.20644 11.5804 4.3934 14.3934C1.58035 17.2064 0 21.0218 0 25V86.1C0.0131753 89.7824 1.48187 93.3103 4.08577 95.9142C6.68968 98.5181 10.2175 99.9868 13.9 100H76.1C77.4549 99.9892 78.8015 99.7872 80.1 99.4C82.9872 98.5902 85.5289 96.8555 87.3353 94.462C89.1417 92.0686 90.1129 89.1486 90.1 86.15V45C90.1001 44.3349 89.9676 43.6764 89.7101 43.0632C89.4526 42.45 89.0753 41.8943 88.6004 41.4286C88.1254 40.963 87.5624 40.5968 86.9441 40.3515C86.3259 40.1062 85.665 39.9867 85 40ZM15 90C13.6739 90 12.4021 89.4732 11.4645 88.5355C10.5268 87.5979 10 86.3261 10 85V67.15L24.45 52.7C25.1808 51.9733 26.1694 51.5654 27.2 51.5654C28.2306 51.5654 29.2192 51.9733 29.95 52.7L67.3 90H15ZM80 85C79.9679 85.9682 79.6552 86.9062 79.1 87.7L56.5 65L60.05 61.5C60.4085 61.1341 60.8363 60.8435 61.3085 60.6451C61.7807 60.4466 62.2878 60.3444 62.8 60.3444C63.3122 60.3444 63.8193 60.4466 64.2915 60.6451C64.7637 60.8435 65.1915 61.1341 65.55 61.5L80 76.05V85ZM95 10H90V5C90 3.67392 89.4732 2.40215 88.5355 1.46447C87.5979 0.526784 86.3261 0 85 0C83.6739 0 82.4021 0.526784 81.4645 1.46447C80.5268 2.40215 80 3.67392 80 5V10H75C73.6739 10 72.4021 10.5268 71.4645 11.4645C70.5268 12.4021 70 13.6739 70 15C70 16.3261 70.5268 17.5979 71.4645 18.5355C72.4021 19.4732 73.6739 20 75 20H80V25C80 26.3261 80.5268 27.5979 81.4645 28.5355C82.4021 29.4732 83.6739 30 85 30C86.3261 30 87.5979 29.4732 88.5355 28.5355C89.4732 27.5979 90 26.3261 90 25V20H95C96.3261 20 97.5979 19.4732 98.5355 18.5355C99.4732 17.5979 100 16.3261 100 15C100 13.6739 99.4732 12.4021 98.5355 11.4645C97.5979 10.5268 96.3261 10 95 10Z" fill="#E6E7E9"/>
+        </svg>
+
+        <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M85 40C83.6739 40 82.4021 40.5268 81.4645 41.4645C80.5268 42.4021 80 43.6739 80 45V61.9L72.6 54.5C69.9871 51.9077 66.4556 50.4531 62.775 50.4531C59.0944 50.4531 55.5629 51.9077 52.95 54.5L49.45 58.05L37.05 45.6C34.4371 43.0077 30.9056 41.5531 27.225 41.5531C23.5444 41.5531 20.0129 43.0077 17.4 45.6L10 53.05V25C10 23.6739 10.5268 22.4021 11.4645 21.4645C12.4021 20.5268 13.6739 20 15 20H55C56.3261 20 57.5979 19.4732 58.5355 18.5355C59.4732 17.5979 60 16.3261 60 15C60 13.6739 59.4732 12.4021 58.5355 11.4645C57.5979 10.5268 56.3261 10 55 10H15C11.0218 10 7.20644 11.5804 4.3934 14.3934C1.58035 17.2064 0 21.0218 0 25V86.1C0.0131753 89.7824 1.48187 93.3103 4.08577 95.9142C6.68968 98.5181 10.2175 99.9868 13.9 100H76.1C77.4549 99.9892 78.8015 99.7872 80.1 99.4C82.9872 98.5902 85.5289 96.8555 87.3353 94.462C89.1417 92.0686 90.1129 89.1486 90.1 86.15V45C90.1001 44.3349 89.9676 43.6764 89.7101 43.0632C89.4526 42.45 89.0753 41.8943 88.6004 41.4286C88.1254 40.963 87.5624 40.5968 86.9441 40.3515C86.3259 40.1062 85.665 39.9867 85 40ZM15 90C13.6739 90 12.4021 89.4732 11.4645 88.5355C10.5268 87.5979 10 86.3261 10 85V67.15L24.45 52.7C25.1808 51.9733 26.1694 51.5654 27.2 51.5654C28.2306 51.5654 29.2192 51.9733 29.95 52.7L67.3 90H15ZM80 85C79.9679 85.9682 79.6552 86.9062 79.1 87.7L56.5 65L60.05 61.5C60.4085 61.1341 60.8363 60.8435 61.3085 60.6451C61.7807 60.4466 62.2878 60.3444 62.8 60.3444C63.3122 60.3444 63.8193 60.4466 64.2915 60.6451C64.7637 60.8435 65.1915 61.1341 65.55 61.5L80 76.05V85ZM95 10H90V5C90 3.67392 89.4732 2.40215 88.5355 1.46447C87.5979 0.526784 86.3261 0 85 0C83.6739 0 82.4021 0.526784 81.4645 1.46447C80.5268 2.40215 80 3.67392 80 5V10H75C73.6739 10 72.4021 10.5268 71.4645 11.4645C70.5268 12.4021 70 13.6739 70 15C70 16.3261 70.5268 17.5979 71.4645 18.5355C72.4021 19.4732 73.6739 20 75 20H80V25C80 26.3261 80.5268 27.5979 81.4645 28.5355C82.4021 29.4732 83.6739 30 85 30C86.3261 30 87.5979 29.4732 88.5355 28.5355C89.4732 27.5979 90 26.3261 90 25V20H95C96.3261 20 97.5979 19.4732 98.5355 18.5355C99.4732 17.5979 100 16.3261 100 15C100 13.6739 99.4732 12.4021 98.5355 11.4645C97.5979 10.5268 96.3261 10 95 10Z" fill="#E6E7E9"/>
+         </svg>
+
+         <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M85 40C83.6739 40 82.4021 40.5268 81.4645 41.4645C80.5268 42.4021 80 43.6739 80 45V61.9L72.6 54.5C69.9871 51.9077 66.4556 50.4531 62.775 50.4531C59.0944 50.4531 55.5629 51.9077 52.95 54.5L49.45 58.05L37.05 45.6C34.4371 43.0077 30.9056 41.5531 27.225 41.5531C23.5444 41.5531 20.0129 43.0077 17.4 45.6L10 53.05V25C10 23.6739 10.5268 22.4021 11.4645 21.4645C12.4021 20.5268 13.6739 20 15 20H55C56.3261 20 57.5979 19.4732 58.5355 18.5355C59.4732 17.5979 60 16.3261 60 15C60 13.6739 59.4732 12.4021 58.5355 11.4645C57.5979 10.5268 56.3261 10 55 10H15C11.0218 10 7.20644 11.5804 4.3934 14.3934C1.58035 17.2064 0 21.0218 0 25V86.1C0.0131753 89.7824 1.48187 93.3103 4.08577 95.9142C6.68968 98.5181 10.2175 99.9868 13.9 100H76.1C77.4549 99.9892 78.8015 99.7872 80.1 99.4C82.9872 98.5902 85.5289 96.8555 87.3353 94.462C89.1417 92.0686 90.1129 89.1486 90.1 86.15V45C90.1001 44.3349 89.9676 43.6764 89.7101 43.0632C89.4526 42.45 89.0753 41.8943 88.6004 41.4286C88.1254 40.963 87.5624 40.5968 86.9441 40.3515C86.3259 40.1062 85.665 39.9867 85 40ZM15 90C13.6739 90 12.4021 89.4732 11.4645 88.5355C10.5268 87.5979 10 86.3261 10 85V67.15L24.45 52.7C25.1808 51.9733 26.1694 51.5654 27.2 51.5654C28.2306 51.5654 29.2192 51.9733 29.95 52.7L67.3 90H15ZM80 85C79.9679 85.9682 79.6552 86.9062 79.1 87.7L56.5 65L60.05 61.5C60.4085 61.1341 60.8363 60.8435 61.3085 60.6451C61.7807 60.4466 62.2878 60.3444 62.8 60.3444C63.3122 60.3444 63.8193 60.4466 64.2915 60.6451C64.7637 60.8435 65.1915 61.1341 65.55 61.5L80 76.05V85ZM95 10H90V5C90 3.67392 89.4732 2.40215 88.5355 1.46447C87.5979 0.526784 86.3261 0 85 0C83.6739 0 82.4021 0.526784 81.4645 1.46447C80.5268 2.40215 80 3.67392 80 5V10H75C73.6739 10 72.4021 10.5268 71.4645 11.4645C70.5268 12.4021 70 13.6739 70 15C70 16.3261 70.5268 17.5979 71.4645 18.5355C72.4021 19.4732 73.6739 20 75 20H80V25C80 26.3261 80.5268 27.5979 81.4645 28.5355C82.4021 29.4732 83.6739 30 85 30C86.3261 30 87.5979 29.4732 88.5355 28.5355C89.4732 27.5979 90 26.3261 90 25V20H95C96.3261 20 97.5979 19.4732 98.5355 18.5355C99.4732 17.5979 100 16.3261 100 15C100 13.6739 99.4732 12.4021 98.5355 11.4645C97.5979 10.5268 96.3261 10 95 10Z" fill="#E6E7E9"/>
+         </svg>
+
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <div class="flex items-center text-gray-900 pt-6 pb-4 ">
+      <div class="w-full px-4">
+      <div class="px-12 ml-4 sm:ml-8">
+       <div class="flex justify-between py-8 flex-wrap">
+        
+       </div>
+
+     </div>
+   </div>
+   </div>
+
+       
+          </div>
+        
+          <div class=" w-full relative lg:px-2 bg-blue-400 h-full ml-8 mt-6" 
+          style="width:27rem; background: #083430;;">
+          <div class="first-line h-full border-t-2 border-white absolute">
+          <div class="second-line h-full border-l-2 border-white absolute">
+            <!-- Card -->
+             <div class="overflow-hidden pt-8" style="width:27rem";>
+           
+              <div class="flex flex-col space-y-6 mx-2 md:space-y-0 md:flex-row justify-between">
+                <div class="flex flex-wrap items-start justify-end mb-3 ">
+                  <div class="cursor-pointer text-2xl px-2 py-2 text-white mb-3">
+                    Color
+                  </div>
+                  <div class="cursor-pointer text-2xl px-2 py-2 text-white ml-6 mb-3" style="color:#286963;">
+                    Libraries
+                  </div>
+                  <div class=" cursor-pointer text-2xl px-2 py-2 text-white ml-6 mb-3" style="color:#286963">
+                    Background
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+                <div class="flex flex-wrap items-start justify-end mb-6 mx-2">
+                  <div class="cursor-pointer text-2xl px-2 py-2 text-white mb-3">
+                    <svg width="27" height="30" viewBox="0 0 27 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="6.85" y="9.38125" width="20.05" height="20.05" fill="black" stroke="white" stroke-width="0.2"/>
+                      <rect x="0.1" y="0.1" width="20.05" height="20.05" fill="white" stroke="black" stroke-width="0.2"/>
+                      </svg>
+                      
+                  </div>
+                  <div class="cursor-pointer text-2xl px-2 py-2 text-white ml-6 mb-3" style="color:#286963;">
+                    <img class="" src="./assets/img/color2.png" alt="img1">
+                  </div>
+                  <div class=" cursor-pointer text-2xl px-2 py-2 text-white ml-6 mb-3" style="color:#286963">
+                    <img class="" src="./assets/img/color.png" alt="img1">
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col px-4 items-center space-y-6 md:space-y-0 md:flex-row justify-between
+               bg-gray-500" style="background: #102A27;">
+                  <div class=" text-xl font-bold text-white">
+                    Layers
+                  </div>
+                  <div class="text-xl text-white">
+                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+             </svg>
+                  </div>
+              </div>
+
+  <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200
+   dark-mode:bg-gray-800 mt-4 py-4   " style="background: #102A27;">
+  <div class="flex flex-col  max-w-screen-xl mx-auto md:items-center  md:flex-row">
+    <div class=" flex flex-row items-center justify-between">
+      <nav class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+          <div @click="open = !open" class="flex flex-row items-center w-full
+           px-2 py-2 mt-2 text-white font-bold text-left bg-teal-900
+             md:w-auto md:inline md:mt-0 md:ml-4 cursor-pointer">
+            <span>Opacity</span>
+            <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline w-4 h-4 mt-1 text-white bg-teal-600 transition-transform duration-200 transform md:-mt-1 rotate-0"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </div>
+        
+        </div>
+        
+        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+          <div @click="open = !open" class="flex flex-row items-center w-full
+          px-2 py-2 mt-2 font-bold text-white  text-left bg-teal-900
+            md:w-auto md:inline md:mt-0 md:ml-4 cursor-pointer">
+            <span>Tools</span>
+            <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline w-4 h-4 mt-1 ml-4 text-white bg-teal-600 transition-transform duration-200 transform md:-mt-1 rotate-0"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </div>
+        </div>
+     
+        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+          <div @click="open = !open" class="flex flex-row items-center w-full
+          px-2 py-2 mt-2 font-bold text-white  text-left bg-teal-900
+            md:w-auto md:inline md:mt-0 md:ml-4 cursor-pointer">
+            <span>Rulers</span>
+          </div>
+        </div> 
+        
+        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+          <div @click="open = !open" class="flex flex-row items-center w-full
+           px-2 py-2 mt-2 font-bold text-white  text-left bg-teal-900
+             md:w-auto md:inline md:mt-0 md:ml-4 cursor-pointer">
+            <span>Grids</span>
+          </div>
+        </div> 
+          
+      </nav>
+    
+
+  </div>
+</div>
+      </div>
+            </div>
+          </div>
+            </div> 
+            <!-- END Card -->
+  
+        </div>
+     </div>
+        </div>
+
+        
+     </div>
+   </div>
+   </div>
+    </main>
+  </div>
+</div>
+
+  <script src="https://demo.themesberg.com/windster/app.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+  
+      <script src="./assets/script/modal.js"></script>
+</body>
+</html>
