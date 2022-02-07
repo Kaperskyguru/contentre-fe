@@ -1,6 +1,6 @@
 <template>
-  <div class="lg:mx-24 bg-white">
-    <section class="my-8 pt-3">
+  <div class="bg-white lg:mx-24">
+    <section class="pt-3 my-8">
       <h1 class="text-3xl font-bold text-gray-900">Solomon Eseme</h1>
     </section>
 
@@ -9,34 +9,34 @@
         class="py-40 bg-center bg-cover"
         :style="{ backgroundImage: `url(${image})` }"
       >
-        <div class="relative container px-6 mx-auto">
-          <div class="lg:flex items-center">
+        <div class="container relative px-6 mx-auto">
+          <div class="items-center lg:flex">
             <section>
               <div class="text-black">
                 <div class="container mx-auto">
                   <div
                     class="
-                      flex flex-col
-                      w-full
-                      lg:w-1/2
                       justify-center
                       items-start
                       p-8
+                      w-full
+                      lg:w-1/2
+                      flex flex-col
                     "
                   >
-                    <h1 class="text-xl font-bold md:text-xl text-white mb-4">
+                    <h1 class="mb-4 text-xl font-bold text-white md:text-xl">
                       Hi, I am Solomon Eseme, a freelance writer who creates
                       content that attracts, engages and converts customers.
                     </h1>
                     <a
                       href="#"
                       class="
-                        form-btn
-                        text-sm text-white
-                        rounded
-                        shadow
                         py-2
                         px-12
+                        rounded
+                        shadow
+                        form-btn
+                        text-sm text-white
                       "
                       style="background: #00aeff"
                     >
@@ -51,9 +51,9 @@
       </div>
     </div>
 
-    <section class="text-white text-center">
-      <div class="container mx-auto flex pt-16 pb-8 md:flex-row flex-col">
-        <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 md:mr-2">
+    <section class="text-center text-white">
+      <div class="container flex flex-col pt-16 pb-8 mx-auto md:flex-row">
+        <div class="w-5/6 md:mr-2 md:w-1/2 lg:w-full lg:max-w-lg">
           <img
             class="object-cover object-center rounded"
             alt="hero"
@@ -61,26 +61,18 @@
           />
         </div>
         <div
-          class="
-            lg:flex-grow
-            md:w-1/2
-            ml-2
-            flex flex-col
-            px-10
-            py-4
-            text-center
-          "
+          class="flex flex-col py-4 px-10 ml-2 text-center md:w-1/2 lg:grow"
           style="background: #13142b"
         >
           <h1
             class="
-              sm:text-2xl
-              text-2xl
-              mb-4
               mt-8
+              mb-4
+              text-2xl
               font-bold
               text-white
               uppercase
+              sm:text-2xl
             "
           >
             About Me
@@ -95,14 +87,14 @@
           <div class="flex justify-center pb-8">
             <button
               class="
-                text-sm text-white
-                rounded
-                shadow
                 py-2
                 px-12
-                font-bold
-                form-btn
                 mr-2
+                font-bold
+                rounded
+                shadow
+                text-sm text-white
+                form-btn
               "
               style="background: #00aeff"
             >
@@ -115,27 +107,27 @@
 
     <section class="mb-24">
       <div class="container mx-auto">
-        <div class="flex items-center justify-between py-2">
-          <h1 class="text-3xl font-bold text-gray-900 pt-4 uppercase">
+        <div class="flex justify-between items-center py-2">
+          <h1 class="pt-4 text-3xl font-bold text-gray-900 uppercase">
             Portfolio
           </h1>
         </div>
         <div class="flex flex-wrap">
           <!-- Column -->
-          <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:pr-2 rounded-lg">
+          <div class="w-full rounded-lg md:w-1/2 lg:pr-2 lg:my-2 lg:w-1/3">
             <!-- Article -->
 
             <article class="overflow-hidden">
               <a href="#">
                 <img
                   alt="Placeholder"
-                  class="block h-auto w-full"
+                  class="block w-full h-auto"
                   src="~/assets/img/portfolio-pic1.png"
                 />
               </a>
 
-              <header class="leading-tight py-4">
-                <span class="text-sm sm:text-sm font-normal text-dark-900">
+              <header class="py-4 leading-tight">
+                <span class="text-sm font-normal sm:text-sm text-dark-900">
                   Market research and statistics for 2021 in the Fintech
                   industry.
                 </span>
@@ -145,20 +137,20 @@
           <!-- END Column -->
 
           <!-- Column -->
-          <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:px-2">
+          <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
             <!-- Article -->
 
             <article class="overflow-hidden rounded-lg">
               <a href="#">
                 <img
                   alt="Placeholder"
-                  class="block h-auto w-full"
+                  class="block w-full h-auto"
                   src="~/assets/img/portfolio-pic2.png"
                 />
               </a>
 
-              <header class="leading-tight py-4">
-                <span class="text-sm sm:text-sm font-normal text-dark-900">
+              <header class="py-4 leading-tight">
+                <span class="text-sm font-normal sm:text-sm text-dark-900">
                   Market research and statistics for 2021 in the Fintech
                   industry.
                 </span>
@@ -168,18 +160,18 @@
           <!-- END Column -->
 
           <!-- Column -->
-          <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:pl-2">
+          <div class="w-full md:w-1/2 lg:pl-2 lg:my-2 lg:w-1/3">
             <!-- Article -->
             <article class="overflow-hidden">
               <a href="#">
                 <img
                   alt="Placeholder"
-                  class="block h-auto w-full"
+                  class="block w-full h-auto"
                   src="~/assets/img/portfolio-pic3.png"
                 />
               </a>
-              <header class="leading-tight py-4">
-                <span class="text-sm sm:text-sm font-normal text-dark-900">
+              <header class="py-4 leading-tight">
+                <span class="text-sm font-normal sm:text-sm text-dark-900">
                   Market research and statistics for 2021 in the Fintech
                   industry.
                 </span>
@@ -193,20 +185,20 @@
       <div class="container mx-auto">
         <div class="flex flex-wrap">
           <!-- Column -->
-          <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:pr-2 rounded-lg">
+          <div class="w-full rounded-lg md:w-1/2 lg:pr-2 lg:my-2 lg:w-1/3">
             <!-- Article -->
 
             <article class="overflow-hidden">
               <a href="#">
                 <img
                   alt="Placeholder"
-                  class="block h-auto w-full"
+                  class="block w-full h-auto"
                   src="~/assets/img/portfolio-pic4.png"
                 />
               </a>
 
-              <header class="leading-tight py-4">
-                <span class="text-sm sm:text-sm font-normal text-dark-900">
+              <header class="py-4 leading-tight">
+                <span class="text-sm font-normal sm:text-sm text-dark-900">
                   Market research and statistics for 2021 in the Fintech
                   industry.
                 </span>
@@ -216,20 +208,20 @@
           <!-- END Column -->
 
           <!-- Column -->
-          <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:px-2">
+          <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
             <!-- Article -->
 
             <article class="overflow-hidden rounded-lg">
               <a href="#">
                 <img
                   alt="Placeholder"
-                  class="block h-auto w-full"
+                  class="block w-full h-auto"
                   src="~/assets/img/portfolio-pic5.png"
                 />
               </a>
 
-              <header class="leading-tight py-4">
-                <span class="text-sm sm:text-sm font-normal text-dark-900">
+              <header class="py-4 leading-tight">
+                <span class="text-sm font-normal sm:text-sm text-dark-900">
                   Market research and statistics for 2021 in the Fintech
                   industry.
                 </span>
@@ -239,18 +231,18 @@
           <!-- END Column -->
 
           <!-- Column -->
-          <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:pl-2">
+          <div class="w-full md:w-1/2 lg:pl-2 lg:my-2 lg:w-1/3">
             <!-- Article -->
             <article class="overflow-hidden">
               <a href="#">
                 <img
                   alt="Placeholder"
-                  class="block h-auto w-full"
+                  class="block w-full h-auto"
                   src="~/assets/img/portfolio-pic6.png"
                 />
               </a>
-              <header class="leading-tight py-4">
-                <span class="text-sm sm:text-sm font-normal text-dark-900">
+              <header class="py-4 leading-tight">
+                <span class="text-sm font-normal sm:text-sm text-dark-900">
                   Market research and statistics for 2021 in the Fintech
                   industry.
                 </span>

@@ -1,16 +1,16 @@
 <template>
   <main class="w-full min-h-screen">
-    <div id="hero" class="bg-white w-full px-2 pt-2 z-10 sticky top-0">
+    <div id="hero" class="sticky top-0 z-10 px-2 pt-2 w-full bg-white">
       <header>
         <nav
           class="
-            flex flex-wrap
-            items-center
-            justify-between
-            py-4
-            md:py-0
             z-30
+            justify-between
+            items-center
+            py-4
             w-full
+            md:py-0
+            flex flex-wrap
           "
         >
           <div>
@@ -28,7 +28,7 @@
           <svg
             id="menu-button"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 cursor-pointer md:hidden block"
+            class="block w-6 h-6 cursor-pointer md:hidden"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -44,7 +44,7 @@
 
           <div
             id="navDropdown1"
-            class="w-full hidden md:flex md:items-center md:w-auto"
+            class="hidden w-full md:flex md:items-center md:w-auto"
           >
             <ul class="pt-4 text-gray-700 md:flex md:justify-between md:pt-0">
               <li class="pr-5">
@@ -52,13 +52,13 @@
                   href="https://contentre.io/portfolio"
                   class="
                     inline-flex
-                    px-20
                     py-3
-                    text-white
-                    form-btn
-                    border
-                    rounded-md
+                    px-20
                     mb-3
+                    text-white
+                    rounded-md
+                    border
+                    form-btn
                   "
                 >
                   <span class="">Create A Portfolio</span>
@@ -69,28 +69,28 @@
         </nav>
       </header>
     </div>
-    <section class="container md:px-12 lg:mx-24 bg-white px-2">
+    <section class="container px-2 bg-white md:px-12 lg:mx-24">
       <Nuxt />
 
       <Toast />
     </section>
 
     <footer
-      class="text-gray-600 body-font sm:px-10 md:px-20 py-8 mt-20"
+      class="py-8 mt-20 text-gray-600 sm:px-10 md:px-20 body-font"
       style="background: #102a27"
     >
-      <div class="grid p-2 grid-cols-2">
+      <div class="grid grid-cols-2 p-2">
         <div class="justify-items-start grid-span-1">
           <a href="/" class="">
             <img
-              class="icon w-10 h-10 p-2 bg-white rounded-full"
+              class="p-2 w-10 h-10 bg-white rounded-full icon"
               src="~/assets/img/icon.png"
               alt="logo"
               width="60"
             />
             <span class="ml-3 text-xl text-white">Contentre</span>
           </a>
-          <p class="text-sm text-white pt-2">
+          <p class="pt-2 text-sm text-white">
             Manage all your contents from one place.
           </p>
         </div>
@@ -100,21 +100,21 @@
           >
 
           <a
-            class="text-white hover:text-teal-300 pl-2"
+            class="pl-2 text-white hover:text-teal-300"
             href="https://contentre.io/portfolio"
             >Get a Page</a
           >
 
           <a
-            class="text-white hover:text-teal-300 pl-2"
+            class="pl-2 text-white hover:text-teal-300"
             href="https://blog.contentre.io"
             >Blog</a
           >
         </div>
       </div>
-      <div class="bg-transparent border-t-2 mt-10">
-        <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col">
-          <p class="text-white text-sm text-center">
+      <div class="mt-10 bg-transparent border-t-2">
+        <div class="container flex flex-col flex-wrap py-4 px-5 mx-auto">
+          <p class="text-sm text-center text-white">
             Copyright ® {{ new Date().getFullYear() }} All Copyrights Belong to
             Their Respective Owners.
           </p>

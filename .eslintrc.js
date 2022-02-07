@@ -12,23 +12,22 @@ module.exports = {
   extends: [
     '@nuxtjs',
     'prettier',
-    'plugin:nuxt/recommended'
-    // 'plugin:tailwindcss/recommended'
+    'plugin:nuxt/recommended',
+    'plugin:tailwindcss/recommended'
   ],
-  // plugins: ['tailwindcss'],
+  plugins: ['tailwindcss'],
   rules: {
-    // 'tailwindcss/classnames-order': 'error',
-    'vue/multi-word-component-names': 'error'
-    // 'tailwindcss/no-contradicting-classname': 'error',
-    // 'tailwindcss/no-custom-classname': [
-    //   'warn',
-    //   {
-    //     whitelist: [
-    //       'animation\\-([0-z]+(\\-[0-z]+)*)',
-    //       'custom\\-([0-z]+(\\-[0-z]+)*)',
-    //       '([0-z]+)\\-field'
-    //     ]
-    //   }
-    // ]
+    'tailwindcss/classnames-order': 'error',
+    'tailwindcss/no-contradicting-classname': 'error',
+    'tailwindcss/no-custom-classname': [
+      'warn',
+      {
+        whitelist: [
+          'animation\\-([0-z]+(\\-[0-z]+)*)',
+          'custom\\-([0-z]+(\\-[0-z]+)*)',
+          '([0-z]+)\\-field'
+        ]
+      }
+    ]
   }
 }

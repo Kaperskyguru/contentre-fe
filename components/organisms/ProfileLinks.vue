@@ -1,16 +1,15 @@
 <template>
   <div>
-    <div class="px-4 border-t-2 pt-4">
+    <div class="px-4 pt-4 border-t-2">
       <div
         class="
           flex
-          items-center
           justify-between
+          items-center
           space-x-3
           font-semibold
-          text-gray-900 text-sm
           leading-8
-          text-center
+          text-center text-gray-900 text-sm
         "
       >
         <span>Portfolio Link</span>
@@ -20,7 +19,7 @@
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            class="flex-shrink-0 h-5 w-5 -ml-1 mt-0.5 mr-2"
+            class="shrink-0 mt-0.5 mr-2 -ml-1 w-5 h-5"
           >
             <path
               stroke-linecap="round"
@@ -32,7 +31,7 @@
         </span>
       </div>
 
-      <div class="bg-teal-100 leading-6 rounded-lg pl-2 my-4 links">
+      <div class="pl-2 my-4 leading-6 bg-teal-100 rounded-lg links">
         <a :href="user.portfolio" target="_blank" class="text-gray-600">
           {{ user.portfolio }}
         </a>
@@ -41,71 +40,35 @@
 
     <!-- Profile link -->
 
-    <div class="px-4 border-t-2 my-8 pt-4 text-center">
+    <div class="px-4 pt-4 my-8 text-center border-t-2">
       <div
         class="
           flex
-          items-center
           justify-between
+          items-center
           space-x-3
           font-semibold
-          text-gray-900 text-sm
           leading-8
-          text-center
+          text-center text-gray-900 text-sm
         "
       >
         <span>Profile Links</span>
         <span class="text-black">
-          <i class="fas fa-plus"></i>
+          <Hyperlink :to="{ name: 'clients' }">
+            <i class="fas fa-plus">+</i>
+          </Hyperlink>
         </span>
       </div>
 
       <div class="grid grid-cols-5 mt-2">
-        <div class="text-center my-2">
-          <img
-            class="h-12 w-12 rounded-full mx-auto"
-            src="~/assets/img/medium.png"
-            alt=""
-          />
-          <a href="#" class="text-xs profilelink-a">Medium</a>
-        </div>
-        <div class="text-center my-2">
-          <img
-            class="h-12 w-12 rounded-full mx-auto"
-            src="~/assets/img/zikoko.png"
-            alt=""
-          />
-          <a href="#" class="text-xs profilelink-a text-purple-600">Zikoko</a>
-        </div>
-        <div class="text-center my-2">
-          <img
-            class="h-12 w-12 rounded-full mx-auto"
-            src="~/assets/img/write.png"
-            alt=""
-          />
-          <a href="#" class="text-xs profilelink-a text-red-600"
-            >Writers Stage</a
-          >
-        </div>
-        <div class="text-center my-2">
-          <img
-            class="h-12 w-12 rounded-full mx-auto"
-            src="~/assets/img/pen.png"
-            alt=""
-          />
-          <a href="#" class="text-xs profilelink-a text-blue-600"
-            >I write stuffs</a
-          >
-        </div>
-
-        <div class="text-center my-2">
-          <img
-            class="h-12 w-12 rounded-full mx-auto"
-            src="~/assets/img/article.png"
-            alt=""
-          />
-          <a href="#" class="text-xs profilelink-a text-unknown"
-            >I write Articles</a
+        <div v-for="(client, i) in clients" :key="i" class="my-2 text-center">
+          <a :href="client.profile" class="text-xs profilelink-a">
+            <img
+              class="mx-auto w-12 h-12 rounded-full border"
+              :src="generateIcon(client.icon)"
+              alt=""
+            />
+            {{ client.name }}</a
           >
         </div>
       </div>
@@ -114,11 +77,27 @@
 </template>
 
 <script>
+import { GET_CLIENTS } from '~/graphql'
 export default {
   props: {
     user: {
       type: [Array, Object],
       default: () => {}
+    }
+  },
+  apollo: {
+    clients: {
+      query: GET_CLIENTS,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        return data.getClients.filter((client) => client.profile)
+      }
+    }
+  },
+
+  methods: {
+    generateIcon(icon) {
+      return icon ?? 'https://contentre.io/favicon.ico'
     }
   }
 }

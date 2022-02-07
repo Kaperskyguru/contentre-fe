@@ -4,14 +4,14 @@
       id="toggleSidebarMobileSearch"
       type="button"
       class="
-        lg:hidden
+        p-2
         text-gray-500
         hover:text-gray-900 hover:bg-gray-100
-        p-2
         rounded-lg
+        lg:hidden
       "
     ></button>
-    <div class="lg:flex items-center">
+    <div class="items-center lg:flex">
       <!--user profile -->
       <div class="flex justify-center items-center dark:bg-gray-500">
         <div :x-data="open" class="flex justify-center items-center">
@@ -30,22 +30,21 @@
             >
               <div
                 class="
+                  overflow-hidden
                   w-12
                   h-12
                   rounded-full
-                  overflow-hidden
-                  border-2
                   dark:border-white
-                  border-gray-900
+                  border-2 border-gray-900
                 "
               >
                 <img
                   src="~/assets/img/avatar.jpeg"
                   alt=""
-                  class="w-full h-full object-cover"
+                  class="object-cover w-full h-full"
                 />
               </div>
-              <div class="dark:text-white text-gray-900 text-sm">
+              <div class="text-sm text-gray-900 dark:text-white">
                 <div class="cursor-pointer">
                   {{ user.name }}
                   <svg
@@ -54,10 +53,10 @@
                     :class="{ 'rotate-180': open, 'rotate-0': !open }"
                     class="
                       inline
-                      w-4
-                      h-4
                       mt-1
                       ml-1
+                      w-4
+                      h-4
                       transition-transform
                       duration-200
                       transform
@@ -85,16 +84,16 @@
               x-transition:leave-end="transform opacity-0 scale-95"
               class="
                 absolute
-                w-60
-                px-5
                 py-3
-                dark:bg-gray-800
+                px-5
+                mt-2
+                w-60
                 bg-white
+                dark:bg-gray-800
                 rounded-lg
-                shadow
                 border
                 dark:border-transparent
-                mt-2
+                shadow
               "
             >
               <ul class="space-y-3 dark:text-white">
@@ -104,11 +103,11 @@
                     class="
                       flex
                       items-center
-                      transform
+                      hover:border-indigo-700
                       transition-colors
                       duration-200
+                      transform
                       border-r-4 border-transparent
-                      hover:border-indigo-700
                     "
                   >
                     <div class="mr-3">
@@ -136,11 +135,11 @@
                     class="
                       flex
                       items-center
-                      transform
+                      hover:border-indigo-700
                       transition-colors
                       duration-200
+                      transform
                       border-r-4 border-transparent
-                      hover:border-indigo-700
                     "
                   >
                     <div class="mr-3">
@@ -175,11 +174,11 @@
                     class="
                       flex
                       items-center
-                      transform
+                      hover:border-red-600
                       transition-colors
                       duration-200
+                      transform
                       border-r-4 border-transparent
-                      hover:border-red-600
                     "
                     @click.prevent="onLogout"
                   >

@@ -1,14 +1,14 @@
 <template>
   <!-- Main -->
-  <section class="h-full lg:ml-64 px-3 md:px-12">
-    <div class="flex items-center justify-between py-4">
+  <section class="px-3 h-full md:px-12 lg:ml-64">
+    <div class="flex justify-between items-center py-4">
       <!-- <h1 class="text-3xl font-bold text-gray-900">Profile</h1> -->
       <PageTitle>Profile</PageTitle>
     </div>
 
-    <div class="container mx-auto mx-5 md:flex no-wrap md:-mx-2">
+    <div class="container mx-5 md:flex md:-mx-2 no-wrap">
       <!-- Left Side -->
-      <article class="w-full md:w-4/12 md:mx-2">
+      <article class="w-full md:mx-2 md:w-4/12">
         <ProfileOverview />
       </article>
       <article class="w-full md:w-8/12">

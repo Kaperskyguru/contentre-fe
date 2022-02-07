@@ -1,21 +1,20 @@
 <template>
-  <div class="px-3 py-3 lg:px-5 lg:pl-3">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center justify-start">
+  <div class="p-3 lg:px-5 lg:pl-3">
+    <div class="flex justify-between items-center">
+      <div class="flex justify-start items-center">
         <button
           id="toggleSidebarMobile"
           aria-expanded="true"
           aria-controls="sidebar"
           class="
-            lg:hidden
+            p-2
             mr-2
             text-gray-600
-            hover:text-gray-900
-            cursor-pointer
-            p-2
-            hover:bg-gray-100
-            focus:bg-gray-100 focus:ring-2 focus:ring-gray-100
+            hover:text-gray-900 hover:bg-gray-100
             rounded
+            focus:bg-gray-100 focus:ring-2 focus:ring-gray-100
+            cursor-pointer
+            lg:hidden
           "
         >
           <svg
@@ -33,7 +32,7 @@
           </svg>
           <svg
             id="toggleSidebarMobileClose"
-            class="w-6 h-6 hidden"
+            class="hidden w-6 h-6"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"

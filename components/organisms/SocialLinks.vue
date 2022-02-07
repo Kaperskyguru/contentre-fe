@@ -1,18 +1,17 @@
 <template>
-  <div class="flex items-center flex-wrap space-x-6">
+  <div class="flex flex-wrap items-center space-x-6">
     <!--Whatsapp Button -->
     <a href="#">
       <button
         class="
-          bg-white
-          duration-500
           w-8
           h-8
-          border-2
-          rounded-full
-          border-green-600
-          text-xl text-green-500
           hover:bg-green-600 hover:text-white
+          bg-white
+          rounded-full
+          duration-500
+          border-2 border-green-600
+          text-xl text-green-500
         "
       >
         <i class="fab fa-whatsapp"></i>
@@ -24,16 +23,14 @@
     <a href="#">
       <button
         class="
-          bg-white
-          border-2
           w-8
           h-8
+          hover:bg-blue-500 hover:text-white
+          bg-white
           rounded-full
           duration-500
-          text-blue-600
-          border-blue-500
-          hover:bg-blue-500 hover:text-white
-          text-xl
+          text-xl text-blue-600
+          border-2 border-blue-500
         "
       >
         <i class="fab fa-linkedin-in"></i>
@@ -45,19 +42,22 @@
     <a href="#">
       <button
         class="
-          bg-white
-          border-2
           w-8
           h-8
+          hover:bg-blue-400 hover:text-white
+          bg-white
           rounded-full
           duration-500
-          text-blue-600
-          border-blue-400
-          hover:bg-blue-400 hover:text-white
-          text-xl
+          text-xl text-blue-600
+          border-2 border-blue-400
         "
       >
         <i class="fab fa-twitter"></i>
+        <img
+          src="http://miro.medium.com/1*m-R_BkNf1Qjr1YbyOIJY2w.png"
+          alt=""
+          srcset=""
+        />
       </button>
       <i class="fas fa-angle-down"></i>
     </a>
@@ -66,20 +66,19 @@
     <a href="#">
       <button
         class="
+          w-8
+          h-8
+          hover:text-white
+          bg-gradient-to-b
+          hover:from-indigo-600 hover:via-pink-600 hover:to-yellow-500
+          rounded-full
           border-2
           hover:border-0
           border-pink-500
-          bg-gradient-to-b
-          text-xl
-          hover:from-indigo-600 hover:via-pink-600 hover:to-yellow-500
-          min-w-wull
-          hover:text-white
-          bg-text-blue-600
-          text-pink-600
-          w-8
-          h-8
-          rounded-full
           duration-500
+          text-xl text-pink-600
+          min-w-wull
+          bg-text-blue-600
         "
       >
         <i class="fab fa-instagram"></i>
@@ -92,16 +91,15 @@
     <a href="#">
       <button
         class="
-          bg-white
           sticky
-          duration-500
-          border-2 border-blue-600
           w-8
           h-8
-          text-xl
-          rounded-full
           hover:bg-blue-600 hover:text-white
-          text-blue-600
+          bg-white
+          rounded-full
+          duration-500
+          text-xl text-blue-600
+          border-2 border-blue-600
         "
       >
         <i class="fab fa-facebook-f"></i>
@@ -113,16 +111,14 @@
     <a href="#">
       <button
         class="
-          bg-white
-          border-2
           w-8
           h-8
+          hover:bg-yellow-300 hover:text-white
+          bg-white
           rounded-full
           duration-500
-          text-yellow-300
-          border-yellow-300
-          hover:bg-yellow-300 hover:text-white
-          text-xl
+          text-xl text-yellow-300
+          border-2 border-yellow-300
         "
       >
         <i class="fab fa-snapchat-ghost"></i>
@@ -134,16 +130,15 @@
     <a href="#">
       <button
         class="
-          bg-white
           sticky
-          duration-500
-          border-2 border-blue-600
           w-8
           h-8
-          text-xl
-          rounded-full
           hover:bg-blue-600 hover:text-white
-          text-blue-600
+          bg-white
+          rounded-full
+          duration-500
+          text-xl text-blue-600
+          border-2 border-blue-600
         "
       >
         <i class="fab fa-skype"></i>

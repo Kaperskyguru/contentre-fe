@@ -1,18 +1,18 @@
 <template>
-  <div class="shadow rounded-xl bg-white">
+  <div class="bg-white rounded-xl shadow">
     <!-- About Section -->
-    <div class="bg-white shadow-sm rounded-xl">
+    <div class="bg-white rounded-xl shadow-sm">
       <div
         class="
           flex
           items-center
+          py-6
+          px-4
           space-x-2
           font-semibold
-          text-gray-900
           leading-8
-          px-4
+          text-gray-900
           border-b-2
-          py-6
         "
       >
         <span class="tracking-wide">Profile Details</span>
@@ -21,19 +21,19 @@
     <!-- End of about section -->
 
     <!-- Personal Details -->
-    <div class="bg-white shadow-sm rounded-sm px-4 border-b-2 py-6">
+    <div class="py-6 px-4 bg-white rounded-sm border-b-2 shadow-sm">
       <div
         class="
-          border border-gray-200
-          rounded-lg
-          px-3
-          py-6
           block
-          bg-white
+          py-6
+          px-3
           text-gray-700
+          bg-white
+          rounded-lg
+          border border-gray-200
         "
       >
-        <div class="space-x-3 font-normal text-gray-900 text-sm leading-8 pb-4">
+        <div class="pb-4 space-x-3 text-sm font-normal leading-8 text-gray-900">
           <span>Personal Details</span>
         </div>
 
@@ -43,8 +43,8 @@
       </div>
 
       <!-- DIV 2 -->
-      <div class="social media my-8">
-        <div class="space-x-3 font-normal text-gray-900 text-sm leading-8 pb-4">
+      <div class="my-8 social media">
+        <div class="pb-4 space-x-3 text-sm font-normal leading-8 text-gray-900">
           <span>Social Links</span>
         </div>
 

@@ -17,12 +17,13 @@ module.exports = {
         'default-grey': '#c4c4c4',
         'grey-shade': '#88888888',
         current: 'currentColor',
-        'aside-icon-grey': '#6B8583'
+        'aside-icon-grey': '#6B8583',
+        linen: '#f4f1ea'
       },
       fontFamily: {
         gilroy: ['Gilroy', 'sans-serif'],
         helvetica: ['Helvetica', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif']
       },
       backgroundImage: {
         'auth-background': 'url(~assets/img/auth-nav/backdrop.svg)'
@@ -30,6 +31,10 @@ module.exports = {
       minHeight: {
         'half-screen': '50vh',
         '80vh': '80vh'
+        // NOTE: Extended 'min-h' classes with all spacing and percentage values.
+
+        // ...spacing,
+        // ...percentages
       },
       width: {
         '80vw': '80vw'

@@ -1,25 +1,25 @@
 <template>
   <div
     class="
-      w-full
-      px-3
-      py-6
       block
-      bg-white
+      py-6
+      px-3
+      w-full
       text-gray-700
-      border border-gray-200
+      bg-white
       rounded-lg
+      border border-gray-200
     "
   >
-    <div class="block text-black font-bold pb-2">
-      <p class="text-sm mb-4">Change Password</p>
+    <div class="block pb-2 font-bold text-black">
+      <p class="mb-4 text-sm">Change Password</p>
     </div>
 
     <!-- ====== Cards Section Start -->
     <div class="container">
       <form @submit.prevent="changePassword">
         <div class="flex flex-wrap -mx-2">
-          <div class="w-full md:w-1/2 xl:w-1/2 px-4">
+          <div class="px-4 w-full md:w-1/2 xl:w-1/2">
             <div>
               <TextField
                 v-model="$v.fieldOldPassword.$model"
@@ -55,17 +55,17 @@
               />
             </div>
           </div>
-          <div class="w-full md:w-1/2 xl:w-1/2 px-4">
+          <div class="px-4 w-full md:w-1/2 xl:w-1/2">
             <div
-              class="bg-teal-300 rounded-lg shadow overflow-hidden mb-10 my-8"
+              class="overflow-hidden my-8 mb-10 bg-teal-300 rounded-lg shadow"
             >
-              <div class="p-4 sm:p-9 md:p-7 xl:p-9 text-sm">
-                <p class="block text-black font-bold">Password Rules</p>
-                <p class="text-body-color leading-relaxed mb-7">
+              <div class="p-4 text-sm sm:p-9 md:p-7 xl:p-9">
+                <p class="block font-bold text-black">Password Rules</p>
+                <p class="mb-7 leading-relaxed text-body-color">
                   To create a new password, you need to meet the following
                   requirements:
                 </p>
-                <ul class="list-disc px-4">
+                <ul class="px-4 list-disc">
                   <PasswordMeter
                     :correct="
                       $v.fieldPassword.required && $v.fieldPassword.minLength
@@ -102,7 +102,7 @@
               </div>
             </div>
           </div>
-          <div class="w-full flex items-center justify-center mb-6">
+          <div class="flex justify-center items-center mb-6 w-full">
             <Button class="w-1/2" type="submit"> Confirm </Button>
           </div>
         </div>
