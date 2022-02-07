@@ -44,7 +44,7 @@
     <!-- table -->
 
     <section class="container px-4 mx-auto mt-8 bg-white">
-      <ClientOverview />
+      <ClientOverview :checked.sync="checked" />
     </section>
 
     <!-- End of table -->
@@ -60,6 +60,7 @@ export default {
   name: 'HomePage',
   layout: 'Dashboard',
   data: () => ({
+    checked: [],
     stats: [
       {
         text: 'Avg. Click Rate',

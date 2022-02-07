@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import DownloadIcon from '~/assets/icons/download.svg'
 import { GET_CONTENTS } from '~/graphql'
 export default {
   name: 'ContentTable',
@@ -73,6 +74,7 @@ export default {
           },
           componentOptions: this.getClientComponentOptions
         },
+
         {
           title: 'Visibility',
           key: 'visibility',
@@ -98,10 +100,16 @@ export default {
   },
 
   methods: {
-    getTitleComponentOptions({ title }) {
+    getTitleComponentOptions({ title, url }) {
       return title
         ? {
+            size: 20,
+            link: !!url,
+            type: 'icon',
+            url,
+            file: DownloadIcon,
             style: !title ? 'secondary' : undefined,
+            class: 'capitalize',
             value: title || 'No title provided'
           }
         : {}
@@ -115,9 +123,9 @@ export default {
           }
         : new Date(lastUpdated) > new Date()
         ? {
-            type: 'icon',
+            // type: 'icon',
             // file: IconTransactionDateClock,
-            size: 14,
+            // size: 14,
             name: 'Scheduled',
             value: new Date(lastUpdated) // this.$d(new Date(lastUpdated), 'dateShorter')
           }
@@ -139,6 +147,7 @@ export default {
       return client
         ? {
             style: !client ? 'secondary' : undefined,
+            class: 'capitalize',
             value: client.name || 'No Client provided'
           }
         : {}

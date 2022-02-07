@@ -1,29 +1,32 @@
 <template>
-  <div class="overflow-x-auto px-4 -mx-4 sm:-mx-8">
-    <div class="inline-block overflow-hidden min-w-full rounded-lg">
-      <div class="p-4">
-        <h2 class="font-gilroy text-2xl font-semibold leading-tight">
-          Clients
-        </h2>
-      </div>
-      <DataGrid
-        :columns="columns"
-        :checked.sync="computedChecked"
-        :items="clients.items"
-        :total="clients.total"
-        :loading="$apollo.queries.clients.loading"
-        :item-clickable="true"
-        @load-more-data="fetchMore"
-        @item-click="onItemClick"
-      />
-
-      <ClientEdit v-model="clientId"></ClientEdit>
+  <div class="mb-5">
+    <div class="flex justify-between items-center py-4">
+      <h2 class="font-gilroy text-2xl font-semibold leading-tight">Clients</h2>
     </div>
+    <div class="overflow-x-auto font-sans bg-gray-100 rounded-lg">
+      <div class="inline-block overflow-hidden min-w-full rounded-lg shadow">
+        <div class="bg-white rounded shadow-md">
+          <DataGrid
+            :columns="columns"
+            :checked.sync="computedChecked"
+            :items="clients.items"
+            :total="clients.total"
+            :loading="$apollo.queries.clients.loading"
+            :item-clickable="true"
+            @load-more-data="fetchMore"
+            @item-click="onItemClick"
+          />
+        </div>
+      </div>
+    </div>
+
+    <ClientEdit v-model="clientId"></ClientEdit>
   </div>
 </template>
 
 <script>
 import fragment from 'vue-frag'
+import DownloadIcon from '~/assets/icons/download.svg'
 import { GET_CLIENTS } from '~/graphql'
 export default {
   directives: {
@@ -68,26 +71,23 @@ export default {
     columns() {
       return [
         {
-          title: 'Website',
-          key: 'website',
+          title: 'Name',
+          key: 'name',
           component: () => 'DataGridCellIcon',
-          componentOptions: this.getWebsiteComponentOptions
+          componentOptions: this.getNameComponentOptions
         },
         {
           title: 'Profile Link',
           key: 'profile',
-          component: () => {
-            return 'DataGridCellIcon'
+          component: ({ profile }) => {
+            return profile ? 'DataGridCellIcon' : 'DataGridCellIcon'
           },
           componentOptions: this.getProfileComponentOptions
         },
         {
           title: 'Total Contents',
           key: 'totalContents',
-          titleClass: 'lg:w-36 xl:w-50 2xl:w-70',
-          dataClass: ({ totalContents }) => {
-            return `${totalContents ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
-          },
+
           component: () => {
             return 'DataGridCellIcon'
           },
@@ -96,7 +96,6 @@ export default {
         {
           title: 'Created',
           key: 'createdAt',
-          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellIcon',
           componentOptions: this.getCreatedAtComponentOptions
         }
@@ -109,11 +108,15 @@ export default {
       this.clientId = id
     },
 
-    getWebsiteComponentOptions({ website }) {
-      return website
+    getNameComponentOptions({ name, website }) {
+      return name
         ? {
-            style: !website ? 'secondary' : undefined,
-            value: website || 'No title provided'
+            file: DownloadIcon,
+            link: !!website,
+            size: 20,
+            url: `https://${website}`,
+            style: !name ? 'secondary' : undefined,
+            value: name || 'No name provided'
           }
         : {}
     },
@@ -129,7 +132,6 @@ export default {
         },
         // Transform the previous result with new data
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          console.log(fetchMoreResult)
           const newItems =
             ((fetchMoreResult ?? {})[queryName] ?? {})[itemsKey] ?? []
           const oldItems =
@@ -167,8 +169,13 @@ export default {
     getProfileComponentOptions({ profile }) {
       return profile
         ? {
+            file: DownloadIcon,
+            link: !!profile,
+            size: 20,
+            url: `https://${profile}`,
             style: !profile ? 'secondary' : undefined,
-            value: profile || 'No title provided'
+            value: profile === null ? 'No profile provided' : profile,
+            name: 'Profile'
           }
         : {}
     },

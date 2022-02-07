@@ -1,6 +1,6 @@
 <template>
   <a
-    v-if="type.includes('link')"
+    v-if="type.includes('link') && !to"
     v-bind="$attrs"
     :tabindex="disabled || (active && activeAutoDisables) ? -1 : 0"
     :class="classNames"
@@ -19,6 +19,28 @@
       </div>
     </template>
   </a>
+
+  <Hyperlink
+    v-else-if="type.includes('link') && to"
+    :to="to"
+    v-bind="$attrs"
+    :tabindex="disabled || (active && activeAutoDisables) ? -1 : 0"
+    :extra-classes="classNames"
+    :disabled="disabled || waiting"
+    :aria-label="waiting ? 'Please wait…' : undefined"
+    v-on="$listeners"
+  >
+    <div v-if="waiting" class="custom-icon" role="presentation">
+      <SvgLoader class="-my-px" />
+    </div>
+
+    <template v-else>
+      <slot />
+      <div v-if="$slots.icon" class="custom-icon" role="presentation">
+        <slot name="icon" />
+      </div>
+    </template>
+  </Hyperlink>
 
   <button
     v-else
@@ -57,6 +79,11 @@ export default defineComponent({
     waiting: {
       type: Boolean,
       default: false
+    },
+
+    to: {
+      type: [Object, String],
+      default: ''
     },
 
     disabled: {
@@ -110,13 +137,16 @@ export default defineComponent({
         'font-gilroy',
         // 'mx-auto',
         'font-bold',
-        'rounded',
         'text-white',
-        'text-base',
-        'bg-primary-teal',
         'py-4',
-        'px-8',
-        'sm:text-xl'
+
+        'px-24',
+        'text-sm',
+        'leading-5',
+        'bg-teal-300',
+        'rounded-md',
+        'form-btn',
+        'text-center'
       ]
 
       if (this.active) {
