@@ -14,12 +14,12 @@
           fixed
           top-0
           left-0
-          z-5
+          z-40
           place-items-center
           w-full
           h-full
           backdrop-blur
-          bg-opacity-50 bg-warngray
+          bg-gray-500 bg-opacity-50
         "
         @click.prevent="closeByBackdrop"
       >
@@ -36,17 +36,20 @@
               items-center
               py-8
               px-6
-              md:py-10 md:px-8
-              lg:px-12
               w-full
-              max-w-md
               bg-white
               rounded-lg
-              shadow-lg
+              border
               outline-none
-              border border-whitesmoke
+              shadow-lg
+              md:py-10 md:px-8
+              lg:px-12
             "
-            :class="{ 'flex flex-col': $slots.icon }"
+            :class="{
+              'flex flex-col': $slots.icon,
+              ' max-w-5xl my-10': isLarge,
+              ' max-w-md': !isLarge
+            }"
             tabindex="0"
             @click.stop
           >
@@ -54,7 +57,10 @@
               <slot name="icon" />
             </div>
 
-            <div :class="{ 'text-sm md:text-base text-center': $slots.icon }">
+            <div
+              :class="{ 'text-sm md:text-base text-center': $slots.icon }"
+              class="pb-8"
+            >
               <slot />
             </div>
 
@@ -105,7 +111,10 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-
+    isLarge: {
+      type: Boolean,
+      default: false
+    },
     secondaryText: {
       type: String,
       default: ''
@@ -152,9 +161,9 @@ export default defineComponent({
 
   methods: {
     closeByBackdrop() {
-      if (this.secondaryText) {
-        this.answer(false)
-      }
+      // if (this.secondaryText) {
+      this.answer(false)
+      // }
     },
 
     closeByKey(event) {

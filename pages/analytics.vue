@@ -1,6 +1,6 @@
 <template>
-  <section class="h-full lg:ml-64 px-3 md:px-12">
-    <div class="flex items-center justify-between py-4">
+  <section class="px-3 h-full md:px-12 lg:ml-64">
+    <div class="flex justify-between items-center py-4">
       <PageTitle>Analytics</PageTitle>
     </div>
     <section class="container mx-auto">
@@ -24,41 +24,40 @@
     <div class="pt-6">
       <div
         class="
-          w-full
-          grid grid-cols-1
-          xl:grid-cols-2
-          2xl:grid-cols-3
           gap-4
+          w-full
           md:grid-cols-2
           lg:grid-cols-2
           xl:grid-cols-3
+          2xl:grid-cols-3
+          grid grid-cols-1
         "
       >
         <div
-          class="bg-white shadow-lg rounded-lg p-4 sm:p-6 xl:p-8 md:col-span-2"
+          class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
         >
           <Chart />
         </div>
 
         <div
           class="
+            pt-4
             w-full
-            lg:px-2
             bg-white
             rounded-lg
-            pt-4
             shadow-lg
             sm:col-span-2
             md:col-span-1
+            lg:px-2
           "
         >
           <!-- Card -->
           <div class="overflow-hidden">
-            <header class="leading-tight px-2">
-              <span class="text-2xl sm:text-2xl font-bold text-gray-900"
+            <header class="px-2 leading-tight">
+              <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
                 >Overall Performance</span
               >
-              <h3 class="text-normal font-normal text-gray-500 pb-4">
+              <h3 class="pb-4 font-normal text-gray-500 text-normal">
                 Weekly Posts
               </h3>
             </header>
@@ -91,28 +90,28 @@
     </div> -->
 
     <section class="container mx-auto mt-4">
-      <OverallStatTable />
+      <OverallStatTable :checked.sync="checked" />
     </section>
     <!-- end of table -->
 
     <!-- footer Articles -->
     <section class="container mx-auto">
-      <div class="flex items-center justify-between py-4">
-        <h1 class="text-3xl font-bold text-gray-900 pt-4">Top Articles</h1>
+      <div class="flex justify-between items-center py-4">
+        <h1 class="pt-4 text-3xl font-bold text-gray-900">Top Articles</h1>
       </div>
       <div class="flex flex-wrap">
-        <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:px-2">
-          <div class="bg-white rounded-lg p-2 sm:p-3 xl:p-5">
+        <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
+          <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
             <Column />
           </div>
         </div>
-        <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:px-2">
-          <div class="bg-white rounded-lg p-2 sm:p-3 xl:p-5">
+        <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
+          <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
             <Column />
           </div>
         </div>
-        <div class="w-full md:w-1/2 lg:my-2 lg:w-1/3 lg:px-2">
-          <div class="bg-white rounded-lg p-2 sm:p-3 xl:p-5">
+        <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
+          <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
             <Column />
           </div>
         </div>
@@ -132,6 +131,7 @@ export default {
   layout: 'Dashboard',
 
   data: () => ({
+    checked: [],
     stats: [
       {
         text: 'Avg. Click Rate',

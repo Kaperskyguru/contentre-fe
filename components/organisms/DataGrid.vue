@@ -114,7 +114,8 @@
             <div
               class="py-4 bg-white border-b border-gray-200"
               :class="{
-                'pr-4': columnIndex < columns.length - 1
+                'pr-4': columnIndex < columns.length - 1,
+                'py-3 px-6': columnIndex === 0 && !checked
               }"
             >
               <slot
@@ -612,7 +613,8 @@ export default defineComponent({
           'border-silver text-right lg:border-whitesmoke':
             this.isMobileLayout && columnIndex === this.columns.length - 1,
           'border-whitesmoke':
-            !this.isMobileLayout && columnIndex === this.columns.length - 1
+            !this.isMobileLayout && columnIndex === this.columns.length - 1,
+          'py-3 px-6': columnIndex === 0 && !this.checked
         },
         this.$utils.checkCallback(column.dataClass, [item])
       ]

@@ -17,7 +17,8 @@ module.exports = {
         'default-grey': '#c4c4c4',
         'grey-shade': '#88888888',
         current: 'currentColor',
-        'aside-icon-grey': '#6B8583'
+        'aside-icon-grey': '#6B8583',
+        linen: '#f4f1ea'
       },
       fontFamily: {
         gilroy: ['Gilroy', 'sans-serif'],

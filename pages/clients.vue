@@ -21,23 +21,10 @@
     <!-- ====== Cards Section End -->
     <!-- end of statistic -->
 
-    <section
-      class="
-        container
-        overflow-y-auto
-        flex-1
-        shrink-0
-        px-4
-        mx-auto
-        mt-8
-        min-h-80vh
-        bg-white
-        md:shrink
-      "
-    >
-      <div class="overflow-y-auto px-4 -mx-4 sm:-mx-8">
-        <ClientTable :checked.sync="checked" />
-      </div>
+    <section class="container px-4 mx-auto mt-8 bg-white">
+      <!-- <div class="overflow-y-auto px-4 -mx-4 sm:-mx-8"> -->
+      <ClientOverview :checked.sync="checked" />
+      <!-- </div> -->
     </section>
 
     <Dialog v-model="isConfirmModalVisible">

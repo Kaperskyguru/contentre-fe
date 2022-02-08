@@ -295,24 +295,9 @@
         </div>
       </div>
       <div class="mr-6">
-        <a href="add-content.html">
-          <button
-            class="
-              inline-flex
-              py-3
-              px-5
-              mb-3
-              ml-6
-              text-white
-              bg-teal-600
-              focus:bg-teal-600
-              rounded-md
-              form-btn
-            "
-          >
-            Add Content
-          </button>
-        </a>
+        <Button type="link" :to="{ name: 'contents/add' }" appearance="primary">
+          Add Content
+        </Button>
       </div>
     </section>
 
