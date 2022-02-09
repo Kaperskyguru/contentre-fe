@@ -55,7 +55,22 @@
         <span>Profile Links</span>
         <span class="text-black">
           <Hyperlink :to="{ name: 'clients' }">
-            <i class="fas fa-plus">+</i>
+            <span class="text-black">
+              <svg
+                aria-hidden="true"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="shrink-0 mt-0.5 mr-2 -ml-1 w-5 h-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                />
+              </svg>
+            </span>
           </Hyperlink>
         </span>
       </div>
@@ -64,7 +79,7 @@
         <div v-for="(client, i) in clients" :key="i" class="my-2 text-center">
           <a :href="client.profile" class="text-xs profilelink-a">
             <img
-              class="mx-auto w-12 h-12 rounded-full border"
+              class="mx-auto w-12 h-12 leading-6 rounded-full border"
               :src="generateIcon(client.icon)"
               alt=""
             />

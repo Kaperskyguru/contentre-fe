@@ -62,6 +62,8 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
 
+    '@nuxt/postcss8',
+
     '@nuxtjs/svg',
 
     // https://composition-api.nuxtjs.org/
