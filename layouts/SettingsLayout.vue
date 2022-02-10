@@ -1,19 +1,19 @@
 <template>
   <main>
-    <nav class="bg-white border-b border-gray-200 fixed z-30 w-full navside-bs">
+    <nav class="fixed z-30 w-full bg-white border-b border-gray-200 navside-bs">
       <Nav @logout="onLogout" />
     </nav>
     <div class="flex pt-16">
       <Aside />
     </div>
 
-    <section class="h-full lg:ml-64 px-3 md:px-12">
-      <div class="flex items-center justify-between py-4">
+    <section class="px-3 h-full md:px-12 lg:ml-64">
+      <div class="flex justify-between items-center py-4">
         <PageTitle>Settings</PageTitle>
       </div>
 
-      <div class="container mx-auto mx-5 md:flex no-wrap md:-mx-2">
-        <div class="w-full md:w-5/12 md:mx-2 shadow rounded-xl bg-white">
+      <div class="container mx-5 md:flex md:-mx-2 no-wrap">
+        <div class="w-full bg-white rounded-xl shadow md:mx-2 md:w-5/12">
           <!-- Profile Card -->
           <CompleteProfile />
           <!-- End of profile card -->

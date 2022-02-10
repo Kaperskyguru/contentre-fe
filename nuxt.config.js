@@ -42,6 +42,7 @@ export default {
     '~/plugins/utils',
     '~/plugins/toast',
     '~/plugins/currentUser'
+    // '~/plugins/bootstrap-vue'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -60,6 +61,8 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+
+    '@nuxt/postcss8',
 
     '@nuxtjs/svg',
 
