@@ -1,7 +1,7 @@
 <template>
-  <div class="py-4 flex flex items-center flex-wrap">
-    <div class="w-2/5 bg-white shadow rounded-sm p-4">
-      <ul class="flex items-center flex-wrap justify-between calender-font">
+  <div class="flex flex-wrap items-center py-4">
+    <div class="p-4 w-1/5 bg-white rounded-sm shadow">
+      <ul class="flex flex-wrap justify-start items-center">
         <li>
           <a
             href="#"
@@ -23,7 +23,7 @@
               text-sm
               font-bold
               text-gray-600
-              hover:text-dark
+              hover:text-gray-900
               focus:text-black
               md:mr-6
             "
@@ -37,7 +37,7 @@
               text-sm
               font-normal
               text-gray-600
-              hover:text-dark
+              hover:text-gray-900
               focus:text-black
               md:mr-6
             "
@@ -51,7 +51,7 @@
               text-sm
               font-normal
               text-gray-600
-              hover:text-dark
+              hover:text-gray-900
               focus:text-black
               md:mr-6
             "
@@ -60,21 +60,17 @@
         </li>
       </ul>
     </div>
-    <div class="flex sm:justify-center space-x-6">
-      <div class="relative inline-flex ml-2">
-        <SelectIcon />
+    <div class="flex sm:justify-center">
+      <div class="inline-flex relative p-2 ml-2 bg-white rounded-sm shadow">
         <select
           class="
-            border border-gray-300
-            rounded-sm
-            text-gray-600
-            h-10
             pl-5
-            pr-10
-            bg-white
-            hover:border-gray-400
+            text-gray-600
+            rounded-sm
+            hover:border-none
             focus:outline-none
             appearance-none
+            border border-none
           "
         >
           <option>Add Widget</option>
@@ -93,11 +89,8 @@
 </template>
 
 <script>
-import SelectIcon from '~/assets/icons/select.svg?inline'
 export default {
-  components: {
-    SelectIcon
-  }
+  components: {}
 }
 </script>
 

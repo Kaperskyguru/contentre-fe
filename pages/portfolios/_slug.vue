@@ -90,9 +90,6 @@ export default {
 .text-unknown {
   color: #048fbb;
 }
-.img-fluid {
-  height: 3.5rem;
-}
 
 .card-arrow {
   top: 5px;

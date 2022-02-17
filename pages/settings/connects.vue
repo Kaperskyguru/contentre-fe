@@ -1,20 +1,20 @@
 <template>
   <!-- Right Side -->
-  <div class="w-full md:w-10/12 mx-2 h-64 shadow rounded-xl bg-white">
+  <div class="mx-2 w-full h-64 bg-white rounded-xl shadow md:w-10/12">
     <!-- Profile tab -->
     <!-- About Section -->
-    <div class="bg-white shadow-sm rounded-xl">
+    <div class="bg-white rounded-xl shadow-sm">
       <div
         class="
           flex
           items-center
+          py-6
+          px-4
           space-x-2
           font-semibold
-          text-gray-900
           leading-8
-          px-4
+          text-gray-900
           border-b-2
-          py-6
         "
       >
         <span class="tracking-wide">Connect</span>
@@ -23,23 +23,23 @@
     <!-- End of about section -->
 
     <!-- contact -->
-    <div class="bg-white shadow-sm rounded-sm px-4 py-6">
+    <div class="py-6 px-4 bg-white rounded-sm shadow-sm">
       <div
         class="
-          w-full
-          px-3
-          py-6
           block
-          bg-white
+          py-6
+          px-3
+          w-full
           text-gray-700
-          border border-gray-200
+          bg-white
           rounded-lg
+          border border-gray-200
         "
       >
-        <div class="block text-black font-bold pb-2">
-          <p class="text-sm mb-4">Referrals</p>
+        <div class="block pb-2 font-bold text-black">
+          <p class="mb-4 text-sm">Referrals</p>
         </div>
-        <div class="block text-black font-normal">
+        <div class="block font-normal text-black">
           <p class="text-base text-gray-500">
             Copy and share your contentre link with others
           </p>
@@ -57,11 +57,11 @@
           <div>
             <div
               class="
-                w-full
-                px-3
                 flex
-                items-center
                 justify-center
+                items-center
+                px-3
+                w-full
                 shadow
                 form-btn
                 focus:shadow-outline
@@ -72,7 +72,7 @@
           </div>
         </div>
 
-        <div class="block text-black font-normal pb-2 mt-6">
+        <div class="block pb-2 mt-6 font-normal text-black">
           <p class="text-base text-gray-500">Invite friends to Contentre</p>
         </div>
 
@@ -87,11 +87,11 @@
           <div>
             <div
               class="
-                w-full
-                px-3
                 flex
-                items-center
                 justify-center
+                items-center
+                px-3
+                w-full
                 shadow
                 form-btn
                 focus:shadow-outline
@@ -110,24 +110,24 @@
 
     <!-- End of contact --->
 
-    <div class="bg-white shadow-sm rounded-sm px-4 py-6">
+    <div class="py-6 px-4 bg-white rounded-sm shadow-sm">
       <div
         class="
-          w-full
-          px-3
-          py-6
           block
-          bg-white
+          py-6
+          px-3
+          w-full
           text-gray-700
-          border border-gray-200
+          bg-white
           rounded-lg
+          border border-gray-200
         "
       >
-        <div class="block text-black font-bold pb-2">
-          <p class="text-sm mb-4">Teams Members</p>
+        <div class="block pb-2 font-bold text-black">
+          <p class="mb-4 text-sm">Teams Members</p>
         </div>
 
-        <div class="block text-black font-normal pb-2 mt-">
+        <div class="block pb-2 font-normal text-black mt-">
           <p class="text-base text-gray-500">
             Invite team members to Contentre
           </p>
@@ -144,11 +144,11 @@
           <div>
             <div
               class="
-                w-full
-                px-3
                 flex
-                items-center
                 justify-center
+                items-center
+                px-3
+                w-full
                 shadow
                 form-btn
                 focus:shadow-outline
@@ -159,8 +159,8 @@
           </div>
         </div>
 
-        <section class="bg-white container mx-auto px-4">
-          <div class="-mx-4 sm:-mx-8 px-4 overflow-x-auto">
+        <section class="container px-4 mx-auto bg-white">
+          <div class="overflow-x-auto px-4 -mx-4 sm:-mx-8">
             <Table title="Team Members" :headers="headers" :row-data="data" />
           </div>
         </section>
@@ -175,7 +175,6 @@ export default {
   name: 'ConnectS',
 
   mixins: [currentUser],
-  layout: 'SettingsLayout',
 
   data: () => ({
     headers: ['Website', 'Profile link', 'Total Contents'],

@@ -9,7 +9,7 @@
       <div
         v-if="visibleModel"
         style="z-index: 100"
-        class="grid fixed z-4"
+        class="grid fixed bg-gray-500 bg-opacity-50 backdrop-blur z-4"
         :class="[
           inside
             ? 'w-1/2 max-w-[88vw] md:max-w-[30rem]'
@@ -28,16 +28,7 @@
       >
         <div
           v-if="!inside"
-          class="
-            absolute
-            top-0
-            right-0
-            bottom-0
-            left-0
-            z-4
-            backdrop-blur
-            bg-warngray bg-opacity-50
-          "
+          class="absolute inset-0 bg-opacity-50 backdrop-blur z-4 bg-warngray"
           @click="close"
         />
 
@@ -56,12 +47,12 @@
             class="
               overflow-hidden
               relative
-              z-5
               !pb-4
               space-y-2
               w-full
               max-w-[88vw]
               md:max-w-[30rem]
+              z-5
               flex flex-col
             "
             :class="{
@@ -88,26 +79,41 @@
                 <strong>&nbsp;</strong>
               </slot>
 
-              <!-- <Tooltip v-if="enableClose" :label="`Close`"> -->
-              <Button
-                v-if="enableClose"
-                appearance="tertiary"
-                class="-mt-1.5 -mb-3 w-2 h-2 text-darksilver hover:text-black"
-                @click="close"
-              >
-                <IconClose slot="icon" />
-              </Button>
-              <!-- </Tooltip> -->
+              <Tooltip v-if="enableClose" :label="`Close`">
+                <button
+                  v-if="enableClose"
+                  appearance="tertiary"
+                  class="-mt-1.5 -mb-3 w-2 h-2 hover:text-black text-darksilver"
+                  @click="close"
+                >
+                  <!-- <IconClose slot="icon" /> -->
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </button>
+              </Tooltip>
             </header>
             <div
               v-if="waiting"
               class="
                 flex
-                md:overflow-hidden
                 justify-center
                 items-center
                 space-y-6
                 drop-shadow
+                md:overflow-hidden
                 flex-col flex-1
               "
             >
@@ -121,16 +127,16 @@
                     top-0
                     right-4
                     left-2
-                    z-4
                     h-4
                     bg-gradient-to-b
                     from-white
                     to-transparent
                     pointer-events-none
+                    z-4
                   "
                 />
 
-                <div class="overflow-auto overflow-y-auto flex-auto py-4 px-6">
+                <div class="overflow-auto flex-auto py-4 px-6">
                   <slot />
                 </div>
 
@@ -140,12 +146,12 @@
                     right-4
                     bottom-0
                     left-2
-                    z-4
                     h-4
                     bg-gradient-to-b
                     from-transparent
                     to-white
                     pointer-events-none
+                    z-4
                   "
                 />
 
@@ -167,8 +173,8 @@
 <script>
 import { Portal } from '@linusborg/vue-simple-portal'
 import { defineComponent } from '@nuxtjs/composition-api'
-import IconClose from '~/assets/icons/close.svg?inline'
-import Button from '~/components/atoms/Button.vue'
+// import IconClose from '~/assets/icons/close.svg?inline'
+
 import Card from '~/components/atoms/Card.vue'
 
 export default defineComponent({
@@ -176,8 +182,8 @@ export default defineComponent({
 
   components: {
     Card,
-    Button,
-    IconClose,
+
+    // IconClose,
     Portal
   },
 

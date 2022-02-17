@@ -1,5 +1,5 @@
 <template>
-  <section class="px-3 h-full md:px-12 lg:ml-64">
+  <section class="px-3 h-full md:px-12">
     <form @submit.prevent="addContent">
       <section class="flex flex-wrap justify-between items-center py-4 mt-4">
         <!-- <div class="flex justify-between items-center py-4 space-x-3"> -->
@@ -139,6 +139,7 @@
           v-model="$v.fieldExcerpt.$model"
           :rows="8"
           :is-required="false"
+          :show-border="false"
           placeholder="+ Type your content excerpt here"
           :spellcheck="false"
           :should-show-editing-options="true"
@@ -156,6 +157,7 @@
           placeholder="+ Type your content here"
           :spellcheck="false"
           :disabled="true"
+          :show-border="false"
           :should-show-editing-options="true"
           :error="getValidationMessage($v.fieldContent)"
         >

@@ -1,6 +1,6 @@
 <template>
   <!-- Main -->
-  <section class="px-3 h-full md:px-12 lg:ml-64">
+  <section class="px-3 h-full md:px-12">
     <div class="flex justify-between items-center py-4">
       <!-- <h1 class="text-3xl font-bold text-gray-900">Profile</h1> -->
       <PageTitle>Profile</PageTitle>

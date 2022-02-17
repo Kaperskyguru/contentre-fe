@@ -128,18 +128,19 @@
           v-bind="attrsButClassAndType"
           class="
             block
-            py-3
-            px-4
-            mb-3
+            py-4
+            pr-12
+            pl-5
             w-full
-            leading-tight
-            text-gray-700
-            rounded-lg
-            focus:outline-none focus:bg-white focus:border-gray-500
+            rounded
+            focus:border-body-text-color focus:outline-none
+            font-gilroy font-medium
           "
           :class="{
             'border-solid border border-border-inner border-gray-200':
-              showBorder
+              showBorder,
+            'border-none': !showBorder,
+            'bg-gray-100': disabled
           }"
           :enterkeyhint="enterkeyhint"
           :mozactionhint="enterkeyhint"
@@ -228,6 +229,10 @@ import EyeClosed from '~/assets/img/auth-nav/eye-closed.svg'
 
 export default {
   name: 'TextFieldTW',
+
+  components: {
+    IconAlertCircle: () => import('~/assets/icons/alert-circle.svg?inline')
+  },
   inheritAttrs: false,
 
   model: {
@@ -281,6 +286,11 @@ export default {
     value: {
       type: [String, Number],
       default: ''
+    },
+
+    labelClass: {
+      default: '',
+      type: String
     },
 
     clearable: {

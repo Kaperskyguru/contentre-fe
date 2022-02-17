@@ -1,5 +1,5 @@
 <template>
-  <section class="px-3 h-full md:px-12 lg:ml-64">
+  <section class="px-3 h-full md:px-12">
     <!-- TOP -->
     <section class="flex flex-wrap justify-between items-center py-4">
       <div class="flex justify-between items-center py-4">

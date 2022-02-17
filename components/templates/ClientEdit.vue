@@ -38,7 +38,7 @@
         />
       </section>
 
-      <div class="w-full px-3 flex items-center justify-center mt-4">
+      <div class="flex justify-center items-center px-3 mt-4 w-full">
         <Button class="w-1/2" type="submit">Update</Button>
       </div>
     </form></FloatingPanel
