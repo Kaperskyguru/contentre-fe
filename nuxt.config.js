@@ -41,8 +41,8 @@ export default {
     '~/plugins/vuelidate',
     '~/plugins/utils',
     '~/plugins/toast',
-    '~/plugins/currentUser'
-    // '~/plugins/bootstrap-vue'
+    '~/plugins/currentUser',
+    '~/plugins/resizable'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -65,6 +65,8 @@ export default {
     '@nuxt/postcss8',
 
     '@nuxtjs/svg',
+
+    '@nuxtjs/device',
 
     // https://composition-api.nuxtjs.org/
     '@nuxtjs/composition-api/module',

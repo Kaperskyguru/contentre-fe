@@ -6,8 +6,7 @@
 
 <script>
 export default {
-  name: 'SettingPage',
-  layout: 'SettingsLayout'
+  name: 'SettingPage'
 }
 </script>
 

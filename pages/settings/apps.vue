@@ -1,25 +1,25 @@
 <template>
   <!-- Right Side -->
-  <div class="w-full md:w-10/12 mx-2 h-64 shadow rounded-xl bg-white">
+  <div class="mx-2 w-full h-64 bg-white rounded-xl shadow md:w-10/12">
     <!-- Profile tab -->
     <!-- About Section -->
-    <div class="bg-white shadow-sm rounded-xl">
-      <div class="border-b-2 flex justify-between">
+    <div class="bg-white rounded-xl shadow-sm">
+      <div class="flex justify-between border-b-2">
         <div
           class="
             flex
-            w-full
             items-center
-            font-semibold
-            text-gray-900
-            leading-8
-            px-4
             py-6
+            px-4
+            w-full
+            font-semibold
+            leading-8
+            text-gray-900
           "
         >
           <span class="tracking-wide">Connected Apps</span>
         </div>
-        <div class="w-full px-3 flex items-end justify-end my-6">
+        <div class="flex justify-end items-end px-3 my-6 w-full">
           <Button>Connect Apps</Button>
         </div>
       </div>
@@ -27,16 +27,16 @@
     <!-- End of about section -->
 
     <!-- connected apps -->
-    <div class="bg-white shadow-sm rounded-sm px-4 py-2">
-      <div class="w-full block bg-white text-gray-700">
-        <div class="block text-gray-500 pb-2">
-          <p class="text-base mb-4">Manage and control your connected Apps</p>
+    <div class="py-2 px-4 bg-white rounded-sm shadow-sm">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="block pb-2 text-gray-500">
+          <p class="mb-4 text-base">Manage and control your connected Apps</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 p-4 gap-4">
-        <div class="bg-white shadow-sm rounded-md p-3 border">
-          <div class="flex justify-between text-black font-medium group">
+      <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-2">
+        <div class="p-3 bg-white rounded-md border shadow-sm">
+          <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent" style="font-size: 20px">
               <i class="fab fa-medium fa-lg"></i>
             </div>
@@ -50,11 +50,11 @@
           </div>
         </div>
 
-        <div class="bg-white shadow-sm rounded-md p-3 border">
-          <div class="flex justify-between text-black font-medium group">
+        <div class="p-3 bg-white rounded-md border shadow-sm">
+          <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent">
               <img
-                class="h-10 w-10 border mx-auto"
+                class="mx-auto w-10 h-10 border"
                 src="~/assets/img/drive.png"
                 alt=""
               />
@@ -71,10 +71,10 @@
           </div>
         </div>
 
-        <div class="bg-white shadow-sm rounded-md p-3 border">
-          <div class="flex justify-between text-black font-medium group">
+        <div class="p-3 bg-white rounded-md border shadow-sm">
+          <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent">
-              <img class="h-8 w-8 mx-auto" src="~/assets/img/word.png" alt="" />
+              <img class="mx-auto w-8 h-8" src="~/assets/img/word.png" alt="" />
             </div>
             <div class="text-right">
               <i class="fas fa-toggle-on" style="font-size: 24px"></i>
@@ -86,11 +86,11 @@
           </div>
         </div>
 
-        <div class="bg-white shadow-sm rounded-md p-3 border">
-          <div class="flex justify-between text-black font-medium group">
+        <div class="p-3 bg-white rounded-md border shadow-sm">
+          <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent">
               <img
-                class="h-8 w-8 mx-auto"
+                class="mx-auto w-8 h-8"
                 src="~/assets/img/slack.png"
                 alt=""
               />
@@ -105,11 +105,11 @@
           </div>
         </div>
 
-        <div class="bg-white shadow-sm rounded-md p-3 border">
-          <div class="flex justify-between text-black font-medium group">
+        <div class="p-3 bg-white rounded-md border shadow-sm">
+          <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent">
               <img
-                class="h-10 w-10 mx-auto"
+                class="mx-auto w-10 h-10"
                 src="~/assets/img/note.png"
                 alt=""
               />
@@ -126,11 +126,11 @@
           </div>
         </div>
 
-        <div class="bg-white shadow-sm rounded-md p-3 border">
-          <div class="flex justify-between text-black font-medium group">
+        <div class="p-3 bg-white rounded-md border shadow-sm">
+          <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent">
               <img
-                class="h-10 w-10 mx-auto"
+                class="mx-auto w-10 h-10"
                 src="~/assets/img/date.png"
                 alt=""
               />
@@ -153,8 +153,7 @@
 
 <script>
 export default {
-  name: 'ConnectedApp',
-  layout: 'SettingsLayout'
+  name: 'ConnectedApp'
 }
 </script>
 

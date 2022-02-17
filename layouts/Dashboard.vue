@@ -4,10 +4,17 @@
       <Nav @logout="onLogout" />
     </nav>
     <div class="flex pt-16">
-      <Aside />
+      <Aside @onCollapse="collapse" />
     </div>
-    <Nuxt />
-
+    <section
+      class="grow"
+      :class="{
+        'lg:ml-14': isSidebarCollapsed,
+        'lg:ml-64': !isSidebarCollapsed
+      }"
+    >
+      <Nuxt />
+    </section>
     <Toast />
   </main>
 </template>
@@ -18,8 +25,15 @@ export default {
   name: 'DashboardNav',
 
   extends: base,
-
-  middleware: ['isAuthenticated', 'isEmailConfirmed']
+  middleware: ['isAuthenticated', 'isEmailConfirmed'],
+  data: () => ({
+    isSidebarCollapsed: false
+  }),
+  methods: {
+    collapse(c) {
+      this.isSidebarCollapsed = c
+    }
+  }
 }
 </script>
 

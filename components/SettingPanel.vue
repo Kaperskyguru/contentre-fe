@@ -16,7 +16,6 @@
         :is="component"
         v-for="(component, name) in settings"
         :key="name"
-        :node="selectedNode"
       ></component>
     </div>
     <Button v-if="selectedNode" @click="removeElement"> Delete </Button>
@@ -35,7 +34,7 @@ export default {
       if (!this.selectedNode) {
         return null
       }
-      console.log(this.editor.getSettings(this.selectedNode))
+
       return this.editor.getSettings(this.selectedNode)
     }
   },

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="flex items-center justify-between mb-4">
-      <div class="flex-shrink-0">
+    <div class="flex justify-between items-center mb-4">
+      <div class="shrink-0">
         <span
-          class="text-2xl sm:text-2xl font-helvetica font-bold text-gray-900"
-          >Content Overview</span
+          class="font-helvetica text-2xl font-bold text-gray-900 sm:text-2xl"
+          >{{ title }}</span
         >
-        <h3 class="text-base font-medium font-gilroy text-gray-500">
-          <span class="text-green-500 text-base font-bold font-gilroy"
+        <h3 class="font-gilroy text-base font-medium text-gray-500">
+          <span class="font-gilroy text-base font-bold text-green-500"
             >(+5) more</span
           >
           in 2021
@@ -23,6 +23,12 @@
 <script>
 export default {
   name: 'BarChart',
+  props: {
+    title: {
+      type: String,
+      default: 'Content Overview'
+    }
+  },
   data: () => ({
     styles: {
       // height: 400

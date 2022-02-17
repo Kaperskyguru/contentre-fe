@@ -49,7 +49,7 @@
           "
         />
       </template>
-      <div class="flex my-9 w-full justify-center">
+      <div class="flex justify-center my-9 w-full">
         <Button
           type="button"
           appearance="secondary"
@@ -61,7 +61,7 @@
         <Button>Submit</Button>
       </div>
     </form>
-    <p class="font-gilroy font-bold text-center text-body-text-color text-base">
+    <p class="font-gilroy text-base font-bold text-center text-body-text-color">
       Don't have an account?
       <NuxtLink class="text-primary-teal" to="/">Create Account</NuxtLink>
     </p>

@@ -3,9 +3,9 @@
     <div class="flex justify-between items-center py-4">
       <h2 class="font-gilroy text-2xl font-semibold leading-tight">Clients</h2>
     </div>
-    <div class="overflow-x-auto font-sans bg-gray-100 rounded-lg">
-      <div class="inline-block overflow-hidden min-w-full rounded-lg shadow">
-        <div class="bg-white rounded shadow-md">
+    <div class="overflow-x-auto font-sans rounded-lg">
+      <div class="inline-block overflow-hidden min-w-full rounded-lg">
+        <div class="bg-white rounded">
           <DataGrid
             :columns="columns"
             :checked.sync="computedChecked"
@@ -122,7 +122,6 @@ export default {
     },
 
     fetchMore(sizeAndSkip) {
-      // console.log(sizeAndSkip)
       const itemsKey = 'clients'
       const queryName = 'getClients'
       this.$apollo.queries.clients.fetchMore({
@@ -159,10 +158,10 @@ export default {
             // file: IconTransactionDateClock,
             size: 14,
             name: 'Scheduled',
-            value: new Date(createdAt) // this.$d(new Date(lastUpdated), 'dateShorter')
+            value: new Date(createdAt).toLocaleDateString() // this.$d(new Date(lastUpdated), 'dateShorter')
           }
         : {
-            value: new Date(createdAt) // this.$d(new Date(lastUpdated), 'dateShorter')
+            value: new Date(createdAt).toLocaleDateString() // this.$d(new Date(lastUpdated), 'dateShorter')
           }
     },
 

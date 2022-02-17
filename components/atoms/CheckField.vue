@@ -26,11 +26,9 @@
           justify-center
           items-center
           w-[30px]
-          h-[30px]
           bg-transparent
           peer-checked:bg-primary-teal
           rounded
-          border border-placeholder
         "
       >
         <img v-if="isChecked" :src="Checked" alt="Checked" />

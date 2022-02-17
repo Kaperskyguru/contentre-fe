@@ -3,21 +3,25 @@
 </template>
 
 <script>
-import ParagraphSetting from '~/components/elements/ParagraphSetting.vue'
+import ParagraphSetting from './ParagraphSetting.vue'
 export default {
-  name: 'ParagraphE',
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Paragraph',
   props: {
-    content: String
+    content: {
+      type: String,
+      default: ''
+    }
   },
   // We introduce a craft config attribute in vue's component option,
   // that can define the default props of our page element.
   craft: {
     defaultProps: {
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+      content: 'Lorem ipsum dolor'
+    },
+    settings: {
+      ParagraphSetting
     }
-  },
-  settings: {
-    ParagraphSetting
   }
 }
 </script>

@@ -14,10 +14,13 @@
       h-full
       duration-75
       lg:flex
-      transition-width
       aside
     "
     aria-label="Sidebar"
+    :class="{
+      'md:w-60 lg:w-64 xl:w-68': !isSidebarCollapsed,
+      'w-14': isSidebarCollapsed
+    }"
   >
     <div
       class="
@@ -26,14 +29,17 @@
         min-h-0
         flex-1 flex flex-col
         border-r border-gray-200
-        bg-teal
       "
     >
       <div class="flex overflow-y-auto flex-col flex-1 pt-5 pb-4">
-        <div class="flex-1 px-3 space-y-1 bg-teal">
+        <div class="flex-1 px-3 space-y-1">
           <ul class="py-4 space-y-2 border-t border-gray-500">
-            <div class="absolute logo aside-header">
-              <Hyperlink to="/" class="flex items-center font-bold lg:ml-2.5">
+            <div class="absolute aside-header">
+              <Hyperlink
+                v-if="!isSidebarCollapsed"
+                to="/"
+                class="flex items-center font-bold lg:ml-2.5"
+              >
                 <img
                   src="~/assets/img/dashboard_logo.svg"
                   class="img-fluid"
@@ -41,7 +47,14 @@
                 />
                 <!-- <span class="self-center whitespace-nowrap">contentr</span> -->
               </Hyperlink>
+
+              <Tooltip v-else>
+                <Hyperlink to="/" class="flex items-center font-bold">
+                  <img src="/logo.png" class="img-fluid" alt="contentre logo" />
+                </Hyperlink>
+              </Tooltip>
             </div>
+            <CollapseSidebarButton @onCollapse="onCollapsed" />
             <li>
               <Hyperlink
                 :to="{ name: 'index' }"
@@ -99,8 +112,8 @@
               </Hyperlink>
             </li>
             <li>
-              <a
-                href="#"
+              <Hyperlink
+                :to="{ name: 'portfolios' }"
                 class="
                   group
                   flex
@@ -112,9 +125,9 @@
                   font-normal font-roboto
                 "
               >
-                <PorfolioIcon />
+                <PortfolioIcon />
                 <span class="flex-1 ml-3 whitespace-nowrap">Portfolio</span>
-              </a>
+              </Hyperlink>
             </li>
             <li>
               <Hyperlink
@@ -184,7 +197,100 @@
                 aside-footer
               "
             >
-              <div class="flex justify-between items-center p-2">
+              <ul class="py-2 space-y-2">
+                <li>
+                  <Hyperlink
+                    :to="{ name: 'index' }"
+                    class="
+                      group
+                      flex
+                      items-center
+                      p-2
+                      hover:text-white
+                      rounded-lg
+                      text-base text-gray-500
+                      font-normal font-roboto
+                    "
+                  >
+                    <span class="text-white">
+                      <DashboardIcon />
+                    </span>
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                      >Upload Content</span
+                    >
+                  </Hyperlink>
+                </li>
+
+                <li>
+                  <Hyperlink
+                    :to="{ name: 'index' }"
+                    class="
+                      group
+                      flex
+                      items-center
+                      p-2
+                      hover:text-white
+                      rounded-lg
+                      text-base text-gray-500
+                      font-normal font-roboto
+                    "
+                  >
+                    <span class="text-white">
+                      <DashboardIcon />
+                    </span>
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                      >Create new portfolio</span
+                    >
+                  </Hyperlink>
+                </li>
+
+                <li>
+                  <Hyperlink
+                    :to="{ name: 'index' }"
+                    class="
+                      group
+                      flex
+                      items-center
+                      p-2
+                      hover:text-white
+                      rounded-lg
+                      text-base text-gray-500
+                      font-normal font-roboto
+                    "
+                  >
+                    <span class="text-white">
+                      <DashboardIcon />
+                    </span>
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                      >Generate Statements</span
+                    >
+                  </Hyperlink>
+                </li>
+
+                <li>
+                  <Hyperlink
+                    :to="{ name: 'index' }"
+                    class="
+                      group
+                      flex
+                      items-center
+                      p-2
+                      hover:text-white
+                      rounded-lg
+                      text-base text-gray-500
+                      font-normal font-roboto
+                    "
+                  >
+                    <span class="text-white">
+                      <DashboardIcon />
+                    </span>
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                      >Make a payment</span
+                    >
+                  </Hyperlink>
+                </li>
+              </ul>
+              <!-- <div class="flex justify-between items-center p-2">
                 <div class="">
                   <p class="font-roboto text-base text-white">Storage</p>
                 </div>
@@ -200,7 +306,7 @@
                 <div class="w-full h-2 rounded-full progress-bg">
                   <div class="w-1/6 h-full rounded-full progress"></div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <!-- End -->
           </ul>
@@ -215,7 +321,7 @@ import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
 
 import ContentIcon from '~/assets/icons/content.svg?inline'
-import PorfolioIcon from '~/assets/icons/porfolio.svg?inline'
+import PortfolioIcon from '~/assets/icons/porfolio.svg?inline'
 import ProfileIcon from '~/assets/icons/profile.svg?inline'
 import ClientIcon from '~/assets/icons/client.svg?inline'
 import SettingIcon from '~/assets/icons/setting.svg?inline'
@@ -226,10 +332,21 @@ export default {
     DashboardIcon,
     AnalyticIcon,
     ContentIcon,
-    PorfolioIcon,
+    PortfolioIcon,
     ProfileIcon,
     ClientIcon,
     SettingIcon
+  },
+
+  data: () => ({
+    isSidebarCollapsed: false
+  }),
+
+  methods: {
+    onCollapsed(collapse) {
+      this.isSidebarCollapsed = collapse
+      this.$emit('onCollapse', this.isSidebarCollapsed)
+    }
   }
 }
 </script>

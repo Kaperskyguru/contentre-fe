@@ -1,19 +1,19 @@
 <template>
-  <div class="w-full md:w-10/12 mx-2 h-64 shadow rounded-xl bg-white">
+  <div class="mx-2 w-full h-64 bg-white rounded-xl shadow md:w-10/12">
     <!-- Profile tab -->
     <!-- About Section -->
-    <div class="bg-white shadow-sm rounded-xl">
+    <div class="bg-white rounded-xl shadow-sm">
       <div
         class="
           flex
           items-center
+          py-6
+          px-4
           space-x-2
           font-semibold
-          text-gray-900
           leading-8
-          px-4
+          text-gray-900
           border-b-2
-          py-6
         "
       >
         <span class="tracking-wide">Delete Account</span>
@@ -22,21 +22,22 @@
     <!-- End of about section -->
 
     <!-- contact -->
-    <div class="bg-white shadow-sm rounded-sm px-2 py-2">
+    <div class="p-2 bg-white rounded-sm shadow-sm">
       <form @submit.prevent="onClickConfirm">
-        <div class="w-full px-3 py-2 block bg-white text-gray-700">
+        <div class="block py-2 px-3 w-full text-gray-700 bg-white">
           <div class="col-span-2 pb-4">
             <TextField
               v-model="$v.fieldFeedback.$model"
               :rows="10"
               class="w-full text-sm"
               placeholder="|"
+              :show-border="true"
               label="Please tell us why you wish to delete your account"
               :error="getValidationMessage($v.fieldFeedback)"
             />
           </div>
 
-          <div class="block text-black font-normal pb-2">
+          <div class="block pb-2 font-normal text-black">
             <p class="text-base text-black">Enter your password</p>
           </div>
 
@@ -51,7 +52,7 @@
           </div>
         </div>
 
-        <div class="w-full px-3 text-center my-6">
+        <div class="px-3 my-6 w-full text-center">
           <p>Are you sure you want to delete your Account?</p>
           <p>
             All your files and report on Contentre will be unretrievable if you
@@ -59,18 +60,18 @@
           </p>
         </div>
 
-        <div class="w-full px-3 flex items-center justify-center my-6">
+        <div class="flex justify-center items-center px-3 my-6 w-full">
           <button
             class="
-              shadow
-              bg-red-500
-              w-1/2
-              focus:shadow-outline
-              text-white
-              font-bold
               py-4
               px-6
+              w-1/2
+              font-bold
+              text-white
+              bg-red-500
               rounded-lg
+              shadow
+              focus:shadow-outline
             "
             type="submit"
           >
@@ -87,7 +88,7 @@
       @answer="deleteAccount"
     >
       <template #icon>
-        <IconInformationCircle class="w-18 h-18" />
+        <IconInformationCircle class="w-20 h-20" />
       </template>
       <p>Are you sure you want to delete your account?</p>
     </Dialog>
@@ -104,7 +105,6 @@ export default {
     IconInformationCircle: () =>
       import('~/assets/icons/information-circle.svg?inline')
   },
-  layout: 'SettingsLayout',
 
   data: () => ({
     fieldPassword: '',

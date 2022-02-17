@@ -13,20 +13,19 @@
         font-gilroy font-medium
         border-solid border border-border-inner
       "
-      type="text"
     />
   </div>
 </template>
 
 <script>
-// import { settingMixin } from '@v-craft/core'
+import { settingMixin } from '@v-craft/core'
 
 export default {
-  //   mixins: [settingMixin],
+  mixins: [settingMixin],
   computed: {
     content: {
       get() {
-        return this.elementProps.content
+        return ''
       },
       set(value) {
         this.updateContent(value)
@@ -35,7 +34,8 @@ export default {
   },
   methods: {
     updateContent(content) {
-      this.elementPropsSetter({ content })
+      console.log(this, settingMixin)
+      // this.elementPropsSetter({ content })
     }
   }
 }
