@@ -111,6 +111,90 @@
                 <span class="flex-1 ml-3 whitespace-nowrap">Clients</span>
               </Hyperlink>
             </li>
+
+            <li>
+              <Hyperlink
+                :to="{ name: 'clients' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
+                "
+              >
+                <ClientIcon />
+                <span class="flex-1 ml-3 whitespace-nowrap">Grouping</span>
+              </Hyperlink>
+
+              <ul>
+                <li>
+                  <Hyperlink
+                    :to="{ name: 'clients' }"
+                    class="
+                      group
+                      flex
+                      items-center
+                      p-2
+                      hover:text-white
+                      rounded-lg
+                      text-base text-gray-500
+                      font-normal font-roboto
+                    "
+                  >
+                    <ClientIcon />
+
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                      >Categories</span
+                    >
+                  </Hyperlink>
+                </li>
+
+                <li>
+                  <Hyperlink
+                    :to="{ name: 'clients' }"
+                    class="
+                      group
+                      flex
+                      items-center
+                      p-2
+                      hover:text-white
+                      rounded-lg
+                      text-base text-gray-500
+                      font-normal font-roboto
+                    "
+                  >
+                    <ClientIcon />
+
+                    <span class="flex-1 ml-3 whitespace-nowrap">Topics</span>
+                  </Hyperlink>
+                </li>
+
+                <li>
+                  <Hyperlink
+                    :to="{ name: 'clients' }"
+                    class="
+                      group
+                      flex
+                      items-center
+                      p-2
+                      hover:text-white
+                      rounded-lg
+                      text-base text-gray-500
+                      font-normal font-roboto
+                    "
+                  >
+                    <ClientIcon />
+
+                    <span class="flex-1 ml-3 whitespace-nowrap">Tags</span>
+                  </Hyperlink>
+                </li>
+              </ul>
+            </li>
+
             <li>
               <Hyperlink
                 :to="{ name: 'portfolios' }"
