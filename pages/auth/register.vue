@@ -5,6 +5,7 @@
       <TextField
         v-model="$v.fieldUsername.$model"
         required
+        class="mb-6"
         label="Choose your portfolio address"
         placeholder="www.contentre.me/username"
         maxlength="35"
@@ -19,6 +20,7 @@
       <TextField
         v-model="$v.fieldName.$model"
         required
+        class="mb-6"
         placeholder="Enter your full name"
         label="Full name"
         name="name"
@@ -29,6 +31,7 @@
       <TextField
         v-model="$v.fieldEmail.$model"
         required
+        class="mb-6"
         type="email"
         name="email"
         label="Email Address"
@@ -39,6 +42,7 @@
       <TextField
         v-model="$v.fieldPassword.$model"
         required
+        class="mb-6"
         minlength="6"
         type="password"
         placeholder="Create a strong password"
@@ -48,6 +52,7 @@
       <TextField
         v-model="$v.fieldPasswordConfirmation.$model"
         required
+        class="mb-6"
         minlength="6"
         type="password"
         placeholder="Re-enter your password"
@@ -70,13 +75,13 @@
         text="Password should contain at least one number"
       />
       <PasswordMeter :correct="passwordsMatch" text="Passwords should match" />
-      <div class="flex my-9 w-full justify-center">
+      <div class="flex justify-center my-9 w-full">
         <Button :disabled="!shouldEnableButton" :waiting="sending"
           >Create Account</Button
         >
       </div>
     </form>
-    <p class="font-gilroy font-bold text-center text-body-text-color text-base">
+    <p class="font-gilroy text-base font-bold text-center text-body-text-color">
       Already have an account?
       <NuxtLink class="text-primary-teal" to="login">Sign In</NuxtLink>
     </p>

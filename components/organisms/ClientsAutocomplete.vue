@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!fakeInput"
     v-click-outside="onClickOutside"
     class="relative mb-8 bg-white rounded-lg border shadow-sm transition-shadow"
   >
@@ -220,6 +221,7 @@
         :hide-pencil-icon="hidePencilIcon"
         :disabled="disabled"
         :show-border="showBorder"
+        :is-input-border-enabled="isInputBorderEnabled"
         @update:search="search = $event"
         @update:value="selectClient"
         @create="selectClient"
@@ -227,14 +229,34 @@
         @focus="onFocusAutocomplete"
       />
     </div>
-    <div class="mt-3">
-      <div v-if="error">
-        <small class="ml-5 font-gilroy text-xs font-bold text-red-600">{{
-          error
-        }}</small>
-      </div>
+    <div v-if="error" class="mt-3">
+      <small class="ml-5 font-gilroy text-xs font-bold text-red-600">{{
+        error
+      }}</small>
     </div>
   </div>
+  <AutocompleteField
+    v-else
+    :id="id"
+    ref="elementRef"
+    class="z-40"
+    :placeholder="placeholder"
+    :value="value"
+    :label="label"
+    :label-class="labelClass"
+    :chip-style="chipStyle"
+    :items="clients"
+    :loading="$apollo.queries.clients.loading"
+    :allow-creation="allowCreation"
+    :hide-pencil-icon="hidePencilIcon"
+    :disabled="disabled"
+    :show-border="showBorder"
+    @update:search="search = $event"
+    @update:value="selectClient"
+    @create="selectClient"
+    @blur="onBlurAutocomplete"
+    @focus="onFocusAutocomplete"
+  />
 </template>
 
 <script>
@@ -322,6 +344,16 @@ export default {
     showBorder: {
       type: Boolean,
       default: false
+    },
+
+    isInputBorderEnabled: {
+      type: Boolean,
+      default: true
+    },
+
+    fakeInput: {
+      default: false,
+      type: Boolean
     },
 
     hidePencilIcon: {

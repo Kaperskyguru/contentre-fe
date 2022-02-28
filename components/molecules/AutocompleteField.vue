@@ -3,7 +3,7 @@
     :id="`${uid}-container`"
     ref="elementRef"
     v-click-outside="onClickOutside"
-    class="relative z-30 autocomplete-field"
+    class="relative autocomplete-field"
     :class="[$attrs.class]"
     @keydown.esc="$emit('blur')"
   >
@@ -67,105 +67,107 @@
       leave-from-class="transform scale-100 opacity-100"
       leave-to-class="transform scale-95 opacity-0"
     >
-      <ul
+      <div
         v-show="open && !loading && (itemsFiltered.length || canCreate)"
-        aria-haspopup="listbox"
-        aria-activedescendant
-        tabindex="-1"
-        role="listbox"
         class="
-          overflow-y-auto
           absolute
           z-10
+          focus:z-50
           w-full
-          max-h-40
           bg-white
           focus:outline-none focus:ring-2
           shadow
           origin-top
           cursor-default
-          border border-gray-400
+          border border-darksilver
           ring-1 ring-black ring-opacity-5
         "
       >
-        <li
-          v-if="canCreate"
-          id="create"
-          ref="liCreateItemRef"
-          class="
-            py-2
-            px-3
-            w-full
-            leading-5
-            hover:bg-linen
-            focus:outline-none focus:bg-linen
-            cursor-pointer
-            select-none
-            text-left text-black
-          "
-          :class="{ 'font-bold': !isAnyItemBold && !!textField }"
-          :value="textField"
-          role="option"
-          tabindex="0"
-          @focus="itemFocused($event)"
-          @blur="itemUnfocused"
-          @keydown.up="focus"
-          @keydown.down="focusNext($event)"
-          @keypress.enter.prevent="createItem()"
-          @click="createItem()"
+        <ul
+          aria-haspopup="listbox"
+          aria-activedescendant
+          tabindex="-1"
+          role="listbox"
+          class="overflow-y-auto max-h-40"
         >
-          Add {{ textField
-          }}<!-- {{ $t(addText, { name: textField }) }} -->
-        </li>
-        <li
-          v-for="item in itemsFiltered"
-          :id="`select-button-${uid}-${item.id}`"
-          :key="item.id"
-          ref="itemRefs"
-          :class="{ 'font-bold': isItemBold(item) }"
-          class="
-            flex
-            items-center
-            py-2
-            px-3
-            w-full
-            leading-5
-            hover:bg-primary-teal
-            focus:outline-none focus:bg-linen
-            cursor-pointer
-            select-none
-            text-left text-black
-          "
-          value="1"
-          role="option"
-          tabindex="0"
-          @focus="itemFocused($event)"
-          @blur="itemUnfocused"
-          @keydown.up="focusPrevious($event)"
-          @keydown.down="focusNext($event)"
-          @keypress.enter.stop.prevent="selectItem(item)"
-          @click="selectItem(item)"
-        >
-          <img
-            v-if="item[avatarKey]"
-            :src="item[avatarKey]"
-            width="20"
-            height="20"
-            class="mr-3"
-          />
-          <template v-if="item[colorKey]">
-            <Chip
-              :value="item[titleKey]"
-              :style="{ background: `#${item[colorKey]}80` }"
-              size="small"
-              class="-my-1 -mx-2"
+          <li
+            v-if="canCreate"
+            id="create"
+            ref="liCreateItemRef"
+            class="
+              py-2
+              px-3
+              w-full
+              leading-5
+              hover:bg-linen
+              focus:outline-none focus:bg-linen
+              cursor-pointer
+              select-none
+              text-left text-black
+            "
+            :class="{ 'font-bold': !isAnyItemBold && !!textField }"
+            :value="textField"
+            role="option"
+            tabindex="0"
+            @focus="itemFocused($event)"
+            @blur="itemUnfocused"
+            @keydown.up="focus"
+            @keydown.down="focusNext($event)"
+            @keypress.enter.prevent="createItem()"
+            @click="createItem()"
+          >
+            Add {{ textField }}
+          </li>
+          <li
+            v-for="item in itemsFiltered"
+            :id="`select-button-${uid}-${item.id}`"
+            :key="item.id"
+            ref="itemRefs"
+            :class="{ 'font-bold': isItemBold(item) }"
+            class="
+              flex
+              items-center
+              py-2
+              px-3
+              w-full
+              leading-5
+              hover:bg-primary-teal
+              focus:outline-none focus:bg-linen
+              cursor-pointer
+              select-none
+              text-left text-black
+            "
+            value="1"
+            role="option"
+            tabindex="0"
+            @focus="itemFocused($event)"
+            @blur="itemUnfocused"
+            @keydown.up="focusPrevious($event)"
+            @keydown.down="focusNext($event)"
+            @keypress.enter.stop.prevent="selectItem(item)"
+            @click="selectItem(item)"
+          >
+            <img
+              v-if="item[avatarKey]"
+              :src="item[avatarKey]"
+              width="20"
+              height="20"
+              class="mr-3"
             />
-          </template>
-          <template v-else>
-            {{ item.nickname || item[titleKey] }}
-          </template>
-        </li>
-      </ul>
+            <template v-if="item[colorKey]">
+              <Chip
+                :value="item[titleKey]"
+                :style="{ background: `#${item[colorKey]}80` }"
+                size="small"
+                class="-my-1 -mx-2"
+              />
+            </template>
+            <template v-else>
+              {{ item.nickname || item[titleKey] }}
+            </template>
+          </li>
+        </ul>
+      </div>
     </transition>
   </div>
 </template>

@@ -1,5 +1,10 @@
 <template>
-  <div class="mb-6">
+  <div
+    :id="`${uid}-container`"
+    ref="container"
+    class="group text-field"
+    :class="[$attrs.class, { 'has-focus': isFocused, 'is-disabled': disabled }]"
+  >
     <div
       v-if="!!label"
       class="flex items-center"
@@ -11,7 +16,7 @@
         labelClass
       ]"
     >
-      <!-- <label :for="uid" class="shrink text-sm">{{ label }}</label> -->
+      <label :for="uid" class="shrink text-sm">{{ label }}</label>
 
       <Tooltip
         v-if="error"
@@ -43,182 +48,204 @@
         </div>
       </Tooltip>
     </div>
-    <div>
-      <label
-        v-if="label"
-        class="
-          block
-          mb-2
-          tracking-wide
-          text-body-text-color
-          font-gilroy font-medium
-        "
-        >{{ label }}</label
-      >
+
+    <div
+      class="
+        flex
+        order-2
+        items-center
+        bg-white
+        focus-within:ring-2 focus-within:bg-snow
+        rounded
+        border
+        transition-all
+        cursor-text
+      "
+      :class="[
+        containerClass,
+        {
+          'mt-1': !!label,
+          'border-red': !disabled && !!error,
+          'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
+            !disabled && !error,
+          'border-silver bg-warngray bg-opacity-10': !!disabled
+        }
+      ]"
+      @click="focus"
+    >
+      <!-- 'border-solid border border-border-inner border-gray-200': showBorder -->
       <div
-        class="
-          flex
-          relative
-          order-2
-          items-center
-          bg-white
-          rounded
-          transition-all
-          cursor-text
-        "
-        :class="[
-          containerClass,
-          {
-            'mt-1': !!label,
-            'border-red': !disabled && !!error,
-            'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
-              !disabled && !error,
-            'border-silver bg-warngray bg-opacity-10': !!disabled
-          }
-        ]"
+        v-if="$slots['prepend-inner']"
+        class="flex-auto cursor-text"
+        :class="{ 'overflow-hidden min-w-8 max-w-2/5': isFocused }"
         @click="focus"
       >
-        <div
-          v-if="$slots['prepend-inner']"
-          class="flex-auto cursor-text"
-          :class="{ 'overflow-hidden min-w-8 max-w-2/5': isFocused }"
-          @click="focus"
-        >
-          <slot name="prepend-inner" />
-        </div>
-        <input
-          v-if="!rows"
-          :id="uid"
-          ref="field"
-          :value="lazy ? lazyInput : model"
-          class="
-            block
-            py-4
-            pr-12
-            pl-5
-            w-full
-            rounded
-            focus:border-body-text-color focus:outline-none
-            font-gilroy font-medium
-          "
-          :class="{
-            'border-solid border border-border-inner border-gray-200':
-              showBorder
-          }"
-          :type="showPassword ? 'text' : $attrs.type"
-          v-bind="attrsButClassAndType"
-          :enterkeyhint="enterkeyhint"
-          :mozactionhint="enterkeyhint"
-          :disabled="disabled"
-          @focusin="onFocusIn"
-          @focusout="onFocusOut"
-          @input="onInput"
-          @keydown="emitProxy('keydown', $event)"
-          @keypress.enter="emitProxy('keypress', $event)"
-          @keypress="validateKeypress($event, lazy ? lazyInput : value)"
-          @keyup="emitProxy('keyup', $event)"
-          @change="emitProxy('change', $event)"
-        />
+        <slot name="prepend-inner" />
+      </div>
+      <input
+        v-if="!rows"
+        :id="uid"
+        ref="field"
+        :class="[
+          baseClass,
+          fieldClass,
+          {
+            uppercase: casing === 'uppercase',
+            lowercase: casing === 'lowercase',
+            'pl-1': !!$slots['prepend-inner'],
+            'pl-3': !$slots['prepend-inner'],
+            'pr-1': !!$slots['append-inner'],
+            'pr-3': !$slots['append-inner']
+          }
+        ]"
+        :type="showPassword ? 'text' : $attrs.type"
+        :value="lazy ? lazyInput : model"
+        v-bind="attrsButClassAndType"
+        :enterkeyhint="enterkeyhint"
+        :mozactionhint="enterkeyhint"
+        :disabled="disabled"
+        @input="onInput"
+        @focusin="onFocusIn"
+        @focusout="onFocusOut"
+        @animationstart="onAnimationStart"
+        @keydown="emitProxy('keydown', $event)"
+        @click="emitProxy('click', $event)"
+        @keypress.enter="emitProxy('keypress', $event)"
+        @keypress="validateKeypress($event, lazy ? lazyInput : value)"
+        @keyup="emitProxy('keyup', $event)"
+        @change="emitProxy('change', $event)"
+      />
 
-        <textarea
-          v-else
-          :id="uid"
-          ref="field"
-          :rows="rows"
-          v-bind="attrsButClassAndType"
-          class="
-            block
-            py-4
-            pr-12
-            pl-5
-            w-full
-            rounded
-            focus:border-body-text-color focus:outline-none
-            font-gilroy font-medium
-          "
-          :class="{
-            'border-solid border border-border-inner border-gray-200':
-              showBorder,
-            'border-none': !showBorder,
+      <textarea
+        v-else
+        :id="uid"
+        ref="field"
+        :rows="rows"
+        :class="[
+          baseClass,
+          fieldClass,
+          {
+            uppercase: casing === 'uppercase',
+            lowercase: casing === 'lowercase',
+            'pl-1': !!$slots['prepend-inner'],
+            'pl-3': !$slots['prepend-inner'],
+            'pr-1': !!$slots['append-inner'],
+            'pr-3': !$slots['append-inner'],
             'bg-gray-100': disabled
-          }"
-          :enterkeyhint="enterkeyhint"
-          :mozactionhint="enterkeyhint"
-          :disabled="disabled"
-          @focusin="onFocusIn"
-          @focusout="onFocusOut"
-          @input="onInput"
-          @keydown="emitProxy('keydown', $event)"
-          @keypress.enter="emitProxy('keypress', $event)"
-          @keypress="validateKeypress($event, lazy ? lazyInput : value)"
-          @keyup="emitProxy('keyup', $event)"
-          @change="emitProxy('change', $event)"
-        >
-        </textarea>
-        <slot name="append-inner" :isFocused="isFocused" />
-        <Tooltip
-          v-if="$attrs.type === 'password'"
-          label=""
-          :trigger="['hover', 'focus']"
-        >
-          <button
-            v-if="$attrs.type === 'password'"
-            @click.prevent="togglePasswordType"
-          >
-            <img
-              :src="closeEyes ? closedEye : openedEye"
-              :alt="closeEyes ? 'Show Password' : 'Hide Password'"
-              class="absolute top-5 right-5"
-            />
-          </button>
-        </Tooltip>
+          }
+        ]"
+        v-bind="attrsButClassAndType"
+        :value="lazy ? lazyInput : model"
+        :enterkeyhint="enterkeyhint"
+        :mozactionhint="enterkeyhint"
+        :disabled="disabled"
+        @animationstart="onAnimationStart"
+        @click="emitProxy('click', $event)"
+        @keydown="emitProxy('keydown', $event)"
+        @keypress.enter="emitProxy('keypress', $event)"
+        @keypress="validateKeypress($event, lazy ? lazyInput : value)"
+        @keyup="emitProxy('keyup', $event)"
+        @change="emitProxy('change', $event)"
+      />
+      <!-- 'border-solid border border-border-inner border-gray-200':
+              showBorder,
+              
+                      class="
+          block
+          py-2
+          pr-12
+          pl-5
+          w-full
+          rounded
+          focus:border-body-text-color focus:outline-none
+          font-gilroy font-medium
+        "
+              
+              
+               -->
 
-        <Tooltip v-if="clearable" label="Clear" :trigger="['hover', 'focus']">
-          <button
-            type="button"
+      <slot name="append-inner" :isFocused="isFocused" />
+
+      <Tooltip
+        v-if="$attrs.type === 'password'"
+        :label="closeEyes ? 'Show password' : 'Hide password'"
+        :trigger="['hover', 'focus']"
+      >
+        <button
+          v-if="$attrs.type === 'password'"
+          type="button"
+          class="
+            group
+            flex
+            relative
+            justify-center
+            items-center
+            mx-1
+            w-8
+            h-[1.6875rem]
+            rounded
+            outline-none
+            focus:outline-none focus:ring-2
+          "
+          @click.prevent="togglePasswordType"
+        >
+          <img
+            width="24"
+            height="24"
+            :src="closeEyes ? closedEye : openedEye"
+            :alt="closeEyes ? 'Show Password' : 'Hide Password'"
             class="
-              group
-              flex
-              relative
-              flex-none
-              shrink-0
-              justify-center
-              items-center
-              mr-1
-              w-7
-              h-[1.6875rem]
-              rounded
-              outline-none
-              focus:outline-none focus:ring-2
+              object-contain
+              absolute
+              mt-px
+              w-6
+              h-6
+              opacity-40
+              group-hover:opacity-100
+              transition-all
             "
-            @click.prevent="onIconClick('clear')"
-          >
-            <img
-              src="~/assets/icons/close.svg"
-              alt="Clear"
-              width="12"
-              height="12"
-              class="
-                object-contain
-                absolute
-                mt-px
-                w-3
-                h-3
-                opacity-40
-                group-hover:opacity-100
-                transition-all
-              "
-            />
-          </button>
-        </Tooltip>
-      </div>
-    </div>
-    <div class="mt-3">
-      <div v-if="error">
-        <small class="ml-5 font-gilroy text-xs font-bold text-red-600">{{
-          error
-        }}</small>
-      </div>
+          />
+        </button>
+      </Tooltip>
+
+      <Tooltip v-if="clearable" label="Clear" :trigger="['hover', 'focus']">
+        <button
+          type="button"
+          class="
+            group
+            flex
+            relative
+            flex-none
+            shrink-0
+            justify-center
+            items-center
+            mr-1
+            w-7
+            h-[1.6875rem]
+            rounded
+            outline-none
+            focus:outline-none focus:ring-2
+          "
+          @click.prevent="onIconClick('clear')"
+        >
+          <img
+            src="~/assets/icons/close.svg"
+            alt="Clear"
+            width="12"
+            height="12"
+            class="
+              object-contain
+              absolute
+              mt-px
+              w-3
+              h-3
+              opacity-40
+              group-hover:opacity-100
+              transition-all
+            "
+          />
+        </button>
+      </Tooltip>
     </div>
   </div>
 </template>
@@ -241,24 +268,15 @@ export default {
   },
 
   props: {
-    label: {
+    casing: {
+      default: null,
       type: String,
-      default: ''
+      validate: (value) => ['uppercase', 'lowercase'].includes(value)
     },
 
-    enterkeyhint: {
-      default: '',
-      type: String
-    },
-
-    lazy: {
+    clearable: {
       default: false,
       type: Boolean
-    },
-
-    casing: {
-      type: String,
-      default: ''
     },
 
     containerClass: {
@@ -266,26 +284,39 @@ export default {
       type: String
     },
 
-    showBorder: {
-      default: true,
+    disabled: {
+      default: false,
       type: Boolean
     },
 
-    rows: {
-      type: Number,
-      default: 0
-    },
-
-    disabled: {
+    autofocus: {
       type: Boolean,
       default: false
     },
 
-    error: { default: null, type: [String, Boolean] },
+    enterkeyhint: {
+      default: '',
+      type: String
+    },
 
-    value: {
-      type: [String, Number],
-      default: ''
+    error: {
+      default: null,
+      type: [String, Boolean]
+    },
+
+    fieldClass: {
+      default: '',
+      type: [String, Object]
+    },
+
+    id: {
+      default: '',
+      type: String
+    },
+
+    label: {
+      default: null,
+      type: String
     },
 
     labelClass: {
@@ -293,7 +324,16 @@ export default {
       type: String
     },
 
-    clearable: {
+    rows: {
+      default: null,
+      type: [String, Number]
+    },
+
+    value: {
+      default: '',
+      type: [String, Number]
+    },
+    lazy: {
       default: false,
       type: Boolean
     },
@@ -305,6 +345,8 @@ export default {
   },
 
   data: () => ({
+    baseClass:
+      'flex-auto min-w-3 w-full py-2 text-black bg-transparent border-none outline-none',
     openedEye: EyeOpen,
     closedEye: EyeClosed,
     showPassword: false,
@@ -378,6 +420,13 @@ export default {
 
       this.emitProxy('icon:click')
     },
+    onAnimationStart(event) {
+      if (event.animationName === 'onAutoFillStart') {
+        this.isFocused = true
+      } else if (event.animationName === 'onAutoFillEnd') {
+        this.isFocused = false
+      }
+    },
 
     onFocusIn() {
       this.emitProxy('focus')
@@ -417,4 +466,51 @@ export default {
 </script>
 
 <style scoped>
+.text-field {
+  @apply relative grid grid-flow-row text-left;
+}
+
+.text-field input,
+.text-field textarea {
+  @apply min-h-[2.1875rem];
+}
+
+.text-field input[type='number']::-webkit-outer-spin-button,
+.text-field input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.text-field input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.text-field input:-webkit-autofill,
+.text-field textarea:-webkit-autofill {
+  /* HACK: Hook when auto fill is shown, so JavaScript can capture on 'animationstart'. */
+  animation: onAutoFillStart 0s;
+
+  /* HACK: Make real auto fill color transition takes all the day. */
+  transition: background-color 86400s ease-in-out 0s;
+}
+
+.text-field input:not(:-webkit-autofill),
+.text-field textarea:not(:-webkit-autofill) {
+  /* HACK: Hook when auto fill is canceled, so JavaScript can capture on 'animationstart'. */
+  animation: onAutoFillEnd 0s;
+}
+
+@keyframes onAutoFillStart {
+  0%,
+  100% {
+    /* HACK: Empty just to ensure 'animationstart' will trigger 'onAutoFillStart'. */
+  }
+}
+
+@keyframes onAutoFillCancel {
+  0%,
+  100% {
+    /* HACK: Empty just to ensure 'animationstart' will trigger 'onAutoFillCancel'. */
+  }
+}
 </style>

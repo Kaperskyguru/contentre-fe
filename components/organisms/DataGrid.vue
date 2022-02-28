@@ -75,7 +75,7 @@
             ]"
           >
             <div
-              class="py-4 pr-4 text-center bg-white border-b border-gray-200"
+              class="py-3.5 pr-4 text-center bg-white border-b border-gray-200"
             >
               <CheckField
                 :class="[hideCheckAll ? '!opacity-0' : '']"
@@ -100,7 +100,7 @@
           <th
             v-for="(column, columnIndex) of columnsFiltered"
             :key="`th-${columnIndex}`"
-            class="p-0 text-base font-medium tracking-wider"
+            class="pb-0.5 text-base font-medium tracking-wider"
             :class="[
               {
                 'sticky top-0': stickyHeader,
