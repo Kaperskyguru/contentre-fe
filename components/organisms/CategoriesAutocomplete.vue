@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!fakeInput"
     v-click-outside="onClickOutside"
     class="relative mb-8 bg-white rounded-lg border shadow-sm transition-shadow"
   >
@@ -219,6 +220,7 @@
         :hide-pencil-icon="hidePencilIcon"
         :disabled="disabled"
         :show-border="showBorder"
+        :is-input-border-enabled="isInputBorderEnabled"
         @update:search="search = $event"
         @update:value="selectCategory"
         @create="selectCategory"
@@ -226,21 +228,40 @@
         @focus="onFocusAutocomplete"
       />
     </div>
-    <div class="mt-3">
-      <div v-if="error">
-        <small class="ml-5 font-gilroy text-xs font-bold text-red-600">{{
-          error
-        }}</small>
-      </div>
+    <div v-if="error" class="mt-3">
+      <small class="ml-5 font-gilroy text-xs font-bold text-red-600">{{
+        error
+      }}</small>
     </div>
   </div>
+
+  <AutocompleteField
+    v-else
+    :id="id"
+    ref="elementRef"
+    :placeholder="placeholder"
+    :value="value"
+    :label="label"
+    :label-class="labelClass"
+    :chip-style="chipStyle"
+    :items="getCategories"
+    :allow-creation="allowCreation"
+    :loading="$apollo.queries.getCategories.loading"
+    :hide-pencil-icon="hidePencilIcon"
+    :disabled="disabled"
+    :show-border="showBorder"
+    @update:search="search = $event"
+    @update:value="selectCategory"
+    @create="selectCategory"
+    @blur="onBlurAutocomplete"
+    @focus="onFocusAutocomplete"
+  />
 </template>
 
 <script>
-// import gql from 'graphql-tag'
 import { nextTick } from '@nuxtjs/composition-api'
 import vClickOutside from 'v-click-outside'
-import { GET_CLIENTS, UPDATE_CLIENT } from '~/graphql'
+import { GET_CATEGORIES, UPDATE_CLIENT } from '~/graphql'
 export default {
   directives: {
     clickOutside: vClickOutside.directive
@@ -259,6 +280,16 @@ export default {
     id: {
       type: String,
       default: ''
+    },
+
+    isInputBorderEnabled: {
+      type: Boolean,
+      default: true
+    },
+
+    fakeInput: {
+      default: false,
+      type: Boolean
     },
 
     categoryId: {
@@ -340,22 +371,15 @@ export default {
 
   apollo: {
     getCategories: {
-      query: GET_CLIENTS,
+      query: GET_CATEGORIES,
       variables() {
         return {
           skip: 0,
-          size: 30,
-          filters: {
-            terms: this.search
-          }
+          size: 30
         }
       },
       update(data) {
-        // if (this.categoryId) {
-        //   return data.getCategories.filter(
-        //     (category) => category.id !== this.categoryId
-        //   )
-        // }
+        console.log(data)
         return data.getCategories
       }
     }
