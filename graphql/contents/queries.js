@@ -10,6 +10,19 @@ export const GET_CONTENTS = gql`
   ${contentFragments.content}
 `
 
+export const GET_INDEX_METADATA = gql`
+  query getIndexMetadata($filters: ContentFiltersInput) {
+    getIndexMetadata(filters: $filters) {
+      likePercent
+      commentPercent
+      sharePercent
+      likes
+      shares
+      comments
+    }
+  }
+`
+
 export const GET_CONTENT = gql`
   query getContent($id: ID!) {
     getContent(id: $id) {

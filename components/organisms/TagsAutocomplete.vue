@@ -248,12 +248,10 @@
         @focus="onFocusAutocomplete"
       />
     </div>
-    <div class="mt-3">
-      <div v-if="error">
-        <small class="ml-5 font-gilroy text-xs font-bold text-red-600">{{
-          error
-        }}</small>
-      </div>
+    <div v-if="error" class="mt-3">
+      <small class="ml-5 font-gilroy text-xs font-bold text-red-600">{{
+        error
+      }}</small>
     </div>
   </div>
 </template>

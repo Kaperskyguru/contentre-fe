@@ -9,6 +9,9 @@ export const clientFragments = {
       website
       profile
       totalContents
+      amount
+      paymentType
+      icon
       createdAt
       createdAt
       updatedAt

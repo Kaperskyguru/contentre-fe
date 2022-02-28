@@ -26,7 +26,7 @@
 
 <script>
 import fragment from 'vue-frag'
-import DownloadIcon from '~/assets/icons/download.svg'
+// import DownloadIcon from '~/assets/icons/download.svg'
 import { GET_CLIENTS } from '~/graphql'
 export default {
   directives: {
@@ -73,16 +73,16 @@ export default {
         {
           title: 'Name',
           key: 'name',
-          component: () => 'DataGridCellIcon',
+          component: () => 'DataGridCellAvatar',
           componentOptions: this.getNameComponentOptions
         },
         {
-          title: 'Profile Link',
-          key: 'profile',
-          component: ({ profile }) => {
-            return profile ? 'DataGridCellIcon' : 'DataGridCellIcon'
+          title: 'Payment',
+          key: 'paymentType',
+          component: () => {
+            return 'DataGridCellIcon'
           },
-          componentOptions: this.getProfileComponentOptions
+          componentOptions: this.getPaymentComponentOptions
         },
         {
           title: 'Total Contents',
@@ -98,6 +98,14 @@ export default {
           key: 'createdAt',
           component: () => 'DataGridCellIcon',
           componentOptions: this.getCreatedAtComponentOptions
+        },
+        {
+          title: 'Amount',
+          key: 'amount',
+          component: () => {
+            return 'DataGridCellMoney'
+          },
+          componentOptions: this.getAmountComponentOptions
         }
       ]
     }
@@ -108,12 +116,10 @@ export default {
       this.clientId = id
     },
 
-    getNameComponentOptions({ name, website }) {
+    getNameComponentOptions({ name, website, icon }) {
       return name
         ? {
-            file: DownloadIcon,
-            link: !!website,
-            size: 20,
+            icon,
             url: `https://${website}`,
             style: !name ? 'secondary' : undefined,
             value: name || 'No name provided'
@@ -165,18 +171,32 @@ export default {
           }
     },
 
-    getProfileComponentOptions({ profile }) {
-      return profile
+    getPaymentComponentOptions({ paymentType }) {
+      return paymentType
         ? {
-            file: DownloadIcon,
-            link: !!profile,
-            size: 20,
-            url: `https://${profile}`,
-            style: !profile ? 'secondary' : undefined,
-            value: profile === null ? 'No profile provided' : profile,
-            name: 'Profile'
+            style: !paymentType ? 'secondary' : undefined,
+            value: paymentType === null ? 'No payment provided' : paymentType,
+            name: 'Payment'
           }
         : {}
+    },
+
+    getAmountComponentOptions({ amount }) {
+      return amount
+        ? {
+            style: !amount ? 'secondary' : undefined,
+            value: amount === null ? 'No payment provided' : amount,
+            name: 'Amount',
+            currency: 'USD',
+            currencyBefore: true
+          }
+        : {
+            style: !amount ? 'secondary' : undefined,
+            value: 0.0,
+            name: 'Amount',
+            currency: 'USD',
+            currencyBefore: true
+          }
     },
 
     getTotalContentsComponentOptions({ totalContents }) {
