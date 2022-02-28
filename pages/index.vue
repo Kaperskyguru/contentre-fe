@@ -7,7 +7,7 @@
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Stat box 1 -->
         <StatBox
-          v-for="(stat, key) in stats"
+          v-for="(stat, key) in getStats"
           :key="`stat-${key}`"
           :stat="stat"
         />
@@ -56,6 +56,7 @@ import Rocket from '~/assets/icons/rocket.svg'
 import Show from '~/assets/icons/show.svg'
 import Heart from '~/assets/icons/heart.svg'
 import Chat from '~/assets/icons/chat.svg'
+import { GET_INDEX_METADATA } from '~/graphql'
 export default {
   name: 'HomePage',
   layout: 'Dashboard',
@@ -66,28 +67,89 @@ export default {
         text: 'Avg. Click Rate',
         value: '56.8%',
         increment: '19.3%',
+        key: 'shares',
         icon: Rocket
       },
       {
         text: 'Page Views',
         value: '56.8%',
         increment: '19.3%',
+        key: 'views',
         icon: Show
       },
       {
         text: 'Total Likes',
         value: '56.8%',
         increment: '19.3%',
+
+        key: 'likes',
         icon: Heart
       },
       {
         text: 'Total Comments',
         value: '56.8%',
         increment: '19.3%',
+        key: 'comments',
         icon: Chat
       }
     ]
-  })
+  }),
+
+  apollo: {
+    metadata: {
+      query: GET_INDEX_METADATA,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        return data.getIndexMetadata
+      }
+      // variables: {
+      //   size: 10,
+      //   skip: 0
+      // }
+    }
+  },
+
+  computed: {
+    getStats() {
+      const stats = []
+
+      this.stats.forEach((item) => {
+        if (item.key === 'likes') {
+          stats.push({
+            ...item,
+            value: parseFloat(this.metadata?.likes).toFixed(2),
+            increment: parseFloat(this.metadata?.likePercent).toFixed(2)
+          })
+        }
+
+        if (item.key === 'comments') {
+          stats.push({
+            ...item,
+            value: parseFloat(this.metadata?.comments).toFixed(2),
+            increment: parseFloat(this.metadata?.commentPercent).toFixed(2)
+          })
+        }
+
+        if (item.key === 'shares') {
+          stats.push({
+            ...item,
+            value: parseFloat(this.metadata?.shares).toFixed(2),
+            increment: parseFloat(this.metadata?.sharePercent).toFixed(2)
+          })
+
+          stats.push({
+            text: 'Page Views',
+            value: '56.8%',
+            increment: '19.3%',
+            key: 'views',
+            icon: Show
+          })
+        }
+      })
+
+      return stats
+    }
+  }
 }
 </script>
 
