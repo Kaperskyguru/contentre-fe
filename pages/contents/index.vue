@@ -11,7 +11,7 @@
           <div
             class="px-5 bg-white rounded-lg border border-gray-200 shadow-lg"
           >
-            <span class="inline-block relative space-x-6 align-top">
+            <span class="inline-block relative space-x-6  mt-2">
               <button class="text-2xl leading-10 text-right">
                 <svg
                   width="24"
@@ -39,7 +39,7 @@
               </button>
             </span>
 
-            <span class="inline-block relative space-x-6 align-top">
+            <span class="inline-block relative space-x-6  mt-2">
               <button class="text-3xl leading-10 text-left text-gray-500">
                 <i class="far fa-bookmark fa-xs"></i>
               </button>
@@ -208,10 +208,10 @@
     </section>
 
     <section
-      class="flex flex-col justify-between space-y-6 md:flex-row md:space-y-0"
+      class="flex flex-col justify-between space-y-6 md:flex-row md:space-y-0 mb-6"
     >
       <div class="flex flex-wrap justify-end items-start -mb-3">
-        <div class="inline-flex relative ml-2">
+        <div class="inline-flex relative">
           <svg
             class="absolute top-0 right-0 m-4 w-2 h-2 pointer-events-none"
             xmlns="http://www.w3.org/2000/svg"
@@ -294,7 +294,7 @@
           </select>
         </div>
       </div>
-      <div class="mr-6">
+      <div class="">
         <Button type="link" :to="{ name: 'contents/add' }" appearance="primary">
           Add Content
         </Button>
