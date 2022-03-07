@@ -7,5 +7,5 @@ export const isURL = helpers.withParams(
   {
     type: 'isURL'
   },
-  (v) => !helpers.req(v) || regex.test(`https://${v}`)
+  (v) => !helpers.req(v) || regex.test(v)
 )

@@ -6,6 +6,7 @@
         v-model="$v.fieldEmail.$model"
         required
         type="email"
+        class="mb-6"
         name="email"
         label="Email Address"
         placeholder="Enter your email address"
@@ -20,12 +21,13 @@
         v-model="$v.fieldPassword.$model"
         required
         minlength="6"
+        class="mb-6"
         type="password"
         maxlength="50"
         placeholder="Enter your full password"
         label="Password"
       ></TextField>
-      <div class="flex justify-between">
+      <div class="flex justify-between mb-6">
         <CheckField id="remember" v-model="fieldRemember"
           >Remember me</CheckField
         >

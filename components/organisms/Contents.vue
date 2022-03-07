@@ -1,12 +1,16 @@
 <template>
-  <DataGrid
-    :columns="columns"
-    :checked.sync="computedChecked"
-    :items="contents.items"
-    :total="contents.total"
-    :loading="$apollo.queries.contents.loading"
-    :item-clickable="true"
-  />
+  <span>
+    <DataGrid
+      :columns="columns"
+      :checked.sync="computedChecked"
+      :items="contents.items"
+      :total="contents.total"
+      :loading="$apollo.queries.contents.loading"
+      :item-clickable="true"
+      @item-click="onItemClick"
+    />
+    <LazyContentEdit v-model="contentId"></LazyContentEdit>
+  </span>
 </template>
 
 <script>
@@ -19,10 +23,15 @@ export default {
     checked: {
       type: Array,
       default: () => []
+    },
+    filters: {
+      type: Object,
+      default: () => {}
     }
   },
 
   data: () => ({
+    contentId: null,
     contents: {
       items: [],
       total: 0
@@ -36,7 +45,11 @@ export default {
       variables() {
         return {
           size: 30,
-          skip: 0
+          skip: 0,
+          filters: {
+            terms: this.filters?.terms,
+            sortBy: this.filters?.sortBy
+          }
         }
       },
       update(data) {
@@ -62,17 +75,27 @@ export default {
         {
           title: 'Title',
           key: 'title',
-          component: ({ title }) =>
-            title ? 'DataGridCellIcon' : 'DataGridCellBlur',
+          component: () => 'DataGridCellIcon',
           componentOptions: this.getTitleComponentOptions
         },
         {
           title: 'Client',
           key: 'client.name',
-          component: ({ client }) => {
-            return client ? 'DataGridCellIcon' : 'DataGridCellBlur'
+          component: () => {
+            return 'DataGridCellAvatar'
           },
           componentOptions: this.getClientComponentOptions
+        },
+        {
+          title: 'Category',
+          key: 'category.name',
+          isGrid: true,
+          dataClass: ({ category }) =>
+            `${category ? 'xs:py-2' : 'xs:py-2'} lg:py-0`,
+          component: () => {
+            return 'DataGridCellCategory'
+          },
+          componentOptions: this.getCategoryComponentOptions
         },
 
         {
@@ -82,8 +105,8 @@ export default {
           dataClass: ({ visibility }) => {
             return `${visibility ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
           },
-          component: ({ visibility }) => {
-            return visibility ? 'DataGridCellIcon' : 'DataGridCellBlur'
+          component: () => {
+            return 'DataGridCellIcon'
           },
           componentOptions: this.getVisibilityComponentOptions
         },
@@ -91,15 +114,24 @@ export default {
           title: 'Last Updated',
           key: 'lastUpdated',
           titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
-          component: ({ lastUpdated }) =>
-            lastUpdated ? 'DataGridCellIcon' : 'DataGridCellBlur',
+          component: () => 'DataGridCellIcon',
           componentOptions: this.getLastUpdatedComponentOptions
+        },
+        {
+          title: 'Amount',
+          key: 'amount',
+          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          component: () => 'DataGridCellMoney',
+          componentOptions: this.getAmountComponentOptions
         }
       ]
     }
   },
 
   methods: {
+    onItemClick({ id }) {
+      this.contentId = id
+    },
     getTitleComponentOptions({ title, url }) {
       return title
         ? {
@@ -138,9 +170,24 @@ export default {
       return visibility
         ? {
             style: !visibility ? 'secondary' : undefined,
-            value: visibility || 'No title provided'
+            value: visibility || 'No visibility provided'
           }
         : {}
+    },
+
+    getAmountComponentOptions({ amount }) {
+      return amount
+        ? {
+            style: !amount ? 'secondary' : undefined,
+            value: amount || 'No amount provided',
+            currency: 'USD',
+            currencyBefore: true
+          }
+        : {
+            value: amount || 0.0,
+            currency: 'USD',
+            currencyBefore: true
+          }
     },
 
     getClientComponentOptions({ client }) {
@@ -148,9 +195,29 @@ export default {
         ? {
             style: !client ? 'secondary' : undefined,
             class: 'capitalize',
+            icon: client.icon,
+            url: `https://${client.website}`,
             value: client.name || 'No Client provided'
           }
         : {}
+    },
+
+    getCategoryComponentOptions({ category }) {
+      return category
+        ? {
+            style: !category ? 'secondary' : undefined,
+            class: 'capitalize',
+
+            isGrid: true,
+            value: category.name || 'No category provided'
+          }
+        : {
+            style: 'secondary',
+
+            isGrid: true,
+            class: 'capitalize',
+            value: 'No category provided'
+          }
     }
   }
 }

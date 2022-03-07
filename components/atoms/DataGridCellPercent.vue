@@ -55,42 +55,35 @@
       ]"
     >
       <div class="flex relative">
+        <div v-if="isIconBack">
+          <span v-if="isPositive" class="inline-block relative text-green-500">
+            <IncrementIcon />
+          </span>
+          <span v-else class="inline-block relative text-red">
+            <IncrementIcon />
+          </span>
+        </div>
+
         <span
           class="pl-1"
           :class="{
             'text-green-500': isPositive,
-            'text-red-500': !isPositive
+            'text-red': !isPositive
           }"
           ><span v-if="isPositive">+</span>{{ options.value }}%</span
         >
 
-        <span
-          v-if="isPositive"
-          class="inline-block relative text-green-500 text-md"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 fill-current"
-            viewBox="0 0 24 24"
+        <div v-if="!isIconBack">
+          <span
+            v-if="isPositive"
+            class="inline-block relative text-green-500 text-md"
           >
-            <path
-              class="heroicon-ui"
-              d="M20 15a1 1 0 002 0V7a1 1 0 00-1-1h-8a1 1 0 000 2h5.59L13 13.59l-3.3-3.3a1 1 0 00-1.4 0l-6 6a1 1 0 001.4 1.42L9 12.4l3.3 3.3a1 1 0 001.4 0L20 9.4V15z"
-            ></path>
-          </svg>
-        </span>
-        <span v-else class="inline-block relative text-red-500 text-md">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 fill-current"
-            viewBox="0 0 24 24"
-          >
-            <path
-              class="heroicon-ui"
-              d="M20 15a1 1 0 002 0V7a1 1 0 00-1-1h-8a1 1 0 000 2h5.59L13 13.59l-3.3-3.3a1 1 0 00-1.4 0l-6 6a1 1 0 001.4 1.42L9 12.4l3.3 3.3a1 1 0 001.4 0L20 9.4V15z"
-            ></path>
-          </svg>
-        </span>
+            <IncrementIcon />
+          </span>
+          <span v-else class="inline-block relative text-red-100 text-md">
+            <IncrementIcon />
+          </span>
+        </div>
       </div>
 
       <small v-if="options.suffix" class="text-2xs text-red">
@@ -104,10 +97,21 @@
 import { defineComponent } from '@vue/composition-api'
 import BaseCell from './DataGridCellBase'
 
+import IncrementIcon from '~/assets/icons/increment.svg?inline'
+
 export default defineComponent({
   name: 'DataGridCellPercent',
 
+  components: { IncrementIcon },
+
   extends: BaseCell,
+
+  props: {
+    isIconBack: {
+      type: Boolean,
+      default: false
+    }
+  },
 
   computed: {
     isPositive() {

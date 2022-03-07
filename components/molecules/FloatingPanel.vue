@@ -83,25 +83,10 @@
                 <button
                   v-if="enableClose"
                   appearance="tertiary"
-                  class="-mt-1.5 -mb-3 w-2 h-2 hover:text-black text-darksilver"
+                  class="-mt-1.5 -mb-3 w-2 h-2 text-darksilver hover:text-black"
                   @click="close"
                 >
-                  <!-- <IconClose slot="icon" /> -->
-
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+                  <IconClose slot="icon" />
                 </button>
               </Tooltip>
             </header>
@@ -127,12 +112,12 @@
                     top-0
                     right-4
                     left-2
+                    z-40
                     h-4
                     bg-gradient-to-b
                     from-white
                     to-transparent
                     pointer-events-none
-                    z-4
                   "
                 />
 
@@ -146,12 +131,12 @@
                     right-4
                     bottom-0
                     left-2
+                    z-40
                     h-4
                     bg-gradient-to-b
                     from-transparent
                     to-white
                     pointer-events-none
-                    z-4
                   "
                 />
 
@@ -173,7 +158,7 @@
 <script>
 import { Portal } from '@linusborg/vue-simple-portal'
 import { defineComponent } from '@nuxtjs/composition-api'
-// import IconClose from '~/assets/icons/close.svg?inline'
+import IconClose from '~/assets/icons/big-close.svg?inline'
 
 import Card from '~/components/atoms/Card.vue'
 
@@ -183,7 +168,7 @@ export default defineComponent({
   components: {
     Card,
 
-    // IconClose,
+    IconClose,
     Portal
   },
 

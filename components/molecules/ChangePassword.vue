@@ -20,7 +20,7 @@
       <form @submit.prevent="changePassword">
         <div class="flex flex-wrap -mx-2">
           <div class="px-4 w-full md:w-1/2 xl:w-1/2">
-            <div>
+            <div class="mb-6">
               <TextField
                 v-model="$v.fieldOldPassword.$model"
                 :error="getValidationMessage($v.fieldOldPassword)"
@@ -35,7 +35,7 @@
               type="text"
               class="absolute invisible"
             />
-            <div class="">
+            <div class="mb-6">
               <TextField
                 v-model="$v.fieldPassword.$model"
                 type="password"
@@ -45,7 +45,7 @@
               />
             </div>
 
-            <div class="">
+            <div class="mb-6">
               <TextField
                 v-model="$v.fieldConfirmPassword.$model"
                 type="password"

@@ -1,7 +1,7 @@
 <template>
   <form class="w-full" @submit.prevent="handleSubmission">
     <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <div class="px-3 mb-6 w-full md:mb-0 md:w-1/2">
         <TextField
           v-model="$v.fieldFirstname.$model"
           type="text"
@@ -11,7 +11,7 @@
           :error="getValidationMessage($v.fieldFirstname)"
         />
       </div>
-      <div class="w-full md:w-1/2 px-3">
+      <div class="px-3 w-full md:w-1/2">
         <TextField
           v-model="$v.fieldLastname.$model"
           type="text"
@@ -24,7 +24,7 @@
     </div>
 
     <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <div class="px-3 mb-6 w-full md:mb-0 md:w-1/2">
         <TextField
           v-model="$v.fieldJobTitle.$model"
           type="text"
@@ -34,7 +34,7 @@
           :error="getValidationMessage($v.fieldJobTitle)"
         />
       </div>
-      <div class="w-full md:w-1/2 px-3">
+      <div class="px-3 w-full md:w-1/2">
         <TextField
           v-model="$v.fieldHomeAddress.$model"
           type="text"
@@ -47,7 +47,7 @@
     </div>
 
     <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <div class="px-3 mb-6 w-full md:mb-0 md:w-1/2">
         <TextField
           v-model="$v.fieldEmail.$model"
           type="email"
@@ -57,7 +57,7 @@
           :error="getValidationMessage($v.fieldEmail)"
         />
       </div>
-      <div class="w-full md:w-1/2 px-3">
+      <div class="px-3 w-full md:w-1/2">
         <TextField
           v-model="$v.fieldPhoneNumber.$model"
           type="text"
@@ -69,8 +69,8 @@
       </div>
     </div>
 
-    <div class="flex flex-wrap -mx-3">
-      <div class="w-full px-3">
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="px-3 w-full">
         <TextField
           v-model="$v.fieldBio.$model"
           :rows="10"
@@ -80,7 +80,7 @@
         />
       </div>
     </div>
-    <div class="w-full flex items-center justify-center mb-6">
+    <div class="flex justify-center items-center mb-6 w-full">
       <Button class="w-1/2" type="submit"> Save </Button>
     </div>
   </form>
@@ -147,13 +147,19 @@ export default {
       this.sending = true
 
       const input = {
-        firstname: this.fieldPhoneNumber || undefined,
+        firstname: this.fieldFirstname || undefined,
         lastname: this.fieldLastname || undefined,
         jobTitle: this.fieldJobTitle || undefined,
         email: this.fieldEmail || undefined,
         homeAddress: this.fieldHomeAddress || undefined,
         bio: this.fieldBio || undefined,
         phoneNumber: this.fieldPhoneNumber || undefined
+      }
+
+      if (this.isEmpty(input)) {
+        this.$toast.negative('Enter at least one field')
+        this.sending = false
+        return
       }
 
       try {
@@ -187,6 +193,9 @@ export default {
         this.$toast.negative(error.message)
         this.sending = false
       }
+    },
+    isEmpty(data) {
+      return !Object.values(data).some((el) => el !== undefined)
     }
   }
 }

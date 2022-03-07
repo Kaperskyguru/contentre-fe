@@ -21,6 +21,17 @@ export const contentFragments = {
       type
       excerpt
       content
+      likes
+      shares
+      comments
+      amount
+      interactions
+      paymentType
+      category {
+        id
+        name
+        color
+      }
       featuredImage
       createdAt
       updatedAt

@@ -14,9 +14,8 @@
           flex
           fixed
           bottom-4
-          lg:bottom-8
           left-1/2
-          z-5
+          z-50
           justify-between
           items-center
           py-2
@@ -24,13 +23,13 @@
           pl-6
           space-x-3
           w-full
-          max-w-11/12
-          md:w-auto md:max-w-3xl
           rounded-lg
           border
           shadow-lg
           transform
           -translate-x-1/2
+          md:w-auto md:max-w-3xl
+          lg:bottom-8
           text-sm text-warndarkgray
         "
         :class="{
@@ -40,10 +39,15 @@
         }"
       >
         <p>{{ formattedMessage }}</p>
-
-        <Button appearance="tertiary" size="small" @click="$toast.message = ''">
-          <IconClose slot="icon" />
-        </Button>
+        <Tooltip :label="`Close`">
+          <button
+            appearance="tertiary"
+            size="small"
+            @click="$toast.message = ''"
+          >
+            <IconClose slot="icon" />
+          </button>
+        </Tooltip>
       </div>
     </transition>
   </Portal>
@@ -52,15 +56,13 @@
 <script>
 import { Portal } from '@linusborg/vue-simple-portal'
 import { defineComponent } from '@nuxtjs/composition-api'
-import Button from '~/components/atoms/Button.vue'
-import IconClose from '~/assets/icons/close.svg?inline'
+import IconClose from '~/assets/icons/big-close.svg?inline'
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Toast',
 
   components: {
-    Button,
     Portal,
     IconClose
   },

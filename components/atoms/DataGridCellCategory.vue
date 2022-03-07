@@ -4,49 +4,48 @@
     :class="{
       'inline-flex lg:w-full': !options.fakeInput
     }"
+    class="cursor-default"
     @click="onStopPropagation($event)"
   >
     <span
-      v-if="!showAutoComplete && displayClient && !options.fakeInput"
+      v-if="!showAutoComplete && displayCategory && !options.fakeInput"
       class="
         py-2.5
         px-3
         -my-1
-        leading-snug
         whitespace-nowrap
+        bg-gray-100
+        hover:bg-linen
         rounded
         cursor-pointer
         overflow-hidden overflow-ellipsis
       "
-      :class="[
-        {
-          'text-darksilver': !displayClient
-        }
-      ]"
+      :style="displayedCategoryStyle"
       @click="onClickShowAutoComplete"
     >
-      {{ displayClient }}
+      {{ displayCategory }}
     </span>
 
-    <ClientsAutocomplete
-      v-if="!displayedCategory || showAutoComplete || options.fakeInput"
+    <CategoriesAutocomplete
+      v-if="!displayCategory || showAutoComplete || options.fakeInput"
       :id="uid"
-      v-model="selectedClient"
+      v-model="selectedCategory"
+      :chip-style="displayedCategoryStyle"
+      :disabled="options.disabled"
       :show-border="true"
       :hide-pencil-icon="hidePencilIcon"
-      class="z-30 -my-2 lg:w-full"
+      class="-my-1 lg:w-full"
       :class="{
         'lg:w-32': !showAutoComplete && !options.fakeInput
       }"
-      :disabled="options.disabled"
       :transaction="item"
-      :fake-input="options.fakeInput"
-      :placeholder="defaultClientName"
+      :placeholder="defaultCategoryName"
       :field-class="{
-        'placeholder-black': displayClient !== 'Choose a client'
+        'placeholder-black': displayCategory !== 'Choose a category'
       }"
-      :is-input-border-enabled="options.fakeInput"
-      @update:value="onUpdateClient"
+      :fake-input="options.isGrid"
+      :is-input-border-enabled="options.isGrid"
+      @update:value="onUpdateCategory"
       @focus="onFocusAutocomplete"
       @blur="onBlurAutocomplete"
     />
@@ -61,7 +60,7 @@ import vClickOutside from 'v-click-outside'
 import BaseCell from './DataGridCellBase'
 
 export default defineComponent({
-  name: 'DataGridCellClient',
+  name: 'DataGridCellCategory',
 
   directives: {
     clickOutside: vClickOutside.directive
@@ -75,6 +74,11 @@ export default defineComponent({
       default: false
     },
 
+    // isGrid: {
+    //   type: Boolean,
+    //   default: false
+    // },
+
     hidePencilIcon: {
       type: Boolean,
       default: true
@@ -82,7 +86,7 @@ export default defineComponent({
   },
 
   data: () => ({
-    selectedClient: null,
+    selectedCategory: null,
     showAutoComplete: false
   }),
 
@@ -90,36 +94,40 @@ export default defineComponent({
     uid() {
       return this.$utils.uidGenerator()
     },
-    defaultClientName() {
+    defaultCategoryName() {
       if (this.options.fakeInput) {
-        return this.item?.name ?? 'Choose a client'
+        return this.item?.name ?? 'Choose a category'
       }
 
       return this.item?.name ?? ''
     },
-
+    displayedCategoryStyle() {
+      return this.item?.category?.color
+        ? { background: `#${this.item.category.color}80` }
+        : null
+    },
     ignoreCounterparties() {
       return this.item?.name ? [this.item?.name] : null
     },
 
-    displayClient() {
+    displayCategory() {
       return (
-        this.selectedClient?.name ??
-        this.selectedClient ??
-        this.defaultClientName ??
+        this.selectedCategory?.name ??
+        this.selectedCategory ??
+        this.defaultCategoryName ??
         ''
       )
     }
   },
 
   watch: {
-    'item.manualCounterparty'(manualCounterparty) {
-      this.selectedClient = manualCounterparty
+    'item.category'(manualCounterparty) {
+      this.selectedCategory = manualCounterparty
     }
   },
 
   mounted() {
-    this.selectedClient = this.item?.name ?? this.options?.value ?? null
+    this.selectedCategory = this.item?.name ?? this.options?.value ?? null
   },
 
   methods: {
@@ -127,7 +135,7 @@ export default defineComponent({
       if (this.disabled) return
 
       this.showAutoComplete = true
-      this.selectedClient = this.displayClient
+      this.selectedCategory = this.displayCategory
 
       nextTick(() => {
         const input = this.$el.querySelector('input')
@@ -135,11 +143,11 @@ export default defineComponent({
       })
     },
 
-    onUpdateClient(client) {
-      if (client) {
+    onUpdateCategory(category) {
+      if (category) {
         this.showAutoComplete = false
       } else {
-        this.selectedClient = client
+        this.selectedCategory = category
       }
     },
 
