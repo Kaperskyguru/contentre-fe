@@ -20,7 +20,7 @@
     </section>
 
     <section
-      class="flex flex-col justify-between space-y-6 md:flex-row md:space-y-0"
+      class="flex flex-col justify-between space-y-6 md:flex-row md:space-y-0 mb-6"
     >
       <Filters :columns="columns" @filters="onFilters" />
       <div class="flex">

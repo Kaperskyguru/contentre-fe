@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center items-center">
-    <IconFolderOpen class="h-8 fill-current text-silver" />
-    <p class="mt-2 text-lg text-silver">
+  <div class="flex flex-col justify-center items-center my-6">
+    <IconFolderOpen class="h-8 fill-current text-gray-300" />
+    <p class="mt-4 text-lg text-gray-300">
       {{ message || 'No data to show' }}
     </p>
 
