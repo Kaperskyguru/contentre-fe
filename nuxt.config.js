@@ -1,3 +1,4 @@
+import nuxtI18nConfig from './nuxt.i18n.config'
 export default {
   ssr: false,
 
@@ -81,7 +82,9 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    // https://i18n.nuxtjs.org
+    ['@nuxtjs/i18n', nuxtI18nConfig]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

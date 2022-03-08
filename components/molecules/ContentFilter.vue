@@ -1,96 +1,78 @@
 <template>
   <div class="flex flex-wrap items-center py-4">
-    <div class="p-4 w-1/5 bg-white rounded-sm shadow">
-      <ul class="flex flex-wrap justify-start items-center">
-        <li>
-          <a
-            href="#"
-            class="
-              text-sm
-              font-normal
-              text-gray-600
-              hover:text-black
-              focus:text-black
-              md:mr-6
-            "
-            >Days</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="
-              text-sm
-              font-bold
-              text-gray-600
-              hover:text-gray-900
-              focus:text-black
-              md:mr-6
-            "
-            >Week</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="
-              text-sm
-              font-normal
-              text-gray-600
-              hover:text-gray-900
-              focus:text-black
-              md:mr-6
-            "
-            >Month</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="
-              text-sm
-              font-normal
-              text-gray-600
-              hover:text-gray-900
-              focus:text-black
-              md:mr-6
-            "
-            >Year</a
-          >
-        </li>
-      </ul>
-    </div>
     <div class="flex sm:justify-center">
-      <div class="inline-flex relative p-2 ml-2 bg-white rounded-sm shadow">
-        <select
+      <button
+        class="
+          flex
+          justify-between
+          items-center
+          px-3
+          h-9
+          text-darksilver
+          bg-primary-teal
+          hover:bg-linen
+          rounded
+        "
+        @click="onClickOpenFilters"
+      >
+        <IconFilter fill="#fff" width="20" height="15" class="mr-2" />
+        <span class="text-sm text-white">Filter</span>
+        <!-- hasFilter -->
+        <span
+          v-if="false"
+          aria-atomic="true"
+          :aria-label="true"
+          aria-live="polite"
+          role="status"
           class="
-            pl-5
-            text-gray-600
-            rounded-sm
-            hover:border-none
-            focus:outline-none
-            appearance-none
-            border border-none
+            grid
+            place-items-center
+            ml-2
+            w-2
+            h-2
+            text-2xs
+            tracking-tighter
+            leading-none
+            text-white
+            bg-red
+            rounded-full
           "
         >
-          <option>Add Widget</option>
-          <option>Red</option>
-          <option>Blue</option>
-          <option>Yellow</option>
-          <option>Black</option>
-          <option>Orange</option>
-          <option>Purple</option>
-          <option>Gray</option>
-          <option>White</option>
-        </select>
-      </div>
+        </span>
+      </button>
     </div>
+
+    <LazyContentsFilters
+      v-model="filtersShowFloatingPanel"
+      @close-panel="onChangeFilters"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  components: {}
+  components: {
+    IconFilter: () => import('~/assets/icons/filter-sharp.svg?inline')
+  },
+
+  data: () => ({
+    filtersShowFloatingPanel: false,
+    filters: {}
+  }),
+
+  methods: {
+    onClickOpenFilters() {
+      this.filtersShowFloatingPanel = !this.filtersShowFloatingPanel
+    },
+
+    onChangeFilters(data) {
+      if (!data) return
+
+      this.filters = data
+
+      this.$emit('filters', this.filters)
+    }
+  }
 }
 </script>
 

@@ -26,7 +26,7 @@ export default {
 
   computed: {
     separator() {
-      const char = 1 // this.$n(1, 'float')[1]
+      const char = this.$n(1, 'float')[1]
       return {
         charCode: char === ',' ? 44 : 46,
         char
@@ -37,7 +37,7 @@ export default {
   watch: {
     '$i18n.locale'() {
       if (this.lazy) {
-        const fullValue = this.value // this.$n(this.convertValue(this.value), 'float')
+        const fullValue = this.$n(this.convertValue(this.value), 'float')
         this.lazyInput =
           this.separator.char === ',' ? fullValue.replace('.', ',') : fullValue
       }
@@ -47,9 +47,10 @@ export default {
       handler(value) {
         if (this.lazy) {
           if (this.emptyUndefined) {
-            this.lazyInput = !!value && value !== 0 ? value : '' // this.$n(value, 'float') : ''
+            this.lazyInput =
+              !!value && value !== 0 ? this.$n(value, 'float') : ''
           } else {
-            this.lazyInput = value // this.$n(value, 'float')
+            this.lazyInput = this.$n(value, 'float')
           }
         }
       },

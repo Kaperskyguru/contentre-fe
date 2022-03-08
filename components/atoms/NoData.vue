@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-center items-center">
-    <IconFolderOpen class="h-8 fill-current text-silver" />
+    <IconFolderOpen class="h-8 text-silver fill-current" />
     <p class="mt-2 text-lg text-silver">
       {{ message || 'No data to show' }}
     </p>

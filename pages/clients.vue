@@ -7,24 +7,34 @@
     </div>
 
     <!-- calender -->
-    <section>
+    <!-- <section>
       <ContentFilter />
-    </section>
+    </section> -->
     <!-- end of calender -->
 
     <!-- statistics -->
 
     <!-- ====== Cards Section Start -->
-    <section class="pt-6 pb-2">
+    <!-- <section class="pt-6 pb-2">
       <BarCharts />
-    </section>
+    </section> -->
     <!-- ====== Cards Section End -->
     <!-- end of statistic -->
 
-    <section class="container px-4 mx-auto mt-8 bg-white">
-      <!-- <div class="overflow-y-auto px-4 -mx-4 sm:-mx-8"> -->
-      <ClientOverview :checked.sync="checked" />
-      <!-- </div> -->
+    <section
+      class="flex flex-col justify-between space-y-6 md:flex-row md:space-y-0"
+    >
+      <Filters :columns="[]" @filters="onFilters" />
+    </section>
+
+    <section class="mt-5 h-screen bg-white">
+      <div class="bg-white">
+        <div class="container px-4 mx-auto">
+          <div class="overflow-x-auto px-4 -mx-4 sm:-mx-8">
+            <ClientOverview :checked.sync="checked" />
+          </div>
+        </div>
+      </div>
     </section>
 
     <Dialog v-model="isConfirmModalVisible">
@@ -38,12 +48,12 @@
 </template>
 
 <script>
-import fragment from 'vue-frag'
+// import fragment from 'vue-frag'
 export default {
   name: 'ClientTw',
-  directives: {
-    fragment
-  },
+  // directives: {
+  //   fragment
+  // },
 
   layout: 'Dashboard',
   data: () => ({

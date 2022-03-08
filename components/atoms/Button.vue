@@ -311,10 +311,10 @@ export default defineComponent({
 .button-secondary.active {
   @apply bg-none;
 }
-
+ */
 .button-tertiary {
   @apply rounded-full  hover:bg-opacity-25;
-} */
+}
 
 .custom-icon:not(:only-child) {
   margin-left: 0.9375em;

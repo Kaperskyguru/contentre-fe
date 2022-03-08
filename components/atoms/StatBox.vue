@@ -21,6 +21,7 @@
           "
           >{{ uppercaseText }}</span
         >
+
         <span class="font-gilroy text-2xl font-bold tracking-wide"
           >{{ statValue }}%</span
         >
@@ -45,9 +46,7 @@
 </template>
 
 <script>
-// import IncrementIcon from '~/assets/icons/increment.svg?inline'
 export default {
-  // components: { IncrementIcon },
   props: {
     stat: {
       type: Object,
@@ -61,7 +60,7 @@ export default {
     },
 
     statValue() {
-      return this.stat?.value
+      return this.stat?.value ?? 0.0
     },
 
     statIcon() {
@@ -69,7 +68,7 @@ export default {
     },
 
     statIncrement() {
-      return this.stat?.increment
+      return this.stat?.increment ?? 0.0
     }
   }
 }

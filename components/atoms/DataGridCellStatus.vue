@@ -77,7 +77,8 @@ export default defineComponent({
 
   computed: {
     isGreen() {
-      return this.options.value.includes('online')
+      const arr = ['online', 'ACTIVE']
+      return arr.includes(this.options.value)
     }
   }
 })

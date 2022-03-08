@@ -1,37 +1,28 @@
 <template>
-  <div class="mb-5">
-    <div class="flex justify-between items-center py-4">
-      <h2 class="font-gilroy text-2xl font-semibold leading-tight">Clients</h2>
-    </div>
-    <div class="overflow-x-auto font-sans rounded-lg">
-      <div class="inline-block overflow-hidden min-w-full rounded-lg">
-        <div class="bg-white rounded">
-          <DataGrid
-            :columns="columns"
-            :checked.sync="computedChecked"
-            :items="clients.items"
-            :total="clients.total"
-            :loading="$apollo.queries.clients.loading"
-            :item-clickable="true"
-            @load-more-data="fetchMore"
-            @item-click="onItemClick"
-          />
-        </div>
-      </div>
-    </div>
+  <span>
+    <DataGrid
+      :columns="columns"
+      :checked.sync="computedChecked"
+      :items="clients.items"
+      :total="clients.total"
+      :loading="$apollo.queries.clients.loading"
+      :item-clickable="true"
+      @load-more-data="fetchMore"
+      @item-click="onItemClick"
+    />
 
     <ClientEdit v-model="clientId"></ClientEdit>
-  </div>
+  </span>
 </template>
 
 <script>
-import fragment from 'vue-frag'
+// import fragment from 'vue-frag'
 // import DownloadIcon from '~/assets/icons/download.svg'
 import { GET_CLIENTS } from '~/graphql'
 export default {
-  directives: {
-    fragment
-  },
+  // directives: {
+  //   fragment
+  // },
   props: {
     checked: {
       type: Array,
@@ -106,6 +97,15 @@ export default {
             return 'DataGridCellMoney'
           },
           componentOptions: this.getAmountComponentOptions
+        },
+
+        {
+          title: 'Status',
+          key: 'status',
+          component: () => {
+            return 'DataGridCellStatus'
+          },
+          componentOptions: this.getStatusComponentOptions
         }
       ]
     }
@@ -177,6 +177,16 @@ export default {
             style: !paymentType ? 'secondary' : undefined,
             value: paymentType === null ? 'No payment provided' : paymentType,
             name: 'Payment'
+          }
+        : {}
+    },
+
+    getStatusComponentOptions({ status }) {
+      return status
+        ? {
+            style: !status ? 'secondary' : undefined,
+            value: status ?? 'No status provided',
+            name: 'Status'
           }
         : {}
     },
