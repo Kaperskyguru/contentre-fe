@@ -60,7 +60,7 @@
             <IncrementIcon />
           </span>
           <span v-else class="inline-block relative text-red">
-            <IncrementIcon />
+            <DecrementIcon />
           </span>
         </div>
 
@@ -80,8 +80,8 @@
           >
             <IncrementIcon />
           </span>
-          <span v-else class="inline-block relative text-red-100 text-md">
-            <IncrementIcon />
+          <span v-else class="inline-block relative text-red text-md">
+            <DecrementIcon />
           </span>
         </div>
       </div>
@@ -96,13 +96,13 @@
 <script>
 import { defineComponent } from '@vue/composition-api'
 import BaseCell from './DataGridCellBase'
-
+import DecrementIcon from '~/assets/icons/decrement.svg?inline'
 import IncrementIcon from '~/assets/icons/increment.svg?inline'
 
 export default defineComponent({
   name: 'DataGridCellPercent',
 
-  components: { IncrementIcon },
+  components: { IncrementIcon, DecrementIcon },
 
   extends: BaseCell,
 

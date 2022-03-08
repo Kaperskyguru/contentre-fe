@@ -379,7 +379,6 @@ export default {
         }
       },
       update(data) {
-        console.log(data)
         return data.getCategories
       }
     }

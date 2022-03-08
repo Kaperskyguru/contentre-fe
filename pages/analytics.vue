@@ -1,24 +1,18 @@
 <template>
   <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
+    <div class="flex justify-between items-center">
       <PageTitle>Analytics</PageTitle>
     </div>
-    <section class="container mx-auto">
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <!-- Stat box 1 -->
-        <StatBox
-          v-for="(stat, key) in stats"
-          :key="`stat-${key}`"
-          :stat="stat"
-        />
-      </div>
-    </section>
 
     <!-- calender -->
     <section>
-      <ContentFilter />
+      <ContentFilter @filters="onFilters" />
     </section>
     <!-- end of calender -->
+
+    <section class="container mx-auto">
+      <StatOverview :stats="stats" />
+    </section>
 
     <!-- Charts -->
     <div class="pt-6">
@@ -36,7 +30,11 @@
         <div
           class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
         >
-          <Chart />
+          <ChartOverview
+            :data="chartData"
+            :chart-options="options"
+            :title="stats.chartTitle"
+          />
         </div>
 
         <div
@@ -58,14 +56,20 @@
                 >Overall Performance</span
               >
               <h3 class="pb-4 font-normal text-gray-500 text-normal">
-                Weekly Posts
+                Weekly Content Impact
               </h3>
             </header>
 
             <div class="">
-              <!-- <div class=""> -->
-              <Column type="doughnut" />
-              <!-- </div> -->
+              <Loading
+                v-if="$apollo.queries.metadata.loading"
+                class="flex flex-1 items-center"
+              />
+              <Column
+                v-else
+                type="doughnut"
+                :chart-data="metadata.performance"
+              />
             </div>
           </div>
           <!-- END Card -->
@@ -75,25 +79,6 @@
 
     <!-- End of Charts -->
 
-    <!-- table -->
-
-    <!-- <div class="container mx-auto px-4">
-      <div class="flex items-center justify-between py-4">
-        <h1 class="text-xl font-bold text-gray-900 pt-4">Overall Stats</h1>
-      </div>
-
-      <section class="bg-white mt-8 container mx-auto px-4">
-        <div class="-mx-4 sm:-mx-8 px-4 overflow-x-auto">
-          <ClientTable />
-        </div>
-      </section>
-    </div> -->
-
-    <section class="container mx-auto mt-4">
-      <OverallStatTable :checked.sync="checked" />
-    </section>
-    <!-- end of table -->
-
     <!-- footer Articles -->
     <section class="container mx-auto">
       <div class="flex justify-between items-center py-4">
@@ -102,69 +87,106 @@
       <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
           <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
-            <Column />
+            <Loading
+              v-if="$apollo.queries.getCategoryStats.loading"
+              class="flex flex-1 items-center"
+            />
+            <Column
+              v-else
+              :chart-data="getCategoryStats"
+              type="bar"
+              :show-selector="true"
+              :selector-data="{ data: getCategories, title: 'Select Category' }"
+              @selected="selectCategory"
+            />
           </div>
         </div>
         <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
           <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
-            <Column />
+            <Column
+              :show-selector="true"
+              :selector-data="{ data: getCategories, title: 'Select Topic' }"
+            />
           </div>
         </div>
         <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
           <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
-            <Column />
+            <Column
+              :show-selector="true"
+              :selector-data="{ data: getCategories, title: 'Select Tag' }"
+            />
           </div>
         </div>
       </div>
     </section>
     <!-- end of footer Articles -->
+
+    <section class="container mx-auto mt-4">
+      <OverallStatTable :checked.sync="checked" />
+    </section>
+    <!-- end of table -->
   </section>
 </template>
 
 <script>
-import Rocket from '~/assets/icons/rocket.svg'
-import Show from '~/assets/icons/show.svg'
-import Heart from '~/assets/icons/heart.svg'
-import Chat from '~/assets/icons/chat.svg'
+import {
+  GET_CATEGORIES,
+  GET_CATEGORY_STATS,
+  GET_OVERALL_STATS
+} from '~/graphql'
 export default {
   name: 'AnalyticPage',
   layout: 'Dashboard',
 
   data: () => ({
+    metadata: {
+      performance: {},
+      categoryStat: {}
+    },
+    getCategoryStats: {
+      labels: [],
+      title: '',
+      datasets: []
+    },
+    filters: [],
     checked: [],
-    stats: [
-      {
-        text: 'Avg. Click Rate',
-        value: '56.8%',
-        increment: '19.3%',
-        icon: Rocket
-      },
-      {
-        text: 'Page Views',
-        value: '56.8%',
-        increment: '19.3%',
-        icon: Show
-      },
-      {
-        text: 'Total Likes',
-        value: '56.8%',
-        increment: '19.3%',
-        icon: Heart
-      },
-      {
-        text: 'Total Comments',
-        value: '56.8%',
-        increment: '19.3%',
-        icon: Chat
-      }
-    ],
+    stats: {
+      shares: 56.8,
+      sharePercent: 19.3,
+      likes: 56.8,
+      likePercent: 19.3,
+      comments: 56.8,
+      commentPercent: 19.3,
+      chartTitle: 'Content Overview'
+    },
 
     chartData: {
-      labels: ['Views', 'Clicks', 'Likes', 'Comments'],
-      datasets: [
+      labels: ['Jan', 'Feb', 'Mar', 'Jul'],
+      data: [
         {
-          label: '',
-          data: [32984, 24200, 12340, 320],
+          label: 'Views',
+          data: [200, 2400, 1230, 220],
+          backgroundColor: [
+            'rgba(79, 209, 197, 0.54)',
+            'rgba(79, 209, 197, 1)'
+          ],
+          hoverOffset: 4
+        },
+        {
+          label: 'Clicks',
+          data: [400, 2000, 1000, 500],
+          backgroundColor: 'rgba(79, 209, 197, 1)',
+          hoverOffset: 4
+        },
+        {
+          label: 'Likes',
+          data: [300, 1602, 1280, 600],
+          backgroundColor: ['rgba(45, 55, 72, 0.36)', 'rgba(45, 55, 72, 0)'],
+          hoverOffset: 4
+        },
+        {
+          label: 'Comments',
+          data: [500, 1000, 1234, 780],
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
@@ -183,17 +205,24 @@ export default {
         yAxes: [
           {
             gridLines: {
-              display: false
+              borderDash: [3.5, 3.5],
+              zeroLineColor: 'transparent'
             },
             ticks: {
-              fontColor: '#fff'
+              fontColor: '#CBD5E0',
+              fontWeight: 'bold'
             }
           }
         ],
         xAxes: [
           {
             gridLines: {
-              display: false
+              display: false,
+              zeroLineColor: 'transparent'
+            },
+            ticks: {
+              fontColor: '#CBD5E0',
+              fontWeight: 'bold'
             }
           }
         ]
@@ -201,7 +230,110 @@ export default {
       responsive: true,
       maintainAspectRatio: false
     }
-  })
+  }),
+
+  apollo: {
+    metadata: {
+      query: GET_OVERALL_STATS,
+      fetchPolicy: 'cache-and-network',
+      variables() {
+        return {
+          filters: { ...this.filters }
+        }
+      },
+      update(data) {
+        const stat = data.getOverallStats?.performance
+
+        return {
+          performance: stat
+            ? {
+                labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+                title: '',
+                datasets: [
+                  {
+                    label: '',
+                    data: [
+                      stat.totalShares,
+                      stat.totalContents,
+                      stat.totalLikes,
+                      stat.totalComments
+                    ],
+                    backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                  }
+                ]
+              }
+            : []
+        }
+      }
+    },
+
+    getCategoryStats: {
+      query: GET_CATEGORY_STATS,
+      variables() {
+        return {
+          filters: { ...this.filters }
+        }
+      },
+      update(data) {
+        const category = data.getCategoryStats
+
+        return category
+          ? {
+              labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+              title: category.name,
+              datasets: [
+                {
+                  backgroundColor: '#fff',
+                  barPercentage: 1,
+                  borderWidth: 700,
+                  barThickness: 6,
+                  maxBarThickness: 8,
+                  minBarLength: 2,
+                  categoryPercentage: 1,
+                  label: '',
+                  data: [
+                    category.totalShares,
+                    category.totalContents,
+                    category.totalLikes,
+                    category.totalComments
+                  ]
+                }
+              ]
+            }
+          : []
+      }
+    },
+
+    getCategories: {
+      query: GET_CATEGORIES,
+      update(data) {
+        return data.getCategories
+      }
+    }
+  },
+
+  methods: {
+    onFilters(data) {
+      this.filters = {
+        ...data,
+        categories: data.categories
+      }
+    },
+
+    selectCategory(name) {
+      this.filters = {
+        ...this.filters,
+        categories: name ? [name] : null
+      }
+
+      this.$apollo.queries.getCategoryStats.refetch()
+    }
+  }
 }
 </script>
 

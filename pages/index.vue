@@ -4,14 +4,11 @@
       <PageTitle>Dashboard</PageTitle>
     </div>
     <section class="container mx-auto">
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <!-- Stat box 1 -->
-        <StatBox
-          v-for="(stat, key) in getStats"
-          :key="`stat-${key}`"
-          :stat="stat"
-        />
-      </div>
+      <Loading
+        v-if="$apollo.queries.metadata.loading"
+        class="flex flex-1 items-center"
+      />
+      <StatOverview v-else :stats="metadata.stats" />
     </section>
 
     <!-- Chart -->
@@ -30,11 +27,41 @@
       >
         <!-- Chart 1 -->
         <div class="p-4 bg-white rounded-lg shadow sm:p-6 md:col-span-2 xl:p-8">
-          <Chart />
+          <Loading
+            v-if="$apollo.queries.metadata.loading"
+            class="flex flex-1 items-center"
+          />
+          <ChartOverview
+            v-else
+            :data="metadata.revenue"
+            :percent="getPercentAmount"
+          />
         </div>
         <!-- Chart 2-->
         <div class="p-2 bg-white rounded-lg shadow sm:p-3 xl:p-5">
-          <Chart1 />
+          <div class="overflow-hidden">
+            <header class="px-2 leading-tight">
+              <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
+                >Overall Performance</span
+              >
+              <h3 class="pb-4 font-normal text-gray-500">
+                Yearly Content Impact
+              </h3>
+            </header>
+
+            <div class="">
+              <Loading
+                v-if="$apollo.queries.contentImpact.loading"
+                class="flex flex-1 items-center"
+              />
+              <Column
+                v-else
+                type="doughnut"
+                :show-header="false"
+                :chart-data="contentImpact"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -44,6 +71,11 @@
     <!-- table -->
 
     <section class="container px-4 mx-auto mt-8 bg-white">
+      <div class="flex justify-between items-center py-4">
+        <h2 class="font-gilroy text-2xl font-semibold leading-tight">
+          Clients
+        </h2>
+      </div>
       <ClientOverview :checked.sync="checked" />
     </section>
 
@@ -52,47 +84,14 @@
 </template>
 
 <script>
-import Rocket from '~/assets/icons/rocket.svg'
-import Show from '~/assets/icons/show.svg'
-import Heart from '~/assets/icons/heart.svg'
-import Chat from '~/assets/icons/chat.svg'
-import { GET_INDEX_METADATA } from '~/graphql'
+import { GET_INDEX_METADATA, GET_OVERALL_STATS } from '~/graphql'
+
 export default {
   name: 'HomePage',
   layout: 'Dashboard',
   data: () => ({
-    checked: [],
-    stats: [
-      {
-        text: 'Avg. Click Rate',
-        value: '56.8%',
-        increment: '19.3%',
-        key: 'shares',
-        icon: Rocket
-      },
-      {
-        text: 'Page Views',
-        value: '56.8%',
-        increment: '19.3%',
-        key: 'views',
-        icon: Show
-      },
-      {
-        text: 'Total Likes',
-        value: '56.8%',
-        increment: '19.3%',
-
-        key: 'likes',
-        icon: Heart
-      },
-      {
-        text: 'Total Comments',
-        value: '56.8%',
-        increment: '19.3%',
-        key: 'comments',
-        icon: Chat
-      }
-    ]
+    checked: []
+    // contentImpact: []
   }),
 
   apollo: {
@@ -100,54 +99,57 @@ export default {
       query: GET_INDEX_METADATA,
       fetchPolicy: 'cache-and-network',
       update(data) {
-        return data.getIndexMetadata
+        return {
+          stats: data.getIndexMetadata?.box,
+
+          revenue: {
+            labels: data.getIndexMetadata?.revenue?.months,
+            current: data.getIndexMetadata?.revenue?.data?.current,
+            last: data.getIndexMetadata?.revenue?.data?.last
+          }
+        }
       }
-      // variables: {
-      //   size: 10,
-      //   skip: 0
-      // }
+    },
+
+    contentImpact: {
+      query: GET_OVERALL_STATS,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        const stat = data.getOverallStats?.performance
+        return {
+          labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+          title: '',
+          datasets: [
+            {
+              label: '',
+              data: [
+                stat.totalShares,
+                stat.totalContents,
+                stat.totalLikes,
+                stat.totalComments
+              ],
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+              ],
+              hoverOffset: 4
+            }
+          ]
+        }
+      }
     }
   },
 
   computed: {
+    getRevenueChartData() {
+      return this.metadata?.revenue ?? []
+    },
+    getPercentAmount() {
+      return parseFloat(this.metadata?.stats?.amountPercent).toFixed(2)
+    },
     getStats() {
-      const stats = []
-
-      this.stats.forEach((item) => {
-        if (item.key === 'likes') {
-          stats.push({
-            ...item,
-            value: parseFloat(this.metadata?.likes).toFixed(2),
-            increment: parseFloat(this.metadata?.likePercent).toFixed(2)
-          })
-        }
-
-        if (item.key === 'comments') {
-          stats.push({
-            ...item,
-            value: parseFloat(this.metadata?.comments).toFixed(2),
-            increment: parseFloat(this.metadata?.commentPercent).toFixed(2)
-          })
-        }
-
-        if (item.key === 'shares') {
-          stats.push({
-            ...item,
-            value: parseFloat(this.metadata?.shares).toFixed(2),
-            increment: parseFloat(this.metadata?.sharePercent).toFixed(2)
-          })
-
-          stats.push({
-            text: 'Page Views',
-            value: '56.8%',
-            increment: '19.3%',
-            key: 'views',
-            icon: Show
-          })
-        }
-      })
-
-      return stats
+      return this.metadata?.box ?? {}
     }
   }
 }

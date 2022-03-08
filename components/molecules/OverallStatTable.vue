@@ -8,9 +8,9 @@
         <div class="bg-white rounded shadow-md">
           <DataGrid
             :columns="columns"
-            :items="analytics.items"
-            :loading="false"
-            :total="analytics.total"
+            :items="stats.items"
+            :loading="$apollo.queries.stats.loading"
+            :total="stats.total"
             :item-clickable="false"
             @load-more-data="fetchMore"
           />
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { GET_OVERALL_STATS } from '~/graphql'
 export default {
   props: {
     checked: {
@@ -29,33 +30,28 @@ export default {
     }
   },
   data: () => ({
-    analytics: {
-      items: [
-        {
-          client: 'medium',
-          totalContents: 8,
-          views: 30000,
-          clicks: 60000,
-          interactions: -9,
-          likes: 80000,
-          growth: 18,
-          status: 'online'
-        },
-        {
-          client: 'Writersstage',
-          comments: 2760,
-          totalContents: 2900,
-          views: 12320,
-          clicks: 400,
-          interactions: 12,
-          likes: '7m',
-          growth: -25,
-          status: 'offline'
-        }
-      ],
-      total: 2
+    stats: {
+      items: [],
+      total: 0
     }
   }),
+
+  apollo: {
+    stats: {
+      query: GET_OVERALL_STATS,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        return {
+          items: data.getOverallStats.stats,
+          total: data.getOverallStats.stats.length
+        }
+      }
+      // variables: {
+      //   size: 10,
+      //   skip: 0
+      // }
+    }
+  },
   computed: {
     computedChecked: {
       get() {
@@ -69,7 +65,7 @@ export default {
       return [
         {
           title: 'Client',
-          key: 'client.name',
+          key: 'name',
           component: () => 'DataGridCellIcon',
           componentOptions: this.getClientComponentOptions
         },
@@ -77,7 +73,7 @@ export default {
         {
           title: 'Total Contents',
           key: 'totalContents',
-          titleClass: 'lg:w-36 xl:w-50 2xl:w-70',
+          // titleClass: 'lg:w-36 xl:w-50 2xl:w-70',
           dataClass: ({ totalContents }) => {
             return `${totalContents ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
           },
@@ -96,33 +92,41 @@ export default {
           componentOptions: this.getViewsComponentOptions
         },
         {
-          title: 'Clicks',
-          key: 'clicks',
-          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          title: 'Comments',
+          key: 'totalComments',
+          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellIcon',
-          componentOptions: this.getClicksComponentOptions
+          componentOptions: this.getCommentsComponentOptions
         },
 
         {
-          title: 'Interactions',
-          key: 'interactions',
-          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
-          component: () => 'DataGridCellPercent',
-          componentOptions: this.getInteractionsComponentOptions
+          title: 'Shares',
+          key: 'totalShares',
+          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          component: () => 'DataGridCellIcon',
+          componentOptions: this.getSharesComponentOptions
         },
 
         {
           title: 'Likes',
-          key: 'likes',
-          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          key: 'totalLikes',
+          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellIcon',
           componentOptions: this.getLikesComponentOptions
         },
 
         {
+          title: 'Interactions',
+          key: 'interactions',
+          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          component: () => 'DataGridCellPercent',
+          componentOptions: this.getInteractionsComponentOptions
+        },
+
+        {
           title: 'Growths',
-          key: 'growths',
-          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          key: 'growth',
+          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellPercent',
           componentOptions: this.getGrowthsComponentOptions
         },
@@ -130,7 +134,7 @@ export default {
         {
           title: 'Status',
           key: 'status',
-          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellStatus',
           componentOptions: this.getStatusComponentOptions
         }
@@ -139,11 +143,11 @@ export default {
   },
 
   methods: {
-    getClientComponentOptions({ client }) {
-      return client
+    getClientComponentOptions({ name }) {
+      return name
         ? {
-            style: !client ? 'secondary' : undefined,
-            value: client || 'No title provided'
+            style: !name ? 'secondary' : undefined,
+            value: name || 'No title provided'
           }
         : {}
     },
@@ -154,41 +158,61 @@ export default {
             style: !views ? 'secondary' : undefined,
             value: views || 'No view provided'
           }
-        : {}
+        : {
+            value: views ?? 0
+          }
     },
 
-    getClicksComponentOptions({ clicks }) {
-      return clicks
+    getCommentsComponentOptions({ totalComments }) {
+      return totalComments
         ? {
-            style: !clicks ? 'secondary' : undefined,
-            value: clicks || 'No clicks provided'
+            style: !totalComments ? 'secondary' : undefined,
+            value: totalComments || 'No Comments provided'
           }
-        : {}
+        : {
+            value: totalComments || 0
+          }
+    },
+
+    getSharesComponentOptions({ totalShares }) {
+      return totalShares
+        ? {
+            style: !totalShares ? 'secondary' : undefined,
+            value: totalShares || 'No Share provided'
+          }
+        : {
+            value: totalShares || 0
+          }
     },
 
     getInteractionsComponentOptions({ interactions }) {
       return interactions
         ? {
             style: !interactions ? 'secondary' : undefined,
-            value: interactions || 'No interactions provided'
+            value:
+              parseFloat(interactions).toFixed(2) || 'No interactions provided'
           }
-        : {}
+        : {
+            value: interactions || 0.0
+          }
     },
 
-    getLikesComponentOptions({ likes }) {
-      return likes
+    getLikesComponentOptions({ totalLikes }) {
+      return totalLikes
         ? {
-            style: !likes ? 'secondary' : undefined,
-            value: likes || 'No likes provided'
+            style: !totalLikes ? 'secondary' : undefined,
+            value: totalLikes || 'No likes provided'
           }
-        : {}
+        : {
+            value: totalLikes ?? 0
+          }
     },
 
     getGrowthsComponentOptions({ growth }) {
       return growth
         ? {
             style: !growth ? 'secondary' : undefined,
-            value: growth || 'No growth provided'
+            value: parseFloat(growth).toFixed(2) || 'No growth provided'
           }
         : {}
     },

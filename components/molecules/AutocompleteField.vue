@@ -71,7 +71,7 @@
         v-show="open && !loading && (itemsFiltered.length || canCreate)"
         class="
           absolute
-          z-10
+          z-50
           focus:z-50
           w-full
           bg-white

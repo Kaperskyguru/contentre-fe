@@ -13,12 +13,22 @@ export const GET_CONTENTS = gql`
 export const GET_INDEX_METADATA = gql`
   query getIndexMetadata($filters: ContentFiltersInput) {
     getIndexMetadata(filters: $filters) {
-      likePercent
-      commentPercent
-      sharePercent
-      likes
-      shares
-      comments
+      box {
+        likePercent
+        commentPercent
+        sharePercent
+        amountPercent
+        likes
+        shares
+        comments
+      }
+      revenue {
+        months
+        data {
+          current
+          last
+        }
+      }
     }
   }
 `

@@ -111,6 +111,18 @@ export default {
           componentOptions: this.getVisibilityComponentOptions
         },
         {
+          title: 'Interactions',
+          key: 'interactions',
+          titleClass: 'lg:w-36 xl:w-50 2xl:w-70',
+          dataClass: ({ visibility }) => {
+            return `${visibility ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
+          },
+          component: () => {
+            return 'DataGridCellIcon'
+          },
+          componentOptions: this.getInteractionsComponentOptions
+        },
+        {
           title: 'Last Updated',
           key: 'lastUpdated',
           titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
@@ -173,6 +185,13 @@ export default {
             value: visibility || 'No visibility provided'
           }
         : {}
+    },
+
+    getInteractionsComponentOptions({ interactions }) {
+      return {
+        style: !interactions ? 'secondary' : undefined,
+        value: interactions ?? 0
+      }
     },
 
     getAmountComponentOptions({ amount }) {
