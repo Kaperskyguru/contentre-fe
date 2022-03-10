@@ -59,9 +59,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-     '@nuxtjs/eslint-module',
-    // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss',
+    '@nuxtjs/eslint-module',
 
     '@nuxt/postcss8',
 
@@ -70,10 +68,9 @@ export default {
     '@nuxtjs/device',
 
     // https://composition-api.nuxtjs.org/
-    '@nuxtjs/composition-api/module',
+    '@nuxtjs/composition-api/module'
 
     // https://github.com/harlan-zw/nuxt-build-optimisations
-    'nuxt-build-optimisations'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
