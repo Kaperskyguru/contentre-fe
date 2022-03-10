@@ -34,7 +34,6 @@
     "core-js": "^3.19.3",
     "graphql": "^16.2.0",
     "nuxt": "^2.15.8",
-    "nuxt-build-optimisations": "^1.0.7",
     "nuxt-graphql-request": "^4.3.0",
     "v-click-outside": "^3.1.2",
     "vue": "^2.6.14",
