@@ -107,10 +107,6 @@ export default {
       height: 300
     },
     mounted: false,
-    defaultChartData: {
-      labels: ['Views', 'Clicks', 'Likes', 'Comments'],
-      datasets: []
-    },
     options: {
       legend: {
         display: false
@@ -144,7 +140,7 @@ export default {
     },
 
     noData() {
-      return Array.isArray(this.getChartData)
+      return Array.isArray(this.getChartData) || this.getChartData === null
     },
 
     getTitle() {
@@ -154,7 +150,7 @@ export default {
       if (this.chartData !== null) {
         return this.chartData
       }
-      return this.defaultChartData
+      return null
     },
 
     getChartDataValues() {
@@ -177,37 +173,6 @@ export default {
     }
   },
 
-  watch: {
-    type: {
-      handler(v) {
-        if (v === 'bar') {
-          this.defaultChartData.datasets.push({
-            backgroundColor: '#fff',
-            barPercentage: 1,
-            borderWidth: 700,
-            barThickness: 6,
-            maxBarThickness: 8,
-            minBarLength: 2,
-            categoryPercentage: 1,
-            label: '',
-            data: [32984, 24200, 12340, 320]
-          })
-        } else if (v === 'doughnut') {
-          this.defaultChartData.datasets.push({
-            label: '',
-            data: [32984, 24200, 12340, 320],
-            backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)'
-            ],
-            hoverOffset: 4
-          })
-        }
-      },
-      immediate: true
-    }
-  },
   mounted() {
     this.mounted = true
   },

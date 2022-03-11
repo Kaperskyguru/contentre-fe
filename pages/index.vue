@@ -53,8 +53,10 @@
               <Column
                 v-else
                 type="doughnut"
-                :show-header="true"
+                :show-header="false"
                 :chart-data="contentImpact"
+                :show-selector="true"
+                :selector-data="{ data: getCategories, title: 'Select Topic' }"
               />
             </div>
           </div>
