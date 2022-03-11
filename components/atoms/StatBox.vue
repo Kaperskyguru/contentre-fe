@@ -71,6 +71,7 @@ export default {
     },
 
     noData() {
+      console.log(this.stat)
       return (
         Object.entries(this.stat).length === 0 &&
         this.stat.constructor === Object
