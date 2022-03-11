@@ -1,6 +1,5 @@
 <template>
   <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-    <!-- Stat box 1 -->
     <StatBox
       v-for="(stat, key) in getStats"
       :key="`stat-${key}`"
@@ -25,30 +24,21 @@ export default {
     statistics: [
       {
         text: 'Avg. Click Rate',
-        value: '56.8%',
-        increment: '19.3%',
         key: 'shares',
         icon: Rocket
       },
       {
         text: 'Page Views',
-        value: '56.8%',
-        increment: '19.3%',
         key: 'views',
         icon: Show
       },
       {
         text: 'Total Likes',
-        value: '56.8%',
-        increment: '19.3%',
-
         key: 'likes',
         icon: Heart
       },
       {
         text: 'Total Comments',
-        value: '56.8%',
-        increment: '19.3%',
         key: 'comments',
         icon: Chat
       }
@@ -85,8 +75,8 @@ export default {
 
           stats.push({
             text: 'Page Views',
-            value: '56.8%',
-            increment: '19.3%',
+            value: '56.8',
+            increment: '19.3',
             key: 'views',
             icon: Show
           })

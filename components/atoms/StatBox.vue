@@ -10,9 +10,6 @@
       transition-shadow
     "
   >
-    <!-- <div v-if="noData" class="text-xl text-center">
-      <NoData @clear="$emit('clear')" />
-    </div> -->
     <div class="flex justify-between items-start">
       <div class="flex flex-col space-y-2">
         <span
@@ -63,18 +60,19 @@ export default {
     },
 
     statValue() {
-      return isNaN(this.stat?.value) ? 0.0 : this.stat?.value
+      return isNaN(this.stat?.value) || this.stat?.value === undefined
+        ? 0.0
+        : this.stat?.value
     },
 
     statIcon() {
       return this.stat?.icon
     },
 
-    // noData() {
-    //   return isNaN(this.stat.value) && isNaN(this.stat.increment)
-    // },
     statIncrement() {
-      return isNaN(this.stat?.increment) ? 0.0 : this.stat?.increment
+      return isNaN(this.stat?.increment) || this.stat?.increment === undefined
+        ? 0.0
+        : this.stat?.increment
     }
   }
 }

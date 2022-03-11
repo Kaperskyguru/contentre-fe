@@ -4,11 +4,7 @@
       <PageTitle>Dashboard</PageTitle>
     </div>
     <section class="container mx-auto">
-      <Loading
-        v-if="$apollo.queries.metadata.loading"
-        class="flex flex-1 items-center"
-      />
-      <StatOverview v-else :stats="metadata.stats" />
+      <StatOverview :stats="metadata.stats" />
     </section>
 
     <!-- Chart -->
@@ -95,7 +91,6 @@ export default {
       revenue: {}
     },
     checked: []
-    // contentImpact: []
   }),
 
   apollo: {
