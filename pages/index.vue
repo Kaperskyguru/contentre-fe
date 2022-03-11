@@ -90,7 +90,12 @@ export default {
       stats: [],
       revenue: {}
     },
-    checked: []
+    checked: [],
+    contentImpact: {
+      labels: [],
+      title: '',
+      datasets: []
+    }
   }),
 
   apollo: {
@@ -115,27 +120,29 @@ export default {
       fetchPolicy: 'cache-and-network',
       update(data) {
         const stat = data.getOverallStats?.performance
-        return {
-          labels: ['Views', 'Clicks', 'Likes', 'Comments'],
-          title: '',
-          datasets: [
-            {
-              label: '',
-              data: [
-                stat.totalShares,
-                stat.totalContents,
-                stat.totalLikes,
-                stat.totalComments
-              ],
-              backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)'
-              ],
-              hoverOffset: 4
+        return stat
+          ? {
+              labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+              title: '',
+              datasets: [
+                {
+                  label: '',
+                  data: [
+                    stat.totalShares,
+                    stat.totalContents,
+                    stat.totalLikes,
+                    stat.totalComments
+                  ],
+                  backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                  ],
+                  hoverOffset: 4
+                }
+              ]
             }
-          ]
-        }
+          : []
       }
     }
   },
