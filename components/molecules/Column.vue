@@ -1,6 +1,6 @@
 <template>
   <!-- Article -->
-  <div class="flex overflow-hidden flex-col">
+  <div class="">
     <div v-if="showSelector" class="mb-5 w-full">
       <DropdownField
         :placeholder="selectorData.title"
