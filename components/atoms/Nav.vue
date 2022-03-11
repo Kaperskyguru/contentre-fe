@@ -44,18 +44,8 @@
             ></path>
           </svg>
         </button>
-        <!-- <div class="logo">
-          <a href="#" class="text-xl font-bold flex items-center lg:ml-2.5">
-            <img
-              src="~/assets/img/Logo.svg"
-              class="img-fluid"
-              alt="Windster Logo"
-            />
-            <span class="self-center whitespace-nowrap">contentr</span>
-          </a>
-        </div> -->
       </div>
-      <!-- User Dropdown -->
+
       <UserDropdown :user="currentUser" @logout="$emit('logout')" />
     </div>
   </div>
@@ -65,7 +55,7 @@
 <script>
 import { currentUser } from '../mixins'
 export default {
-  name: 'DasboardNav',
+  name: 'DashboardNav',
 
   mixins: [currentUser]
 }

@@ -28,25 +28,10 @@
             <div
               class="flex justify-center items-center space-x-3 cursor-pointer"
             >
-              <div
-                class="
-                  overflow-hidden
-                  w-12
-                  h-12
-                  rounded-full
-                  dark:border-white
-                  border-2 border-gray-900
-                "
-              >
-                <img
-                  src="~/assets/img/avatar.jpeg"
-                  alt=""
-                  class="object-cover w-full h-full"
-                />
-              </div>
+              <Avatar :name="user.username" :src="user.avatarURL" />
               <div class="text-sm text-gray-900 dark:text-white">
                 <div class="cursor-pointer">
-                  {{ user.name }}
+                  {{ user.username }}
                   <svg
                     fill="currentColor"
                     viewBox="0 0 20 20"
@@ -98,8 +83,8 @@
             >
               <ul class="space-y-3 dark:text-white">
                 <li class="font-medium">
-                  <a
-                    href="#"
+                  <Hyperlink
+                    :to="{ name: 'profile' }"
                     class="
                       flex
                       items-center
@@ -111,27 +96,15 @@
                     "
                   >
                     <div class="mr-3">
-                      <svg
-                        class="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                        ></path>
-                      </svg>
+                      <ProfileIcon />
                     </div>
+
                     Account
-                  </a>
+                  </Hyperlink>
                 </li>
                 <li class="font-medium">
-                  <a
-                    href="#"
+                  <Hyperlink
+                    :to="{ name: 'settings' }"
                     class="
                       flex
                       items-center
@@ -143,29 +116,10 @@
                     "
                   >
                     <div class="mr-3">
-                      <svg
-                        class="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                        ></path>
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
-                      </svg>
+                      <SettingIcon id="settings-icon" />
                     </div>
                     Setting
-                  </a>
+                  </Hyperlink>
                 </li>
                 <hr class="dark:border-gray-700" />
                 <li class="font-medium">
@@ -174,10 +128,10 @@
                     class="
                       flex
                       items-center
-                      hover:border-red-600
                       transition-colors
                       duration-200
                       transform
+                      hover:border-red-600
                       border-r-4 border-transparent
                     "
                     @click.prevent="onLogout"
@@ -206,17 +160,16 @@
           </div>
         </div>
       </div>
-
-      <!-- end of user profile  -->
-      <div class="-mb-1">
-        <span></span>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  components: {
+    ProfileIcon: () => import('~/assets/icons/profile.svg?inline'),
+    SettingIcon: () => import('~/assets/icons/setting.svg?inline')
+  },
   props: {
     user: {
       type: Object,

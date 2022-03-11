@@ -231,42 +231,6 @@
                 <span class="flex-1 ml-3 whitespace-nowrap">Content</span>
               </Hyperlink>
             </li>
-            <li>
-              <Hyperlink
-                :to="{ name: 'profile' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  hover:text-white
-                  rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
-                "
-              >
-                <ProfileIcon />
-                <span class="flex-1 ml-3 whitespace-nowrap">Profile</span>
-              </Hyperlink>
-            </li>
-            <li>
-              <Hyperlink
-                :to="{ name: 'settings' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  hover:text-white
-                  rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
-                "
-              >
-                <SettingIcon id="settings-icon" />
-                <span class="flex-1 ml-3 whitespace-nowrap">Settings</span>
-              </Hyperlink>
-            </li>
 
             <!-- Aside Footer -->
 
@@ -406,9 +370,7 @@ import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
 
 import ContentIcon from '~/assets/icons/content.svg?inline'
 import PortfolioIcon from '~/assets/icons/porfolio.svg?inline'
-import ProfileIcon from '~/assets/icons/profile.svg?inline'
 import ClientIcon from '~/assets/icons/client.svg?inline'
-import SettingIcon from '~/assets/icons/setting.svg?inline'
 
 export default {
   name: 'AsideBar',
@@ -417,9 +379,7 @@ export default {
     AnalyticIcon,
     ContentIcon,
     PortfolioIcon,
-    ProfileIcon,
-    ClientIcon,
-    SettingIcon
+    ClientIcon
   },
 
   data: () => ({
