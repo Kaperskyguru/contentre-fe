@@ -53,7 +53,7 @@
               <Column
                 v-else
                 type="doughnut"
-                :show-header="false"
+                :show-header="true"
                 :chart-data="contentImpact"
               />
             </div>
