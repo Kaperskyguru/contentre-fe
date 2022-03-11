@@ -7,10 +7,10 @@
           >{{ title }}</span
         >
 
-        <div v-if="noData" class="text-xl text-center">
-          <NoData @clear="$emit('clear')" />
-        </div>
-        <h3 v-else class="font-gilroy text-base font-medium text-gray-500">
+        <h3
+          v-if="!noData"
+          class="font-gilroy text-base font-medium text-gray-500"
+        >
           <span
             v-if="percent >= 0"
             class="font-gilroy text-base font-bold text-green-500"
@@ -24,9 +24,11 @@
         </h3>
       </div>
     </div>
-
+    <div v-if="noData" class="text-xl text-center">
+      <NoData @clear="$emit('clear')" />
+    </div>
     <Chart
-      v-if="!noData"
+      v-else
       :data="data"
       :percent="getPercentAmount"
       :options="chartOptions"
