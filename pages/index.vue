@@ -90,6 +90,10 @@ export default {
   name: 'HomePage',
   layout: 'Dashboard',
   data: () => ({
+    metadata: {
+      stats: [],
+      revenue: {}
+    },
     checked: []
     // contentImpact: []
   }),

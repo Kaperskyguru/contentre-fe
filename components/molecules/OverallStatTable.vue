@@ -42,8 +42,8 @@ export default {
       fetchPolicy: 'cache-and-network',
       update(data) {
         return {
-          items: data.getOverallStats.stats,
-          total: data.getOverallStats.stats.length
+          items: data?.getOverallStats?.stats,
+          total: data?.getOverallStats?.stats?.length
         }
       }
       // variables: {

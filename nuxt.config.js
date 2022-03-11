@@ -59,7 +59,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
 
     '@nuxt/postcss8',
 
@@ -124,7 +124,7 @@ export default {
 
   env: {
     APP_NAME: process.env.APP_NAME,
-    API_URL: process.env.API_URL
+    API_URL: process.env.API_URL ?? 'https://test.contentre.io/graphql'
   }
 
   // buildOptimisations: {
