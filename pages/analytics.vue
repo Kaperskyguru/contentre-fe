@@ -30,11 +30,7 @@
         <div
           class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
         >
-          <ChartOverview
-            :data="chartData"
-            :chart-options="options"
-            :title="stats.chartTitle"
-          />
+          <ChartOverview :data="chartData" :title="stats.chartTitle" />
         </div>
 
         <div
@@ -151,85 +147,16 @@ export default {
     filters: [],
     checked: [],
     stats: {
-      shares: 56.8,
-      sharePercent: 19.3,
-      likes: 56.8,
-      likePercent: 19.3,
-      comments: 56.8,
-      commentPercent: 19.3,
+      shares: 0.0,
+      sharePercent: 0.0,
+      likes: 0.0,
+      likePercent: 0.0,
+      comments: 0.0,
+      commentPercent: 0.0,
       chartTitle: 'Content Overview'
     },
 
-    chartData: {
-      labels: ['Jan', 'Feb', 'Mar', 'Jul'],
-      data: [
-        {
-          label: 'Views',
-          data: [200, 2400, 1230, 220],
-          backgroundColor: [
-            'rgba(79, 209, 197, 0.54)',
-            'rgba(79, 209, 197, 1)'
-          ],
-          hoverOffset: 4
-        },
-        {
-          label: 'Clicks',
-          data: [400, 2000, 1000, 500],
-          backgroundColor: 'rgba(79, 209, 197, 1)',
-          hoverOffset: 4
-        },
-        {
-          label: 'Likes',
-          data: [300, 1602, 1280, 600],
-          backgroundColor: ['rgba(45, 55, 72, 0.36)', 'rgba(45, 55, 72, 0)'],
-          hoverOffset: 4
-        },
-        {
-          label: 'Comments',
-          data: [500, 1000, 1234, 780],
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
-          hoverOffset: 4
-        }
-      ]
-    },
-
-    options: {
-      legend: {
-        display: false
-      },
-      scales: {
-        yAxes: [
-          {
-            gridLines: {
-              borderDash: [3.5, 3.5],
-              zeroLineColor: 'transparent'
-            },
-            ticks: {
-              fontColor: '#CBD5E0',
-              fontWeight: 'bold'
-            }
-          }
-        ],
-        xAxes: [
-          {
-            gridLines: {
-              display: false,
-              zeroLineColor: 'transparent'
-            },
-            ticks: {
-              fontColor: '#CBD5E0',
-              fontWeight: 'bold'
-            }
-          }
-        ]
-      },
-      responsive: true,
-      maintainAspectRatio: false
-    }
+    chartData: {}
   }),
 
   apollo: {

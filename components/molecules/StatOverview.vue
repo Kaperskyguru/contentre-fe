@@ -75,8 +75,8 @@ export default {
 
           stats.push({
             text: 'Page Views',
-            value: '56.8',
-            increment: '19.3',
+            value: '0.0',
+            increment: '0.0',
             key: 'views',
             icon: Show
           })

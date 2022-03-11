@@ -31,7 +31,7 @@
       v-else
       :data="data"
       :percent="getPercentAmount"
-      :options="chartOptions"
+      :options="getChartOptions"
     />
   </div>
 </template>
@@ -62,6 +62,43 @@ export default {
   computed: {
     noData() {
       return !this.data?.data
+    },
+
+    getChartOptions() {
+      if (this.chartOptions) return this.chartOptions
+      return {
+        legend: {
+          display: false
+        },
+        scales: {
+          yAxes: [
+            {
+              gridLines: {
+                borderDash: [3.5, 3.5],
+                zeroLineColor: 'transparent'
+              },
+              ticks: {
+                fontColor: '#CBD5E0',
+                fontWeight: 'bold'
+              }
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+                zeroLineColor: 'transparent'
+              },
+              ticks: {
+                fontColor: '#CBD5E0',
+                fontWeight: 'bold'
+              }
+            }
+          ]
+        },
+        responsive: true,
+        maintainAspectRatio: false
+      }
     }
   }
 }

@@ -55,8 +55,6 @@
                 type="doughnut"
                 :show-header="false"
                 :chart-data="contentImpact"
-                :show-selector="true"
-                :selector-data="{ data: getCategories, title: 'Select Topic' }"
               />
             </div>
           </div>
