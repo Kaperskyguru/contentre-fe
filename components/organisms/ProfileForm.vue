@@ -1,24 +1,14 @@
 <template>
   <form class="w-full" @submit.prevent="handleSubmission">
     <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="px-3 mb-6 w-full md:mb-0 md:w-1/2">
+      <div class="px-3 w-full">
         <TextField
-          v-model="$v.fieldFirstname.$model"
+          v-model="$v.fieldName.$model"
           type="text"
           class="w-full text-sm"
-          label="First Name"
-          placeholder="Enter Firstname"
-          :error="getValidationMessage($v.fieldFirstname)"
-        />
-      </div>
-      <div class="px-3 w-full md:w-1/2">
-        <TextField
-          v-model="$v.fieldLastname.$model"
-          type="text"
-          class="w-full text-sm"
-          label="Last Name"
-          placeholder="Enter Lastname"
-          :error="getValidationMessage($v.fieldLastname)"
+          label="Full Name"
+          placeholder="Enter full name"
+          :error="getValidationMessage($v.fieldName)"
         />
       </div>
     </div>
@@ -101,8 +91,7 @@ export default {
   data() {
     return {
       fieldEmail: '',
-      fieldFirstname: '',
-      fieldLastname: '',
+      fieldName: '',
       fieldBio: '',
       fieldHomeAddress: '',
       fieldPhoneNumber: '',
@@ -113,16 +102,12 @@ export default {
 
   validations: {
     fieldEmail: { email },
-    fieldFirstname: {
+    fieldName: {
       minLength: minLength(2),
       maxLength: maxLength(35),
       hasLetter
     },
-    fieldLastname: {
-      minLength: minLength(2),
-      maxLength: maxLength(35),
-      hasLetter
-    },
+
     fieldBio: {
       hasLetter
     },
@@ -147,8 +132,7 @@ export default {
       this.sending = true
 
       const input = {
-        firstname: this.fieldFirstname || undefined,
-        lastname: this.fieldLastname || undefined,
+        name: this.fieldName || undefined,
         jobTitle: this.fieldJobTitle || undefined,
         email: this.fieldEmail || undefined,
         homeAddress: this.fieldHomeAddress || undefined,
