@@ -1,6 +1,16 @@
 <template>
   <div class="relative lg:flex">
-    <NavBar />
+    <!-- <NavBar /> -->
+    <div class="relative w-full lg:flex lg:absolute lg:top-8 lg:justify-center">
+      <div
+        id="auth-navbar"
+        class="flex justify-between py-4 pr-4 w-full text-white lg:w-80vw"
+      >
+        <a href="https://contentre.io?source=app">
+          <Logo width="50" height="50" />
+        </a>
+      </div>
+    </div>
     <div
       class="
         flex
@@ -40,8 +50,13 @@
 </template>
 
 <script>
+import Logo from '~/assets/img/icon.svg?inline'
 export default {
-  name: 'AuthLayout'
+  name: 'AuthLayout',
+
+  components: {
+    Logo
+  }
 }
 </script>
 
