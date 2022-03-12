@@ -18,15 +18,14 @@
       />
 
       <div class="mb-6">
-        <div class="mb-2 text-darksilver">
-          {{ 'Category' }}
-        </div>
-        <DataGridCellCategory
+        <CategoriesAutocomplete
           v-model="$v.fieldCategory.$model"
+          :fake-input="true"
           :options="{
             fakeInput: true,
             isGrid: true
           }"
+          :should-update="false"
           :item="content"
           label="Category"
           placeholder="Enter content category"
@@ -123,7 +122,8 @@
 </template>
 
 <script>
-import { GET_CONTENT, UPDATE_CLIENT } from '~/graphql'
+import { GET_CONTENT, UPDATE_CONTENT } from '~/graphql'
+import { decimal } from '~/plugins/validators'
 export default {
   model: {
     prop: 'contentId',
@@ -148,7 +148,7 @@ export default {
     honeyPot: '',
     paymentTypes: ['ARTICLE', 'MONTHLY', 'ONETIME'],
     visibilityTypes: ['PUBLISHED', 'DRAFT', 'DELETED'],
-    disableAmount: true
+    disableAmount: false
   }),
   validations: {
     fieldTitle: {},
@@ -157,7 +157,9 @@ export default {
     fieldLike: {},
     fieldShare: {},
     fieldPaymentType: {},
-    fieldAmount: {},
+    fieldAmount: {
+      decimal
+    },
     fieldCategory: {},
     honeyPot: {}
   },
@@ -212,14 +214,10 @@ export default {
         // Disable only if not a new month
         this.disableAmount = true
         this.fieldAmount = this.content?.client?.amount
-      }
-
-      if (type === 'ONETIME') {
+      } else if (type === 'ONETIME') {
         this.fieldAmount = this.content?.client?.amount
         this.disableAmount = true
-      }
-
-      if (type === 'ARTICLE') {
+      } else {
         this.disableAmount = false
         this.fieldAmount = 0
       }
@@ -231,16 +229,23 @@ export default {
 
       this.sending = true
 
+      const input = {
+        title: this.fieldTitle,
+        likes: this.fieldLike,
+        shares: this.fieldShare,
+        amount: Number(this.fieldAmount),
+        categoryId: this.fieldCategory?.id ?? undefined,
+        comments: this.fieldComment,
+        visibility: this.fieldVisibility,
+        paymentType: this.fieldPaymentType
+      }
+
       try {
         await this.$apollo.mutate({
-          mutation: UPDATE_CLIENT,
+          mutation: UPDATE_CONTENT,
           variables: {
             id: this.contentId,
-            input: {
-              name: this.fieldName,
-              website: this.fieldWebsite,
-              profile: this.fieldProfile
-            }
+            input
           }
         })
         this.$toast.positive('Content updated successfully')

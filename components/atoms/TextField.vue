@@ -11,7 +11,7 @@
       :class="[
         {
           'text-darksilver': !isFocused & !error,
-          'text-red': !!error
+          'text-red': !!error || isOnboarding
         },
         labelClass
       ]"
@@ -65,9 +65,9 @@
         containerClass,
         {
           'mt-1': !!label,
-          'border-red': !disabled && !!error,
+          'border-red': (!disabled && !!error) || isOnboarding,
           'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
-            !disabled && !error,
+            !disabled && !error && !isOnboarding,
           'border-silver bg-warngray bg-opacity-10': !!disabled
         }
       ]"
@@ -139,6 +139,9 @@
         :enterkeyhint="enterkeyhint"
         :mozactionhint="enterkeyhint"
         :disabled="disabled"
+        @input="onInput"
+        @focusin="onFocusIn"
+        @focusout="onFocusOut"
         @animationstart="onAnimationStart"
         @click="emitProxy('click', $event)"
         @keydown="emitProxy('keydown', $event)"
@@ -336,6 +339,11 @@ export default {
     lazy: {
       default: false,
       type: Boolean
+    },
+
+    isOnboarding: {
+      type: Boolean,
+      default: false
     },
 
     validateKeypress: {

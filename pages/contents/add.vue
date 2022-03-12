@@ -284,6 +284,14 @@ export default {
     }
   },
 
+  beforeMount() {
+    const callbackPaths = ['/contents/add#upload']
+
+    if (callbackPaths.includes(this.$route.fullPath)) {
+      this.isConfirmModalVisible = true
+    }
+  },
+
   methods: {
     onUpdateClient(client) {
       this.showAutoComplete = false

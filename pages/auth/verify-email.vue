@@ -72,7 +72,7 @@ export default {
   name: 'VerifyEmail',
   layout: 'AuthLayout',
 
-  middleware: ['isAuthenticated', 'notEmailConfirmed'],
+  middleware: ['isAuthenticated', 'notOnboardingCompleted'],
 
   data: () => ({
     sending: false,
@@ -151,7 +151,7 @@ export default {
           }
         })
 
-        await this.$router.push(this.$route.query.redirect ?? '/')
+        await this.$router.push(this.$route.query.redirect ?? '/#onboarding')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

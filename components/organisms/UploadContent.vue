@@ -18,7 +18,7 @@
       />
 
       <div class="flex justify-center items-center px-3 mt-4 w-full">
-        <Button type="submit"> Upload </Button>
+        <Button type="submit" :waiting="sending"> Upload </Button>
       </div>
     </form>
     <small class="pt-3 text-sm text-center text-gray-300"
@@ -34,7 +34,8 @@ export default {
   data: () => ({
     fieldURL: '',
     honeyPot: '',
-    content: []
+    content: [],
+    sending: false
   }),
   validations: {
     fieldURL: {
@@ -61,7 +62,7 @@ export default {
             }
           },
           update(data) {
-            console.log(data)
+            // console.log(data)
           }
         })
         this.$toast.positive('Content upload successfully')

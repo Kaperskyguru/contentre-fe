@@ -19,6 +19,15 @@ export const UPLOAD_CONTENT = gql`
   ${contentFragments.content}
 `
 
+export const UPDATE_CONTENT = gql`
+  mutation updateContent($id: ID!, $input: UpdateContentInput!) {
+    updateContent(id: $id, input: $input) {
+      ...content
+    }
+  }
+  ${contentFragments.content}
+`
+
 // export const DELETE_CLIENT = gql`
 //   mutation deleteClient($id: ID!) {
 //     deleteClient(id: $id)

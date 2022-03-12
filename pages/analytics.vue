@@ -156,7 +156,7 @@ export default {
       chartTitle: 'Content Overview'
     },
 
-    chartData: {}
+    chartData: []
   }),
 
   apollo: {

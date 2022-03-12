@@ -38,6 +38,7 @@
       :class="{
         'lg:w-32': !showAutoComplete && !options.fakeInput
       }"
+      :should-update="shouldUpdate"
       :transaction="item"
       :placeholder="defaultCategoryName"
       :field-class="{
@@ -74,10 +75,10 @@ export default defineComponent({
       default: false
     },
 
-    // isGrid: {
-    //   type: Boolean,
-    //   default: false
-    // },
+    shouldUpdate: {
+      type: Boolean,
+      default: true
+    },
 
     hidePencilIcon: {
       type: Boolean,
@@ -121,8 +122,11 @@ export default defineComponent({
   },
 
   watch: {
-    'item.category'(manualCounterparty) {
-      this.selectedCategory = manualCounterparty
+    item: {
+      handler(newItem) {
+        this.selectedCategory = newItem?.category
+      },
+      deep: true
     }
   },
 

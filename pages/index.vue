@@ -85,6 +85,7 @@ import { GET_INDEX_METADATA, GET_OVERALL_STATS } from '~/graphql'
 export default {
   name: 'HomePage',
   layout: 'Dashboard',
+  middleware: ['isOnboardingCompleted'],
   data: () => ({
     metadata: {
       stats: [],
@@ -103,9 +104,9 @@ export default {
       query: GET_INDEX_METADATA,
       fetchPolicy: 'cache-and-network',
       update(data) {
+        console.log(data.getIndexMetadata)
         return {
           stats: data.getIndexMetadata?.box,
-
           revenue: {
             labels: data.getIndexMetadata?.revenue?.months,
             current: data.getIndexMetadata?.revenue?.data?.current,

@@ -9,7 +9,7 @@ export default async ({ redirect, $getCurrentUser, $toast }) => {
     // Otherwise, if has finished the onboarding flow...
     if (currentUser.emailConfirmed) {
       // Force redirect to home.
-      return redirect('/')
+      return redirect('/#onboarding')
     }
     // } else {
     //   // Force redirect to next onboarding step.

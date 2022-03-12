@@ -61,7 +61,12 @@ export default {
   },
   computed: {
     noData() {
-      return !this.data?.data
+      if (Array.isArray(this.data)) return true
+
+      return !(
+        this.data?.current.some((item) => item > 0) &&
+        this.data?.last.some((item) => item > 0)
+      )
     },
 
     getChartOptions() {

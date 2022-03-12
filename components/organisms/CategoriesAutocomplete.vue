@@ -261,7 +261,7 @@
 <script>
 import { nextTick } from '@nuxtjs/composition-api'
 import vClickOutside from 'v-click-outside'
-import { GET_CATEGORIES, UPDATE_CLIENT } from '~/graphql'
+import { GET_CATEGORIES, UPDATE_CATEGORY } from '~/graphql'
 export default {
   directives: {
     clickOutside: vClickOutside.directive
@@ -420,7 +420,7 @@ export default {
       if (this.shouldUpdate) {
         try {
           await this.$apollo.mutate({
-            mutation: UPDATE_CLIENT,
+            mutation: UPDATE_CATEGORY,
             variables: {
               id: category.id,
               input: {

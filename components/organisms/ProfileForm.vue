@@ -1,5 +1,5 @@
 <template>
-  <form class="w-full" @submit.prevent="handleSubmission">
+  <form id="form" ref="form" class="w-full" @submit.prevent="handleSubmission">
     <div class="flex flex-wrap -mx-3 mb-6">
       <div class="px-3 w-full">
         <TextField
@@ -20,8 +20,10 @@
           type="text"
           class="w-full text-sm"
           label="Job Title"
+          :is-onboarding="isOnboarding"
           placeholder="Content Creator | Article Writer"
           :error="getValidationMessage($v.fieldJobTitle)"
+          @focus="isOnboarding = false"
         />
       </div>
       <div class="px-3 w-full md:w-1/2">
@@ -31,7 +33,9 @@
           class="w-full text-sm"
           placeholder="16, Challenge, Ibadan - Oyo State, Nigeria"
           label="Home Address"
+          :is-onboarding="isOnboarding"
           :error="getValidationMessage($v.fieldHomeAddress)"
+          @focus="isOnboarding = false"
         />
       </div>
     </div>
@@ -43,7 +47,7 @@
           type="email"
           class="w-full text-sm"
           label="Email Address"
-          placeholder="Jane"
+          placeholder=""
           :error="getValidationMessage($v.fieldEmail)"
         />
       </div>
@@ -53,8 +57,10 @@
           type="text"
           class="w-full text-sm"
           label="Phone Number"
+          :is-onboarding="isOnboarding"
           placeholder="Enter phone number"
           :error="getValidationMessage($v.fieldPhoneNumber)"
+          @focus="isOnboarding = false"
         />
       </div>
     </div>
@@ -66,6 +72,7 @@
           accept=".jpeg,.jpg,.png,image/jpeg,image/png"
           class="w-full text-sm"
           label="Profile image"
+          :is-onboarding="isOnboarding"
           @change="selectFile"
         />
       </div>
@@ -77,13 +84,15 @@
           v-model="$v.fieldBio.$model"
           :rows="10"
           label="Bio"
+          :is-onboarding="isOnboarding"
           placeholder="Minimum of 600 words"
           :error="getValidationMessage($v.fieldBio)"
+          @focus="isOnboarding = false"
         />
       </div>
     </div>
     <div class="flex justify-center items-center mb-6 w-full">
-      <Button class="w-1/2" type="submit"> Save </Button>
+      <Button id="btn" class="w-1/2" type="submit"> Save </Button>
     </div>
   </form>
 </template>
@@ -111,7 +120,8 @@ export default {
       fieldJobTitle: '',
       sending: false,
       cloudinary: null,
-      imageBlob: null
+      imageBlob: null,
+      isOnboarding: false
     }
   },
 
@@ -137,6 +147,13 @@ export default {
       hasLetter
     },
     honeyPot: {}
+  },
+
+  mounted() {
+    const callbackPaths = ['/profile#onboarding']
+    if (callbackPaths.includes(this.$route.fullPath)) {
+      this.isOnboarding = true
+    }
   },
 
   methods: {
@@ -180,6 +197,8 @@ export default {
         avatarURL: this.cloudinary?.secure_url || undefined
       }
 
+      console.log(input)
+
       if (this.isEmpty(input)) {
         this.$toast.negative('Enter at least one field')
         this.sending = false
@@ -190,9 +209,7 @@ export default {
         await this.$apollo.mutate({
           mutation: UPDATE_USER,
           variables: {
-            input: {
-              ...input
-            }
+            input
           },
           update: (cache, { data: { updateUser } }) => {
             cache.writeQuery({
@@ -213,6 +230,11 @@ export default {
 
         this.$toast.positive('User updated successfully')
         this.sending = false
+
+        const callbackPaths = ['/profile#onboarding']
+        if (callbackPaths.includes(this.$route.fullPath)) {
+          this.$router.push('/')
+        }
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

@@ -25,7 +25,13 @@ export default {
   name: 'DashboardNav',
 
   extends: base,
-  middleware: ['isAuthenticated', 'isEmailConfirmed'],
+
+  middleware: [
+    'isAuthenticated',
+    'isEmailConfirmed'
+    // 'isPhoneConfirmed',
+    // 'hasActiveCompany'
+  ],
   data: () => ({
     isSidebarCollapsed: false
   }),
