@@ -171,10 +171,10 @@ export default {
             // file: IconTransactionDateClock,
             // size: 14,
             name: 'Scheduled',
-            value: new Date(lastUpdated).toLocaleDateString() // this.$d(new Date(lastUpdated), 'dateShorter')
+            value: this.$d(new Date(lastUpdated), 'dateShorter')
           }
         : {
-            value: new Date(lastUpdated).toLocaleDateString() // this.$d(new Date(lastUpdated), 'dateShorter')
+            value: this.$d(new Date(lastUpdated), 'dateShorter')
           }
     },
 

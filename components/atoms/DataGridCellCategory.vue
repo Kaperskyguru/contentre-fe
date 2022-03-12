@@ -100,15 +100,12 @@ export default defineComponent({
         return this.item?.name ?? 'Choose a category'
       }
 
-      return this.item?.name ?? ''
+      return this.item?.name ?? 'No category provided'
     },
     displayedCategoryStyle() {
       return this.item?.category?.color
         ? { background: `#${this.item.category.color}80` }
         : null
-    },
-    ignoreCounterparties() {
-      return this.item?.name ? [this.item?.name] : null
     },
 
     displayCategory() {
