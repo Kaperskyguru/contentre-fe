@@ -7,6 +7,9 @@ export const GET_CATEGORIES = gql`
       id
       name
       color
+      totalContents
+      totalAmount
+      createdAt
     }
   }
 `
@@ -17,6 +20,9 @@ export const GET_CATEGORY = gql`
       id
       name
       color
+      totalContents
+      totalAmount
+      createdAt
     }
   }
 `

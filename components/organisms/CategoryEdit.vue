@@ -14,7 +14,7 @@
           v-model="$v.fieldName.$model"
           name="name"
           autofocus
-          autocomplete="organization"
+          autocomplete="name"
           label="Name"
           enterkeyhint="next"
           maxlength="50"
@@ -36,7 +36,9 @@
         />
       </div>
       <div class="block w-full">
-        <Button type="submit" :waiting="sending"> Confirm </Button>
+        <Button class="w-full" type="submit" :waiting="sending">
+          Confirm
+        </Button>
       </div>
     </form>
   </FloatingPanel>
@@ -67,11 +69,6 @@ export default {
     visible: {
       default: false,
       type: Boolean
-    },
-
-    ignoreCategoryWithParent: {
-      default: false,
-      type: Boolean
     }
   },
 
@@ -80,11 +77,8 @@ export default {
   data: () => ({
     sending: false,
     fieldName: '',
-    fieldType: '',
-    fieldParent: '',
     fieldColor: '',
     category: null,
-    parent: null,
     defaultColor: '#d6d6d6'
   }),
 

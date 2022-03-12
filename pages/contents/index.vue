@@ -29,21 +29,11 @@
       "
     >
       <Filters :columns="columns" @filters="onFilters" />
-      <div class="flex">
-        <div class="ml-2">
-          <Button
-            type="link"
-            :to="{ name: 'contents/add' }"
-            appearance="primary"
-          >
-            Add Content
-          </Button>
-        </div>
-        <div class="ml-2">
-          <Button appearance="primary" @click="onAddCategory">
-            Add Category
-          </Button>
-        </div>
+
+      <div class="ml-2">
+        <Button type="link" :to="{ name: 'contents/add' }" appearance="primary">
+          Add Content
+        </Button>
       </div>
     </section>
 

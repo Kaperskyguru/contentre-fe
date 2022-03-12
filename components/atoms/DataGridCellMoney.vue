@@ -1,7 +1,7 @@
 <template>
   <AccountingLabel
-    :value="value"
-    :currency="currency"
+    :value="options.value"
+    :currency="options.currency"
     :currency-before="options.currencyBefore"
   />
 </template>

@@ -171,7 +171,7 @@
               <ul>
                 <li>
                   <Hyperlink
-                    :to="{ name: 'clients' }"
+                    :to="{ name: 'categories' }"
                     class="
                       group
                       flex

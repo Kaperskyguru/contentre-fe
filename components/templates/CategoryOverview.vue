@@ -1,0 +1,194 @@
+<template>
+  <span>
+    <DataGrid
+      :columns="columns"
+      :checked.sync="computedChecked"
+      :items="categories.items"
+      :total="categories.total"
+      :loading="$apollo.queries.categories.loading"
+      :item-clickable="true"
+      @load-more-data="fetchMore"
+      @item-click="onItemClick"
+    />
+
+    <CategoryEdit
+      v-model="isEditPanelVisible"
+      :category-id="categoryId"
+    ></CategoryEdit>
+  </span>
+</template>
+
+<script>
+// import fragment from 'vue-frag'
+// import DownloadIcon from '~/assets/icons/download.svg'
+import { GET_CATEGORIES } from '~/graphql'
+export default {
+  // directives: {
+  //   fragment
+  // },
+  props: {
+    checked: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data: () => ({
+    categoryId: null,
+    isEditPanelVisible: false,
+    categories: {
+      items: [],
+      total: 0
+    }
+  }),
+  apollo: {
+    categories: {
+      query: GET_CATEGORIES,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        return { items: data.getCategories, total: data.getCategories.length }
+      },
+      variables: {
+        size: 10,
+        skip: 0
+      }
+    }
+  },
+
+  computed: {
+    computedChecked: {
+      get() {
+        return this.checked
+      },
+      set(value) {
+        this.$emit('update:checked', value)
+      }
+    },
+    columns() {
+      return [
+        {
+          title: 'Name',
+          key: 'name',
+          component: () => 'DataGridCellAvatar',
+          componentOptions: this.getNameComponentOptions
+        },
+
+        {
+          title: 'Created',
+          key: 'createdAt',
+          component: () => 'DataGridCellIcon',
+          componentOptions: this.getCreatedAtComponentOptions
+        },
+        {
+          title: 'Amount',
+          key: 'totalAmount',
+          component: () => {
+            return 'DataGridCellMoney'
+          },
+          componentOptions: this.getAmountComponentOptions
+        },
+
+        {
+          title: 'Total Content',
+          key: 'totalContents',
+          component: () => {
+            return 'DataGridCellIcon'
+          },
+          componentOptions: this.getTotalContentsComponentOptions
+        }
+      ]
+    }
+  },
+
+  methods: {
+    onItemClick({ id }) {
+      this.categoryId = id
+      this.isEditPanelVisible = true
+    },
+
+    getNameComponentOptions({ name }) {
+      return name
+        ? {
+            style: !name ? 'secondary' : undefined,
+            value: name || 'No name provided'
+          }
+        : {}
+    },
+
+    fetchMore(sizeAndSkip) {
+      const itemsKey = 'categories'
+      const queryName = 'getCategories'
+      this.$apollo.queries.clients.fetchMore({
+        // New variables
+        variables: {
+          ...sizeAndSkip
+        },
+        // Transform the previous result with new data
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          const newItems =
+            ((fetchMoreResult ?? {})[queryName] ?? {})[itemsKey] ?? []
+          const oldItems =
+            ((previousResult ?? {})[queryName] ?? {})[itemsKey] ?? []
+
+          return {
+            [queryName]: {
+              ...fetchMoreResult[queryName],
+              [itemsKey]: [...oldItems, ...newItems]
+            }
+          }
+        }
+      })
+    },
+
+    getCreatedAtComponentOptions({ createdAt }) {
+      return !createdAt
+        ? {
+            style: 'secondary',
+            value: 'No date provided'
+          }
+        : new Date(createdAt) > new Date()
+        ? {
+            type: 'icon',
+            size: 14,
+            name: 'Scheduled',
+            value: this.$d(new Date(createdAt), 'dateShorter')
+          }
+        : {
+            value: this.$d(new Date(createdAt), 'dateShorter')
+          }
+    },
+
+    getTotalContentsComponentOptions({ totalContents }) {
+      return totalContents
+        ? {
+            style: !totalContents ? 'secondary' : undefined,
+            value: totalContents ?? 0,
+            name: 'total content'
+          }
+        : {
+            value: 0
+          }
+    },
+
+    getAmountComponentOptions({ totalAmount }) {
+      return totalAmount
+        ? {
+            style: !totalAmount ? 'secondary' : undefined,
+            value: totalAmount === null ? 0 : Number(totalAmount),
+            name: 'Amount',
+            currency: 'USD',
+            currencyBefore: true
+          }
+        : {
+            style: !totalAmount ? 'secondary' : undefined,
+            value: 0,
+            name: 'Amount',
+            currency: 'USD',
+            currencyBefore: true
+          }
+    }
+  }
+}
+</script>
+
+<style>
+</style>
