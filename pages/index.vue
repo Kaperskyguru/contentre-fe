@@ -66,7 +66,7 @@
 
     <!-- table -->
 
-    <section class="container px-4 mx-auto mt-8 bg-white">
+    <section class="container px-4 my-8 mx-auto bg-white">
       <div class="flex justify-between items-center py-4">
         <h2 class="font-gilroy text-2xl font-semibold leading-tight">
           Clients
@@ -104,7 +104,6 @@ export default {
       query: GET_INDEX_METADATA,
       fetchPolicy: 'cache-and-network',
       update(data) {
-        console.log(data.getIndexMetadata)
         return {
           stats: data.getIndexMetadata?.box,
           revenue: {

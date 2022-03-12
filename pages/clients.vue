@@ -30,7 +30,7 @@
     <section class="mt-5 h-screen bg-white">
       <div class="bg-white">
         <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 sm:-mx-8">
+          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
             <ClientOverview :checked.sync="checked" />
           </div>
         </div>

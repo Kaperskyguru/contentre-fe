@@ -20,7 +20,13 @@
     </section>
 
     <section
-      class="flex flex-col justify-between space-y-6 md:flex-row md:space-y-0 mb-6"
+      class="
+        justify-between
+        mb-6
+        space-y-6
+        md:flex-row md:space-y-0
+        flex flex-col
+      "
     >
       <Filters :columns="columns" @filters="onFilters" />
       <div class="flex">
@@ -45,7 +51,7 @@
     <section class="mt-5">
       <div class="bg-white">
         <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 sm:-mx-8">
+          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
             <Contents :checked.sync="checked" :filters="filters" />
           </div>
         </div>

@@ -77,6 +77,24 @@
             </li>
             <li>
               <Hyperlink
+                :to="{ name: 'contents' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
+                "
+              >
+                <ContentIcon />
+                <span class="flex-1 ml-3 whitespace-nowrap">Contents</span>
+              </Hyperlink>
+            </li>
+            <li>
+              <Hyperlink
                 :to="{ name: 'analytics' }"
                 class="
                   group
@@ -93,6 +111,26 @@
                 <span class="flex-1 ml-3 whitespace-nowrap">Analytics</span>
               </Hyperlink>
             </li>
+
+            <li>
+              <Hyperlink
+                :to="{ name: 'portfolios' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  hover:text-white
+                  rounded-lg
+                  text-base text-gray-500
+                  font-normal font-roboto
+                "
+              >
+                <PortfolioIcon />
+                <span class="flex-1 ml-3 whitespace-nowrap">Portfolio</span>
+              </Hyperlink>
+            </li>
+
             <li>
               <Hyperlink
                 :to="{ name: 'clients' }"
@@ -193,43 +231,6 @@
                   </Hyperlink>
                 </li>
               </ul>
-            </li>
-
-            <li>
-              <Hyperlink
-                :to="{ name: 'portfolios' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  hover:text-white
-                  rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
-                "
-              >
-                <PortfolioIcon />
-                <span class="flex-1 ml-3 whitespace-nowrap">Portfolio</span>
-              </Hyperlink>
-            </li>
-            <li>
-              <Hyperlink
-                :to="{ name: 'contents' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  hover:text-white
-                  rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
-                "
-              >
-                <ContentIcon />
-                <span class="flex-1 ml-3 whitespace-nowrap">Content</span>
-              </Hyperlink>
             </li>
 
             <!-- Aside Footer -->
