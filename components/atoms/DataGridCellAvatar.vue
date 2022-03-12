@@ -12,8 +12,8 @@
           xl:gap-2
         "
         :class="{
-          '-my-3': !!options.icon,
-          '-my-2': !options.icon
+          '-my-3': !!options.icon && isImageValid,
+          '-my-2': !options.icon && !isImageValid
         }"
       >
         <picture
@@ -34,17 +34,18 @@
             border-gray-700 border border-opacity-25
           "
           :class="{
-            'top-2': !!options.icon
+            'top-2': !!options.icon && isImageValid
           }"
         >
           <img
-            v-if="options.icon"
+            v-if="options.icon && isImageValid"
             :src="options.icon"
             :alt="options.name || value"
             :title="options.name"
             width="35"
             height="35"
             class="object-contain absolute w-full h-full"
+            @error="imgError"
           />
 
           <template v-else>
@@ -61,7 +62,7 @@
             options.class,
             {
               'text-darksilver': options.style === 'secondary',
-              'top-1.5': !!options.icon
+              'top-1.5': !!options.icon && isImageValid
             }
           ]"
         >
@@ -85,8 +86,8 @@
         xl:gap-2
       "
       :class="{
-        '-my-3': !!options.icon,
-        '-my-2': !options.icon
+        '-my-3': !!options.icon && isImageValid,
+        '-my-2': !options.icon && !isImageValid
       }"
     >
       <picture
@@ -107,17 +108,18 @@
           border-gray-700 border border-opacity-25
         "
         :class="{
-          'top-2': !!options.icon
+          'top-2': !!options.icon && isImageValid
         }"
       >
         <img
-          v-if="options.icon"
+          v-if="options.icon && isImageValid"
           :src="options.icon"
           :alt="options.name || value"
           :title="options.name"
           width="35"
           height="35"
           class="object-contain absolute w-full h-full"
+          @error="imgError"
         />
 
         <template v-else>
@@ -134,7 +136,7 @@
           options.class,
           {
             'text-darksilver': options.style === 'secondary',
-            'top-1.5': !!options.icon
+            'top-1.5': !!options.icon && isImageValid
           }
         ]"
       >
@@ -155,6 +157,17 @@ import BaseCell from './DataGridCellBase'
 export default defineComponent({
   name: 'DataGridCellAvatar',
 
-  extends: BaseCell
+  extends: BaseCell,
+
+  data: () => ({
+    isImageValid: true
+  }),
+
+  methods: {
+    imgError(event) {
+      event.target.style.visibility = 'hidden'
+      this.isImageValid = false
+    }
+  }
 })
 </script>

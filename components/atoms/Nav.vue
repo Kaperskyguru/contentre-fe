@@ -46,10 +46,13 @@
         </button>
       </div>
 
+      <div class="justify-center">
+        {{ currentUser.totalContents }}/12 Contents
+      </div>
+
       <UserDropdown :user="currentUser" @logout="$emit('logout')" />
     </div>
   </div>
-  <!-- </nav> -->
 </template>
 
 <script>

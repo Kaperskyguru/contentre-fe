@@ -1,35 +1,36 @@
 <template>
-  <div class="lg:flex lg:justify-center relative lg:absolute w-full lg:top-8">
+  <div class="relative w-full lg:flex lg:absolute lg:top-8 lg:justify-center">
     <div
       id="auth-navbar"
-      class="flex items-center justify-between w-full py-4 pr-4 pl-2 lg:w-80vw"
+      class="flex justify-between items-center py-4 pr-4 pl-2 w-full lg:w-80vw"
     >
       <NuxtLink to="/">
         <img src="~/assets/img/Logo.svg" :alt="appName" />
       </NuxtLink>
       <div class="lg:hidden" @click.prevent="toggleDropdown">
-        <div class="h-1 w-6 bg-body-text-color mb-1"></div>
-        <div class="h-1 w-6 bg-body-text-color mb-1"></div>
-        <div class="h-1 w-6 bg-body-text-color"></div>
+        <div class="mb-1 w-6 h-1 bg-body-text-color"></div>
+        <div class="mb-1 w-6 h-1 bg-body-text-color"></div>
+        <div class="w-6 h-1 bg-body-text-color"></div>
       </div>
       <div
         id="navDropdown"
         class="
           flex
-          hidden
-          lg:flex lg:flex-row
-          flex-col
-          w-full
-          lg:w-max
           absolute
-          lg:static
           top-full
-          bg-white
-          lg:bg-transparent
+          left-0
+          flex-col
           px-3
           pt-3
-          left-0
-          lg:pt-0 lg:pr-4
+          w-full
+          bg-white
+          lg:flex
+          lg:static
+          lg:flex-row
+          lg:pt-0
+          lg:pr-4
+          lg:w-max
+          lg:bg-transparent
         "
       >
         <NuxtLink
@@ -40,7 +41,7 @@
         >
           <div class="flex">
             <img class="pr-1" :src="link.icon" :alt="link.text" />
-            <span class="text-helvetica text-bold text-xs">{{
+            <span class="text-xs text-helvetica text-bold">{{
               link.text.toUpperCase()
             }}</span>
           </div>
