@@ -22,16 +22,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [
-      // {
-      //   src: 'https://demo.themesberg.com/windster/app.bundle.js',
-      //   body: true
-      // },
-      // {
-      //   src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js',
-      //   body: true
-      // }
-    ]
+    script: []
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -45,6 +36,13 @@ export default {
     '~/plugins/currentUser',
     '~/plugins/resizable'
   ],
+
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecret: process.env.CLOUDINARY_API_SECRET,
+    secure: true
+  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
@@ -81,7 +79,8 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
     // https://i18n.nuxtjs.org
-    ['@nuxtjs/i18n', nuxtI18nConfig]
+    ['@nuxtjs/i18n', nuxtI18nConfig],
+    '@nuxtjs/cloudinary'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

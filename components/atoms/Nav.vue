@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { currentUser } from '../mixins'
+import { currentUser } from '~/components/mixins'
 export default {
   name: 'DashboardNav',
 

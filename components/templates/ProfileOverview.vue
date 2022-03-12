@@ -1,11 +1,11 @@
 <template>
-  <div class="shadow rounded-xl bg-white">
+  <div class="bg-white rounded-xl shadow">
     <!-- Profile Card -->
     <ProfileCard :user="currentUser" />
     <!-- End of profile card -->
 
     <!-- Text -->
-    <div class="px-4 border-t-2 text-center py-6">
+    <div class="py-6 px-4 text-center border-t-2">
       <CustomText :text="currentUser.bio" />
     </div>
     <!-- End of Text -->
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { currentUser } from '../mixins'
+import { currentUser } from '~/components/mixins'
 export default {
   mixins: [currentUser]
 }

@@ -62,6 +62,18 @@
     <div class="flex flex-wrap -mx-3 mb-6">
       <div class="px-3 w-full">
         <TextField
+          type="file"
+          accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+          class="w-full text-sm"
+          label="Profile image"
+          @change="selectFile"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="px-3 w-full">
+        <TextField
           v-model="$v.fieldBio.$model"
           :rows="10"
           label="Bio"
@@ -77,7 +89,7 @@
 </template>
 
 <script>
-import { currentUser } from '../mixins'
+import { currentUser } from '~/components/mixins'
 import { GET_CURRENT_USER, SEND_EMAIL_CODE, UPDATE_USER } from '~/graphql'
 import {
   email,
@@ -93,15 +105,19 @@ export default {
       fieldEmail: '',
       fieldName: '',
       fieldBio: '',
+      fieldImage: '',
       fieldHomeAddress: '',
       fieldPhoneNumber: '',
       fieldJobTitle: '',
-      sending: false
+      sending: false,
+      cloudinary: null,
+      imageBlob: null
     }
   },
 
   validations: {
     fieldEmail: { email },
+    fieldImage: {},
     fieldName: {
       minLength: minLength(2),
       maxLength: maxLength(35),
@@ -124,6 +140,22 @@ export default {
   },
 
   methods: {
+    async selectFile(e) {
+      const file = e.target.files[0]
+
+      /* Make sure file exists */
+      if (!file) return
+
+      const readData = (f) =>
+        new Promise((resolve) => {
+          const reader = new FileReader()
+          reader.onloadend = () => resolve(reader.result)
+          reader.readAsDataURL(f)
+        })
+
+      /* Read data */
+      this.imageBlob = await readData(file)
+    },
     async handleSubmission() {
       if (this.honeyPot) return
 
@@ -131,13 +163,21 @@ export default {
 
       this.sending = true
 
+      if (this.imageBlob) {
+        this.cloudinary = await this.$cloudinary.upload(this.imageBlob, {
+          folder: 'contentre/profiles/' + this.currentUser.id,
+          upload_preset: 'yijnms7k'
+        })
+      }
+
       const input = {
         name: this.fieldName || undefined,
         jobTitle: this.fieldJobTitle || undefined,
         email: this.fieldEmail || undefined,
         homeAddress: this.fieldHomeAddress || undefined,
         bio: this.fieldBio || undefined,
-        phoneNumber: this.fieldPhoneNumber || undefined
+        phoneNumber: this.fieldPhoneNumber || undefined,
+        avatarURL: this.cloudinary?.secure_url || undefined
       }
 
       if (this.isEmpty(input)) {
@@ -178,6 +218,8 @@ export default {
         this.sending = false
       }
     },
+
+    uploadImage() {},
     isEmpty(data) {
       return !Object.values(data).some((el) => el !== undefined)
     }

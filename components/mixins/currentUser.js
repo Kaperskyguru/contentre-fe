@@ -8,7 +8,9 @@ export const currentUser = {
   apollo: {
     currentUser: {
       query: GET_CURRENT_USER,
-      update: (data) => data.getCurrentUser
+      update: (data) => {
+        return data.getCurrentUser
+      }
     }
   },
 

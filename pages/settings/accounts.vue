@@ -68,10 +68,9 @@
               w-1/2
               font-bold
               text-white
-              bg-red-500
+              bg-red
               rounded-lg
               shadow
-              focus:shadow-outline
             "
             type="submit"
           >
