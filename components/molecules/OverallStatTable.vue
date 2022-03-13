@@ -66,17 +66,14 @@ export default {
         {
           title: 'Client',
           key: 'name',
-          component: () => 'DataGridCellIcon',
+          component: () => 'DataGridCellAvatar',
           componentOptions: this.getClientComponentOptions
         },
 
         {
           title: 'Total Contents',
           key: 'totalContents',
-          // titleClass: 'lg:w-36 xl:w-50 2xl:w-70',
-          dataClass: ({ totalContents }) => {
-            return `${totalContents ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
-          },
+          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => {
             return 'DataGridCellIcon'
           },
@@ -86,6 +83,7 @@ export default {
         {
           title: 'Views',
           key: 'views',
+          titleClass: 'lg:w-10 xl:w-20 2xl:w-30',
           component: () => {
             return 'DataGridCellIcon'
           },
@@ -94,7 +92,7 @@ export default {
         {
           title: 'Comments',
           key: 'totalComments',
-          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellIcon',
           componentOptions: this.getCommentsComponentOptions
         },
@@ -102,7 +100,7 @@ export default {
         {
           title: 'Shares',
           key: 'totalShares',
-          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          titleClass: 'lg:w-10 xl:w-20 2xl:w-30',
           component: () => 'DataGridCellIcon',
           componentOptions: this.getSharesComponentOptions
         },
@@ -110,7 +108,7 @@ export default {
         {
           title: 'Likes',
           key: 'totalLikes',
-          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          titleClass: 'lg:w-10 xl:w-20 2xl:w-30',
           component: () => 'DataGridCellIcon',
           componentOptions: this.getLikesComponentOptions
         },
@@ -118,7 +116,7 @@ export default {
         {
           title: 'Interactions',
           key: 'interactions',
-          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellPercent',
           componentOptions: this.getInteractionsComponentOptions
         },
@@ -126,7 +124,7 @@ export default {
         {
           title: 'Growths',
           key: 'growth',
-          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellPercent',
           componentOptions: this.getGrowthsComponentOptions
         },
@@ -134,7 +132,7 @@ export default {
         {
           title: 'Status',
           key: 'status',
-          // titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
+          titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellStatus',
           componentOptions: this.getStatusComponentOptions
         }

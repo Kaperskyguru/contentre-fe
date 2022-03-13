@@ -73,7 +73,7 @@ export default {
       if (this.chartOptions) return this.chartOptions
       return {
         legend: {
-          display: false
+          display: true
         },
         scales: {
           yAxes: [

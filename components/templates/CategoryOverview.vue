@@ -9,7 +9,16 @@
       :item-clickable="true"
       @load-more-data="fetchMore"
       @item-click="onItemClick"
-    />
+    >
+      <template slot="data-name" slot-scope="{ item }">
+        <Chip
+          class="-my-2"
+          :appearance="item.name ? 'primary' : 'secondary'"
+          :value="item.name || $t('cashFlow.categories.uncategorized')"
+          :style="{ background: item.color ? `#${item.color}80` : undefined }"
+        />
+      </template>
+    </DataGrid>
 
     <CategoryEdit
       v-model="isEditPanelVisible"
@@ -67,9 +76,7 @@ export default {
       return [
         {
           title: 'Name',
-          key: 'name',
-          component: () => 'DataGridCellAvatar',
-          componentOptions: this.getNameComponentOptions
+          key: 'name'
         },
 
         {
@@ -103,15 +110,6 @@ export default {
     onItemClick({ id }) {
       this.categoryId = id
       this.isEditPanelVisible = true
-    },
-
-    getNameComponentOptions({ name }) {
-      return name
-        ? {
-            style: !name ? 'secondary' : undefined,
-            value: name || 'No name provided'
-          }
-        : {}
     },
 
     fetchMore(sizeAndSkip) {

@@ -2,7 +2,7 @@
   <div class="line-chart-wrapper" :style="computedStyles">
     <LineChart
       :styles="styles"
-      :chartdata="chartData"
+      :chart-data="chartData"
       :options="computedChartOptions"
     />
   </div>
@@ -60,9 +60,9 @@ export default {
               data: this.data?.last,
               label: new Date().getFullYear() - 1,
               pointRadius: 0,
-              borderColor: '#2D3748',
+              borderColor: 'rgba(79, 209, 197, .20)',
               borderWidth: 3,
-              backgroundColor: 'rgba(45, 55, 72, .36)',
+              backgroundColor: 'rgba(79, 209, 197, .20)',
               fill: 'start'
             }
           ]
