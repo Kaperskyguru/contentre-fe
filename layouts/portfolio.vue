@@ -49,7 +49,7 @@
             <ul class="pt-4 text-gray-700 md:flex md:justify-between md:pt-0">
               <li class="pr-5">
                 <a
-                  href="https://contentre.io/portfolio"
+                  href="https://app.contentre.io/auth/register?source=portfolio"
                   class="
                     inline-flex
                     py-3
@@ -95,19 +95,21 @@
           </p>
         </div>
         <div class="justify-items-end text-right sm:pt-4">
-          <a class="text-white hover:text-teal-300" href="https://contentre.io"
+          <a
+            class="text-white hover:text-teal-300"
+            href="https://contentre.io?source=portfolio"
             >Home</a
           >
 
           <a
             class="pl-2 text-white hover:text-teal-300"
-            href="https://contentre.io/portfolio"
+            href="https://app.contentre.io/auth/register?source=portfolio"
             >Get a Page</a
           >
 
           <a
             class="pl-2 text-white hover:text-teal-300"
-            href="https://blog.contentre.io"
+            href="https://blog.contentre.io?source=portfolio"
             >Blog</a
           >
         </div>

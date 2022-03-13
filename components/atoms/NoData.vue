@@ -5,15 +5,17 @@
       {{ message || 'No data to show' }}
     </p>
 
-    <Button
-      v-if="filterApplied"
-      class="mt-4"
-      appearance="secondary"
-      size="small"
-      @click="$emit('clear')"
-    >
-      {{ 'Clear applied filters' }}
-    </Button>
+    <slot>
+      <Button
+        v-if="filterApplied"
+        class="mt-4"
+        appearance="secondary"
+        size="small"
+        @click="$emit('clear')"
+      >
+        {{ 'Clear applied filters' }}
+      </Button>
+    </slot>
   </div>
 </template>
 
