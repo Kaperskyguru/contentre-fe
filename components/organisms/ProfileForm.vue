@@ -197,8 +197,6 @@ export default {
         avatarURL: this.cloudinary?.secure_url || undefined
       }
 
-      console.log(input)
-
       if (this.isEmpty(input)) {
         this.$toast.negative('Enter at least one field')
         this.sending = false

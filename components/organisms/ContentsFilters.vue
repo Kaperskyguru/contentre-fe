@@ -49,6 +49,22 @@
         />
       </div>
 
+      <div class="mb-6">
+        <DropdownField
+          placeholder="Sort by"
+          label="Sort by"
+          @update:value="onFilterChange"
+        >
+          <option
+            v-for="(column, i) in filterColumns"
+            :key="i"
+            :value="column.key"
+          >
+            {{ column.name }}
+          </option>
+        </DropdownField>
+      </div>
+
       <div class="flex mb-6 space-x-4">
         <NumberField
           v-model="$v.fieldFromAmount.$model"
@@ -153,12 +169,18 @@ export default {
     activeConsent: {
       type: Object,
       default: null
+    },
+
+    filterColumns: {
+      type: Array,
+      default: () => []
     }
   },
 
   emits: ['update:value', 'close-panel'],
 
   data: () => ({
+    sortBy: '',
     fieldTopics: null,
     fieldCategories: null,
     fieldTags: null,
@@ -263,7 +285,8 @@ export default {
               null
             : Number(data.fieldToAmount),
         fromDate: data.fieldFromDate,
-        toDate: data.fieldToDate
+        toDate: data.fieldToDate,
+        sortBy: this.sortBy ?? undefined
       }
     },
 
@@ -278,8 +301,6 @@ export default {
 
       const input = this.getModifiedData(data)
 
-      console.log(input)
-
       this.$emit('close-panel', input)
     },
 
@@ -289,6 +310,10 @@ export default {
       this.saveTransactionFilters()
 
       this.showFloatingPanel = false
+    },
+
+    onFilterChange(e) {
+      this.sortBy = e
     },
 
     onClickResetButton() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap items-center py-4">
+  <div class="flex flex-wrap items-center">
     <div class="flex sm:justify-center">
       <button
         class="
@@ -44,6 +44,7 @@
 
     <LazyContentsFilters
       v-model="filtersShowFloatingPanel"
+      :filter-columns="filterColumns"
       @close-panel="onChangeFilters"
     />
   </div>
@@ -53,6 +54,13 @@
 export default {
   components: {
     IconFilter: () => import('~/assets/icons/filter-sharp.svg?inline')
+  },
+
+  props: {
+    filterColumns: {
+      type: Array,
+      default: () => []
+    }
   },
 
   data: () => ({

@@ -1,7 +1,7 @@
 <template>
-  <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-    <div class="pb-4 px-4 pt-4">
-      <h2 class="text-2xl font-gilroy font-semibold leading-tight">
+  <div class="inline-block overflow-hidden min-w-full rounded-lg shadow">
+    <div class="p-4">
+      <h2 class="font-gilroy text-2xl font-semibold leading-tight">
         {{ title }}
       </h2>
     </div>
@@ -10,15 +10,15 @@
         <tr v-if="headers.length">
           <th
             class="
-              px-5
               py-3
-              border-b-2 border-gray-200
-              bg-gray-100
-              text-left text-xs
-              font-semibold font-roboto
+              px-5
+              tracking-wider
               text-gray-600
               uppercase
-              tracking-wider
+              bg-gray-100
+              border-b-2 border-gray-200
+              text-left text-xs
+              font-semibold font-roboto
             "
           >
             <CheckField />
@@ -27,15 +27,15 @@
             v-for="(header, i) in headers"
             :key="i"
             class="
-              px-5
               py-3
-              border-b-2 border-gray-200
-              bg-gray-100
-              text-left text-xs
-              font-semibold font-roboto
+              px-5
+              tracking-wider
               text-gray-600
               uppercase
-              tracking-wider
+              bg-gray-100
+              border-b-2 border-gray-200
+              text-left text-xs
+              font-semibold font-roboto
             "
           >
             {{ header }}
@@ -48,15 +48,15 @@
           :key="i"
           class="
             bg-white
+            hover:bg-gray-100
             border-b
             transition
             duration-300
             ease-in-out
-            hover:bg-gray-100
           "
         >
-          <td class="px-5 py-2 whitespace-nowrap text-sm">
-            <div class="text-gray-900 font-roboto whitespace-no-wrap">
+          <td class="py-2 px-5 text-sm whitespace-nowrap">
+            <div class="font-roboto text-gray-900 whitespace-no-wrap">
               <CheckField
                 :id="uid"
                 v-model="checkModel"
@@ -70,21 +70,21 @@
           <td
             v-for="(body, index) in sortRowDataColumn(data)"
             :key="index"
-            class="px-5 py-2 whitespace-nowrap text-sm"
+            class="py-2 px-5 text-sm whitespace-nowrap"
           >
-            <p class="text-gray-900 font-roboto whitespace-no-wrap">
+            <p class="font-roboto text-gray-900 whitespace-no-wrap">
               {{ body }}
             </p>
           </td>
         </tr>
       </tbody>
     </table>
-    <div class="px-5 py-2 bg-white border-t flex items-center justify-between">
+    <div class="flex justify-between items-center py-2 px-5 bg-white border-t">
       <span class="text-sm xs:text-sm text-gray-900"> 15 to 29 out of 96 </span>
       <div class="flex flex-col items-center">
         <div class="flex text-gray-700">
           <div
-            class="h-8 w-8 mr-1 flex justify-center items-center cursor-pointer"
+            class="flex justify-center items-center mr-1 w-8 h-8 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +96,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="feather feather-chevron-left w-4 h-4"
+              class="w-4 h-4 feather feather-chevron-left"
             >
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
@@ -104,29 +104,29 @@
           <div class="flex h-8 font-medium">
             <div
               class="
-                w-8
-                md:flex
                 justify-center
                 items-center
-                cursor-pointer
-                bg-gray-500
+                w-8
                 text-white
+                bg-gray-500
+                cursor-pointer
+                md:flex
               "
             >
               1
             </div>
-            <div class="w-8 md:flex justify-center items-center cursor-pointer">
+            <div class="justify-center items-center w-8 cursor-pointer md:flex">
               2
             </div>
-            <div class="w-8 md:flex justify-center items-center cursor-pointer">
+            <div class="justify-center items-center w-8 cursor-pointer md:flex">
               ...
             </div>
-            <div class="w-8 md:flex justify-center items-center cursor-pointer">
+            <div class="justify-center items-center w-8 cursor-pointer md:flex">
               16
             </div>
           </div>
           <div
-            class="h-8 w-8 ml-1 flex justify-center items-center cursor-pointer"
+            class="flex justify-center items-center ml-1 w-8 h-8 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +138,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="feather feather-chevron-right w-4 h-4"
+              class="w-4 h-4 feather feather-chevron-right"
             >
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
@@ -184,7 +184,6 @@ export default {
         return this.checked
       },
       set(value) {
-        console.log(value)
         this.$emit('update:checked', value)
       }
     }

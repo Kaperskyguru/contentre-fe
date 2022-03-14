@@ -17,7 +17,6 @@
 
 <script>
 // import fragment from 'vue-frag'
-// import DownloadIcon from '~/assets/icons/download.svg'
 import { GET_CLIENTS } from '~/graphql'
 export default {
   // directives: {
@@ -27,6 +26,10 @@ export default {
     checked: {
       type: Array,
       default: () => []
+    },
+    filters: {
+      type: [Array, Object],
+      default: () => {}
     }
   },
   data: () => ({
@@ -43,9 +46,12 @@ export default {
       update(data) {
         return { items: data.getClients, total: data.getClients.length }
       },
-      variables: {
-        size: 10,
-        skip: 0
+      variables() {
+        return {
+          size: 10,
+          skip: 0,
+          filters: { ...this.filters }
+        }
       }
     }
   },
@@ -164,10 +170,10 @@ export default {
             // file: IconTransactionDateClock,
             size: 14,
             name: 'Scheduled',
-            value: new Date(createdAt).toLocaleDateString() // this.$d(new Date(lastUpdated), 'dateShorter')
+            value: this.$d(new Date(createdAt), 'dateShorter')
           }
         : {
-            value: new Date(createdAt).toLocaleDateString() // this.$d(new Date(lastUpdated), 'dateShorter')
+            value: this.$d(new Date(createdAt), 'dateShorter')
           }
     },
 

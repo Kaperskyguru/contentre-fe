@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span class="z-10">
     <a v-if="options.url" :href="options.url" target="_blank">
       <span
         class="

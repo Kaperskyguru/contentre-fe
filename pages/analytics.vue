@@ -5,7 +5,7 @@
     </div>
 
     <!-- calender -->
-    <section>
+    <section class="mb-6">
       <ContentFilter @filters="onFilters" />
     </section>
     <!-- end of calender -->

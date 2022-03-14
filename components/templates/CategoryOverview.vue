@@ -39,6 +39,10 @@ export default {
     checked: {
       type: Array,
       default: () => []
+    },
+    filters: {
+      type: [Array, Object],
+      default: () => {}
     }
   },
   data: () => ({
@@ -56,9 +60,12 @@ export default {
       update(data) {
         return { items: data.getCategories, total: data.getCategories.length }
       },
-      variables: {
-        size: 10,
-        skip: 0
+      variables() {
+        return {
+          size: 10,
+          skip: 0,
+          filters: { ...this.filters }
+        }
       }
     }
   },

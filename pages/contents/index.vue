@@ -9,13 +9,6 @@
         <div class="basis-1/2">
           <FavouriteField :selected="checked.length" />
         </div>
-        <div class="basis-4/5">
-          <SearchField
-            id="search"
-            v-model="filters.terms"
-            placeholder="Search by name..."
-          />
-        </div>
       </div>
     </section>
 
@@ -23,14 +16,24 @@
       class="
         justify-between
         mb-6
-        space-y-6
         md:flex-row md:space-y-0
+        space-y-6 space-x-6
         flex flex-col
       "
     >
-      <Filters :columns="columns" @filters="onFilters" />
+      <div>
+        <ContentFilter :filter-columns="columns" @filters="onFilters" />
+      </div>
 
-      <div class="ml-2">
+      <div class="basis-4/5">
+        <SearchField
+          id="search"
+          v-model="filters.terms"
+          placeholder="Search by name..."
+        />
+      </div>
+
+      <div>
         <Button type="link" :to="{ name: 'contents/add' }" appearance="primary">
           Add Content
         </Button>

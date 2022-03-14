@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="inline-flex relative justify-start ml-2"> -->
   <TextField
     :value="value"
     appearance="secondary"
@@ -21,7 +20,6 @@
       </div>
     </template>
   </TextField>
-  <!-- </div> -->
 </template>
 
 <script>

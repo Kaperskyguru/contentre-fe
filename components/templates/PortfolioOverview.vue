@@ -6,7 +6,7 @@
       <Button @click.prevent="onAddPortfolio">Add Portfolio</Button>
     </div>
 
-    <section>
+    <section class="mb-6">
       <ContentFilter />
     </section>
 
