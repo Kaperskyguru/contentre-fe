@@ -1,6 +1,6 @@
 <template>
   <form class="w-full" @submit.prevent="createClient">
-    <div class="">
+    <div class="mb-6">
       <TextField
         v-model="$v.fieldTitle.$model"
         type="text"
@@ -15,7 +15,7 @@
       type="text"
       class="absolute invisible"
     />
-    <div class="w-full">
+    <div class="mb-6 w-full">
       <TextField
         v-model="$v.fieldURL.$model"
         type="text"
@@ -26,7 +26,7 @@
       />
     </div>
 
-    <section class="">
+    <section class="mb-6">
       <TextField
         v-model="$v.fieldDescription.$model"
         :rows="5"
@@ -39,10 +39,10 @@
     </section>
 
     <section class="">
-      <select
+      <DropdownField
         v-model="$v.fieldTemplate.$model"
         type="text"
-        class="w-full text-sm"
+        class="w-full text-sm text-darksilver"
         label="Description"
         placeholder="Select your template"
         :error="getValidationMessage($v.fieldTemplate)"
@@ -52,7 +52,7 @@
         <option value="2">Sample 2</option>
         <option value="3">Sample 3</option>
         <option value="4">Sample 4</option>
-      </select>
+      </DropdownField>
     </section>
 
     <div class="flex justify-center items-center px-3 mt-4 w-full">

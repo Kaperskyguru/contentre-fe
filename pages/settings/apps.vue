@@ -38,10 +38,10 @@
         <div class="p-3 bg-white rounded-md border shadow-sm">
           <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent" style="font-size: 20px">
-              <i class="fab fa-medium fa-lg"></i>
+              <MediumIcon />
             </div>
             <div class="text-right">
-              <i class="fas fa-toggle-on fa-lg" style="font-size: 24px"></i>
+              <ToggleOnIcon />
             </div>
           </div>
           <div class="py-10 leading-8">
@@ -60,7 +60,7 @@
               />
             </div>
             <div class="text-right">
-              <i class="fas fa-toggle-on" style="font-size: 24px"></i>
+              <ToggleOnIcon />
             </div>
           </div>
           <div class="py-10 leading-8">
@@ -77,7 +77,7 @@
               <img class="mx-auto w-8 h-8" src="~/assets/img/word.png" alt="" />
             </div>
             <div class="text-right">
-              <i class="fas fa-toggle-on" style="font-size: 24px"></i>
+              <ToggleOnIcon />
             </div>
           </div>
           <div class="py-10 leading-8">
@@ -96,7 +96,7 @@
               />
             </div>
             <div class="text-right">
-              <i class="fas fa-toggle-on" style="font-size: 24px"></i>
+              <ToggleOnIcon />
             </div>
           </div>
           <div class="py-10 leading-8">
@@ -115,7 +115,7 @@
               />
             </div>
             <div class="text-right text-gray-500">
-              <i class="fas fa-toggle-off" style="font-size: 24px"></i>
+              <ToggleOffIcon />
             </div>
           </div>
           <div class="py-10 leading-8">
@@ -136,7 +136,7 @@
               />
             </div>
             <div class="text-right text-gray-500">
-              <i class="fas fa-toggle-off" style="font-size: 24px"></i>
+              <ToggleOffIcon />
             </div>
           </div>
           <div class="py-10 leading-8">
@@ -153,7 +153,12 @@
 
 <script>
 export default {
-  name: 'ConnectedApp'
+  name: 'ConnectedApp',
+  components: {
+    ToggleOnIcon: () => import('~/assets/icons/toggle-on.svg?inline'),
+    ToggleOffIcon: () => import('~/assets/icons/toggle-off.svg?inline'),
+    MediumIcon: () => import('~/assets/icons/medium.svg?inline')
+  }
 }
 </script>
 

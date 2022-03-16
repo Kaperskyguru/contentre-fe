@@ -284,7 +284,6 @@ export default defineComponent({
 
 .dropdown-field select:invalid,
 .dropdown-field option[value=''] {
-  @apply text-white;
 }
 
 .home {

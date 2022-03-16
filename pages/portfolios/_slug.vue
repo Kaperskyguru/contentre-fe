@@ -150,35 +150,6 @@ export default {
 
 /* end of settings page */
 
-/* notification mega-dropdown */
-
-.mega-dropdown {
-  width: 28rem;
-  margin-left: -22rem;
-}
-
-.mega-dropdown2 {
-  width: 836px;
-  margin-left: -7px;
-}
-
-.mega-dropdown3 {
-  width: 837px;
-  margin-left: -7rem;
-}
-
-.mega-dropdown4 {
-  width: 839px;
-  margin-left: -205px;
-}
-
-.date-icon {
-  right: 28px;
-  margin-top: -36px;
-  color: #c1c1c1;
-}
-/* end of notification mega-dropdown */
-
 /* portfolio aside */
 
 .aside-icons:hover {
