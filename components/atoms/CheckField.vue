@@ -35,7 +35,7 @@
         <img v-else :src="Unchecked" alt="Unchecked" />
       </div>
 
-      <span class="ml-3 font-gilroy text-grey-shade text-medium">
+      <span class="peer ml-3 font-gilroy text-base text-gray-500">
         <slot></slot>
       </span>
       <input

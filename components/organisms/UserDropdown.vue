@@ -69,6 +69,8 @@
               x-transition:leave-end="transform opacity-0 scale-95"
               class="
                 absolute
+                top-auto
+                right-0
                 py-3
                 px-5
                 mt-2

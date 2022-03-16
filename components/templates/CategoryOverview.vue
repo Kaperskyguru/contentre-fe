@@ -29,7 +29,6 @@
 
 <script>
 // import fragment from 'vue-frag'
-// import DownloadIcon from '~/assets/icons/download.svg'
 import { GET_CATEGORIES } from '~/graphql'
 export default {
   // directives: {
