@@ -63,6 +63,10 @@ export default {
     noData() {
       if (Array.isArray(this.data)) return true
 
+      if (!this.data?.current && !this.data?.last) {
+        return true
+      }
+
       return !(
         this.data?.current.some((item) => item > 0) &&
         this.data?.last.some((item) => item > 0)
