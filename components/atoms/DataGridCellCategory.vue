@@ -10,15 +10,16 @@
     <span
       v-if="!showAutoComplete && displayCategory && !options.fakeInput"
       class="
+        overflow-hidden
         py-2.5
         px-3
         -my-1
+        text-ellipsis
         whitespace-nowrap
         bg-gray-100
         hover:bg-linen
         rounded
         cursor-pointer
-        overflow-hidden overflow-ellipsis
       "
       :style="displayedCategoryStyle"
       @click="onClickShowAutoComplete"
@@ -44,6 +45,7 @@
       :field-class="{
         'placeholder-black': displayCategory !== 'Choose a category'
       }"
+      :content="item"
       :fake-input="options.isGrid"
       :is-input-border-enabled="options.isGrid"
       @update:value="onUpdateCategory"

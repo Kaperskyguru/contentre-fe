@@ -184,14 +184,14 @@
       >
         <span
           class="
+            overflow-hidden
             pt-5
             pl-5
             w-full
             leading-snug
-            text-gray-800
+            text-gray-800 text-ellipsis
             whitespace-nowrap
             cursor-pointer
-            overflow-hidden overflow-ellipsis
           "
           :class="[
             {
@@ -261,7 +261,7 @@
 <script>
 import { nextTick } from '@nuxtjs/composition-api'
 import vClickOutside from 'v-click-outside'
-import { GET_CATEGORIES, UPDATE_CATEGORY } from '~/graphql'
+import { GET_CATEGORIES, UPDATE_CONTENT } from '~/graphql'
 export default {
   directives: {
     clickOutside: vClickOutside.directive
@@ -345,7 +345,7 @@ export default {
       default: true
     },
 
-    transaction: {
+    content: {
       type: Object,
       default: null
     },
@@ -420,11 +420,12 @@ export default {
       if (this.shouldUpdate) {
         try {
           await this.$apollo.mutate({
-            mutation: UPDATE_CATEGORY,
+            mutation: UPDATE_CONTENT,
             variables: {
-              id: category.id,
+              id: this.content?.id,
               input: {
-                name: category?.name ?? category
+                category:
+                  category?.name === null ? '' : category?.name ?? category
               }
             },
             update: (
