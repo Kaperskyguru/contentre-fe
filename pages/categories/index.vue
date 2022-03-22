@@ -6,11 +6,11 @@
 
     <section
       class="
+        flex flex-col
         justify-between
         mb-6
-        md:flex-row md:space-y-0
         space-y-6 space-x-6
-        flex flex-col
+        md:flex-row md:space-y-0
       "
     >
       <div>
@@ -26,7 +26,7 @@
       </div>
 
       <div>
-        <Button @click.prevent="onAddClient">Add Category</Button>
+        <Button @click.prevent="onAddCategory">Add Category</Button>
       </div>
     </section>
 
@@ -40,13 +40,10 @@
       </div>
     </section>
 
-    <Dialog v-model="isConfirmModalVisible">
-      <div class="block w-full text-gray-700 bg-white">
-        <div class="flex justify-between w-full text-gray-700 bg-white">
-          <AddClient @create:success="onAddClient" />
-        </div>
-      </div>
-    </Dialog>
+    <CategoryEdit
+      v-model="isEditPanelVisible"
+      :category-id="categoryId"
+    ></CategoryEdit>
   </section>
 </template>
 
@@ -60,7 +57,7 @@ export default {
 
   layout: 'Dashboard',
   data: () => ({
-    isConfirmModalVisible: false,
+    isEditPanelVisible: false,
     checked: [],
     searchedTerm: '',
     filters: {},
@@ -73,8 +70,8 @@ export default {
   }),
 
   methods: {
-    onAddClient() {
-      this.isConfirmModalVisible = !this.isConfirmModalVisible
+    onAddCategory() {
+      this.isEditPanelVisible = !this.isEditPanelVisible
     }
   },
 

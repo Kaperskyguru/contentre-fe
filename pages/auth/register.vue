@@ -233,8 +233,11 @@ export default {
         mutation: CREATE_USER,
         variables: {
           input: {
-            ...input
-            // language: this.$i18n.getLocaleCookie()
+            ...input,
+            language: this.$i18n.getLocaleCookie(),
+            signedUpThrough: 'CONTENTRE',
+            analyticsSource: this.$route.query.source || undefined,
+            analyticsSourceData: this.$route.query.source_data || undefined
           }
         },
         update: (cache, { data: { createUser } }) => {
