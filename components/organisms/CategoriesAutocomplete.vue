@@ -421,6 +421,7 @@ export default {
         try {
           await this.$apollo.mutate({
             mutation: UPDATE_CONTENT,
+            refetchQueries: ['getContents'],
             variables: {
               id: this.content?.id,
               input: {
@@ -455,24 +456,23 @@ export default {
               //     category: () => categoryRef
               //   }
               // })
+            },
+            optimisticResponse: {
+              updateCategory: {
+                ...this.transaction,
+                __typename: 'Category',
+                category: category?.name
+                  ? category
+                  : {
+                      name: category,
+                      id: null,
+                      color: null,
+                      totalContents: 0,
+                      createdAt: null,
+                      updatedAt: null
+                    }
+              }
             }
-            //   optimisticResponse: {
-            //     updateCategory: {
-            //       ...this.transaction,
-            //       __typename: 'Category',
-            //       category: category?.name
-            //         ? category
-            //         : {
-            //             name: category,
-            //             id: null,
-            //             website: null,
-            //             profile: null,
-            //             totalContents: 0,
-            //             createdAt: null,
-            //             updatedAt: null
-            //           }
-            //     }
-            //   }
           })
         } catch (error) {
           this.$toast.negative(error.message)

@@ -6,8 +6,8 @@
         v-model="$v.fieldUsername.$model"
         required
         class="mb-6"
-        label="Choose your portfolio address"
-        placeholder="www.contentre.me/username"
+        label="Choose your username"
+        placeholder="username"
         maxlength="35"
         :error="getValidationMessage($v.fieldUsername)"
       >
