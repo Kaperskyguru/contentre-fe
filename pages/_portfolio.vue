@@ -42,26 +42,26 @@
                 <div class="container mx-auto">
                   <div
                     class="
+                      flex flex-col
                       justify-center
                       items-start
                       p-8
                       w-full
                       lg:w-1/2
-                      flex flex-col
                     "
                   >
                     <h1 class="mb-4 text-xl font-bold text-white md:text-xl">
-                      {{ portfolio.about }}
+                      {{ portfolio.about || 'About me not provided' }}
                     </h1>
                     <a
                       href="#"
                       class="
                         py-2
                         px-12
+                        text-sm text-white
                         rounded
                         shadow
                         form-btn
-                        text-sm text-white
                       "
                       style="background: #00aeff"
                     >
@@ -78,15 +78,23 @@
 
     <section class="text-center text-white">
       <div class="container flex flex-col pt-16 pb-8 mx-auto md:flex-row">
-        <div class="w-5/6 md:mr-2 md:w-1/2 lg:w-full lg:max-w-lg">
+        <div class="mb-2 w-full md:mr-2 md:w-1/2 lg:w-full lg:max-w-lg">
           <img
             class="object-cover object-center rounded"
-            alt="hero"
-            src="~/assets/img/temp-pic2.png"
+            alt="profile image"
+            :src="computedProfileImage(portfolio.profileImage)"
           />
         </div>
         <div
-          class="flex flex-col py-4 px-10 ml-2 text-center md:w-1/2 lg:grow"
+          class="
+            flex flex-col
+            py-4
+            px-10
+            mb-2
+            text-center
+            md:ml-2 md:w-1/2
+            lg:grow
+          "
           style="background: #13142b"
         >
           <h1
@@ -103,7 +111,7 @@
             About Me
           </h1>
           <p class="mb-8 text-xs">
-            {{ portfolio.about }}
+            {{ portfolio.about || 'About me not provided' }}
           </p>
           <div class="flex justify-center pb-8">
             <button
@@ -111,10 +119,11 @@
                 py-2
                 px-12
                 mr-2
+                text-sm
                 font-bold
+                text-white
                 rounded
                 shadow
-                text-sm text-white
                 form-btn
               "
               style="background: #00aeff"
@@ -136,7 +145,17 @@
         <div class="flex flex-wrap">
           <!-- Column -->
           <div v-if="noData" class="justify-center">
-            <NoData />
+            <NoData message="No content added yet">
+              <Button
+                type="link"
+                href="https://app.contentre.io/contents/add?source=portfolio"
+                class="mt-4"
+                appearance="secondary"
+                size="small"
+              >
+                {{ 'Add your content now' }}
+              </Button>
+            </NoData>
           </div>
           <div
             v-for="(content, i) in portfolio.portfolios"
@@ -225,6 +244,10 @@ export default {
   methods: {
     computedImage(image) {
       return image ?? require('~/assets/img/portfolio-pic1.png')
+    },
+
+    computedProfileImage(image) {
+      return image ?? require('~/assets/img/temp-pic2.png')
     }
   }
 }
