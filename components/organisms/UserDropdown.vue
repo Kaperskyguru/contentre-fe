@@ -1,16 +1,5 @@
 <template>
   <div v-if="user" class="flex items-center">
-    <button
-      id="toggleSidebarMobileSearch"
-      type="button"
-      class="
-        p-2
-        text-gray-500
-        hover:text-gray-900 hover:bg-gray-100
-        rounded-lg
-        lg:hidden
-      "
-    ></button>
     <div class="items-center lg:flex">
       <!--user profile -->
       <div class="flex justify-center items-center dark:bg-gray-500">
@@ -29,7 +18,9 @@
               class="flex justify-center items-center space-x-3 cursor-pointer"
             >
               <Avatar :name="user.username" :src="user.avatarURL" />
-              <div class="text-sm text-gray-900 dark:text-white">
+              <div
+                class="text-sm text-gray-900 dark:text-white sm:hidden md:flex"
+              >
                 <div class="cursor-pointer">
                   {{ user.username }}
                   <svg
@@ -44,7 +35,6 @@
                       h-4
                       transition-transform
                       duration-200
-                      transform
                       md:-mt-1
                     "
                   >
@@ -90,11 +80,10 @@
                     class="
                       flex
                       items-center
+                      border-r-4 border-transparent
                       hover:border-indigo-700
                       transition-colors
                       duration-200
-                      transform
-                      border-r-4 border-transparent
                     "
                   >
                     <div class="mr-3">
@@ -110,11 +99,10 @@
                     class="
                       flex
                       items-center
+                      border-r-4 border-transparent
                       hover:border-indigo-700
                       transition-colors
                       duration-200
-                      transform
-                      border-r-4 border-transparent
                     "
                   >
                     <div class="mr-3">
@@ -130,11 +118,10 @@
                     class="
                       flex
                       items-center
+                      border-r-4 border-transparent
                       transition-colors
                       duration-200
-                      transform
                       hover:border-red-600
-                      border-r-4 border-transparent
                     "
                     @click.prevent="onLogout"
                   >

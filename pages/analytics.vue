@@ -1,6 +1,6 @@
 <template>
   <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center py-4">
       <PageTitle>Analytics</PageTitle>
     </div>
 
@@ -18,13 +18,13 @@
     <div class="pt-6">
       <div
         class="
+          grid grid-cols-1
           gap-4
           w-full
           md:grid-cols-2
           lg:grid-cols-2
           xl:grid-cols-3
           2xl:grid-cols-3
-          grid grid-cols-1
         "
       >
         <div
@@ -75,8 +75,15 @@
 
     <!-- End of Charts -->
 
+    <!-- end of footer Articles -->
+
+    <section class="container px-4 mx-auto mt-4">
+      <OverallStatTable :checked.sync="checked" />
+    </section>
+    <!-- end of table -->
+
     <!-- footer Articles -->
-    <section class="container mx-auto">
+    <section class="container px-4 mx-auto">
       <div class="flex justify-between items-center py-4">
         <h1 class="pt-4 text-3xl font-bold text-gray-900">Top Articles</h1>
       </div>
@@ -115,12 +122,6 @@
         </div>
       </div>
     </section>
-    <!-- end of footer Articles -->
-
-    <section class="container mx-auto mt-4">
-      <OverallStatTable :checked.sync="checked" />
-    </section>
-    <!-- end of table -->
   </section>
 </template>
 

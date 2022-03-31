@@ -107,7 +107,11 @@ aside {
   background: #083430;
   position: fixed;
   z-index: 10032;
-  /* box-shadow: 0px 0px 5px rgba(18, 23, 39, 0.5); */
+  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
+}
+
+nav#mobile {
+  background: #083430;
   box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
 }
 
@@ -118,7 +122,7 @@ aside {
 }
 
 .aside-footer {
-  bottom: -80px;
+  bottom: 10px;
   background: #4fd1c5;
 }
 
