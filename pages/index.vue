@@ -12,13 +12,13 @@
     <section class="pt-6">
       <div
         class="
+          grid grid-cols-1
           gap-4
           w-full
           md:grid-cols-2
           lg:grid-cols-2
           xl:grid-cols-3
           2xl:grid-cols-3
-          grid grid-cols-1
         "
       >
         <!-- Chart 1 -->

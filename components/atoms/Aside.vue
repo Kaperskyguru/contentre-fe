@@ -3,43 +3,23 @@
     id="sidebar"
     class="
       flex
-      fixed
-      top-0
-      left-0
       z-30
       flex-col
       shrink-0
       pt-16
-      w-64
       h-full
       duration-75
-      lg:flex
-      aside
+      sm:w-0
+      lg:flex lg:w-64
     "
     aria-label="Sidebar"
-    :class="{
-      'md:w-60 lg:w-64 xl:w-68': !isSidebarCollapsed,
-      'w-14': isSidebarCollapsed
-    }"
   >
-    <div
-      class="
-        relative
-        pt-0
-        min-h-0
-        flex-1 flex flex-col
-        border-r border-gray-200
-      "
-    >
+    <div class="flex relative flex-col flex-1 pt-0 min-h-0">
       <div class="flex overflow-y-auto flex-col flex-1 pt-5 pb-4">
         <div class="flex-1 px-3 space-y-1">
           <ul class="py-4 space-y-2 border-t border-gray-500">
             <div class="absolute aside-header">
-              <Hyperlink
-                v-if="!isSidebarCollapsed"
-                to="/"
-                class="flex items-center font-bold lg:ml-2.5"
-              >
+              <Hyperlink to="/" class="flex items-center font-bold lg:ml-2.5">
                 <img
                   src="~/assets/img/dashboard_logo.svg"
                   class="img-fluid"
@@ -48,13 +28,13 @@
                 <!-- <span class="self-center whitespace-nowrap">contentr</span> -->
               </Hyperlink>
 
-              <Tooltip v-else>
+              <!-- <Tooltip v-else>
                 <Hyperlink to="/" class="flex items-center font-bold">
                   <img src="/logo.png" class="img-fluid" alt="contentre logo" />
                 </Hyperlink>
-              </Tooltip>
+              </Tooltip> -->
             </div>
-            <CollapseSidebarButton @onCollapse="onCollapsed" />
+            <!-- <CollapseSidebarButton @onCollapse="onCollapsed" /> -->
             <li>
               <Hyperlink
                 :to="{ name: 'index' }"
@@ -63,10 +43,12 @@
                   flex
                   items-center
                   p-2
+                  font-roboto
+                  text-base
+                  font-normal
+                  text-gray-500
                   hover:text-white
                   rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
                 "
               >
                 <span class="text-white">
@@ -83,10 +65,12 @@
                   flex
                   items-center
                   p-2
+                  font-roboto
+                  text-base
+                  font-normal
+                  text-gray-500
                   hover:text-white
                   rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
                 "
               >
                 <ContentIcon />
@@ -101,10 +85,12 @@
                   flex
                   items-center
                   p-2
+                  font-roboto
+                  text-base
+                  font-normal
+                  text-gray-500
                   hover:text-white
                   rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
                 "
               >
                 <AnalyticIcon />
@@ -120,10 +106,12 @@
                   flex
                   items-center
                   p-2
+                  font-roboto
+                  text-base
+                  font-normal
+                  text-gray-500
                   hover:text-white
                   rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
                 "
               >
                 <PortfolioIcon />
@@ -139,10 +127,12 @@
                   flex
                   items-center
                   p-2
+                  font-roboto
+                  text-base
+                  font-normal
+                  text-gray-500
                   hover:text-white
                   rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
                 "
               >
                 <ClientIcon />
@@ -150,103 +140,114 @@
               </Hyperlink>
             </li>
 
-            <li>
+            <li
+              id="dropdownDividerButton"
+              class="dropdown"
+              data-dropdown-toggle="dropdownDivider"
+            >
               <Hyperlink
-                :to="{ name: 'clients' }"
+                to="#"
                 class="
                   group
                   flex
                   items-center
                   p-2
+                  font-roboto
+                  text-base
+                  font-normal
+                  text-gray-500
                   hover:text-white
                   rounded-lg
-                  text-base text-gray-500
-                  font-normal font-roboto
                 "
               >
                 <ClientIcon />
                 <span class="flex-1 ml-3 whitespace-nowrap">Grouping</span>
               </Hyperlink>
-
-              <ul>
-                <li>
-                  <Hyperlink
-                    :to="{ name: 'categories' }"
-                    class="
-                      group
-                      flex
-                      items-center
-                      p-2
-                      hover:text-white
-                      rounded-lg
-                      text-base text-gray-500
-                      font-normal font-roboto
-                    "
-                  >
-                    <ClientIcon />
-
-                    <span class="flex-1 ml-3 whitespace-nowrap"
-                      >Categories</span
+              <div
+                id="dropdownDivider"
+                class="
+                  hidden
+                  absolute
+                  z-10
+                  divide-y divide-gray-100
+                  dropdown-menu
+                "
+              >
+                <ul aria-labelledby="dropdownDividerButton">
+                  <li>
+                    <Hyperlink
+                      :to="{ name: 'categories' }"
+                      class="
+                        group
+                        flex
+                        items-center
+                        p-2
+                        font-roboto
+                        text-base
+                        font-normal
+                        text-gray-500
+                        hover:text-white
+                        rounded-lg
+                      "
                     >
-                  </Hyperlink>
-                </li>
+                      <ClientIcon />
 
-                <li>
-                  <Hyperlink
-                    :to="{ name: 'clients' }"
-                    class="
-                      group
-                      flex
-                      items-center
-                      p-2
-                      hover:text-white
-                      rounded-lg
-                      text-base text-gray-500
-                      font-normal font-roboto
-                    "
-                  >
-                    <ClientIcon />
+                      <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Categories</span
+                      >
+                    </Hyperlink>
+                  </li>
 
-                    <span class="flex-1 ml-3 whitespace-nowrap">Topics</span>
-                  </Hyperlink>
-                </li>
+                  <li>
+                    <Hyperlink
+                      :to="{ name: 'clients' }"
+                      class="
+                        group
+                        flex
+                        items-center
+                        p-2
+                        font-roboto
+                        text-base
+                        font-normal
+                        text-gray-500
+                        hover:text-white
+                        rounded-lg
+                      "
+                    >
+                      <ClientIcon />
 
-                <li>
-                  <Hyperlink
-                    :to="{ name: 'clients' }"
-                    class="
-                      group
-                      flex
-                      items-center
-                      p-2
-                      hover:text-white
-                      rounded-lg
-                      text-base text-gray-500
-                      font-normal font-roboto
-                    "
-                  >
-                    <ClientIcon />
+                      <span class="flex-1 ml-3 whitespace-nowrap">Topics</span>
+                    </Hyperlink>
+                  </li>
 
-                    <span class="flex-1 ml-3 whitespace-nowrap">Tags</span>
-                  </Hyperlink>
-                </li>
-              </ul>
+                  <li>
+                    <Hyperlink
+                      :to="{ name: 'clients' }"
+                      class="
+                        group
+                        flex
+                        items-center
+                        p-2
+                        font-roboto
+                        text-base
+                        font-normal
+                        text-gray-500
+                        hover:text-white
+                        rounded-lg
+                      "
+                    >
+                      <ClientIcon />
+
+                      <span class="flex-1 ml-3 whitespace-nowrap">Tags</span>
+                    </Hyperlink>
+                  </li>
+                </ul>
+              </div>
             </li>
 
             <!-- Aside Footer -->
 
-            <div
-              class="
-                overflow-hidden
-                relative
-                bottom-0
-                p-2
-                rounded-lg
-                shadow-lg
-                aside-footer
-              "
-            >
-              <ul class="py-2 space-y-2">
+            <!-- <ul class="py-2 space-y-2">
                 <li>
                   <Hyperlink
                     :to="{ name: 'index' }"
@@ -255,10 +256,12 @@
                       flex
                       items-center
                       p-2
+                      font-roboto
+                      text-base
+                      font-normal
+                      text-gray-500
                       hover:text-white
                       rounded-lg
-                      text-base text-gray-500
-                      font-normal font-roboto
                     "
                   >
                     <span class="text-white">
@@ -278,10 +281,12 @@
                       flex
                       items-center
                       p-2
+                      font-roboto
+                      text-base
+                      font-normal
+                      text-gray-500
                       hover:text-white
                       rounded-lg
-                      text-base text-gray-500
-                      font-normal font-roboto
                     "
                   >
                     <span class="text-white">
@@ -301,10 +306,12 @@
                       flex
                       items-center
                       p-2
+                      font-roboto
+                      text-base
+                      font-normal
+                      text-gray-500
                       hover:text-white
                       rounded-lg
-                      text-base text-gray-500
-                      font-normal font-roboto
                     "
                   >
                     <span class="text-white">
@@ -324,10 +331,12 @@
                       flex
                       items-center
                       p-2
+                      font-roboto
+                      text-base
+                      font-normal
+                      text-gray-500
                       hover:text-white
                       rounded-lg
-                      text-base text-gray-500
-                      font-normal font-roboto
                     "
                   >
                     <span class="text-white">
@@ -338,24 +347,22 @@
                     >
                   </Hyperlink>
                 </li>
-              </ul>
-              <!-- <div class="flex justify-between items-center p-2">
-                <div class="">
-                  <p class="font-roboto text-base text-white">Storage</p>
-                </div>
-                <div class="">
-                  <p class="font-roboto">Upgrade</p>
-                </div>
-              </div>
+              </ul> -->
 
-              <div class="px-2 pb-2 aside-footer-footer">
-                <p class="pb-4 font-roboto text-white">
-                  3.4 GB <span class="text-light">of 15 GB</span>
-                </p>
-                <div class="w-full h-2 rounded-full progress-bg">
-                  <div class="w-1/6 h-full rounded-full progress"></div>
-                </div>
-              </div> -->
+            <div
+              class="
+                overflow-hidden
+                absolute
+                right-4
+                bottom-10
+                left-5
+                p-2
+                rounded-lg
+                shadow-lg
+                aside-footer
+              "
+            >
+              <Upgrade :contents="currentUser.totalContents" />
             </div>
             <!-- End -->
           </ul>
@@ -366,6 +373,7 @@
 </template>
 
 <script>
+import { currentUser } from '../mixins/currentUser'
 import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
 
@@ -382,6 +390,7 @@ export default {
     PortfolioIcon,
     ClientIcon
   },
+  mixins: [currentUser],
 
   data: () => ({
     isSidebarCollapsed: false
@@ -413,5 +422,9 @@ ul li > a:hover svg {
 ul li > a:hover svg#settings-icon {
   fill: none;
   color: white;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
 </style>
