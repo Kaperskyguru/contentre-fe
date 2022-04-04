@@ -189,7 +189,7 @@
 </template>
 
 <script>
-import ImageBG from 'assets/img/temp-pic1.png'
+import ImageBG from 'assets/img/cover_image.png'
 import { GET_PORTFOLIO_CONTENT } from '~/graphql'
 export default {
   layout: 'portfolio',
