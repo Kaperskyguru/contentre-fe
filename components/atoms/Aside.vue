@@ -222,7 +222,7 @@
 
                   <li>
                     <Hyperlink
-                      :to="{ name: 'clients' }"
+                      :to="{ name: 'tags' }"
                       class="
                         group
                         flex

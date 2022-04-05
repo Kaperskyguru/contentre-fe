@@ -1,7 +1,7 @@
 <template>
   <section class="px-3 h-full md:px-12">
     <div class="flex justify-between items-center py-4">
-      <PageTitle>Clients</PageTitle>
+      <PageTitle>Tags</PageTitle>
     </div>
 
     <!-- calender -->
@@ -41,7 +41,7 @@
       </div>
 
       <div>
-        <Button @click.prevent="onAddClient">Add Client</Button>
+        <Button @click.prevent="onAddClient">Add Tag</Button>
       </div>
     </section>
 
@@ -49,7 +49,7 @@
       <div class="bg-white">
         <div class="container px-4 mx-auto">
           <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <ClientOverview :checked.sync="checked" :filters="filters" />
+            <TagOverview :checked.sync="checked" :filters="filters" />
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@
 <script>
 // import fragment from 'vue-frag'
 export default {
-  name: 'ClientTw',
+  name: 'TagS',
   // directives: {
   //   fragment
   // },
@@ -83,11 +83,9 @@ export default {
 
     columns: [
       { name: 'Name', key: 'name' },
-      { name: 'Payment', key: 'payment' },
       { name: 'Total Contents', key: 'totalContents' },
       { name: 'Created', key: 'createdAt' },
-      { name: 'Amount', key: 'amount' },
-      { name: 'Status', key: 'status' }
+      { name: 'Total Amount', key: 'amount' }
     ]
   }),
 
