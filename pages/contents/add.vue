@@ -175,10 +175,10 @@
             text-sm
             font-bold
             leading-5
+            text-center text-white
             bg-teal-300
             rounded-md
             form-btn
-            text-center text-white
           "
           @click.prevent="onPreviewContent"
         >
@@ -193,9 +193,9 @@
             text-sm
             font-bold
             leading-5
+            text-center text-white
             rounded-md
             form-btn
-            text-center text-white
           "
           type="submit"
         >
@@ -320,7 +320,7 @@ export default {
           variables: {
             input: {
               url: this.fieldURL,
-              tags: { ...this.tags },
+              tags: this.tags,
               content: this.fieldContent,
               excerpt: this.fieldExcerpt,
               title: this.fieldTitle,

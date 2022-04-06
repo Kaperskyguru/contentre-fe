@@ -11,3 +11,15 @@ export const GET_TAGS = gql`
     }
   }
 `
+
+export const GET_TAG = gql`
+  query getTag($id: ID!) {
+    getTag(id: $id) {
+      id
+      name
+      totalAmount
+      totalContents
+      createdAt
+    }
+  }
+`

@@ -11,7 +11,7 @@
       @item-click="onItemClick"
     />
 
-    <ClientEdit v-model="tagId"></ClientEdit>
+    <TagEdit v-model="tagId"></TagEdit>
   </span>
 </template>
 
@@ -182,7 +182,9 @@ export default {
             style: !totalContents ? 'secondary' : undefined,
             value: totalContents || 'No content provided'
           }
-        : {}
+        : {
+            value: 0
+          }
     }
   }
 }

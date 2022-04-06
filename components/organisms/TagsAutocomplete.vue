@@ -205,14 +205,14 @@
       >
         <span
           class="
+            overflow-hidden
             pt-5
             pl-5
             w-full
             leading-snug
-            text-gray-800
+            text-gray-800 text-ellipsis
             whitespace-nowrap
             cursor-pointer
-            overflow-hidden overflow-ellipsis
           "
           :class="[
             {
@@ -260,7 +260,7 @@
 // import gql from 'graphql-tag'
 import { nextTick } from '@nuxtjs/composition-api'
 import vClickOutside from 'v-click-outside'
-import { GET_CLIENTS, UPDATE_CLIENT } from '~/graphql'
+import { GET_TAGS, UPDATE_TAG } from '~/graphql'
 export default {
   directives: {
     clickOutside: vClickOutside.directive
@@ -360,13 +360,14 @@ export default {
 
   apollo: {
     getTags: {
-      query: GET_CLIENTS,
+      query: GET_TAGS,
       variables() {
         return {
           skip: 0,
           size: 30,
           filters: {
-            terms: this.search
+            terms: this.search,
+            all: true
           }
         }
       },
@@ -376,7 +377,7 @@ export default {
         //     (tag) => tag.id !== this.tagId
         //   )
         // }
-        return data.getClients
+        return data.getTags
       }
     }
   },
@@ -440,7 +441,7 @@ export default {
       if (this.shouldUpdate) {
         try {
           await this.$apollo.mutate({
-            mutation: UPDATE_CLIENT,
+            mutation: UPDATE_TAG,
             variables: {
               id: tag.id,
               input: {
