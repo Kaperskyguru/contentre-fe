@@ -6,7 +6,7 @@
       <PageTitle>Profile</PageTitle>
     </div>
 
-    <div class="container mx-5 md:flex md:-mx-2 no-wrap">
+    <div class="container md:flex">
       <!-- Left Side -->
       <article class="w-full md:mx-2 md:w-4/12">
         <ProfileOverview />

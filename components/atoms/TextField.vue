@@ -34,9 +34,9 @@
             outline-none
             ring-0
             focus:ring-2
+            ring-opacity-50 ring-offset-1
             transition-all
             cursor-help
-            ring-opacity-50 ring-offset-1
           "
         >
           <IconAlertCircle
@@ -55,7 +55,7 @@
         order-2
         items-center
         bg-white
-        focus-within:ring-2 focus-within:bg-snow
+        focus-within:bg-snow
         rounded
         border
         transition-all

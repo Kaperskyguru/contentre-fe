@@ -18,9 +18,10 @@
         items-center
         pl-4
         space-x-3
+        text-sm
         font-semibold
         leading-8
-        text-center text-gray-900 text-sm
+        text-center text-gray-900
       "
     >
       <span>Set Reminders</span>
@@ -44,6 +45,7 @@
           </a>
           <!-- </li> -->
           <div
+            v-if="showChildren"
             class="
               absolute
               top-auto
@@ -69,9 +71,10 @@
                   class="
                     pb-2
                     space-x-3
+                    text-sm
                     font-normal
                     leading-8
-                    text-gray-900 text-sm
+                    text-gray-900
                   "
                 >
                   <div
@@ -163,10 +166,10 @@
                               text-gray-600
                               bg-white
                               rounded-sm
+                              border border-gray-300
                               hover:border-gray-400
                               focus:outline-none
                               appearance-none
-                              border border-gray-300
                             "
                           >
                             <option>Set reminder time</option>
@@ -215,10 +218,10 @@
                               h-10
                               text-gray-600
                               bg-white
+                              border border-gray-300
                               hover:border-gray-400
                               focus:outline-none
                               appearance-none
-                              border border-gray-300
                             "
                           >
                             <option>Set your reminder interval</option>
@@ -271,7 +274,7 @@
           <div
             class="p-4 bg-white rounded-lg border shadow-sm transition-shadow"
           >
-            <div class="flex justify-between items-start">
+            <div class="flex flex-col justify-between">
               <div class="flex flex-col">
                 <div class="relative pb-4">
                   <span class="font-bold text-black">Daily Post</span>
@@ -279,28 +282,30 @@
                     class="
                       py-1
                       px-3
+                      text-xs text-purple-600
                       bg-blue-200
                       rounded-lg
-                      text-purple-600 text-xs
                     "
                     >Daily</span
                   >
                 </div>
-                <span class="text-sm font-bold text-gray-500"
-                  >Date: 18/11/2021</span
-                >
-                <span class="text-sm font-bold text-gray-500"
-                  >Time:12:00 AM</span
-                >
+                <div class="w-full">
+                  <span class="text-sm font-bold text-gray-500"
+                    >Date: 18/11/2021</span
+                  >
+                  <span class="text-sm font-bold text-gray-500"
+                    >Time:12:00 AM</span
+                  >
+                </div>
               </div>
               <div class="px-1 mt-8">
                 <div class="flex items-start rounded-lg row">
                   <div
                     class="
+                      flex flex-col
                       justify-between
                       space-y-6
-                      md:space-y-0 md:flex-row
-                      flex flex-col
+                      md:flex-row md:space-y-0
                     "
                   >
                     <div class="flex flex-wrap justify-end items-start -mb-3">
@@ -341,12 +346,12 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap -mx-2">
+      <div class="flex flex-wrap -mx-2 mt-8">
         <div class="px-4 w-full">
           <div
             class="p-4 bg-white rounded-lg border shadow-sm transition-shadow"
           >
-            <div class="flex justify-between items-start">
+            <div class="flex flex-col justify-between">
               <div class="flex flex-col">
                 <div class="relative pb-4">
                   <span class="font-bold text-black"
@@ -356,9 +361,9 @@
                     class="
                       py-1
                       px-3
+                      text-xs text-purple-600
                       bg-blue-200
                       rounded-lg
-                      text-purple-600 text-xs
                     "
                     >Weekly</span
                   >
@@ -374,10 +379,10 @@
                 <div class="flex items-start rounded-lg row">
                   <div
                     class="
+                      flex flex-col
                       justify-between
                       space-y-6
-                      md:space-y-0 md:flex-row
-                      flex flex-col
+                      md:flex-row md:space-y-0
                     "
                   >
                     <div class="flex flex-wrap justify-end items-start -mb-3">
@@ -418,12 +423,12 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap -mx-2">
+      <div class="flex flex-wrap -mx-2 mt-8">
         <div class="px-4 w-full">
           <div
             class="p-4 bg-white rounded-lg border shadow-sm transition-shadow"
           >
-            <div class="flex justify-between items-start">
+            <div class="flex flex-col justify-between">
               <div class="flex flex-col">
                 <div class="relative pb-4">
                   <span class="font-bold text-black">Write Medium Article</span>
@@ -431,9 +436,9 @@
                     class="
                       py-1
                       px-3
+                      text-xs text-purple-600
                       bg-blue-200
                       rounded-lg
-                      text-purple-600 text-xs
                     "
                     >Weekly</span
                   >
@@ -449,10 +454,10 @@
                 <div class="flex items-start rounded-lg row">
                   <div
                     class="
+                      flex flex-col
                       justify-between
                       space-y-6
-                      md:space-y-0 md:flex-row
-                      flex flex-col
+                      md:flex-row md:space-y-0
                     "
                   >
                     <div class="flex flex-wrap justify-end items-start -mb-3">

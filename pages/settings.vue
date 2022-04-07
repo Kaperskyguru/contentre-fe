@@ -3,15 +3,11 @@
     <div class="flex justify-between items-center py-4">
       <PageTitle>Settings</PageTitle>
     </div>
-    <div class="container mx-5 md:flex md:-mx-2">
+    <div class="container md:flex">
       <div class="w-full bg-white rounded-xl shadow md:mx-2 md:w-5/12">
-        <!-- Profile Card -->
         <CompleteProfile />
-        <!-- End of profile card -->
 
-        <!-- Links -->
         <SettingsNav />
-        <!-- End of links -->
       </div>
       <nuxt-child />
     </div>
