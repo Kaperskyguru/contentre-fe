@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative mb-8 rounded-lg border shadow-sm transition-shadow"
+    class="relative mb-8 w-full rounded-lg border shadow-sm transition-shadow"
     :class="{ 'bg-gray-100': disableField, 'bg-white': !disableField }"
   >
     <div
@@ -13,7 +13,7 @@
         border-b-2 border-dashed
       "
     >
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center w-full">
         <div class="flex relative">
           <span
             v-if="shouldShowEditingOptions"

@@ -1,15 +1,32 @@
 <template>
-  <div class="flex justify-center items-center px-3 bg-gray-50">
-    <p class="mr-3">{{ selected }} selected</p>
-    <div class="px-5 bg-white rounded-lg border border-gray-200 shadow-lg">
-      <span class="inline-block relative space-x-6 align-top">
+  <div class="flex items-center bg-gray-50">
+    <!--  -->
+    <div
+      class="
+        flex
+        justify-between
+        items-center
+        py-1
+        px-2
+        space-x-6
+        bg-white
+        rounded-lg
+        border border-gray-200
+      "
+    >
+      <div class="flex justify-between">
+        <span class="pr-2">{{ selected.length }}</span>
+        <span>selected</span>
+      </div>
+      <span class="inline-block relative">
         <button class="text-2xl leading-10 text-right">
           <DownloadIcon />
         </button>
+      </span>
 
+      <span class="inline-block relative">
         <button
-          class="mr-8 text-2xl leading-10 text-gray-500"
-          style="margin-right: 25px"
+          class="text-2xl leading-10 text-gray-500"
           @click.prevent="toggleExport = !toggleExport"
         >
           <ExportIcon />
@@ -25,11 +42,11 @@
             mt-8
             -ml-2
             min-w-full
+            text-sm text-gray-700
             bg-white
             rounded
-            shadow-md
-            text-sm text-gray-700
             border border-gray-200
+            shadow-md
           "
           :class="{ hidden: toggleExport }"
           x-transition:enter="transition ease duration-300 transform"
@@ -50,12 +67,13 @@
         </div>
       </span>
 
-      <span class="inline-block relative space-x-6 align-top">
-        <button class="text-3xl leading-10 text-left text-gray-500">
+      <span class="inline-block relative">
+        <button class="text-2xl leading-10 text-left text-gray-500">
           <BookmarkIcon />
         </button>
-
-        <button class="text-3xl leading-10 text-left text-gray-500">
+      </span>
+      <span class="inline-block relative">
+        <button class="text-2xl leading-10 text-left text-gray-500">
           <FavoriteIcon />
         </button>
       </span>
@@ -73,8 +91,8 @@ export default {
   },
   props: {
     selected: {
-      type: Number,
-      default: 0
+      type: [Array, Object],
+      default: () => []
     }
   },
   data: () => ({

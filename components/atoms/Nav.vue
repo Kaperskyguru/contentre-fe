@@ -2,7 +2,7 @@
   <div class="flex justify-between p-3">
     <div class="p-0 sm:p-2 md:hidden lg:hidden aside-header">
       <Hyperlink to="/" class="flex items-center font-bold">
-        <img src="/logo.png" class="img-fluid" alt="contentre logo" />
+        <img src="/logo.png" class="mt-2 img-fluid" alt="contentre logo" />
       </Hyperlink>
     </div>
     <div class="flex justify-center items-center">

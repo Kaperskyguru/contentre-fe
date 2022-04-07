@@ -75,12 +75,14 @@
           focus:z-50
           w-full
           bg-white
-          focus:outline-none focus:ring-2
+          border border-darksilver
+          focus:outline-none
+          ring-1
+          focus:ring-2
+          ring-black ring-opacity-5
           shadow
           origin-top
           cursor-default
-          border border-darksilver
-          ring-1 ring-black ring-opacity-5
         "
       >
         <ul
@@ -99,11 +101,11 @@
               px-3
               w-full
               leading-5
+              text-left text-black
               hover:bg-linen
-              focus:outline-none focus:bg-linen
+              focus:bg-linen focus:outline-none
               cursor-pointer
               select-none
-              text-left text-black
             "
             :class="{ 'font-bold': !isAnyItemBold && !!textField }"
             :value="textField"
@@ -131,11 +133,11 @@
               px-3
               w-full
               leading-5
+              text-left text-black
               hover:bg-primary-teal
-              focus:outline-none focus:bg-linen
+              focus:bg-linen focus:outline-none
               cursor-pointer
               select-none
-              text-left text-black
             "
             value="1"
             role="option"

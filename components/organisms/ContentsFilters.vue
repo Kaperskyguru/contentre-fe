@@ -111,7 +111,15 @@
         />
       </div>
 
-      <div class="flex pt-2 mb-6 space-x-4">
+      <div
+        class="
+          flex flex-col
+          pt-2
+          mb-6
+          space-y-4 space-x-0
+          md:flex-row md:space-x-4
+        "
+      >
         <Button
           appearance="secondary"
           type="reset"

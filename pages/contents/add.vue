@@ -1,28 +1,27 @@
 <template>
   <section class="px-3 h-full md:px-12">
     <form @submit.prevent="addContent">
-      <section class="flex flex-wrap justify-between items-center py-4 mt-4">
+      <section
+        class="flex flex-wrap justify-between items-center py-4 mt-4 w-full"
+      >
         <!-- <div class="flex justify-between items-center py-4 space-x-3"> -->
         <!-- <i class="fas fa-arrow-left"></i> -->
         <PageTitle>Add Content</PageTitle>
         <!-- </div> -->
-        <div class="flex items-center sm:justify-center">
-          <a href="#">
+        <div class="flex flex-col items-center sm:justify-center md:flex-row">
+          <button
+            class="inline-flex py-3 pl-5 mb-3 font-bold focus:outline-none"
+            @click.prevent="onPreviewContent"
+          >
+            Preview
+          </button>
+
+          <div class="flex justify-center items-center px-3 bg-gray-50">
             <button
               class="inline-flex py-3 pl-5 mb-3 font-bold focus:outline-none"
-              @click.prevent="onPreviewContent"
             >
-              Preview
+              Save as draft
             </button>
-          </a>
-          <div class="flex justify-center items-center px-3 bg-gray-50">
-            <a href="#">
-              <button
-                class="inline-flex py-3 pl-5 mb-3 font-bold focus:outline-none"
-              >
-                Save
-              </button>
-            </a>
           </div>
 
           <div class="inline-flex relative justify-start ml-2">
@@ -82,16 +81,14 @@
 
       <!-- card category -->
 
-      <section class="flex w-full">
-        <!-- Clients -->
-        <!-- -->
+      <section class="flex flex-col w-full md:flex-row">
         <ClientsAutocomplete
           id="1"
           key="autocomplete"
           v-model="$v.fieldClient.$model"
           :should-update="false"
           :allow-creation="false"
-          class="mr-1 w-1/2"
+          class="mr-1 w-full md:w-1/2"
           :hide-pencil-icon="false"
           :placeholder="defaultClient"
           :error="getValidationMessage($v.fieldClient)"
@@ -106,7 +103,7 @@
           :error="getValidationMessage($v.fieldCategory)"
           :should-update="false"
           :hide-pencil-icon="false"
-          class="mr-1 w-1/2"
+          class="mr-1 w-full md:w-1/2"
           placeholder="Select a category"
           @update:value="onUpdateCategory"
           @focus="onFocusAutocomplete"
@@ -118,7 +115,7 @@
           id="3"
           key="tagAutocomplete"
           v-model="$v.fieldTags.$model"
-          class="ml-1 w-1/2"
+          class="mr-1 w-full md:w-1/2"
           placeholder="Select up 5 tags"
           :should-update="false"
           :hide-pencil-icon="false"
@@ -165,42 +162,110 @@
         </ContentField>
       </section>
 
-      <div class="flex justify-end my-8">
-        <button
-          id="buttonmodal"
-          class="
-            py-4
-            px-24
-            mt-4
-            text-sm
-            font-bold
-            leading-5
-            text-center text-white
-            bg-teal-300
-            rounded-md
-            form-btn
-          "
-          @click.prevent="onPreviewContent"
-        >
-          Preview
-        </button>
-        <button
-          class="
-            py-4
-            px-24
-            mt-4
-            ml-4
-            text-sm
-            font-bold
-            leading-5
-            text-center text-white
-            rounded-md
-            form-btn
-          "
-          type="submit"
-        >
-          Save
-        </button>
+      <div class="flex flex-col justify-between md:flex-row">
+        <div class="flex flex-col justify-start">
+          <div class="flex justify-start mt-8">
+            <div class="mr-3">Published to:</div>
+            <div
+              class="
+                flex flex-col
+                justify-end
+                items-start
+                -mb-3
+                text-gray-100
+                md:flex-row md:flex-wrap
+              "
+            >
+              <div class="mr-4">
+                <CheckField id="medium" v-model="medium" class="text-gray-100"
+                  >Medium</CheckField
+                >
+              </div>
+              <div class="mr-4">
+                <CheckField id="devto" v-model="devto" class="text-gray-100"
+                  >Dev Community</CheckField
+                >
+              </div>
+              <div class="mr-4">
+                <CheckField
+                  id="hashnode"
+                  v-model="hashnode"
+                  class="text-gray-100"
+                  >Hashnode</CheckField
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-start mt-4 sm:mt-8">
+            <div class="mr-3">Share to:</div>
+            <div
+              class="
+                flex flex-col
+                justify-end
+                items-start
+                -mb-3
+                text-gray-100
+                md:flex-row md:flex-wrap
+              "
+            >
+              <div class="mr-4">
+                <CheckField id="medium" v-model="medium" class="text-gray-100"
+                  >Facebook</CheckField
+                >
+              </div>
+              <div class="mr-4">
+                <CheckField id="devto" v-model="devto" class="text-gray-100"
+                  >Twitter</CheckField
+                >
+              </div>
+              <div class="mr-4">
+                <CheckField
+                  id="hashnode"
+                  v-model="hashnode"
+                  class="text-gray-100"
+                  >Linkedin</CheckField
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col justify-end my-8 md:flex-row">
+          <button
+            id="buttonmodal"
+            class="
+              py-4
+              px-24
+              mt-4
+              text-sm
+              font-bold
+              leading-5
+              text-center text-white
+              bg-teal-300
+              rounded-md
+              form-btn
+            "
+            type="submit"
+          >
+            Publish
+          </button>
+          <button
+            class="
+              py-4
+              px-24
+              mt-4
+              text-sm
+              font-bold
+              leading-5
+              text-center text-white
+              rounded-md
+              md:ml-4
+              form-btn
+            "
+          >
+            Schedule
+          </button>
+        </div>
       </div>
     </form>
     <Dialog v-model="isPreviewModalVisible" is-large>
@@ -249,7 +314,10 @@ export default {
     fieldTags: null,
     fieldCategory: null,
     tags: [],
-    sending: false
+    sending: false,
+    medium: '',
+    devto: '',
+    hashnode: ''
   }),
 
   validations: {

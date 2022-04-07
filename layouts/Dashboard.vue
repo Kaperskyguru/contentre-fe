@@ -13,10 +13,11 @@
 
       <nav
         id="mobile"
+        v-click-outside="onClickOutside"
         class="w-full md:hidden"
         :class="{ 'mt-16': isMenuShown }"
       >
-        <div v-if="isMenuShown" class="pt-5">
+        <div v-if="isMenuShown" v-click-outside="onClickOutside" class="pt-5">
           <MobileMenu />
         </div>
       </nav>
@@ -30,9 +31,14 @@
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
 import base from './base.vue'
 export default {
   name: 'DashboardNav',
+
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
 
   extends: base,
 
@@ -49,6 +55,10 @@ export default {
   methods: {
     collapse(c) {
       this.isSidebarCollapsed = c
+    },
+
+    onClickOutside() {
+      this.isMenuShown = false
     },
 
     showMenu() {
