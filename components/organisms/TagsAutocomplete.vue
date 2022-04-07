@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!fakeInput"
     v-click-outside="onClickOutside"
     class="relative mb-8 bg-white rounded-lg border shadow-sm transition-shadow"
   >
@@ -254,6 +255,30 @@
       }}</small>
     </div>
   </div>
+
+  <AutocompleteField
+    v-else
+    :id="id"
+    ref="elementRef"
+    class="w-full"
+    hide-arrow-down
+    :placeholder="placeholder"
+    :value="value"
+    :label="label"
+    :label-class="labelClass"
+    :chip-style="chipStyle"
+    :items="getTags"
+    :loading="$apollo.queries.getTags.loading"
+    :allow-creation="allowCreation"
+    :hide-pencil-icon="hidePencilIcon"
+    :disabled="disabled"
+    :show-border="showBorder"
+    @update:search="search = $event"
+    @update:value="selectTag"
+    @create="selectTag"
+    @blur="onBlurAutocomplete"
+    @focus="onFocusAutocomplete"
+  />
 </template>
 
 <script>
@@ -329,6 +354,11 @@ export default {
       default: false
     },
 
+    all: {
+      type: Boolean,
+      default: true
+    },
+
     allowCreation: {
       type: Boolean,
       default: true
@@ -346,6 +376,11 @@ export default {
     hidePencilIcon: {
       type: Boolean,
       default: true
+    },
+
+    fakeInput: {
+      default: false,
+      type: Boolean
     },
 
     shouldShowOptions: {
@@ -367,16 +402,14 @@ export default {
           size: 30,
           filters: {
             terms: this.search,
-            all: true
+            all: this.all
           }
         }
       },
       update(data) {
-        // if (this.tagId) {
-        //   return data.getTags.filter(
-        //     (tag) => tag.id !== this.tagId
-        //   )
-        // }
+        if (this.tagId) {
+          return data.getTags.filter((tag) => tag.id !== this.tagId)
+        }
         return data.getTags
       }
     }

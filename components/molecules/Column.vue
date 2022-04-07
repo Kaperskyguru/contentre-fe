@@ -3,8 +3,10 @@
   <div class="flex overflow-hidden flex-col">
     <div v-if="showSelector" class="mb-5 w-full">
       <DropdownField
-        :placeholder="selectorData.title"
+        v-model="selectedItem"
+        :placeholder="selectorData.placeholder"
         :label="selectorData.title"
+        :items="selectorData.data"
         @update:value="selected"
       >
         <option
@@ -97,7 +99,8 @@ export default {
       type: Object,
       default: () => ({
         title: 'Select Category',
-        data: []
+        data: [],
+        placeholder: ''
       })
     }
   },
@@ -106,6 +109,7 @@ export default {
     styles: {
       height: 300
     },
+    selectedItem: '',
     mounted: false,
     options: {
       legend: {

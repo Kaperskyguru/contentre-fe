@@ -35,9 +35,11 @@
         />
       </div>
       <div class="mb-6">
-        <CategoriesAutocomplete
+        <TagsAutocomplete
           v-model="$v.fieldTags.$model"
           :allow-creation="false"
+          :should-update="false"
+          :all="false"
           :fake-input="true"
           :options="{
             fakeInput: true,
@@ -49,7 +51,7 @@
         />
       </div>
 
-      <div class="mb-6">
+      <div v-if="showSortBy" class="mb-6">
         <DropdownField
           placeholder="Sort by"
           label="Sort by"
@@ -166,6 +168,11 @@ export default {
       default: true
     },
 
+    showSortBy: {
+      type: Boolean,
+      default: true
+    },
+
     activeConsent: {
       type: Object,
       default: null
@@ -202,7 +209,7 @@ export default {
     //   'fieldCurrencies',
   }),
 
-  apollo: {},
+  // apollo: {},
 
   validations() {
     return {

@@ -1,9 +1,10 @@
 <script>
-import { Doughnut } from 'vue-chartjs'
+import { Doughnut, mixins } from 'vue-chartjs'
 
 export default {
   name: 'DoughnutChart',
   extends: Doughnut,
+  mixins: [mixins.reactiveProp],
   props: {
     chartData: {
       type: Object,
