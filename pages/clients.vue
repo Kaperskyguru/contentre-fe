@@ -4,28 +4,13 @@
       <PageTitle>Clients</PageTitle>
     </div>
 
-    <!-- calender -->
-    <!-- <section>
-      <ContentFilter />
-    </section> -->
-    <!-- end of calender -->
-
-    <!-- statistics -->
-
-    <!-- ====== Cards Section Start -->
-    <!-- <section class="pt-6 pb-2">
-      <BarCharts />
-    </section> -->
-    <!-- ====== Cards Section End -->
-    <!-- end of statistic -->
-
     <section
       class="
         flex flex-col
         justify-between
         mb-6
-        space-y-6 space-x-6
-        md:flex-row md:space-y-0
+        space-y-6 space-x-0
+        md:flex-row md:space-y-0 md:space-x-6
       "
     >
       <div>

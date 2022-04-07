@@ -2,16 +2,28 @@
   <section class="px-3 h-full md:px-12">
     <div class="flex justify-between items-center py-4">
       <PageTitle>Portfolios</PageTitle>
-
-      <Button @click.prevent="onAddPortfolio">Add Portfolio</Button>
     </div>
 
-    <section class="mb-6">
-      <ContentFilter />
+    <section
+      class="
+        flex flex-col
+        justify-between
+        mb-6
+        space-y-6
+        md:flex-row md:space-y-0
+      "
+    >
+      <div>
+        <ContentFilter :filter-columns="columns" @filters="onFilters" />
+      </div>
+
+      <div>
+        <Button @click.prevent="onAddPortfolio">Add Portfolio</Button>
+      </div>
     </section>
 
-    <div class="p-4 bg-white rounded-lg shadow sm:p-6 md:col-span-2 xl:p-8">
-      <Chart title="Traffic Overview" />
+    <div class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8">
+      <ChartOverview title="Traffic Overview" />
     </div>
 
     <section class="container mx-auto mt-8">

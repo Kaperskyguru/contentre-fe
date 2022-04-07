@@ -9,8 +9,8 @@
         flex flex-col
         justify-between
         mb-6
-        space-y-6 space-x-6
-        md:flex-row md:space-y-0
+        space-y-6 space-x-0
+        md:flex-row md:space-y-0 md:space-x-6
       "
     >
       <div>

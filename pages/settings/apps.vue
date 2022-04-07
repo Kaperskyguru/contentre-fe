@@ -52,6 +52,49 @@
 
         <div class="p-3 bg-white rounded-md border shadow-sm">
           <div class="group flex justify-between font-medium text-black">
+            <div class="flex bg-transparent" style="font-size: 20px">
+              <img
+                class="mx-auto w-10 h-10"
+                src="https://res.cloudinary.com/practicaldev/image/fetch/s--R9qwOwpC--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/78hs31fax49uwy6kbxyw.png"
+                alt="Dev Community Inc"
+              />
+            </div>
+            <div class="text-right">
+              <ToggleOnIcon />
+            </div>
+          </div>
+          <div class="py-10 leading-8">
+            <p class="text-xl font-bold text-teal-600">Dev Community</p>
+            <p class="text-base text-gray-500">
+              We're a place where coders share, stay up-to-date and grow their
+              careers.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-3 bg-white rounded-md border shadow-sm">
+          <div class="group flex justify-between font-medium text-black">
+            <div class="flex bg-transparent" style="font-size: 20px">
+              <img
+                class="mx-auto w-10 h-10"
+                src="https://cdn.hashnode.com/res/hashnode/image/upload/v1611902473383/CDyAuTy75.png?auto=compress"
+                alt="Hashnode icon"
+              />
+            </div>
+            <div class="text-right">
+              <ToggleOnIcon />
+            </div>
+          </div>
+          <div class="py-10 leading-8">
+            <p class="text-xl font-bold text-teal-600">Hashnode</p>
+            <p class="text-base text-gray-500">
+              Home for tech writers and readers.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-3 bg-white rounded-md border shadow-sm">
+          <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent">
               <img
                 class="mx-auto w-10 h-10 border"

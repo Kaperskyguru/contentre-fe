@@ -1,5 +1,8 @@
 <template>
-  <div class="flex overflow-y-auto flex-col flex-1">
+  <div
+    v-click-outside="$emit('onClickOutside')"
+    class="flex overflow-y-auto flex-col flex-1"
+  >
     <div class="flex-1">
       <ul class="py-4 space-y-2">
         <li class="mb-3">
@@ -181,7 +184,7 @@
 
               <li>
                 <Hyperlink
-                  :to="{ name: 'clients' }"
+                  :to="{ name: 'tags' }"
                   class="
                     group
                     flex
@@ -223,6 +226,7 @@
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
 import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
 import ContentIcon from '~/assets/icons/content.svg?inline'
@@ -235,6 +239,10 @@ export default {
     ContentIcon,
     PortfolioIcon,
     ClientIcon
+  },
+
+  directives: {
+    clickOutside: vClickOutside.directive
   }
 }
 </script>

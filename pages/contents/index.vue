@@ -1,24 +1,16 @@
 <template>
   <section class="px-3 h-full md:px-12">
-    <!-- TOP -->
-    <section class="grid grid-cols-12 items-center py-4">
-      <div class="flex col-span-2 py-4">
-        <PageTitle>Content</PageTitle>
-      </div>
-      <div class="flex col-span-10">
-        <div class="basis-1/2">
-          <FavouriteField :selected="checked.length" />
-        </div>
-      </div>
-    </section>
+    <div class="flex justify-between items-center">
+      <PageTitle>Content</PageTitle>
+    </div>
 
     <section
       class="
+        flex flex-col
         justify-between
         mb-6
-        md:flex-row md:space-y-0
-        space-y-6 space-x-6
-        flex flex-col
+        space-y-6 space-x-0
+        md:flex-row md:space-y-0 md:space-x-5
       "
     >
       <div>
@@ -31,6 +23,10 @@
           v-model="filters.terms"
           placeholder="Search by name..."
         />
+      </div>
+
+      <div>
+        <FavouriteField :selected="checked" />
       </div>
 
       <div>
