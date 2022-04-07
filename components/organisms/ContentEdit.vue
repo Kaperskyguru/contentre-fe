@@ -54,7 +54,7 @@
         <div class="basis-1/2 sm:w-full">
           <TextField
             v-model="$v.fieldLike.$model"
-            type="text"
+            type="number"
             class="w-full text-sm"
             label="Likes"
             placeholder="Enter content likes"
@@ -64,7 +64,7 @@
         <div class="basis-1/2 ml-1 sm:w-full">
           <TextField
             v-model="$v.fieldComment.$model"
-            type="text"
+            type="number"
             class="w-full text-sm"
             label="Comments"
             placeholder="Enter content comments"
@@ -74,7 +74,7 @@
         <div class="basis-1/2 ml-1 sm:w-full">
           <TextField
             v-model="$v.fieldShare.$model"
-            type="text"
+            type="number"
             class="w-full text-sm"
             label="Shares"
             placeholder="Enter content shares"
@@ -231,11 +231,11 @@ export default {
 
       const input = {
         title: this.fieldTitle,
-        likes: this.fieldLike,
-        shares: this.fieldShare,
+        likes: Number(this.fieldLike),
+        shares: Number(this.fieldShare),
         amount: Number(this.fieldAmount),
         categoryId: this.fieldCategory?.id ?? undefined,
-        comments: this.fieldComment,
+        comments: Number(this.fieldComment),
         visibility: this.fieldVisibility,
         paymentType: this.fieldPaymentType
       }

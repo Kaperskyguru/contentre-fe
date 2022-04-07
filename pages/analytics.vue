@@ -6,7 +6,7 @@
 
     <!-- calender -->
     <section class="mb-6">
-      <ContentFilter @filters="onFilters" />
+      <ContentFilter :show-sort-by="false" @filters="onFilters" />
     </section>
     <!-- end of calender -->
 
@@ -99,7 +99,11 @@
               :chart-data="getCategoryStats"
               type="bar"
               :show-selector="true"
-              :selector-data="{ data: getCategories, title: 'Select Category' }"
+              :selector-data="{
+                data: getCategories,
+                title: 'Select Category',
+                placeholder: getCategoryPlaceholder
+              }"
               @selected="selectCategory"
             />
           </div>
@@ -108,15 +112,31 @@
           <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
             <Column
               :show-selector="true"
-              :selector-data="{ data: getCategories, title: 'Select Topic' }"
+              :selector-data="{
+                data: getCategories,
+                title: 'Select Topic',
+                placeholder: getCategoryPlaceholder
+              }"
             />
           </div>
         </div>
         <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
           <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
+            <Loading
+              v-if="$apollo.queries.getTagStats.loading"
+              class="flex flex-1 items-center"
+            />
             <Column
+              v-else
+              type="bar"
+              :chart-data="getTagStats"
               :show-selector="true"
-              :selector-data="{ data: getCategories, title: 'Select Tag' }"
+              :selector-data="{
+                data: getTags,
+                title: 'Select Tag',
+                placeholder: getTagPlaceholder
+              }"
+              @selected="selectTag"
             />
           </div>
         </div>
@@ -129,7 +149,9 @@
 import {
   GET_CATEGORIES,
   GET_CATEGORY_STATS,
-  GET_OVERALL_STATS
+  GET_OVERALL_STATS,
+  GET_TAGS,
+  GET_TAG_STATS
 } from '~/graphql'
 export default {
   name: 'AnalyticPage',
@@ -145,7 +167,17 @@ export default {
       title: '',
       datasets: []
     },
-    filters: [],
+    getTagStats: {
+      labels: [],
+      title: '',
+      datasets: []
+    },
+    filters: {
+      tags: [],
+      categories: []
+    },
+    tagFilters: [],
+    categoryFilters: [],
     checked: [],
     stats: {
       shares: 0.0,
@@ -159,6 +191,16 @@ export default {
 
     chartData: []
   }),
+
+  computed: {
+    getTagPlaceholder() {
+      return this.filters?.tags[0] ?? 'Select a tag'
+    },
+
+    getCategoryPlaceholder() {
+      return this.filters?.categories[0] ?? 'Select a category'
+    }
+  },
 
   apollo: {
     metadata: {
@@ -204,7 +246,7 @@ export default {
       query: GET_CATEGORY_STATS,
       variables() {
         return {
-          filters: { ...this.filters }
+          filters: { ...this.categoryFilters }
         }
       },
       update(data) {
@@ -237,29 +279,93 @@ export default {
       }
     },
 
+    getTagStats: {
+      query: GET_TAG_STATS,
+      variables() {
+        return {
+          filters: { ...this.tagFilters }
+        }
+      },
+      update(data) {
+        const tag = data.getTagStats
+
+        return tag && tag.name
+          ? {
+              labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+              title: tag.name,
+              datasets: [
+                {
+                  backgroundColor: '#fff',
+                  barPercentage: 1,
+                  borderWidth: 700,
+                  barThickness: 6,
+                  maxBarThickness: 8,
+                  minBarLength: 2,
+                  tagPercentage: 1,
+                  label: '',
+                  data: [
+                    tag.totalShares,
+                    tag.totalContents,
+                    tag.totalLikes,
+                    tag.totalComments
+                  ]
+                }
+              ]
+            }
+          : []
+      }
+    },
+
     getCategories: {
       query: GET_CATEGORIES,
       update(data) {
         return data.getCategories
       }
+    },
+
+    getTags: {
+      query: GET_TAGS,
+      update(data) {
+        return data.getTags
+      }
     }
+  },
+
+  mounted() {
+    this.tagFilters = this.filters
+    this.categoryFilters = this.filters
   },
 
   methods: {
     onFilters(data) {
       this.filters = {
         ...data,
-        categories: data.categories
+        categories: data.categories.length
+          ? data.categories.map((cat) => cat.name)
+          : data.categories,
+        tags: data.tags.length ? data.tags.map((tag) => tag.name) : data.tags
       }
+
+      this.tagFilters = this.filters
+      this.categoryFilters = this.filters
     },
 
     selectCategory(name) {
-      this.filters = {
+      this.categoryFilters = {
         ...this.filters,
         categories: name ? [name] : null
       }
 
       this.$apollo.queries.getCategoryStats.refetch()
+    },
+
+    selectTag(name) {
+      this.tagFilters = {
+        ...this.filters,
+        tags: name ? [name] : null
+      }
+
+      this.$apollo.queries.getTagStats.refetch()
     }
   }
 }

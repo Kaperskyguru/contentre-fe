@@ -45,6 +45,7 @@
     <LazyContentsFilters
       v-model="filtersShowFloatingPanel"
       :filter-columns="filterColumns"
+      :show-sort-by="showSortBy"
       @close-panel="onChangeFilters"
     />
   </div>
@@ -60,6 +61,10 @@ export default {
     filterColumns: {
       type: Array,
       default: () => []
+    },
+    showSortBy: {
+      type: Boolean,
+      default: true
     }
   },
 

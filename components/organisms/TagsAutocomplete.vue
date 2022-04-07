@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!fakeInput"
     v-click-outside="onClickOutside"
     class="relative mb-8 bg-white rounded-lg border shadow-sm transition-shadow"
   >
@@ -205,14 +206,14 @@
       >
         <span
           class="
+            overflow-hidden
             pt-5
             pl-5
             w-full
             leading-snug
-            text-gray-800
+            text-gray-800 text-ellipsis
             whitespace-nowrap
             cursor-pointer
-            overflow-hidden overflow-ellipsis
           "
           :class="[
             {
@@ -254,13 +255,37 @@
       }}</small>
     </div>
   </div>
+
+  <AutocompleteField
+    v-else
+    :id="id"
+    ref="elementRef"
+    class="w-full"
+    hide-arrow-down
+    :placeholder="placeholder"
+    :value="value"
+    :label="label"
+    :label-class="labelClass"
+    :chip-style="chipStyle"
+    :items="getTags"
+    :loading="$apollo.queries.getTags.loading"
+    :allow-creation="allowCreation"
+    :hide-pencil-icon="hidePencilIcon"
+    :disabled="disabled"
+    :show-border="showBorder"
+    @update:search="search = $event"
+    @update:value="selectTag"
+    @create="selectTag"
+    @blur="onBlurAutocomplete"
+    @focus="onFocusAutocomplete"
+  />
 </template>
 
 <script>
 // import gql from 'graphql-tag'
 import { nextTick } from '@nuxtjs/composition-api'
 import vClickOutside from 'v-click-outside'
-import { GET_CLIENTS, UPDATE_CLIENT } from '~/graphql'
+import { GET_TAGS, UPDATE_TAG } from '~/graphql'
 export default {
   directives: {
     clickOutside: vClickOutside.directive
@@ -329,6 +354,11 @@ export default {
       default: false
     },
 
+    all: {
+      type: Boolean,
+      default: true
+    },
+
     allowCreation: {
       type: Boolean,
       default: true
@@ -348,6 +378,11 @@ export default {
       default: true
     },
 
+    fakeInput: {
+      default: false,
+      type: Boolean
+    },
+
     shouldShowOptions: {
       default: true,
       type: Boolean
@@ -360,23 +395,22 @@ export default {
 
   apollo: {
     getTags: {
-      query: GET_CLIENTS,
+      query: GET_TAGS,
       variables() {
         return {
           skip: 0,
           size: 30,
           filters: {
-            terms: this.search
+            terms: this.search,
+            all: this.all
           }
         }
       },
       update(data) {
-        // if (this.tagId) {
-        //   return data.getTags.filter(
-        //     (tag) => tag.id !== this.tagId
-        //   )
-        // }
-        return data.getClients
+        if (this.tagId) {
+          return data.getTags.filter((tag) => tag.id !== this.tagId)
+        }
+        return data.getTags
       }
     }
   },
@@ -440,7 +474,7 @@ export default {
       if (this.shouldUpdate) {
         try {
           await this.$apollo.mutate({
-            mutation: UPDATE_CLIENT,
+            mutation: UPDATE_TAG,
             variables: {
               id: tag.id,
               input: {

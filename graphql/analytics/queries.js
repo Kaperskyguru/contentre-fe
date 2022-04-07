@@ -41,3 +41,15 @@ export const GET_CATEGORY_STATS = gql`
     }
   }
 `
+
+export const GET_TAG_STATS = gql`
+  query getTagStats($filters: ContentFiltersInput) {
+    getTagStats(filters: $filters) {
+      name
+      totalContents
+      totalLikes
+      totalComments
+      totalShares
+    }
+  }
+`

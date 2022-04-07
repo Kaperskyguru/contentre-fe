@@ -36,9 +36,9 @@
             outline-none
             ring-0
             focus:ring-2
+            ring-opacity-50 ring-offset-1
             transition-all
             cursor-help
-            ring-opacity-50 ring-offset-1
           "
         >
           <IconAlertCircle
@@ -62,8 +62,9 @@
         w-full
         rounded
         border
+        focus:border-body-text-color
         outline-none
-        focus:border-body-text-color focus:outline-none
+        focus:outline-none
       "
       :class="[
         {

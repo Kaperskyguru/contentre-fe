@@ -4,21 +4,6 @@
       <PageTitle>Tags</PageTitle>
     </div>
 
-    <!-- calender -->
-    <!-- <section>
-      <ContentFilter />
-    </section> -->
-    <!-- end of calender -->
-
-    <!-- statistics -->
-
-    <!-- ====== Cards Section Start -->
-    <!-- <section class="pt-6 pb-2">
-      <BarCharts />
-    </section> -->
-    <!-- ====== Cards Section End -->
-    <!-- end of statistic -->
-
     <section
       class="
         flex flex-col
@@ -41,7 +26,7 @@
       </div>
 
       <div>
-        <Button @click.prevent="onAddClient">Add Tag</Button>
+        <Button @click.prevent="onAddTag">Add Tag</Button>
       </div>
     </section>
 
@@ -58,7 +43,7 @@
     <Dialog v-model="isConfirmModalVisible">
       <div class="block w-full text-gray-700 bg-white">
         <div class="flex justify-between w-full text-gray-700 bg-white">
-          <AddClient @create:success="onAddClient" />
+          <AddTag @create:success="onAddTag" />
         </div>
       </div>
     </Dialog>
@@ -90,7 +75,7 @@ export default {
   }),
 
   methods: {
-    onAddClient() {
+    onAddTag() {
       this.isConfirmModalVisible = !this.isConfirmModalVisible
     },
 
