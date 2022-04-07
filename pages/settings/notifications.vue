@@ -25,7 +25,7 @@
     <!-- End of about section -->
 
     <!-- select notification -->
-    <div class="py-2 px-4 bg-white rounded-sm shadow-sm">
+    <div class="p-2 bg-white rounded-sm shadow-sm">
       <div class="block w-full text-gray-700 bg-white">
         <div class="block pb-2 text-gray-500">
           <p class="mb-4 text-base">
@@ -36,10 +36,10 @@
 
         <div
           class="
+            flex flex-col
             justify-between
             space-y-6
-            md:space-y-0 md:flex-row
-            flex flex-col
+            md:flex-row md:space-y-0
           "
         >
           <div
@@ -68,7 +68,7 @@
 
           <div class="px-2 my-4 space-y-6">
             <div class="flex">
-              <div class="inline-flex shrink-0 justify-center mr-2">
+              <div class="justify-center w-full">
                 <CheckField
                   id="news"
                   v-model="news"
@@ -86,7 +86,7 @@
             </div>
 
             <div class="flex">
-              <div class="inline-flex shrink-0 justify-center mr-2">
+              <div class="justify-center w-full">
                 <CheckField
                   id="newComments"
                   v-model="newComments"
@@ -105,7 +105,7 @@
             </div>
 
             <div class="flex">
-              <div class="inline-flex shrink-0 justify-center mr-2">
+              <div class="justify-center w-full">
                 <CheckField
                   id="reminders"
                   v-model="reminders"
@@ -122,7 +122,7 @@
             </div>
 
             <div class="flex">
-              <div class="inline-flex shrink-0 justify-center mr-2">
+              <div class="justify-center w-full">
                 <CheckField
                   id="activities"
                   v-model="activities"
@@ -140,7 +140,7 @@
             </div>
 
             <div class="flex">
-              <div class="inline-flex shrink-0 justify-center mr-2">
+              <div class="justify-center w-full">
                 <CheckField
                   id="request"
                   v-model="request"
@@ -162,7 +162,7 @@
 
       <!-- End of select notification--->
 
-      <div class="py-6 px-4 bg-white rounded-sm shadow-sm">
+      <div class="py-6 px-4 w-full bg-white rounded-sm shadow-sm">
         <Reminders />
       </div>
 

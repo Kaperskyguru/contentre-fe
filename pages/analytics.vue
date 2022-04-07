@@ -101,7 +101,7 @@
               :show-selector="true"
               :selector-data="{
                 data: getCategories,
-                title: 'Select Category',
+                title: 'Categories',
                 placeholder: getCategoryPlaceholder
               }"
               @selected="selectCategory"
@@ -114,7 +114,7 @@
               :show-selector="true"
               :selector-data="{
                 data: getCategories,
-                title: 'Select Topic',
+                title: 'Topics',
                 placeholder: getCategoryPlaceholder
               }"
             />
@@ -133,7 +133,7 @@
               :show-selector="true"
               :selector-data="{
                 data: getTags,
-                title: 'Select Tag',
+                title: 'Tags',
                 placeholder: getTagPlaceholder
               }"
               @selected="selectTag"
