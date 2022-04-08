@@ -117,7 +117,7 @@
           pt-2
           mb-6
           space-y-4 space-x-0
-          md:flex-row md:space-x-4
+          md:flex-row md:space-y-0 md:space-x-4
         "
       >
         <Button
