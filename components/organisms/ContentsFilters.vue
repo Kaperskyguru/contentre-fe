@@ -14,6 +14,7 @@
             fakeInput: true,
             isGrid: true
           }"
+          :show-border="true"
           :placeholder="'Category'"
           :label="'Category'"
           @update:value="onUpdateFilterValue"
@@ -29,6 +30,7 @@
             fakeInput: true,
             isGrid: true
           }"
+          :show-border="true"
           :placeholder="'Topics'"
           :label="'Topics'"
           @update:value="onUpdateFilterValue"
@@ -45,6 +47,7 @@
             fakeInput: true,
             isGrid: true
           }"
+          :show-border="true"
           :placeholder="'Tags'"
           :label="'Tags'"
           @update:value="onUpdateFilterValue"

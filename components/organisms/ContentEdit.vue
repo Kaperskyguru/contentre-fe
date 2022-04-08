@@ -26,6 +26,7 @@
             isGrid: true
           }"
           :should-update="false"
+          :show-border="true"
           :item="content"
           label="Category"
           placeholder="Enter content category"
