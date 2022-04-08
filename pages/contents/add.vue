@@ -19,6 +19,7 @@
           <div class="flex justify-center items-center px-3 bg-gray-50">
             <button
               class="inline-flex py-3 pl-5 mb-3 font-bold focus:outline-none"
+              @click.prevent="addContent('DRAFT')"
             >
               Save as draft
             </button>
@@ -375,13 +376,17 @@ export default {
       this.showAutoComplete = false
       this.fieldCategory = category
     },
-    async addContent() {
+    async addContent(type = 'DRAFT') {
       if (this.honeyPot) return
 
       if (await this.isValidationInvalid()) return
 
-      this.sending = true
+      if (type === 'DRAFT') {
+        console.log(type)
+        return
+      }
 
+      this.sending = true
       try {
         await this.$apollo.mutate({
           mutation: CREATE_CONTENT,

@@ -13,7 +13,7 @@
         border-b-2 border-dashed
       "
     >
-      <div class="flex flex-col items-center w-full">
+      <div class="flex flex-col items-center">
         <div class="flex relative">
           <span
             v-if="shouldShowEditingOptions"

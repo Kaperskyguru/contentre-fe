@@ -1,11 +1,8 @@
 <template>
-  <div
-    v-click-outside="$emit('onClickOutside')"
-    class="flex overflow-y-auto flex-col flex-1"
-  >
+  <div class="flex overflow-y-auto flex-col flex-1">
     <div class="flex-1">
       <ul class="py-4 space-y-2">
-        <li class="mb-3">
+        <li class="mb-3" @click="$emit('onMenuClick')">
           <Hyperlink
             :to="{ name: 'index' }"
             class="
@@ -27,7 +24,7 @@
             <span class="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
           </Hyperlink>
         </li>
-        <li>
+        <li @click="$emit('onMenuClick')">
           <Hyperlink
             :to="{ name: 'contents' }"
             class="
@@ -47,7 +44,7 @@
             <span class="flex-1 ml-3 whitespace-nowrap">Contents</span>
           </Hyperlink>
         </li>
-        <li>
+        <li @click="$emit('onMenuClick')">
           <Hyperlink
             :to="{ name: 'analytics' }"
             class="
@@ -68,7 +65,7 @@
           </Hyperlink>
         </li>
 
-        <li>
+        <li @click="$emit('onMenuClick')">
           <Hyperlink
             :to="{ name: 'portfolios' }"
             class="
@@ -89,7 +86,7 @@
           </Hyperlink>
         </li>
 
-        <li>
+        <li @click="$emit('onMenuClick')">
           <Hyperlink
             :to="{ name: 'clients' }"
             class="
@@ -114,6 +111,7 @@
           id="dropdownDividerButton"
           class="dropdown"
           data-dropdown-toggle="dropdownDivider"
+          @click="$emit('onMenuClick')"
         >
           <Hyperlink
             to="#"
@@ -138,7 +136,7 @@
             class="hidden z-10 divide-y divide-gray-100 dropdown-menu"
           >
             <ul aria-labelledby="dropdownDividerButton">
-              <li>
+              <li @click="$emit('onMenuClick')">
                 <Hyperlink
                   :to="{ name: 'categories' }"
                   class="
@@ -160,7 +158,7 @@
                 </Hyperlink>
               </li>
 
-              <li>
+              <li @click="$emit('onMenuClick')">
                 <Hyperlink
                   :to="{ name: 'clients' }"
                   class="
@@ -182,7 +180,7 @@
                 </Hyperlink>
               </li>
 
-              <li>
+              <li @click="$emit('onMenuClick')">
                 <Hyperlink
                   :to="{ name: 'tags' }"
                   class="
@@ -218,7 +216,7 @@
             aside-footer
           "
         >
-          <Upgrade />
+          <Upgrade :contents="currentUser.totalContents" />
         </div>
       </ul>
     </div>
@@ -226,7 +224,7 @@
 </template>
 
 <script>
-import vClickOutside from 'v-click-outside'
+import { currentUser } from '../mixins/currentUser'
 import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
 import ContentIcon from '~/assets/icons/content.svg?inline'
@@ -241,9 +239,7 @@ export default {
     ClientIcon
   },
 
-  directives: {
-    clickOutside: vClickOutside.directive
-  }
+  mixins: [currentUser]
 }
 </script>
 

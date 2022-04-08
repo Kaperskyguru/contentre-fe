@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" class="flex items-center">
+  <div v-if="user" v-click-outside="onClickOutside" class="flex items-center">
     <div class="items-center lg:flex">
       <!--user profile -->
       <div class="flex justify-center items-center dark:bg-gray-500">
@@ -154,10 +154,15 @@
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
 export default {
   components: {
     ProfileIcon: () => import('~/assets/icons/profile.svg?inline'),
     SettingIcon: () => import('~/assets/icons/setting.svg?inline')
+  },
+
+  directives: {
+    clickOutside: vClickOutside.directive
   },
   props: {
     user: {
@@ -187,6 +192,10 @@ export default {
     closeDropdown() {
       this.open = false
       document.removeEventListener('keyup', this.onKeyUp)
+    },
+
+    onClickOutside() {
+      this.closeDropdown()
     },
 
     onKeyUp(event) {
