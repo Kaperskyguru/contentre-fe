@@ -10,7 +10,6 @@
           h-9
           text-darksilver
           bg-primary-teal
-          hover:bg-linen
           rounded
         "
         @click="onClickOpenFilters"
@@ -19,9 +18,9 @@
         <span class="text-sm text-white">Filter</span>
         <!-- hasFilter -->
         <span
-          v-if="false"
+          v-if="hasFilter"
           aria-atomic="true"
-          :aria-label="true"
+          :aria-label="'filters'"
           aria-live="polite"
           role="status"
           class="
@@ -72,6 +71,21 @@ export default {
     filtersShowFloatingPanel: false,
     filters: {}
   }),
+
+  computed: {
+    hasFilter() {
+      const filter = { ...this.filters }
+
+      delete filter.expense
+      delete filter.legalEntityIds
+
+      return (
+        Object.values(filter).filter((elem) =>
+          !elem ? false : elem !== '' ? !!elem.length : true
+        ).length !== 0
+      )
+    }
+  },
 
   methods: {
     onClickOpenFilters() {

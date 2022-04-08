@@ -180,6 +180,8 @@
         :show-border="false"
         :required="isRequired"
         :rows="rows"
+        :type="type"
+        :accept="accept"
         :disabled="disableField"
         :error="error"
       ></TextField>
@@ -197,6 +199,16 @@ export default {
     shouldShowEditingOptions: {
       default: false,
       type: Boolean
+    },
+
+    type: {
+      type: String,
+      default: 'text'
+    },
+
+    accept: {
+      type: String,
+      default: ''
     },
 
     isRequired: {

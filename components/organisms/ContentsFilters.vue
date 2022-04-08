@@ -14,6 +14,7 @@
             fakeInput: true,
             isGrid: true
           }"
+          :show-border="true"
           :placeholder="'Category'"
           :label="'Category'"
           @update:value="onUpdateFilterValue"
@@ -29,6 +30,7 @@
             fakeInput: true,
             isGrid: true
           }"
+          :show-border="true"
           :placeholder="'Topics'"
           :label="'Topics'"
           @update:value="onUpdateFilterValue"
@@ -45,6 +47,7 @@
             fakeInput: true,
             isGrid: true
           }"
+          :show-border="true"
           :placeholder="'Tags'"
           :label="'Tags'"
           @update:value="onUpdateFilterValue"
@@ -117,7 +120,7 @@
           pt-2
           mb-6
           space-y-4 space-x-0
-          md:flex-row md:space-x-4
+          md:flex-row md:space-y-0 md:space-x-4
         "
       >
         <Button
