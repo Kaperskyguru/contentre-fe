@@ -57,7 +57,6 @@
         bg-white
         focus-within:bg-snow
         rounded
-        border
         transition-all
         cursor-text
       "
@@ -68,7 +67,8 @@
           'border-red': (!disabled && !!error) || isOnboarding,
           'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
             !disabled && !error && !isOnboarding,
-          'border-silver bg-warngray bg-opacity-10': !!disabled
+          'border-silver bg-warngray bg-opacity-10': !!disabled,
+          border: showBorder
         }
       ]"
       @click="focus"
@@ -285,6 +285,11 @@ export default {
     containerClass: {
       default: '',
       type: String
+    },
+
+    showBorder: {
+      type: Boolean,
+      default: true
     },
 
     disabled: {

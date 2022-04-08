@@ -67,14 +67,24 @@
       <!-- end of card title -->
 
       <!-- card link -->
-      <section>
+      <section class="flex flex-col space-x-1 w-full md:flex-row">
         <ContentField
           v-model="$v.fieldURL.$model"
-          placeholder="Paste Content URL"
+          placeholder="Paste Canonical URL"
           :disabled="true"
           :error="getValidationMessage($v.fieldURL)"
         >
-          <span slot="title">Content URL </span></ContentField
+          <span slot="title">Canonical URL </span></ContentField
+        >
+
+        <ContentField
+          type="file"
+          accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+          class="w-full text-sm"
+          label="Cover image"
+          @change="selectFile"
+        >
+          <span slot="title">Cover image </span></ContentField
         >
       </section>
 
@@ -318,7 +328,8 @@ export default {
     sending: false,
     medium: '',
     devto: '',
-    hashnode: ''
+    hashnode: '',
+    coverImage: null
   }),
 
   validations: {
@@ -362,6 +373,22 @@ export default {
   },
 
   methods: {
+    async selectFile(e) {
+      const file = e.target.files[0]
+
+      /* Make sure file exists */
+      if (!file) return
+
+      const readData = (f) =>
+        new Promise((resolve) => {
+          const reader = new FileReader()
+          reader.onloadend = () => resolve(reader.result)
+          reader.readAsDataURL(f)
+        })
+
+      /* Read data */
+      this.coverImage = await readData(file)
+    },
     onUpdateClient(client) {
       this.showAutoComplete = false
       this.fieldClient = client
