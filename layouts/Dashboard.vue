@@ -13,12 +13,14 @@
 
       <nav
         id="mobile"
-        v-click-outside="onClickOutside"
         class="w-full md:hidden"
         :class="{ 'mt-16': isMenuShown }"
       >
-        <div v-if="isMenuShown" v-click-outside="onClickOutside" class="pt-5">
-          <MobileMenu />
+        <div v-if="isMenuShown" class="pt-5">
+          <MobileMenu
+            v-click-outside="onClickOutside"
+            @onMenuClick="onClickOutside"
+          />
         </div>
       </nav>
 
@@ -58,7 +60,18 @@ export default {
     },
 
     onClickOutside() {
+      // this.isMenuShown = false
+      this.closeDropdown()
+    },
+
+    closeDropdown() {
       this.isMenuShown = false
+      document.removeEventListener('keyup', this.onKeyUp)
+    },
+
+    onKeyUp(event) {
+      const keyCode = event.keyCode || event.which
+      if (keyCode === 27) this.closeDropdown()
     },
 
     showMenu() {

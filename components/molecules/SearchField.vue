@@ -4,7 +4,7 @@
     appearance="secondary"
     :autofocus="autofocus"
     :placeholder="placeholder"
-    container-class="border-transparent duration-300 !ring-0 mt-0 py-0 px-1 rounded-lg border-0 shadow bg-purple-white"
+    container-class="border-transparent duration-300 !ring-0 mt-0 px-1 rounded-lg border-0 shadow bg-purple-white"
     field-class="placeholder-darksilver"
     :clearable="!!(value && value.length)"
     @update:value="updateValue"
