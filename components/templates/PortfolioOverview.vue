@@ -56,8 +56,16 @@
                 </span>
               </header>
 
-              <div class="mb-5 text-center">
-                <Button type="link" :to="{ path: portfolio.url }"
+              <div
+                class="
+                  flex flex-col
+                  mb-5
+                  space-y-2 space-x-0
+                  text-center
+                  md:flex-row md:space-y-0 md:space-x-2
+                "
+              >
+                <Button type="link" target="_blank" :href="portfolio.url"
                   >Preview</Button
                 >
                 <Button
@@ -65,7 +73,13 @@
                   :to="{ path: `/portfolios/${portfolio.templateId}` }"
                   >Edit</Button
                 >
-                <Button class="bg-red-500" @click.prevent="onDeletePortfolio"
+                <Button
+                  type="link"
+                  target="_blank"
+                  :to="{ path: `/portfolios/c/${portfolio.templateId}` }"
+                  >Customize</Button
+                >
+                <Button class="bg-red" @click.prevent="onDeletePortfolio"
                   >Delete</Button
                 >
               </div>
