@@ -12,6 +12,8 @@ export const clientFragments = {
       amount
       paymentType
       icon
+      totalAmount
+      visibility
       status
       createdAt
       createdAt

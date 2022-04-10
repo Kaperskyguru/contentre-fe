@@ -34,21 +34,40 @@
         />
       </div>
 
-      <div class="mb-6 w-full">
-        <DropdownField
-          v-model="$v.fieldVisibility.$model"
-          :items="visibilityTypes"
-          label="Visibility"
-          :error="getValidationMessage($v.fieldVisibility)"
-        >
-          <option
-            v-for="(item, itemIndex) in visibilityTypes"
-            :key="itemIndex"
-            :value="item"
+      <div class="flex justify-between mb-6 space-x-2 sm:flex-col md:flex-row">
+        <div class="basis-1/2 mb-6 w-full">
+          <DropdownField
+            v-model="$v.fieldVisibility.$model"
+            :items="visibilityTypes"
+            label="Visibility"
+            :error="getValidationMessage($v.fieldVisibility)"
           >
-            {{ item }}
-          </option>
-        </DropdownField>
+            <option
+              v-for="(item, itemIndex) in visibilityTypes"
+              :key="itemIndex"
+              :value="item"
+            >
+              {{ item }}
+            </option>
+          </DropdownField>
+        </div>
+
+        <div class="basis-1/2 mb-6 w-full">
+          <DropdownField
+            v-model="$v.fieldStatus.$model"
+            :items="statusTypes"
+            label="Status"
+            :error="getValidationMessage($v.fieldStatus)"
+          >
+            <option
+              v-for="(item, itemIndex) in statusTypes"
+              :key="itemIndex"
+              :value="item"
+            >
+              {{ item }}
+            </option>
+          </DropdownField>
+        </div>
       </div>
 
       <div class="flex justify-between mb-6 sm:flex-col md:flex-row">
@@ -142,16 +161,19 @@ export default {
     fieldTitle: '',
     fieldCategory: '',
     fieldVisibility: '',
+    fieldStatus: '',
     fieldPaymentType: '',
     fieldLike: '',
     fieldAmount: '',
     fieldShare: '',
     honeyPot: '',
     paymentTypes: ['ARTICLE', 'MONTHLY', 'ONETIME'],
-    visibilityTypes: ['PUBLISHED', 'DRAFT', 'DELETED'],
+    visibilityTypes: ['PUBLIC', 'PRIVATE', 'TEAM', 'UNLISTED'],
+    statusTypes: ['PUBLISHED', 'DRAFT', 'DELETED'],
     disableAmount: false
   }),
   validations: {
+    fieldStatus: {},
     fieldTitle: {},
     fieldComment: {},
     fieldVisibility: {},
@@ -185,6 +207,7 @@ export default {
           this.fieldCategory = newItem?.category?.name
           this.fieldComment = newItem?.comments
           this.fieldVisibility = newItem?.visibility
+          this.fieldStatus = newItem?.status
           this.fieldPaymentType = newItem?.paymentType
         }
       },
@@ -238,7 +261,8 @@ export default {
         categoryId: this.fieldCategory?.id ?? undefined,
         comments: Number(this.fieldComment),
         visibility: this.fieldVisibility,
-        paymentType: this.fieldPaymentType
+        paymentType: this.fieldPaymentType,
+        status: this.fieldStatus
       }
 
       try {

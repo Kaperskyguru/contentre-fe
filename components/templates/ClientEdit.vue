@@ -38,6 +38,23 @@
         />
       </div>
 
+      <div class="basis-1/2 mb-6 w-full">
+        <DropdownField
+          v-model="$v.fieldVisibility.$model"
+          :items="visibilityTypes"
+          label="Visibility"
+          :error="getValidationMessage($v.fieldVisibility)"
+        >
+          <option
+            v-for="(item, itemIndex) in visibilityTypes"
+            :key="itemIndex"
+            :value="item"
+          >
+            {{ item }}
+          </option>
+        </DropdownField>
+      </div>
+
       <div class="flex mb-6">
         <div class="basis-1/2 sm:w-full">
           <DropdownField
@@ -69,7 +86,19 @@
         </div>
       </div>
 
-      <div class="flex justify-center items-center px-3 mt-4 w-full">
+      <div
+        class="
+          flex flex-col
+          justify-center
+          items-center
+          px-3
+          mt-4
+          space-y-2 space-x-0
+          w-full
+          md:flex-row md:space-y-0 md:space-x-2
+        "
+      >
+        <Button class="w-1/2" type="submit">Delete</Button>
         <Button class="w-1/2" type="submit">Update</Button>
       </div>
     </form></FloatingPanel
@@ -99,7 +128,8 @@ export default {
     fieldPaymentType: '',
     fieldAmount: '',
     disableAmount: true,
-    paymentTypes: ['ARTICLE', 'MONTHLY', 'ONETIME']
+    paymentTypes: ['ARTICLE', 'MONTHLY', 'ONETIME'],
+    visibilityTypes: ['PUBLIC', 'PRIVATE', 'TEAM', 'UNLISTED']
   }),
   validations: {
     fieldProfile: { isURL },
@@ -109,7 +139,7 @@ export default {
     fieldWebsite: {
       isURL
     },
-
+    fieldVisibility: {},
     honeyPot: {}
   },
   computed: {
@@ -129,6 +159,7 @@ export default {
           this.fieldProfile = newItem?.profile
           this.fieldWebsite = newItem?.website
           this.fieldName = newItem?.name
+          this.fieldVisibility = newItem.visibility
           this.fieldPaymentType = newItem?.paymentType
           this.fieldAmount = newItem?.amount
         }
@@ -180,6 +211,7 @@ export default {
               name: this.fieldName,
               website: this.fieldWebsite,
               profile: this.fieldProfile,
+              visibility: this.fieldVisibility,
               amount: parseFloat(this.fieldAmount),
               paymentType: this.fieldPaymentType
             }

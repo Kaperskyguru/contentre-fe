@@ -106,6 +106,15 @@ export default {
         },
 
         {
+          title: 'Amount Spent',
+          key: 'totalAmount',
+          component: () => {
+            return 'DataGridCellMoney'
+          },
+          componentOptions: this.getTotalAmountComponentOptions
+        },
+
+        {
           title: 'Status',
           key: 'status',
           component: () => {
@@ -210,6 +219,27 @@ export default {
             style: !amount ? 'secondary' : undefined,
             value: 0.0,
             name: 'Amount',
+            currency: 'USD',
+            currencyBefore: true
+          }
+    },
+
+    getTotalAmountComponentOptions({ totalAmount }) {
+      return totalAmount
+        ? {
+            style: !totalAmount ? 'secondary' : undefined,
+            value:
+              totalAmount === null
+                ? 'No total amount spent provided'
+                : totalAmount,
+            name: 'Amount Spent',
+            currency: 'USD',
+            currencyBefore: true
+          }
+        : {
+            style: !totalAmount ? 'secondary' : undefined,
+            value: 0.0,
+            name: 'Amount Spent',
             currency: 'USD',
             currencyBefore: true
           }
