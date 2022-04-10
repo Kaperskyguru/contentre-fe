@@ -20,6 +20,7 @@ export const contentFragments = {
       topics
       type
       excerpt
+      status
       content
       likes
       shares

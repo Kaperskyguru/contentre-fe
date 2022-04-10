@@ -35,9 +35,19 @@
         <img v-else :src="Unchecked" alt="Unchecked" />
       </div>
 
-      <span class="peer ml-3 font-gilroy text-base text-gray-500">
+      <!-- <div class="relative w-full"> -->
+      <span class="peer relative ml-3 font-gilroy text-base text-gray-500">
         <slot></slot>
+
+        <span
+          v-if="showLabel"
+          class="py-1 px-3 text-xs text-purple-600 bg-blue-200 rounded-lg"
+          :class="{ 'absolute top-0 right-0': labelType === 'absolute' }"
+          >Coming soon</span
+        >
       </span>
+
+      <!-- </div> -->
       <input
         :id="uid"
         ref="field"
@@ -70,6 +80,15 @@ export default {
   },
 
   props: {
+    showLabel: {
+      type: Boolean,
+      default: false
+    },
+
+    labelType: {
+      type: String,
+      default: ''
+    },
     id: {
       type: String,
       default: ''

@@ -38,6 +38,7 @@
           class="
             flex flex-col
             justify-between
+            px-2
             space-y-6
             md:flex-row md:space-y-0
           "
@@ -85,7 +86,7 @@
               </div>
             </div>
 
-            <div class="flex">
+            <!-- <div class="flex">
               <div class="justify-center w-full">
                 <CheckField
                   id="newComments"
@@ -102,7 +103,7 @@
                   </div>
                 </CheckField>
               </div>
-            </div>
+            </div> -->
 
             <div class="flex">
               <div class="justify-center w-full">
@@ -139,7 +140,7 @@
               </div>
             </div>
 
-            <div class="flex">
+            <!-- <div class="flex">
               <div class="justify-center w-full">
                 <CheckField
                   id="request"
@@ -155,7 +156,7 @@
                   </div>
                 </CheckField>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

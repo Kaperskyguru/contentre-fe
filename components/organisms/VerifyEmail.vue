@@ -3,11 +3,11 @@
     <div class="flex flex-col mb-6 space-x-0 md:flex-row md:space-x-2">
       <div class="pb-2 md:w-full">
         <TextField
-          v-model="$v.fieldPhone.$model"
-          type="text"
+          v-model="$v.fieldEmail.$model"
+          type="email"
           class="w-full text-sm"
           placeholder="Enter email"
-          :error="getValidationMessage($v.fieldPhone)"
+          :error="getValidationMessage($v.fieldEmail)"
           :disabled="sent"
         />
       </div>
@@ -43,24 +43,24 @@
 </template>
 
 <script>
-import { SEND_PHONE_CODE, USE_PHONE_CODE } from '~/graphql'
-import { numeric } from '~/plugins/validators'
+import { SEND_EMAIL_CODE, USE_EMAIL_CODE } from '~/graphql'
+import { required, email } from '~/plugins/validators'
 export default {
   data: () => ({
-    fieldPhone: '',
+    fieldEmail: '',
+    fieldCode: '',
     sent: false,
     sending: false,
-    fieldCode: '',
     honeyPot: ''
   }),
   validations: {
-    fieldCode: { numeric },
-    fieldPhone: {},
+    fieldEmail: { email, required },
+    fieldCode: {},
     honeyPot: {}
   },
 
   methods: {
-    async sendPhoneCode() {
+    async sendEmailCode() {
       if (this.honeyPot) return
 
       if (await this.isValidationInvalid()) return
@@ -69,13 +69,13 @@ export default {
 
       try {
         await this.$apollo.mutate({
-          mutation: SEND_PHONE_CODE,
+          mutation: SEND_EMAIL_CODE,
           variables: {
-            phone: this.fieldPhone
+            email: this.fieldEmail
           }
         })
         this.sent = true
-        this.$toast.positive('Phone code sent successfully')
+        this.$toast.positive('Email sent successfully')
         this.sending = false
         this.$emit('create:success', true)
       } catch (error) {
@@ -97,13 +97,13 @@ export default {
 
       try {
         await this.$apollo.mutate({
-          mutation: USE_PHONE_CODE,
+          mutation: USE_EMAIL_CODE,
           variables: {
             code: this.fieldCode + ''
           }
         })
         this.sent = true
-        this.$toast.positive('Phone verified successfully')
+        this.$toast.positive('Email verified successfully')
         this.sending = false
         this.$emit('create:success', true)
       } catch (error) {
