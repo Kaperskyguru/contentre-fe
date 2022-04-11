@@ -23,14 +23,14 @@
           pl-6
           space-x-3
           w-full
+          text-sm
           rounded-lg
           border
           shadow-lg
-          transform
           -translate-x-1/2
           md:w-auto md:max-w-3xl
           lg:bottom-8
-          text-sm text-warndarkgray
+          text-warndarkgray
         "
         :class="{
           'bg-mistyrose border-red': $toast.type === 'negative',
