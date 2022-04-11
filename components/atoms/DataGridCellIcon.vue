@@ -90,7 +90,7 @@
       class="
         h-full
         leading-normal
-        lg:overflow-hidden lg:overflow-ellipsis lg:whitespace-nowrap
+        lg:overflow-hidden lg:text-ellipsis lg:whitespace-nowrap
       "
       :class="[
         options.class,
