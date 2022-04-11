@@ -1,5 +1,5 @@
 <template>
-  <span class="z-10">
+  <span :class="{ 'z-10': addZIndex }">
     <a v-if="options.url" :href="options.url" target="_blank">
       <span
         class="
@@ -158,6 +158,13 @@ export default defineComponent({
   name: 'DataGridCellAvatar',
 
   extends: BaseCell,
+
+  props: {
+    addZIndex: {
+      type: Boolean,
+      default: false
+    }
+  },
 
   data: () => ({
     isImageValid: true

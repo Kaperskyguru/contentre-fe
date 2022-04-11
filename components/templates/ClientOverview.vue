@@ -96,14 +96,14 @@ export default {
           component: () => 'DataGridCellIcon',
           componentOptions: this.getCreatedAtComponentOptions
         },
-        {
-          title: 'Amount',
-          key: 'amount',
-          component: () => {
-            return 'DataGridCellMoney'
-          },
-          componentOptions: this.getAmountComponentOptions
-        },
+        // {
+        //   title: 'Amount',
+        //   key: 'amount',
+        //   component: () => {
+        //     return 'DataGridCellMoney'
+        //   },
+        //   componentOptions: this.getAmountComponentOptions
+        // },
 
         {
           title: 'Amount Spent',
@@ -206,23 +206,23 @@ export default {
         : {}
     },
 
-    getAmountComponentOptions({ amount }) {
-      return amount
-        ? {
-            style: !amount ? 'secondary' : undefined,
-            value: amount === null ? 'No payment provided' : amount,
-            name: 'Amount',
-            currency: 'USD',
-            currencyBefore: true
-          }
-        : {
-            style: !amount ? 'secondary' : undefined,
-            value: 0.0,
-            name: 'Amount',
-            currency: 'USD',
-            currencyBefore: true
-          }
-    },
+    // getAmountComponentOptions({ amount }) {
+    //   return amount
+    //     ? {
+    //         style: !amount ? 'secondary' : undefined,
+    //         value: amount === null ? 'No payment provided' : amount,
+    //         name: 'Amount',
+    //         currency: 'USD',
+    //         currencyBefore: true
+    //       }
+    //     : {
+    //         style: !amount ? 'secondary' : undefined,
+    //         value: 0.0,
+    //         name: 'Amount',
+    //         currency: 'USD',
+    //         currencyBefore: true
+    //       }
+    // },
 
     getTotalAmountComponentOptions({ totalAmount }) {
       return totalAmount
