@@ -7,6 +7,7 @@
       :total="contents.total"
       :loading="$apollo.queries.contents.loading"
       :item-clickable="true"
+      @load-more-data="fetchMore"
       @item-click="onItemClick"
     />
     <LazyContentEdit v-model="contentId"></LazyContentEdit>
@@ -141,6 +142,31 @@ export default {
   },
 
   methods: {
+    fetchMore(sizeAndSkip) {
+      const itemsKey = 'contents'
+      const queryName = 'getContents'
+      this.$apollo.queries.contents.fetchMore({
+        // New variables
+        variables: {
+          ...sizeAndSkip
+        },
+        // Transform the previous result with new data
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          const newItems =
+            ((fetchMoreResult ?? {})[queryName] ?? {})[itemsKey] ?? []
+          const oldItems =
+            ((previousResult ?? {})[queryName] ?? {})[itemsKey] ?? []
+
+          return {
+            [queryName]: {
+              ...fetchMoreResult[queryName],
+              [itemsKey]: [...oldItems, ...newItems]
+            }
+          }
+        }
+      })
+    },
+
     onItemClick({ id }) {
       this.contentId = id
     },
