@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <div v-frag>
     <DataGrid
       :columns="columns"
       :checked.sync="computedChecked"
@@ -11,15 +11,18 @@
       @item-click="onItemClick"
     />
     <LazyContentEdit v-model="contentId"></LazyContentEdit>
-  </span>
+  </div>
 </template>
 
 <script>
+import fragment from 'vue-frag'
 import DownloadIcon from '~/assets/icons/download.svg'
 import { GET_CONTENTS } from '~/graphql'
 export default {
   name: 'ContentTable',
-
+  directives: {
+    fragment
+  },
   props: {
     checked: {
       type: Array,
