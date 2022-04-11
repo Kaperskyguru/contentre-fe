@@ -9,14 +9,15 @@
     <span
       v-if="!showAutoComplete && displayClient && !options.fakeInput"
       class="
+        overflow-hidden
         py-2.5
         px-3
         -my-1
         leading-snug
+        text-ellipsis
         whitespace-nowrap
         rounded
         cursor-pointer
-        overflow-hidden overflow-ellipsis
       "
       :class="[
         {

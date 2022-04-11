@@ -31,7 +31,7 @@
             text-sm
             bg-lavander
             rounded-full
-            border-gray-700 border border-opacity-25
+            border border-gray-700 border-opacity-25
           "
           :class="{
             'top-2': !!options.icon && isImageValid
@@ -105,7 +105,7 @@
           text-sm
           bg-lavander
           rounded-full
-          border-gray-700 border border-opacity-25
+          border border-gray-700 border-opacity-25
         "
         :class="{
           'top-2': !!options.icon && isImageValid
