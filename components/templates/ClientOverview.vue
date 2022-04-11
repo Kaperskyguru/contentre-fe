@@ -135,7 +135,7 @@ export default {
       return name
         ? {
             icon,
-            url: `https://${website}`,
+            url: website,
             style: !name ? 'secondary' : undefined,
             value: name || 'No name provided'
           }

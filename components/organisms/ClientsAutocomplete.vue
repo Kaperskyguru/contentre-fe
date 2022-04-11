@@ -184,14 +184,14 @@
       >
         <span
           class="
+            overflow-hidden
             pt-5
             pl-5
             w-full
             leading-snug
-            text-gray-800
+            text-gray-800 text-ellipsis
             whitespace-nowrap
             cursor-pointer
-            overflow-hidden overflow-ellipsis
           "
           :class="[
             {

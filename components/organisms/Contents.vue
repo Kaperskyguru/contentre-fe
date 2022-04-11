@@ -215,7 +215,7 @@ export default {
             style: !client ? 'secondary' : undefined,
             class: 'capitalize',
             icon: client.icon,
-            url: `https://${client.website}`,
+            url: client.website,
             value: client.name || 'No Client provided'
           }
         : {}
