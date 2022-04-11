@@ -318,8 +318,7 @@
 /* eslint-disable vue/no-unused-components */
 /* eslint-disable vue/no-useless-template-attributes */
 import infiniteScroll from 'vue-infinite-scroll'
-import { defineComponent } from '@nuxtjs/composition-api'
-export default defineComponent({
+export default {
   name: 'DataGrid',
   directives: {
     infiniteScroll
@@ -637,7 +636,7 @@ export default defineComponent({
       }
     }
   }
-})
+}
 </script>
 
 <style>
