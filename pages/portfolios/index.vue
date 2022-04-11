@@ -1,5 +1,7 @@
 <template>
-  <PortfolioOverview />
+  <PageContent>
+    <PortfolioOverview />
+  </PageContent>
 </template>
 
 <script>

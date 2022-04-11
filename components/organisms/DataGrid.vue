@@ -558,6 +558,7 @@ export default {
     },
 
     onLoadMoreData() {
+      console.log('here')
       if (
         !this.loading &&
         this.items.length !== 0 &&
