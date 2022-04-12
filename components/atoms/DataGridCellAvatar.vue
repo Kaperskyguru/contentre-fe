@@ -1,5 +1,5 @@
 <template>
-  <span :class="{ 'z-10': addZIndex }">
+  <span :class="{ 'z-0': addZIndex }">
     <a v-if="options.url" :href="options.url" target="_blank">
       <span
         class="
