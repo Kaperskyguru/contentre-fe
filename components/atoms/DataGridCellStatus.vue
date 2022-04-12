@@ -54,7 +54,7 @@
         class="py-2 px-3 text-xs capitalize"
         :class="{
           'bg-green-200 text-green-600 rounded-lg': isGreen,
-          'text-red-600 bg-red-200 rounded-sm': !isGreen
+          'text-red-600 bg-red-200 rounded-lg': isRed
         }"
         >{{ options.value }}</span
       >
@@ -77,7 +77,12 @@ export default defineComponent({
 
   computed: {
     isGreen() {
-      const arr = ['online', 'ACTIVE']
+      const arr = ['online', 'ACTIVE', 'PUBLISHED']
+      return arr.includes(this.options.value)
+    },
+
+    isRed() {
+      const arr = ['DELETED', 'DRAFT']
       return arr.includes(this.options.value)
     }
   }

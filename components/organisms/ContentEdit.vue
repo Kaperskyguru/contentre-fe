@@ -1,5 +1,5 @@
 <template>
-  <FloatingPanel v-model="open" :inside="false" from="right">
+  <FloatingPanel v-model="open" from="right">
     <form class="w-full" @submit.prevent="updateContent">
       <div class="mb-6">
         <TextField
@@ -26,6 +26,7 @@
             isGrid: true
           }"
           :should-update="false"
+          :allow-creation="true"
           :show-border="true"
           :item="content"
           label="Category"
@@ -258,7 +259,7 @@ export default {
         likes: Number(this.fieldLike),
         shares: Number(this.fieldShare),
         amount: Number(this.fieldAmount),
-        categoryId: this.fieldCategory?.id ?? undefined,
+        category: this.fieldCategory?.name ?? this.fieldCategory,
         comments: Number(this.fieldComment),
         visibility: this.fieldVisibility,
         paymentType: this.fieldPaymentType,
@@ -275,9 +276,11 @@ export default {
         })
         this.$toast.positive('Content updated successfully')
         this.sending = false
+        this.open = false
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false
+        this.open = false
       }
     }
   }

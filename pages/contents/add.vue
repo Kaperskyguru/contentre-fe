@@ -408,36 +408,41 @@ export default {
 
       if (await this.isValidationInvalid()) return
 
-      if (type === 'DRAFT') {
-        console.log(type)
-        return
-      }
-
-      this.sending = true
       try {
-        await this.$apollo.mutate({
-          mutation: CREATE_CONTENT,
-          variables: {
-            input: {
-              url: this.fieldURL,
-              tags: this.tags,
-              content: this.fieldContent,
-              excerpt: this.fieldExcerpt,
-              title: this.fieldTitle,
-              clientId: this.fieldClient?.id,
-              category: this.fieldCategory
-            }
-          },
-          update(data) {
-            console.log(data)
-          }
-        })
+        this.sending = true
+        const input = {
+          url: this.fieldURL,
+          tags: this.tags,
+          content: this.fieldContent,
+          excerpt: this.fieldExcerpt,
+          title: this.fieldTitle,
+          status: 'PUBLISHED',
+          clientId: this.fieldClient?.id,
+          category: this.fieldCategory?.name ?? this.fieldCategory
+        }
+        if (type === 'DRAFT') {
+          input.status = 'DRAFT'
+        }
+
+        await this.createContent(input)
         this.$toast.positive('Content created successfully')
         this.sending = false
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false
       }
+    },
+
+    async createContent(input) {
+      await this.$apollo.mutate({
+        mutation: CREATE_CONTENT,
+        variables: {
+          input
+        },
+        update(data) {
+          console.log(data)
+        }
+      })
     },
 
     onPreviewContent() {

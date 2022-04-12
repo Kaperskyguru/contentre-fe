@@ -22,7 +22,7 @@
         <tr class="bg-white">
           <th
             v-if="checked && !hideCheckAll"
-            class="p-0 m-0 w-20 text-base font-medium tracking-wider"
+            class="z-10 p-0 m-0 w-20 text-base font-medium tracking-wider"
             :class="[
               {
                 'sticky top-0': stickyHeader,
@@ -31,7 +31,7 @@
               }
             ]"
           >
-            <div class="py-4 pr-4 bg-white border-b border-gray-200">
+            <div class="z-30 py-4 pr-4 bg-white border-b border-gray-200">
               <CheckField
                 :label="'Check all'"
                 :disabled="
@@ -65,7 +65,7 @@
         <tr class="bg-white">
           <th
             v-if="checked"
-            class="p-0 m-0 w-20"
+            class="z-10 p-0 m-0 w-20"
             :class="[
               {
                 'sticky top-0': stickyHeader,
@@ -100,7 +100,7 @@
           <th
             v-for="(column, columnIndex) of columnsFiltered"
             :key="`th-${columnIndex}`"
-            class="pb-0.5 text-base font-medium tracking-wider"
+            class="z-10 pb-0.5 text-base font-medium tracking-wider"
             :class="[
               {
                 'sticky top-0': stickyHeader,
@@ -563,7 +563,6 @@ export default {
         this.items.length !== 0 &&
         this.items.length !== this.total
       ) {
-        console.log('here')
         this.$emit('load-more-data', {
           size: this.itemsPerPage,
           skip: this.items.length

@@ -1,5 +1,5 @@
 <template>
-  <div v-frag>
+  <div v-fragment>
     <DataGrid
       :columns="columns"
       :checked.sync="computedChecked"
@@ -139,6 +139,18 @@ export default {
           titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellMoney',
           componentOptions: this.getAmountComponentOptions
+        },
+        {
+          title: 'Status',
+          key: 'status',
+          titleClass: 'lg:w-36 xl:w-50 2xl:w-70',
+          dataClass: ({ status }) => {
+            return `${status ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
+          },
+          component: () => {
+            return 'DataGridCellStatus'
+          },
+          componentOptions: this.getStatusComponentOptions
         }
       ]
     }
@@ -213,6 +225,15 @@ export default {
         ? {
             style: !visibility ? 'secondary' : undefined,
             value: visibility || 'No visibility provided'
+          }
+        : {}
+    },
+
+    getStatusComponentOptions({ status }) {
+      return status
+        ? {
+            style: !status ? 'secondary' : undefined,
+            value: status || 'No status provided'
           }
         : {}
     },
