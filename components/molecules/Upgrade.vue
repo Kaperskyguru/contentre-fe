@@ -5,7 +5,9 @@
         <p class="font-roboto text-base text-white">Contents</p>
       </div>
       <div class="">
-        <button class="py-1 px-2 font-bold text-white bg-red rounded-md shadow">
+        <button
+          class="py-1 px-2 font-bold text-white bg-red-500 rounded-md shadow"
+        >
           Upgrade
         </button>
       </div>

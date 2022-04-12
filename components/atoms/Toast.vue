@@ -33,7 +33,7 @@
           text-warndarkgray
         "
         :class="{
-          'bg-mistyrose border-red': $toast.type === 'negative',
+          'bg-mistyrose border-red-500': $toast.type === 'negative',
           'bg-powderblue border-darksilver border-opacity-50':
             $toast.type === 'positive'
         }"

@@ -204,12 +204,12 @@ export default {
         })
 
         await this.createNewUser({
-          email: this.fieldEmail,
+          email: this.fieldEmail.toLocaleLowerCase(),
           username: this.fieldUsername,
           name: this.fieldName,
           password: this.fieldPassword,
-          referrer: this.$route.query.referrer
-          // signedUpThrough: 'CONTENTRE'
+          referrer: this.$route.query.referrer,
+          signedUpThrough: 'CONTENTRE'
         })
 
         if (!this.currentUser.emailConfirmed) {

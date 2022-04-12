@@ -68,7 +68,7 @@
               w-1/2
               font-bold
               text-white
-              bg-red
+              bg-red-500
               rounded-lg
               shadow
             "

@@ -33,7 +33,7 @@
             tracking-tighter
             leading-none
             text-white
-            bg-red
+            bg-red-500
             rounded-full
           "
         >

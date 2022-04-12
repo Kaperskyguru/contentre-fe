@@ -53,7 +53,6 @@
                       h-4
                       transition-transform
                       duration-200
-                      transform
                       rotate-0
                       md:-mt-1
                     "
@@ -98,11 +97,10 @@
                     class="
                       flex
                       items-center
+                      border-r-4 border-transparent
                       hover:border-indigo-700
                       transition-colors
                       duration-200
-                      transform
-                      border-r-4 border-transparent
                     "
                   >
                     <div class="mr-3">
@@ -130,11 +128,10 @@
                     class="
                       flex
                       items-center
+                      border-r-4 border-transparent
                       hover:border-indigo-700
                       transition-colors
                       duration-200
-                      transform
-                      border-r-4 border-transparent
                     "
                   >
                     <div class="mr-3">
@@ -169,11 +166,10 @@
                     class="
                       flex
                       items-center
+                      border-r-4 border-transparent
                       hover:border-red-600
                       transition-colors
                       duration-200
-                      transform
-                      border-r-4 border-transparent
                     "
                   >
                     <div class="mr-3 text-red-600">
@@ -210,8 +206,8 @@
               py-1
               px-4
               ml-6
-              rounded-md
               text-sm text-white
+              rounded-md
               form-btn
             "
           >

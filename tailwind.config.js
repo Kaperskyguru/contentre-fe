@@ -23,7 +23,6 @@ module.exports = {
         'aside-icon-grey': '#6B8583',
         linen: '#f4f1ea',
         lavander: '#dcebf2',
-        // red: '#ff6955',
         snow: '#fafaf8',
         mistyrose: '#ffdfdb',
         powderblue: '#acdcff'

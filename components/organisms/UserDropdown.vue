@@ -119,9 +119,9 @@
                       flex
                       items-center
                       border-r-4 border-transparent
+                      hover:border-red-600
                       transition-colors
                       duration-200
-                      hover:border-red-600
                     "
                     @click.prevent="onLogout"
                   >
