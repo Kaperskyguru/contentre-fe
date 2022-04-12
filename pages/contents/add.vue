@@ -425,7 +425,7 @@ export default {
               excerpt: this.fieldExcerpt,
               title: this.fieldTitle,
               clientId: this.fieldClient?.id,
-              category: this.fieldCategory
+              category: this.fieldCategory?.name ?? this.fieldCategory
             }
           },
           update(data) {
