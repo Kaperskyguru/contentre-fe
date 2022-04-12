@@ -27,7 +27,7 @@
         :error="getValidationMessage($v.fieldEmail)"
       />
 
-      <div class="flex my-9 w-full justify-center">
+      <div class="flex justify-center my-9 w-full">
         <Button
           type="button"
           appearance="secondary"
@@ -83,7 +83,7 @@ export default {
         await this.$apollo.mutate({
           mutation: SEND_PASSWORD_RESET_CODE,
           variables: {
-            email: this.fieldEmail
+            email: this.fieldEmail.toLocaleLowerCase()
           }
         })
 
@@ -94,7 +94,7 @@ export default {
 
         await this.$router.push({
           path: '/auth/forgot-password/verify-email',
-          query: { email: this.fieldEmail }
+          query: { email: this.fieldEmail.toLocaleLowerCase() }
         })
       } catch (error) {
         this.$toast.negative(error.message)

@@ -96,7 +96,7 @@ export default {
           mutation: LOGIN_USER,
           variables: {
             input: {
-              email: this.fieldEmail,
+              email: this.fieldEmail.toLocaleLowerCase(),
               password: this.fieldPassword,
               remember: this.fieldRemember
             }
