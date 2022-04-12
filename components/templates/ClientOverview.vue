@@ -44,7 +44,10 @@ export default {
       query: GET_CLIENTS,
       fetchPolicy: 'cache-and-network',
       update(data) {
-        return { items: data.getClients, total: data.getClients.length }
+        return {
+          items: data.getClients.clients,
+          total: data.getClients.meta.total
+        }
       },
       variables() {
         return {
@@ -148,7 +151,8 @@ export default {
       this.$apollo.queries.clients.fetchMore({
         // New variables
         variables: {
-          ...sizeAndSkip
+          ...sizeAndSkip,
+          filters: this.filters
         },
         // Transform the previous result with new data
         updateQuery: (previousResult, { fetchMoreResult }) => {

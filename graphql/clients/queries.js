@@ -4,7 +4,12 @@ import { clientFragments } from '~/graphql/clients/fragments'
 export const GET_CLIENTS = gql`
   query getClients($size: Int, $skip: Int, $filters: ClientFiltersInput) {
     getClients(size: $size, skip: $skip, filters: $filters) {
-      ...client
+      meta {
+        total
+      }
+      clients {
+        ...client
+      }
     }
   }
   ${clientFragments.client}

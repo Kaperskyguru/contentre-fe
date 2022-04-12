@@ -3,7 +3,7 @@
   <div
     ref="infiniteScrollContainer"
     v-infinite-scroll="onLoadMoreData"
-    class="overflow-auto w-full h-full max-h-full text-sm"
+    class="overflow-auto w-full h-screen max-h-full text-sm"
     infinite-scroll-distance="300"
     :infinite-scroll-disabled="disableInfiniteScroll"
   >
@@ -558,12 +558,12 @@ export default {
     },
 
     onLoadMoreData() {
-      console.log('here')
       if (
         !this.loading &&
         this.items.length !== 0 &&
         this.items.length !== this.total
       ) {
+        console.log('here')
         this.$emit('load-more-data', {
           size: this.itemsPerPage,
           skip: this.items.length

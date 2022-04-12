@@ -4,7 +4,12 @@ import { contentFragments } from './fragments'
 export const GET_CONTENTS = gql`
   query getContents($size: Int, $skip: Int, $filters: ContentFiltersInput) {
     getContents(size: $size, skip: $skip, filters: $filters) {
-      ...content
+      meta {
+        total
+      }
+      contents {
+        ...content
+      }
     }
   }
   ${contentFragments.content}

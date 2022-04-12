@@ -1,5 +1,5 @@
 <template>
-  <div class="block overflow-hidden h-screen md:flex">
+  <div class="block overflow-hidden h-full md:flex">
     <!-- <div class="flex flex-1"> -->
     <div class="hidden z-20 flex-none sm:w-0 md:block md:w-64">
       <Aside @onCollapse="collapse" />
@@ -22,7 +22,7 @@
     </nav>
 
     <Nuxt
-      class="flex-1"
+      class="flex-1 mb-5"
       :class="{ 'mt-0': isMenuShown, 'mt-16': !isMenuShown }"
     />
 
