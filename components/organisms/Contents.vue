@@ -1,5 +1,5 @@
 <template>
-  <div v-frag>
+  <div v-fragment>
     <DataGrid
       :columns="columns"
       :checked.sync="computedChecked"

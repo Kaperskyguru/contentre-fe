@@ -563,7 +563,6 @@ export default {
         this.items.length !== 0 &&
         this.items.length !== this.total
       ) {
-        console.log('here')
         this.$emit('load-more-data', {
           size: this.itemsPerPage,
           skip: this.items.length
