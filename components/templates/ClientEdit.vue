@@ -55,6 +55,23 @@
         </DropdownField>
       </div>
 
+      <div class="basis-1/2 mb-6 w-full">
+        <DropdownField
+          v-model="$v.fieldStatus.$model"
+          :items="statusTypes"
+          label="Status"
+          :error="getValidationMessage($v.fieldStatus)"
+        >
+          <option
+            v-for="(item, itemIndex) in statusTypes"
+            :key="itemIndex"
+            :value="item"
+          >
+            {{ item }}
+          </option>
+        </DropdownField>
+      </div>
+
       <div class="flex mb-6">
         <div class="basis-1/2 sm:w-full">
           <DropdownField
@@ -124,16 +141,19 @@ export default {
     fieldName: '',
     fieldProfile: '',
     fieldWebsite: '',
+    fieldStatus: '',
     honeyPot: '',
     fieldPaymentType: '',
     fieldAmount: '',
     disableAmount: true,
     paymentTypes: ['ARTICLE', 'MONTHLY', 'ONETIME'],
-    visibilityTypes: ['PUBLIC', 'PRIVATE', 'TEAM', 'UNLISTED']
+    visibilityTypes: ['PUBLIC', 'PRIVATE', 'TEAM', 'UNLISTED'],
+    statusTypes: ['ACTIVE', 'DELETED', 'INACTIVE']
   }),
   validations: {
     fieldProfile: { isURL },
     fieldName: {},
+    fieldStatus: {},
     fieldPaymentType: {},
     fieldAmount: {},
     fieldWebsite: {
@@ -159,6 +179,7 @@ export default {
           this.fieldProfile = newItem?.profile
           this.fieldWebsite = newItem?.website
           this.fieldName = newItem?.name
+          this.fieldStatus = newItem?.status
           this.fieldVisibility = newItem.visibility
           this.fieldPaymentType = newItem?.paymentType
           this.fieldAmount = newItem?.amount
@@ -210,6 +231,7 @@ export default {
             input: {
               name: this.fieldName,
               website: this.fieldWebsite,
+              status: this.fieldStatus,
               profile: this.fieldProfile,
               visibility: this.fieldVisibility,
               amount: parseFloat(this.fieldAmount),
