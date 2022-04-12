@@ -58,8 +58,8 @@ export default {
       },
       update(data) {
         return {
-          items: data.getContents,
-          total: data.getContents.length
+          items: data.getContents.contents,
+          total: data.getContents.meta.total
         }
       }
     }
@@ -151,7 +151,8 @@ export default {
       this.$apollo.queries.contents.fetchMore({
         // New variables
         variables: {
-          ...sizeAndSkip
+          ...sizeAndSkip,
+          filters: this.filters
         },
         // Transform the previous result with new data
         updateQuery: (previousResult, { fetchMoreResult }) => {
