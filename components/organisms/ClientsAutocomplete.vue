@@ -389,7 +389,7 @@ export default {
         //     (category) => category.id !== this.categoryId
         //   )
         // }
-        return data.getClients
+        return data.getClients.clients
       }
     }
   },
