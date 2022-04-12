@@ -47,7 +47,7 @@
       class="
         h-full
         leading-normal
-        lg:overflow-hidden lg:overflow-ellipsis lg:whitespace-nowrap
+        lg:overflow-hidden lg:text-ellipsis lg:whitespace-nowrap
       "
       :class="[
         options.class,
@@ -59,7 +59,7 @@
           <span v-if="isPositive" class="inline-block relative text-green-500">
             <IncrementIcon />
           </span>
-          <span v-else class="inline-block relative text-red">
+          <span v-else class="inline-block relative text-red-500">
             <DecrementIcon />
           </span>
         </div>
@@ -68,7 +68,7 @@
           class="pl-1"
           :class="{
             'text-green-500': isPositive,
-            'text-red': !isPositive
+            'text-red-500': !isPositive
           }"
           ><span v-if="isPositive">+</span>{{ options.value }}%</span
         >
@@ -80,13 +80,13 @@
           >
             <IncrementIcon />
           </span>
-          <span v-else class="inline-block relative text-red text-md">
+          <span v-else class="inline-block relative text-red-500 text-md">
             <DecrementIcon />
           </span>
         </div>
       </div>
 
-      <small v-if="options.suffix" class="text-2xs text-red">
+      <small v-if="options.suffix" class="text-2xs text-red-500">
         {{ options.suffix }}
       </small>
     </div>

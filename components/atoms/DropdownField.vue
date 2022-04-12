@@ -13,7 +13,7 @@
       :class="[
         {
           'text-darksilver': !isFocused & !error,
-          'text-red': !!error
+          'text-red-500': !!error
         },
         labelClass
       ]"
@@ -68,7 +68,7 @@
       "
       :class="[
         {
-          'border-red': !disabled && !!error,
+          'border-red-500': !disabled && !!error,
           'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
             !disabled && !error,
           'bg-gray-500 bg-opacity-10': !!disabled,

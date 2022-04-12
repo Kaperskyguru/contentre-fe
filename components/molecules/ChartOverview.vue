@@ -17,7 +17,7 @@
             >(+{{ percent }}%) more</span
           >
 
-          <span v-else class="font-gilroy text-base font-bold text-red"
+          <span v-else class="font-gilroy text-base font-bold text-red-500"
             >({{ percent }}%) less</span
           >
           in {{ new Date().getFullYear() }}

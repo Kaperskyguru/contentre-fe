@@ -12,7 +12,7 @@
       :class="[
         {
           'text-darksilver': !isFocused & !error,
-          'text-red': !!error
+          'text-red-500': !!error
         },
         labelClass
       ]"
@@ -37,9 +37,9 @@
             outline-none
             ring-0
             focus:ring-2
+            ring-red-500 ring-opacity-50 ring-offset-1
             transition-all
             cursor-help
-            ring-red ring-opacity-50 ring-offset-1
           "
         >
           <IconAlertCircle
@@ -70,7 +70,7 @@
         containerClass,
         {
           'mt-1': !!label,
-          'border-red': !disabled && !!error,
+          'border-red-500': !disabled && !!error,
           'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
             !disabled && !error,
           'border-silver bg-warngray bg-opacity-10': !!disabled
@@ -79,6 +79,7 @@
     >
       <div
         class="
+          flex flex-1
           items-center
           py-1
           pr-1
@@ -91,7 +92,6 @@
           border-none
           outline-none
           select-none
-          flex flex-1
         "
         :class="[
           pickerClass,
@@ -194,8 +194,8 @@
           max-w-5xl
           bg-white
           rounded
-          shadow-lg
           border border-silver
+          shadow-lg
         "
         :class="[label ? 'mt-16' : 'mt-10']"
       >

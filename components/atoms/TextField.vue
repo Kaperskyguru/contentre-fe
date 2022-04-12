@@ -11,7 +11,7 @@
       :class="[
         {
           'text-darksilver': !isFocused & !error,
-          'text-red': !!error || isOnboarding
+          'text-red-500': !!error || isOnboarding
         },
         labelClass
       ]"
@@ -64,7 +64,7 @@
         containerClass,
         {
           'mt-1': !!label,
-          'border-red': (!disabled && !!error) || isOnboarding,
+          'border-red-500': (!disabled && !!error) || isOnboarding,
           'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
             !disabled && !error && !isOnboarding,
           'border-silver bg-warngray bg-opacity-10': !!disabled,
