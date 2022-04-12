@@ -349,6 +349,6 @@ export default {
 }
 
 .check-field.is-invalid::after {
-  /* @apply bg-red; */
+  @apply bg-red-400;
 }
 </style>

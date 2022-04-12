@@ -79,7 +79,7 @@
                   :to="{ path: `/portfolios/c/${portfolio.templateId}` }"
                   >Customize</Button
                 >
-                <Button class="bg-red" @click.prevent="onDeletePortfolio"
+                <Button class="bg-red-500" @click.prevent="onDeletePortfolio"
                   >Delete</Button
                 >
               </div>
