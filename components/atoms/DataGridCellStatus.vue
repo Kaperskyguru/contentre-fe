@@ -82,7 +82,7 @@ export default defineComponent({
     },
 
     isRed() {
-      const arr = ['DELETED', 'DRAFT']
+      const arr = ['DELETED', 'DRAFT', 'INACTIVE']
       return arr.includes(this.options.value)
     }
   }

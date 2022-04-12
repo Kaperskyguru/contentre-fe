@@ -6,10 +6,28 @@
 
     <Form @submit="onSubmitFilters">
       <div class="mb-6">
+        <ClientsAutocomplete
+          v-model="$v.fieldClients.$model"
+          :allow-creation="false"
+          :fake-input="true"
+          :should-update="false"
+          :options="{
+            fakeInput: true,
+            isGrid: true
+          }"
+          :show-border="true"
+          :placeholder="'Client'"
+          :label="'Client'"
+          @update:value="onUpdateFilterValue"
+        />
+      </div>
+
+      <div class="mb-6">
         <CategoriesAutocomplete
           v-model="$v.fieldCategories.$model"
           :allow-creation="false"
           :fake-input="true"
+          :should-update="false"
           :options="{
             fakeInput: true,
             isGrid: true
@@ -26,6 +44,7 @@
           v-model="$v.fieldTopics.$model"
           :allow-creation="false"
           :fake-input="true"
+          :should-update="false"
           :options="{
             fakeInput: true,
             isGrid: true
@@ -202,6 +221,7 @@ export default {
     fieldTopics: null,
     fieldCategories: null,
     fieldTags: null,
+    fieldClients: '',
     // fieldCurrencies: null,
     fieldFromAmount: null,
     fieldToAmount: null,
@@ -214,7 +234,8 @@ export default {
       'fieldToAmount',
       'fieldFromDate',
       'fieldToDate',
-      'fieldTags'
+      'fieldTags',
+      'fieldClients'
     ]
 
     //   'fieldCurrencies',
@@ -227,6 +248,7 @@ export default {
       fieldCategories: {},
       fieldTopics: {},
       fieldTags: {},
+      fieldClients: {},
       fieldCurrencies: {},
       fieldFromAmount: {
         maxValue: maxValue(this.fieldToAmount ? this.fieldToAmount : Infinity)
@@ -286,6 +308,13 @@ export default {
           ? [data.fieldCategories]
           : [],
         topics: data.fieldTopics ? [data.fieldTopics] : [],
+        clients: !data.fieldClients
+          ? []
+          : data.fieldClients?.name
+          ? [data.fieldClients?.name]
+          : data.fieldClients
+          ? [data.fieldClients]
+          : [],
         tags: data.fieldTags ? [data.fieldTags] : [],
         // currencies: data.fieldCurrencies ? [data.fieldCurrencies] : [],
         fromAmount:
@@ -318,6 +347,8 @@ export default {
       )
 
       const input = this.getModifiedData(data)
+
+      console.log(input.categories)
 
       this.$emit('close-panel', input)
     },

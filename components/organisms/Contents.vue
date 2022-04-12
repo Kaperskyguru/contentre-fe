@@ -52,7 +52,7 @@ export default {
           skip: 0,
           filters: {
             terms: this.filters?.terms,
-            sortBy: this.filters?.sortBy
+            ...this.filters
           }
         }
       },
