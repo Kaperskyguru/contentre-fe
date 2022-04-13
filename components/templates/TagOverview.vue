@@ -48,7 +48,7 @@ export default {
       },
       variables() {
         return {
-          size: 10,
+          size: 30,
           skip: 0,
           filters: { ...this.filters }
         }
@@ -121,7 +121,8 @@ export default {
       this.$apollo.queries.tags.fetchMore({
         // New variables
         variables: {
-          ...sizeAndSkip
+          ...sizeAndSkip,
+          filters: this.filters
         },
         // Transform the previous result with new data
         updateQuery: (previousResult, { fetchMoreResult }) => {
