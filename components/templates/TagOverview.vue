@@ -44,7 +44,7 @@ export default {
       query: GET_TAGS,
       fetchPolicy: 'cache-and-network',
       update(data) {
-        return { items: data.getTags, total: data.getTags.length }
+        return { items: data.getTags.tags, total: data.getTags.meta.total }
       },
       variables() {
         return {
