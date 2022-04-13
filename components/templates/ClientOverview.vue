@@ -51,7 +51,7 @@ export default {
       },
       variables() {
         return {
-          size: 10,
+          size: 30,
           skip: 0,
           filters: { ...this.filters }
         }
