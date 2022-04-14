@@ -21,7 +21,7 @@
     >
       <a
         :href="options.url"
-        target="_new"
+        target="_blank"
         class="
           block
           relative
@@ -63,7 +63,6 @@
       :trigger="['hover', 'click']"
     >
       <img
-        v-if="(options.file || options.url) && !options.link"
         :src="options.file || options.url"
         :alt="options.name || options.value"
         :width="
@@ -86,7 +85,32 @@
       />
     </Tooltip>
 
+    <Tooltip
+      v-if="options.tooltip"
+      :label="options.name || options.value"
+      :trigger="['hover', 'focus']"
+    >
+      <div
+        class="
+          h-full
+          leading-normal
+          lg:overflow-hidden lg:text-ellipsis lg:whitespace-nowrap
+        "
+        :class="[
+          options.class,
+          { 'text-darksilver': options.style === 'secondary' }
+        ]"
+      >
+        {{ options.value }}
+
+        <small v-if="options.suffix" class="text-2xs text-red-500">
+          {{ options.suffix }}
+        </small>
+      </div>
+    </Tooltip>
+
     <div
+      v-else
       class="
         h-full
         leading-normal
@@ -99,7 +123,7 @@
     >
       {{ options.value }}
 
-      <small v-if="options.suffix" class="text-2xs text-red">
+      <small v-if="options.suffix" class="text-2xs text-red-500">
         {{ options.suffix }}
       </small>
     </div>

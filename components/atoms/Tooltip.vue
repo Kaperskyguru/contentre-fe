@@ -22,14 +22,14 @@
           v-if="(visible && !disabled) || always"
           class="
             fixed
+            z-50
             p-0.5
             px-1.5
+            text-xs text-white
             whitespace-nowrap
+            bg-darksilver
             rounded-sm
             pointer-events-none
-            z-5
-            bg-warndarkgray
-            text-white text-xs
           "
           :class="[
             {

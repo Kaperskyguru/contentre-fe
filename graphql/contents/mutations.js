@@ -28,8 +28,8 @@ export const UPDATE_CONTENT = gql`
   ${contentFragments.content}
 `
 
-// export const DELETE_CLIENT = gql`
-//   mutation deleteClient($id: ID!) {
-//     deleteClient(id: $id)
-//   }
-// `
+export const DELETE_CONTENT = gql`
+  mutation deleteContent($id: ID!) {
+    deleteContent(id: $id)
+  }
+`

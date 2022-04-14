@@ -131,7 +131,6 @@ export default defineComponent({
         'focus-visible:ring-2',
         'active:shadow-inner',
         'whitespace-nowrap',
-        //
         'disabled:cursor-not-allowed',
         'disabled:opacity-75',
         'font-gilroy',
@@ -139,13 +138,11 @@ export default defineComponent({
         'font-bold',
         'text-white',
         'py-4',
-
         'px-24',
         'text-sm',
         'leading-5',
         'bg-teal-300',
         'rounded-md',
-        'form-btn',
         'text-center'
       ]
 
@@ -284,8 +281,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* .button-primary {
-  @apply border rounded text-white border-black;
+.button-primary {
+  @apply border rounded text-white border-btn-green;
 }
 
 .button-primary .loader {
@@ -293,25 +290,25 @@ export default defineComponent({
 }
 
 .button-primary:not(.active) {
-  @apply bg-black;
+  @apply bg-btn-green hover:bg-opacity-75 hover:border-opacity-75;
 }
 
 .button-primary.active {
-  @apply bg-opacity-90  border-opacity-90 hover:border-black hover:bg-opacity-95;
+  @apply bg-opacity-90  border-opacity-90 hover:border-btn-green hover:bg-btn-green hover:border-opacity-75;
 }
 
 .button-secondary {
-  @apply border rounded;
+  @apply border rounded  border-red-500;
 }
 
 .button-secondary:not(.active) {
-  @apply border-solid bg-transparent  hover:bg-opacity-25;
+  @apply border-solid bg-red-500  hover:bg-opacity-75 hover:border-opacity-75;
 }
 
 .button-secondary.active {
-  @apply bg-none;
+  @apply bg-red-300;
 }
- */
+
 .button-tertiary {
   @apply rounded-full  hover:bg-opacity-25;
 }

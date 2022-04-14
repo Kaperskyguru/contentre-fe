@@ -1,6 +1,6 @@
 <template>
   <FloatingPanel v-model="open" from="right">
-    <form class="w-full" @submit.prevent="updateContent">
+    <Form class="w-full" @submit.prevent="updateContent">
       <div class="mb-6">
         <TextField
           v-model="$v.fieldTitle.$model"
@@ -135,15 +135,38 @@
         </div>
       </div>
 
-      <div class="flex justify-center items-center px-3 mt-4 w-full">
-        <Button class="w-1/2" type="submit">Update</Button>
+      <div
+        class="
+          flex flex-col
+          pt-2
+          mb-6
+          space-y-4 space-x-0
+          md:flex-row md:space-y-0 md:space-x-4
+        "
+      >
+        <Button
+          appearance="secondary"
+          class="w-full"
+          @click.prevent="onClickDelete"
+        >
+          {{ 'Delete' }}
+        </Button>
+
+        <Button type="submit" class="w-full">
+          {{ 'Update' }}
+        </Button>
       </div>
-    </form>
+    </Form>
   </FloatingPanel>
 </template>
 
 <script>
-import { GET_CONTENT, UPDATE_CONTENT } from '~/graphql'
+import {
+  DELETE_CONTENT,
+  GET_CONTENT,
+  updateContentCache,
+  UPDATE_CONTENT
+} from '~/graphql'
 import { decimal } from '~/plugins/validators'
 export default {
   model: {
@@ -234,6 +257,27 @@ export default {
   },
 
   methods: {
+    async onClickDelete() {
+      try {
+        this.$emit(
+          'deleted',
+          await this.$apollo.mutate({
+            mutation: DELETE_CONTENT,
+            variables: {
+              id: this.contentId
+            },
+            update: (cache) => updateContentCache(cache, this.contentId)
+          })
+        )
+        this.$toast.positive('Content deleted successfully')
+        this.sending = false
+        this.open = false
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+        this.open = false
+      }
+    },
     selectedPayment(type) {
       if (type === 'MONTHLY') {
         // Disable only if not a new month
