@@ -348,8 +348,6 @@ export default {
 
       const input = this.getModifiedData(data)
 
-      console.log(input.categories)
-
       this.$emit('close-panel', input)
     },
 

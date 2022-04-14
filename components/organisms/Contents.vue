@@ -10,7 +10,10 @@
       @load-more-data="fetchMore"
       @item-click="onItemClick"
     />
-    <LazyContentEdit v-model="contentId"></LazyContentEdit>
+    <LazyContentEdit
+      v-model="contentId"
+      @deleted="onDeleteSuccess"
+    ></LazyContentEdit>
   </div>
 </template>
 
@@ -183,6 +186,10 @@ export default {
       })
     },
 
+    onDeleteSuccess() {
+      this.$apollo.queries.contents.refetch()
+    },
+
     onItemClick({ id }) {
       this.contentId = id
     },
@@ -193,6 +200,7 @@ export default {
             link: !!url,
             type: 'icon',
             url,
+            tooltip: true,
             file: DownloadIcon,
             style: !title ? 'secondary' : undefined,
             class: 'capitalize',
@@ -209,9 +217,6 @@ export default {
           }
         : new Date(lastUpdated) > new Date()
         ? {
-            // type: 'icon',
-            // file: IconTransactionDateClock,
-            // size: 14,
             name: 'Scheduled',
             value: this.$d(new Date(lastUpdated), 'dateShorter')
           }

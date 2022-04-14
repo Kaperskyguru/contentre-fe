@@ -23,6 +23,7 @@
     <CategoryEdit
       v-model="isEditPanelVisible"
       :category-id="categoryId"
+      @deleted="onDeleteSuccess"
     ></CategoryEdit>
   </span>
 </template>
@@ -113,6 +114,9 @@ export default {
   },
 
   methods: {
+    onDeleteSuccess() {
+      this.$apollo.queries.categories.refetch()
+    },
     onItemClick({ id }) {
       this.categoryId = id
       this.isEditPanelVisible = true

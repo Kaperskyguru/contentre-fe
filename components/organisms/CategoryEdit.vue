@@ -35,9 +35,26 @@
           :error="getValidationMessage($v.fieldColor)"
         />
       </div>
-      <div class="block w-full">
+
+      <div
+        class="
+          flex flex-col
+          pt-2
+          mb-6
+          space-y-4 space-x-0
+          md:flex-row md:space-y-0 md:space-x-4
+        "
+      >
+        <Button
+          appearance="secondary"
+          class="w-full"
+          @click.prevent="onClickDelete"
+        >
+          {{ 'Delete' }}
+        </Button>
+
         <Button class="w-full" type="submit" :waiting="sending">
-          Confirm
+          Update
         </Button>
       </div>
     </form>
@@ -45,7 +62,13 @@
 </template>
 
 <script>
-import { UPDATE_CATEGORY, CREATE_CATEGORY, GET_CATEGORY } from '~/graphql'
+import {
+  UPDATE_CATEGORY,
+  CREATE_CATEGORY,
+  GET_CATEGORY,
+  DELETE_CATEGORY,
+  updateCategoryCache
+} from '~/graphql'
 import { required, minLength } from '~/plugins/validators'
 
 export default {
@@ -136,6 +159,27 @@ export default {
   },
 
   methods: {
+    async onClickDelete() {
+      try {
+        this.$emit(
+          'deleted',
+          await this.$apollo.mutate({
+            mutation: DELETE_CATEGORY,
+            variables: {
+              id: this.categoryId
+            },
+            update: (cache) => updateCategoryCache(cache, this.categoryId)
+          })
+        )
+        this.$toast.positive('Category deleted successfully')
+        this.sending = false
+        this.open = false
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+        this.open = false
+      }
+    },
     resetForm() {
       this.$v.$reset()
 

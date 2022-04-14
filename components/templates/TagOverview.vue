@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span v-fragment>
     <DataGrid
       :columns="columns"
       :checked.sync="computedChecked"
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-// import fragment from 'vue-frag'
+import fragment from 'vue-frag'
 import { GET_TAGS } from '~/graphql'
 export default {
-  // directives: {
-  //   fragment
-  // },
+  directives: {
+    fragment
+  },
   props: {
     checked: {
       type: Array,
@@ -102,6 +102,9 @@ export default {
   },
 
   methods: {
+    onDeleteSuccess() {
+      this.$apollo.queries.tags.refetch()
+    },
     onItemClick({ id }) {
       this.tagId = id
     },
@@ -109,6 +112,7 @@ export default {
     getNameComponentOptions({ name }) {
       return name
         ? {
+            tooltip: true,
             style: !name ? 'secondary' : undefined,
             value: name || 'No name provided'
           }
@@ -159,17 +163,17 @@ export default {
           }
     },
 
-    getAmountComponentOptions({ amount }) {
-      return amount
+    getAmountComponentOptions({ totalAmount }) {
+      return totalAmount
         ? {
-            style: !amount ? 'secondary' : undefined,
-            value: amount === null ? 'No payment provided' : amount,
+            style: !totalAmount ? 'secondary' : undefined,
+            value: totalAmount === null ? 'No amount provided' : totalAmount,
             name: 'Amount',
             currency: 'USD',
             currencyBefore: true
           }
         : {
-            style: !amount ? 'secondary' : undefined,
+            style: !totalAmount ? 'secondary' : undefined,
             value: 0.0,
             name: 'Amount',
             currency: 'USD',

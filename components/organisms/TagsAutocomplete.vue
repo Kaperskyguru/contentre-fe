@@ -237,7 +237,7 @@
         :label="label"
         :label-class="labelClass"
         :chip-style="chipStyle"
-        :items="getTags"
+        :items="getTags.items"
         :allow-creation="allowCreation"
         :hide-pencil-icon="hidePencilIcon"
         :disabled="disabled"
@@ -267,7 +267,7 @@
     :label="label"
     :label-class="labelClass"
     :chip-style="chipStyle"
-    :items="getTags"
+    :items="getTags.items"
     :loading="$apollo.queries.getTags.loading"
     :allow-creation="allowCreation"
     :hide-pencil-icon="hidePencilIcon"
@@ -410,7 +410,7 @@ export default {
         if (this.tagId) {
           return data.getTags.filter((tag) => tag.id !== this.tagId)
         }
-        return data.getTags
+        return { items: data.getTags.tags }
       }
     }
   },
@@ -420,7 +420,10 @@ export default {
     disableField: false,
     search: '',
     showAutoComplete: false,
-    tags: []
+    tags: [],
+    getTags: {
+      items: []
+    }
   }),
 
   computed: {
