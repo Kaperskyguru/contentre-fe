@@ -46,6 +46,7 @@
         "
       >
         <Button
+          v-if="isEditing"
           appearance="secondary"
           class="w-full"
           @click.prevent="onClickDelete"
@@ -54,7 +55,7 @@
         </Button>
 
         <Button class="w-full" type="submit" :waiting="sending">
-          Update
+          {{ isEditing ? 'Update' : 'Create' }}
         </Button>
       </div>
     </form>

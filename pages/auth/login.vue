@@ -102,6 +102,7 @@ export default {
             }
           },
           update: (cache, { data: { loginUser } }) => {
+            console.log(loginUser)
             cache.writeQuery({
               query: GET_CURRENT_USER,
               data: { getCurrentUser: loginUser }

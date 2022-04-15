@@ -362,7 +362,15 @@
                 aside-footer
               "
             >
-              <Upgrade :contents="currentUser.totalContents" />
+              <Upgrade
+                :contents="currentUser.totalContents"
+                :max="
+                  $utils.getFeatureValue(
+                    currentUser.subscription,
+                    'TOTAL_CONTENTS'
+                  )
+                "
+              />
             </div>
             <!-- End -->
           </ul>

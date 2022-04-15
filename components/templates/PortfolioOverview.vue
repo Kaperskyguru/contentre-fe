@@ -18,7 +18,16 @@
       </div>
 
       <div>
-        <Button @click.prevent="onAddPortfolio">Add Portfolio</Button>
+        <Button
+          :is-pro-feature="hasExceededPortfolio"
+          :message="
+            hasExceededPortfolio
+              ? 'You have exceeded this plan, upgrade now'
+              : ''
+          "
+          @click.prevent="onAddPortfolio"
+          >Add Portfolio</Button
+        >
       </div>
     </section>
 
@@ -65,24 +74,21 @@
                   md:flex-row md:space-y-0 md:space-x-2
                 "
               >
-                <Button type="link" target="_blank" :href="portfolio.url"
-                  >Preview</Button
-                >
                 <Button
-                  type="link"
-                  :to="{ path: `/portfolios/${portfolio.templateId}` }"
-                  >Edit</Button
-                >
-                <Button
-                  type="link"
-                  target="_blank"
-                  :to="{ path: `/portfolios/c/${portfolio.templateId}` }"
-                  >Customize</Button
-                >
-                <Button class="bg-red-500" @click.prevent="onDeletePortfolio"
+                  class="w-full"
+                  appearance="secondary"
+                  @click.prevent="onDeletePortfolio(portfolio.id)"
                   >Delete</Button
                 >
+                <Button
+                  class="w-full"
+                  @click.prevent="onEditPortfolio(portfolio.id)"
+                  >Edit</Button
+                >
               </div>
+              <a target="_blank" class="text-red-700" :href="portfolio.url"
+                >Preview as new page</a
+              >
             </article>
           </div>
           <!-- End Portfolio 1 -->
@@ -90,13 +96,11 @@
       </div>
     </section>
 
-    <Dialog v-model="isConfirmModalVisible">
-      <div class="block w-full text-gray-700 bg-white">
-        <div class="flex justify-between w-full text-gray-700 bg-white">
-          <AddPortfolio @create:success="onAddPortfolio" />
-        </div>
-      </div>
-    </Dialog>
+    <LazyPortfolioEdit
+      v-model="isConfirmModalVisible"
+      :portfolio-id="portfolioId"
+      @toggle="refetch"
+    />
 
     <Dialog
       v-model="isDeletePortfolioVisible"
@@ -113,16 +117,21 @@
 </template>
 
 <script>
-import { GET_PORTFOLIOS } from '~/graphql'
+import { DELETE_PORTFOLIO, GET_PORTFOLIOS } from '~/graphql'
+import { currentUser } from '~/components/mixins'
 export default {
   components: {
     IconInformationCircle: () =>
       import('~/assets/icons/information-circle.svg?inline')
   },
+
+  mixins: [currentUser],
   data: () => ({
     isConfirmModalVisible: false,
     isDeletePortfolioVisible: false,
     checked: [],
+    columns: [],
+    portfolioId: null,
     portfolios: {
       items: [],
       total: 0
@@ -143,18 +152,58 @@ export default {
     }
   },
 
+  computed: {
+    hasExceededPortfolio() {
+      const subValue = this.$utils.getFeatureValue(
+        this.currentUser.subscription,
+        'TOTAL_CONTENTS'
+      )
+
+      if (subValue === 0) return false
+      return this.currentUser.totalContent <= subValue
+    }
+  },
+
   methods: {
+    onFilters() {},
     onAddPortfolio() {
       this.isConfirmModalVisible = !this.isConfirmModalVisible
     },
 
-    onDeletePortfolio() {
+    onEditPortfolio(id) {
+      this.portfolioId = id
+      this.isConfirmModalVisible = !this.isConfirmModalVisible
+    },
+
+    onDeletePortfolio(id) {
+      this.portfolioId = id
       this.isDeletePortfolioVisible = !this.isDeletePortfolioVisible
     },
 
-    deletePortfolio(answer) {
+    refetch() {
+      this.$apollo.queries.portfolios.refetch()
+    },
+
+    async deletePortfolio(answer) {
       if (!answer) return
-      alert('done')
+
+      try {
+        this.$emit(
+          'deleted',
+          await this.$apollo.mutate({
+            mutation: DELETE_PORTFOLIO,
+            variables: {
+              id: this.portfolioId
+            }
+          })
+        )
+        this.$toast.positive('Portfolio deleted successfully')
+        this.sending = false
+        this.refetch()
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+      }
     }
   }
 }

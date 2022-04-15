@@ -1,6 +1,27 @@
 <template>
+  <Tooltip v-if="isProFeature" position="top" :label="message">
+    <button
+      :tabindex="isProFeature || (active && activeAutoDisables) ? -1 : 0"
+      :class="classNames"
+      class="bg-btn-green opacity-50"
+      :disabled="waiting"
+      :aria-label="waiting ? 'Please wait…' : undefined"
+    >
+      <div v-if="waiting" class="custom-icon" role="presentation">
+        <SvgLoader class="-my-px" />
+      </div>
+
+      <template v-else>
+        <slot />
+        <div v-if="$slots.icon" class="custom-icon" role="presentation">
+          <slot name="icon" />
+        </div>
+      </template>
+    </button>
+  </Tooltip>
+
   <a
-    v-if="type.includes('link') && !to"
+    v-else-if="type.includes('link') && !to && !isProFeature"
     v-bind="$attrs"
     :tabindex="disabled || (active && activeAutoDisables) ? -1 : 0"
     :class="classNames"
@@ -21,7 +42,7 @@
   </a>
 
   <Hyperlink
-    v-else-if="type.includes('link') && to"
+    v-else-if="type.includes('link') && to && !isProFeature"
     :to="to"
     v-bind="$attrs"
     :tabindex="disabled || (active && activeAutoDisables) ? -1 : 0"
@@ -109,6 +130,16 @@ export default defineComponent({
       type: String,
       validate: (value) => ['primary', 'secondary', 'tertiary'].includes(value),
       default: 'primary'
+    },
+
+    isProFeature: {
+      type: Boolean,
+      default: false
+    },
+
+    message: {
+      type: String,
+      default: ''
     },
 
     size: {

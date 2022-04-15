@@ -290,6 +290,17 @@ export const getWindowHeight = () => {
 }
 
 /**
+ * Get Feature value.
+ *
+ * @returns float
+ */
+export const getFeatureValue = (subscription, name) => {
+  const feature = subscription?.features.find((item) => item.feature === name)
+  if (!feature) return null
+  return feature.value === 'unlimited' ? 0 : feature.value
+}
+
+/**
  * Get visible items based on show / hide props.
  *
  * @param array items
@@ -319,6 +330,7 @@ export default function (_context, inject) {
     debounce,
     getWindowWidth,
     getWindowHeight,
-    getVisibleItems
+    getVisibleItems,
+    getFeatureValue
   })
 }
