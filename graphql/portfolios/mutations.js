@@ -9,8 +9,17 @@ export const CREATE_PORTFOLIO = gql`
   }
   ${portfolioFragments.portfolio}
 `
-// export const DELETE_CLIENT = gql`
-//   mutation deleteClient($id: ID!) {
-//     deleteClient(id: $id)
-//   }
-// `
+export const DELETE_PORTFOLIO = gql`
+  mutation deletePortfolio($id: ID!) {
+    deletePortfolio(id: $id)
+  }
+`
+
+export const UPDATE_PORTFOLIO = gql`
+  mutation updatePortfolio($id: ID!, $input: UpdatePortfolioInput!) {
+    updatePortfolio(id: $id, input: $input) {
+      ...portfolio
+    }
+  }
+  ${portfolioFragments.portfolio}
+`

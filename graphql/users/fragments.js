@@ -15,6 +15,19 @@ export const userFragments = {
       bio
       homeAddress
       portfolio
+      subscriptionId
+      subscription {
+        id
+        name
+        expiry
+        features {
+          feature
+          value
+          id
+        }
+      }
+      paying
+      isTrial
       jobTitle
       hasFinishedOnboarding
       totalContents

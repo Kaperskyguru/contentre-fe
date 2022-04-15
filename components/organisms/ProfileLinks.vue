@@ -7,9 +7,10 @@
           justify-between
           items-center
           space-x-3
+          text-sm
           font-semibold
           leading-8
-          text-center text-gray-900 text-sm
+          text-center text-gray-900
         "
       >
         <span>Portfolio Link</span>
@@ -47,9 +48,10 @@
           justify-between
           items-center
           space-x-3
+          text-sm
           font-semibold
           leading-8
-          text-center text-gray-900 text-sm
+          text-center text-gray-900
         "
       >
         <span>Profile Links</span>
@@ -100,12 +102,17 @@ export default {
       default: () => {}
     }
   },
+  data() {
+    return {
+      clients: []
+    }
+  },
   apollo: {
     clients: {
       query: GET_CLIENTS,
       fetchPolicy: 'cache-and-network',
       update(data) {
-        return data.getClients.filter((client) => client.profile)
+        return data.getClients.clients.filter((client) => client.profile)
       }
     }
   },

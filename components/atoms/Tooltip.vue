@@ -145,6 +145,7 @@ export default {
     },
 
     async show() {
+      if (this.label === '') return
       this.updateAbsolutePosition()
       await this.$nextTick()
       this.visible = true

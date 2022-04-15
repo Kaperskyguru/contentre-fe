@@ -5,7 +5,10 @@ export const portfolioFragments = {
     fragment portfolio on Portfolio {
       id
       title
-      templateId
+      template {
+        content
+        id
+      }
       url
       type
       description

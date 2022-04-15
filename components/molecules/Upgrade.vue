@@ -15,7 +15,7 @@
 
     <div class="px-2 pb-2 aside-footer-footer">
       <p class="pb-4 font-roboto text-white">
-        {{ contents }}<span class="text-white"> of {{ max }}</span>
+        {{ contents }}<span class="text-white"> of {{ maxText }}</span>
       </p>
 
       <ProgressBar
@@ -51,6 +51,10 @@ export default {
   computed: {
     computeContent() {
       return this.contents * 100
+    },
+    maxText() {
+      if (this.max === 0) return 'Unlimited'
+      return this.max
     },
     computeTotal() {
       return this.max * 100

@@ -30,7 +30,15 @@
       </div>
 
       <div>
-        <Button type="link" :to="{ name: 'contents/add' }" appearance="primary">
+        <Button
+          type="link"
+          :to="{ name: 'contents/add' }"
+          appearance="primary"
+          :is-pro-feature="hasExceededContent"
+          :message="
+            hasExceededContent ? 'You have exceeded this plan, upgrade now' : ''
+          "
+        >
           Add Content
         </Button>
       </div>
@@ -53,8 +61,10 @@
 </template>
 
 <script>
+import { currentUser } from '~/components/mixins'
 export default {
   name: 'ContentPage',
+  mixins: [currentUser],
   layout: 'Dashboard',
   data: () => ({
     checked: [],
@@ -70,6 +80,18 @@ export default {
       { name: 'Amount', key: 'amount' }
     ]
   }),
+
+  computed: {
+    hasExceededContent() {
+      const subValue = this.$utils.getFeatureValue(
+        this.currentUser.subscription,
+        'TOTAL_CONTENTS'
+      )
+
+      if (subValue === 0) return false
+      return this.currentUser.totalContent <= subValue
+    }
+  },
 
   watch: {
     $route() {
