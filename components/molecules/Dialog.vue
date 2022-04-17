@@ -14,12 +14,11 @@
           fixed
           top-0
           left-0
-          z-50
+          z-40
           place-items-center
           w-full
           h-full
-          bg-gray-500
-          opacity-50
+          bg-gray-500 bg-opacity-50
           backdrop-blur
         "
         @click.prevent="closeByBackdrop"
@@ -162,9 +161,9 @@ export default defineComponent({
 
   methods: {
     closeByBackdrop() {
-      if (this.secondaryText) {
-        this.answer(false)
-      }
+      // if (this.secondaryText) {
+      this.answer(false)
+      // }
     },
 
     closeByKey(event) {

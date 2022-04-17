@@ -23,22 +23,22 @@ export default {
   data: () => ({
     statistics: [
       {
-        text: 'Avg. Click Rate',
+        text: 'Total Revenue',
         key: 'shares',
         icon: Rocket
       },
       {
-        text: 'Page Views',
+        text: 'Total Contents',
         key: 'views',
         icon: Show
       },
       {
-        text: 'Total Likes',
+        text: 'Total Clients',
         key: 'likes',
         icon: Heart
       },
       {
-        text: 'Total Comments',
+        text: 'Interactions',
         key: 'comments',
         icon: Chat
       }
@@ -72,15 +72,14 @@ export default {
             value: parseFloat(this.stats.shares).toFixed(2),
             increment: parseFloat(this.stats.sharePercent).toFixed(2)
           })
-
-          stats.push({
-            text: 'Page Views',
-            value: '0.0',
-            increment: '0.0',
-            key: 'views',
-            icon: Show
-          })
         }
+
+        if (item.key === 'views')
+          stats.push({
+            ...item,
+            value: '0.0',
+            increment: '0.0'
+          })
       })
 
       return stats
