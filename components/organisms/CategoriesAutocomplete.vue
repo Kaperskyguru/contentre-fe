@@ -244,7 +244,7 @@
     :label="label"
     :label-class="labelClass"
     :chip-style="chipStyle"
-    :items="getCategories"
+    :items="items ? items : getCategories"
     :allow-creation="allowCreation"
     :loading="$apollo.queries.getCategories.loading"
     :hide-pencil-icon="hidePencilIcon"
@@ -280,6 +280,11 @@ export default {
     id: {
       type: String,
       default: ''
+    },
+
+    items: {
+      type: [Array, Object],
+      default: null
     },
 
     isInputBorderEnabled: {
@@ -380,6 +385,9 @@ export default {
       },
       update(data) {
         return data.getCategories
+      },
+      skip() {
+        return !!this.items
       }
     }
   },

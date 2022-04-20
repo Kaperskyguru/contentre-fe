@@ -45,15 +45,16 @@
             elevation="large"
             padding="large"
             class="
+              flex
               overflow-hidden
               relative
+              flex-col
               !pb-4
               space-y-2
               w-full
               max-w-[88vw]
               md:max-w-[30rem]
               z-5
-              flex flex-col
             "
             :class="{
               'xl:w-1/3': !inside,
@@ -93,13 +94,12 @@
             <div
               v-if="waiting"
               class="
-                flex
+                flex flex-col flex-1
                 justify-center
                 items-center
                 space-y-6
                 drop-shadow
                 md:overflow-hidden
-                flex-col flex-1
               "
             >
               <Loading class="opacity-20" />

@@ -245,7 +245,7 @@
     :label="label"
     :label-class="labelClass"
     :chip-style="chipStyle"
-    :items="clients"
+    :items="items ? items : clients"
     :loading="$apollo.queries.clients.loading"
     :allow-creation="allowCreation"
     :hide-pencil-icon="hidePencilIcon"
@@ -282,6 +282,11 @@ export default {
     id: {
       type: String,
       default: ''
+    },
+
+    items: {
+      type: [Array, Object],
+      default: null
     },
 
     categoryId: {
@@ -390,6 +395,9 @@ export default {
         //   )
         // }
         return data.getClients.clients
+      },
+      skip() {
+        return !!this.items
       }
     }
   },

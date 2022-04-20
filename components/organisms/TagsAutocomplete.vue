@@ -199,7 +199,7 @@
 
       <Tooltip
         v-else-if="!showAutoComplete && displayTag && filteredTags.length <= 0"
-        key="label"
+        key="label1"
         :trigger="['hover']"
         :label="displayTag"
         :disabled="!displayTag"
@@ -267,7 +267,7 @@
     :label="label"
     :label-class="labelClass"
     :chip-style="chipStyle"
-    :items="getTags.items"
+    :items="items ? items : getTags.items"
     :loading="$apollo.queries.getTags.loading"
     :allow-creation="allowCreation"
     :hide-pencil-icon="hidePencilIcon"
@@ -353,6 +353,10 @@ export default {
       type: Boolean,
       default: false
     },
+    items: {
+      type: [Array, Object],
+      default: null
+    },
 
     all: {
       type: Boolean,
@@ -411,6 +415,9 @@ export default {
           return data.getTags.filter((tag) => tag.id !== this.tagId)
         }
         return { items: data.getTags.tags }
+      },
+      skip() {
+        return !!this.items
       }
     }
   },
