@@ -24,7 +24,18 @@
         </h3>
       </div>
     </div>
-    <div v-if="noData" class="text-xl text-center">
+    <Tooltip
+      v-if="isUnderDevelopment"
+      :label="'Coming Soon'"
+      tooltip-class="bg-red-400"
+      :trigger="['hover', 'focus']"
+      position="top"
+    >
+      <div class="text-xl text-center">
+        <NoData @clear="$emit('clear')" />
+      </div>
+    </Tooltip>
+    <div v-else-if="noData" class="text-xl text-center">
       <NoData @clear="$emit('clear')" />
     </div>
     <Chart
@@ -48,7 +59,10 @@ export default {
       type: [String, Number],
       default: 0.0
     },
-
+    isUnderDevelopment: {
+      type: Boolean,
+      default: false
+    },
     data: {
       type: [Array, Object],
       default: () => {}

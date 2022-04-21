@@ -5,7 +5,7 @@
         <PageTitle>Dashboard</PageTitle>
       </div>
       <section class="container mx-auto">
-        <StatOverview :stats="metadata.stats" />
+        <StatOverview :columns="boxColumns" :stats="metadata.stats" />
       </section>
 
       <!-- Chart -->
@@ -85,7 +85,10 @@
 
 <script>
 import { GET_INDEX_METADATA, GET_OVERALL_STATS } from '~/graphql'
-
+import Rocket from '~/assets/icons/rocket.svg'
+import Show from '~/assets/icons/show.svg'
+import Heart from '~/assets/icons/heart.svg'
+import Chat from '~/assets/icons/chat.svg'
 export default {
   name: 'HomePage',
   layout: 'Dashboard',
@@ -100,7 +103,29 @@ export default {
       labels: [],
       title: '',
       datasets: []
-    }
+    },
+    boxColumns: [
+      {
+        text: 'Total Revenue',
+        key: 'amounts',
+        icon: Rocket
+      },
+      {
+        text: 'Total Contents',
+        key: 'contents',
+        icon: Show
+      },
+      {
+        text: 'Total Clients',
+        key: 'clients',
+        icon: Heart
+      },
+      {
+        text: 'Interactions',
+        key: 'interactions',
+        icon: Chat
+      }
+    ]
   }),
 
   apollo: {

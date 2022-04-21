@@ -31,8 +31,25 @@
       </div>
     </section>
 
-    <div class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8">
-      <ChartOverview title="Traffic Overview" />
+    <section class="container mx-auto">
+      <StatOverview
+        :columns="boxColumns"
+        :stats="getBoxStats"
+        :is-under-development="true"
+      />
+    </section>
+
+    <div
+      class="p-4 mt-6 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
+      :class="{
+        'bg-gray-100': isUnderDevelopment
+      }"
+    >
+      <ChartOverview
+        :is-under-development="isUnderDevelopment"
+        title="Traffic Overview"
+        :data="{}"
+      />
     </div>
 
     <section class="container mx-auto mt-8">
@@ -117,6 +134,9 @@
 </template>
 
 <script>
+import Rocket from '~/assets/icons/rocket.svg'
+import Show from '~/assets/icons/show.svg'
+import Chat from '~/assets/icons/chat.svg'
 import { DELETE_PORTFOLIO, GET_PORTFOLIOS } from '~/graphql'
 import { currentUser } from '~/components/mixins'
 export default {
@@ -129,8 +149,27 @@ export default {
   data: () => ({
     isConfirmModalVisible: false,
     isDeletePortfolioVisible: false,
+    isUnderDevelopment: true,
     checked: [],
     columns: [],
+    boxColumns: [
+      {
+        text: 'Users',
+        key: 'users',
+        icon: Rocket
+      },
+      {
+        text: 'Unique Users',
+        key: 'newUser',
+        icon: Show
+      },
+      {
+        text: 'Page Views',
+        key: 'views',
+        icon: Chat
+      }
+    ],
+    getBoxStats: {},
     portfolioId: null,
     portfolios: {
       items: [],

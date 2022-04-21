@@ -36,25 +36,13 @@
           </p>
         </div>
         <div class="pb-4">
-          <div
-            class="
-              flex
-              justify-center
-              items-center
-              px-3
-              w-full
-              border
-              shadow
-              focus:shadow-outline
-            "
+          <Button
+            appearance="outline"
+            class="py-2 px-4 font-bold"
+            @click.prevent="onEmailVerify"
           >
-            <button
-              class="py-2 px-4 font-bold text-black rounded-lg"
-              @click.prevent="onEmailVerify"
-            >
-              Set Up
-            </button>
-          </div>
+            Set Up
+          </Button>
         </div>
       </div>
 
@@ -69,25 +57,13 @@
           </p>
         </div>
         <div class="pb-4">
-          <div
-            class="
-              flex
-              justify-center
-              items-center
-              px-3
-              w-full
-              border
-              shadow
-              focus:shadow-outline
-            "
+          <Button
+            appearance="outline"
+            class="py-2 px-4 font-bold"
+            @click.prevent="onSMA2FA"
           >
-            <button
-              class="py-2 px-4 font-bold text-black rounded-lg"
-              @click.prevent="onSMA2FA"
-            >
-              Set Up
-            </button>
-          </div>
+            Set Up
+          </Button>
         </div>
       </div>
     </div>
@@ -96,11 +72,10 @@
       <template slot="icon">
         <div class="uppercase">Verify phone number</div></template
       >
-      <!-- <div class="block w-full text-gray-700 bg-white"> -->
+
       <div class="flex w-full text-gray-700 bg-white">
         <VerifySMS2FA @create:success="onVerifiedSMS2FA" />
       </div>
-      <!-- </div> -->
     </Dialog>
 
     <Dialog v-model="isEmailModalVisible" :secondary-text="'Close'">

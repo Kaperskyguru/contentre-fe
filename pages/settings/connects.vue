@@ -54,22 +54,7 @@
               :value="`https://www.contentre.io/register?referrer=${currentUser.username}`"
             />
           </div>
-          <div>
-            <div
-              class="
-                flex
-                justify-center
-                items-center
-                px-3
-                w-full
-                shadow
-                form-btn
-                focus:shadow-outline
-              "
-            >
-              <Button type="submit"> Copy Link </Button>
-            </div>
-          </div>
+          <Button type="submit"> Copy Link </Button>
         </div>
 
         <div class="block pb-2 mt-6 font-normal text-black">
@@ -84,22 +69,7 @@
               placeholder="Enter your friend's email"
             />
           </div>
-          <div>
-            <div
-              class="
-                flex
-                justify-center
-                items-center
-                px-3
-                w-full
-                shadow
-                form-btn
-                focus:shadow-outline
-              "
-            >
-              <Button type="submit"> Invite </Button>
-            </div>
-          </div>
+          <Button type="submit"> Invite </Button>
         </div>
 
         <CustomText
@@ -126,8 +96,10 @@
         <div class="block pb-2 font-bold text-black">
           <p class="mb-4 text-sm">Teams Members</p>
         </div>
-
-        <div class="block pb-2 font-normal text-black mt-">
+        <Warning v-if="isUnderDevelopment" href="#" button-text="Give Feedback"
+          >Team feature is under development</Warning
+        >
+        <div class="block pb-2 mt-6 font-normal text-black">
           <p class="text-base text-gray-500">
             Invite team members to Contentre
           </p>
@@ -141,22 +113,9 @@
               placeholder="Enter your team member email"
             />
           </div>
-          <div>
-            <div
-              class="
-                flex
-                justify-center
-                items-center
-                px-3
-                w-full
-                shadow
-                form-btn
-                focus:shadow-outline
-              "
-            >
-              <Button type="submit"> Invite </Button>
-            </div>
-          </div>
+          <Button type="submit" :is-pro-feature="true" :message="'Coming Soon'">
+            Invite
+          </Button>
         </div>
 
         <section class="container px-4 mx-auto bg-white">
@@ -178,6 +137,7 @@ export default {
 
   data: () => ({
     headers: ['Website', 'Profile link', 'Total Contents'],
+    isUnderDevelopment: true,
     data: [
       {
         id: 'aas-dsd-xx-ad-cdad',

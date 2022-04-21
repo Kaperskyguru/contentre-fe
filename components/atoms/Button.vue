@@ -129,7 +129,9 @@ export default defineComponent({
     appearance: {
       type: String,
       validate: (value) =>
-        ['primary', 'secondary', 'tertiary', 'outline'].includes(value),
+        ['primary', 'secondary', 'tertiary', 'outline', 'outline-red'].includes(
+          value
+        ),
       default: 'primary'
     },
 
@@ -334,6 +336,10 @@ export default defineComponent({
 
 .button-outline {
   @apply border hover:bg-btn-green hover:text-white border-btn-green bg-white text-btn-green;
+}
+
+.button-outline-red {
+  @apply border hover:bg-red-500 hover:text-white border-red-500 bg-white text-red-500;
 }
 
 .custom-icon:not(:only-child) {

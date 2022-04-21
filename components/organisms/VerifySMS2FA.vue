@@ -6,7 +6,7 @@
           v-model="$v.fieldPhone.$model"
           type="text"
           class="w-full text-sm"
-          placeholder="Enter email"
+          placeholder="Enter Phone number"
           :error="getValidationMessage($v.fieldPhone)"
           :disabled="sent"
         />

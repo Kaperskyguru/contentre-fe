@@ -56,9 +56,7 @@
             </div>
           </div>
           <div class="px-4 w-full md:w-1/2 xl:w-1/2">
-            <div
-              class="overflow-hidden my-8 mb-10 bg-teal-100 rounded-lg shadow"
-            >
+            <div class="overflow-hidden mb-10 bg-teal-100 rounded-lg shadow">
               <div class="p-4 text-sm sm:p-9 md:p-7 xl:p-9">
                 <p class="block font-bold text-black">Password Rules</p>
                 <p class="mb-7 leading-relaxed text-gray-900">
