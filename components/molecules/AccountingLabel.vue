@@ -6,7 +6,7 @@ export default defineComponent({
 
   props: {
     value: {
-      type: Number,
+      type: [Number, String],
       default: null
     },
 
@@ -23,7 +23,10 @@ export default defineComponent({
 
   render(createElement) {
     const value = this.value || '0'
-    const formattedValue = new Intl.NumberFormat().format(value) // this.$n(value, 'float')
+    const isNumber = Number.isInteger(value)
+    const formattedValue = isNumber
+      ? new Intl.NumberFormat().format(value)
+      : this.$n(value, 'float')
 
     const innerHTML = formattedValue.replace(
       /[-.,]/g,

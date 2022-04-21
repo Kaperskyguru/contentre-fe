@@ -27,9 +27,13 @@
             >{{ uppercaseText }}</span
           >
 
-          <span class="font-gilroy text-2xl font-bold tracking-wide">{{
-            statValue
-          }}</span>
+          <span class="font-gilroy text-2xl font-bold tracking-wide">
+            <DataGridCellMoney
+              :options="{
+                value: statValue
+              }"
+            />
+          </span>
         </div>
         <div class="px-1 mt-8">
           <div class="flex items-start rounded-lg">
@@ -57,9 +61,15 @@
             >{{ uppercaseText }}</span
           >
 
-          <span class="font-gilroy text-2xl font-bold tracking-wide">{{
-            statValue
-          }}</span>
+          <span class="font-gilroy text-2xl font-bold tracking-wide">
+            <DataGridCellMoney
+              :options="{
+                value: statValue,
+                currency: Number.isInteger(statValue) ? '' : 'USD',
+                currencyBefore: false
+              }"
+            />
+          </span>
         </div>
         <div class="px-1 mt-8">
           <div class="flex items-start rounded-lg">
@@ -82,7 +92,9 @@
 </template>
 
 <script>
+import DataGridCellMoney from './DataGridCellMoney.vue'
 export default {
+  components: { DataGridCellMoney },
   props: {
     stat: {
       type: Object,
@@ -93,25 +105,21 @@ export default {
       default: false
     }
   },
-
   computed: {
     uppercaseText() {
       return this.stat?.text?.toUpperCase()
     },
-
     statValue() {
       return isNaN(this.stat?.value) || this.stat?.value === undefined
-        ? 0.0
+        ? 0
         : this.stat?.value
     },
-
     statIcon() {
       return this.stat?.icon
     },
-
     statIncrement() {
       return isNaN(this.stat?.increment) || this.stat?.increment === undefined
-        ? 0.0
+        ? 0
         : this.stat?.increment
     }
   }
