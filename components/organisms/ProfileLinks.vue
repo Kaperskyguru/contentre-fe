@@ -15,7 +15,7 @@
       >
         <span>Portfolio Link</span>
         <span class="text-black">
-          <svg
+          <!-- <svg
             aria-hidden="true"
             fill="none"
             viewBox="0 0 24 24"
@@ -28,7 +28,9 @@
               stroke-width="2"
               d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
             />
-          </svg>
+          </svg> -->
+
+          <PencilIcon />
         </span>
       </div>
 
@@ -55,26 +57,30 @@
         "
       >
         <span>Profile Links</span>
-        <span class="text-black">
-          <Hyperlink :to="{ name: 'clients' }">
-            <span class="text-black">
-              <svg
-                aria-hidden="true"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="shrink-0 mt-0.5 mr-2 -ml-1 w-5 h-5"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                />
-              </svg>
-            </span>
-          </Hyperlink>
-        </span>
+        <div class="flex">
+          <ShareIcon />
+
+          <span class="ml-5 text-black">
+            <Hyperlink :to="{ name: 'clients' }">
+              <span class="text-black hover:text-btn-green">
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="shrink-0 mt-0.5 mr-2 -ml-1 w-5 h-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
+                </svg>
+              </span>
+            </Hyperlink>
+          </span>
+        </div>
       </div>
 
       <div class="grid grid-cols-5 mt-2">
@@ -96,6 +102,9 @@
 <script>
 import { GET_CLIENTS } from '~/graphql'
 export default {
+  components: {
+    ShareIcon: () => import('~/assets/icons/share.svg?inline')
+  },
   props: {
     user: {
       type: [Array, Object],
