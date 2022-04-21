@@ -178,6 +178,7 @@
         :placeholder="placeholder"
         class="w-full h-full"
         :show-border="false"
+        :is-editor="editor"
         :required="isRequired"
         :rows="rows"
         :type="type"
@@ -195,10 +196,16 @@ export default {
     prop: 'value',
     event: 'input'
   },
+
   props: {
     shouldShowEditingOptions: {
       default: false,
       type: Boolean
+    },
+
+    editor: {
+      type: Boolean,
+      default: false
     },
 
     type: {

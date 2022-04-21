@@ -62,14 +62,13 @@
         w-full
         rounded
         border
-        focus:border-body-text-color
         outline-none
         focus:outline-none
       "
       :class="[
         {
           'border-red-500': !disabled && !!error,
-          'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
+          'border-silver hover:bg-white hover:border-btn-green focus-within:border-btn-green':
             !disabled && !error,
           'bg-gray-500 bg-opacity-10': !!disabled,
           '!bg-linen !border-0 py-0 focus:!ring-0 home': !!home
@@ -179,7 +178,7 @@ export default defineComponent({
 
     items: {
       default: () => [],
-      type: Array
+      type: [Array, Object]
     },
 
     valueKey: {

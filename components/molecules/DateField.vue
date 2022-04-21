@@ -60,10 +60,8 @@
         order-2
         items-center
         bg-white
-        focus-within:bg-snow
         rounded
         border
-        focus-within:ring-2
         transition-all
       "
       :class="[
@@ -71,7 +69,7 @@
         {
           'mt-1': !!label,
           'border-red-500': !disabled && !!error,
-          'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
+          'border-silver hover:bg-white hover:border-btn-green focus-within:border-btn-green focus-within:bg-white':
             !disabled && !error,
           'border-silver bg-warngray bg-opacity-10': !!disabled
         }

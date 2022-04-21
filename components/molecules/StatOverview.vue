@@ -24,22 +24,22 @@ export default {
     statistics: [
       {
         text: 'Total Revenue',
-        key: 'shares',
+        key: 'amounts',
         icon: Rocket
       },
       {
         text: 'Total Contents',
-        key: 'views',
+        key: 'contents',
         icon: Show
       },
       {
         text: 'Total Clients',
-        key: 'likes',
+        key: 'clients',
         icon: Heart
       },
       {
         text: 'Interactions',
-        key: 'comments',
+        key: 'interactions',
         icon: Chat
       }
     ]
@@ -50,35 +50,35 @@ export default {
       const stats = []
 
       this.statistics.forEach((item) => {
-        if (item.key === 'likes') {
+        if (item.key === 'clients') {
           stats.push({
             ...item,
-            value: parseFloat(this.stats.likes).toFixed(2),
-            increment: parseFloat(this.stats.likePercent).toFixed(2)
+            value: parseInt(this.stats.totalClients),
+            increment: parseFloat(this.stats.clientPercent).toFixed(2)
           })
         }
 
-        if (item.key === 'comments') {
+        if (item.key === 'interactions') {
           stats.push({
             ...item,
-            value: parseFloat(this.stats.comments).toFixed(2),
-            increment: parseFloat(this.stats.commentPercent).toFixed(2)
+            value: parseInt(this.stats.currentInteractions),
+            increment: parseFloat(this.stats.interactionPercent).toFixed(2)
           })
         }
 
-        if (item.key === 'shares') {
+        if (item.key === 'amounts') {
           stats.push({
             ...item,
-            value: parseFloat(this.stats.shares).toFixed(2),
-            increment: parseFloat(this.stats.sharePercent).toFixed(2)
+            value: parseFloat(this.stats.amount).toFixed(2),
+            increment: parseFloat(this.stats.amountPercentStat).toFixed(2)
           })
         }
 
-        if (item.key === 'views')
+        if (item.key === 'contents')
           stats.push({
             ...item,
-            value: '0.0',
-            increment: '0.0'
+            value: parseInt(this.stats.totalContents),
+            increment: parseFloat(this.stats.contentPercent).toFixed(2)
           })
       })
 

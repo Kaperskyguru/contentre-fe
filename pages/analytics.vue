@@ -12,7 +12,7 @@
       <!-- end of calender -->
 
       <section class="container mx-auto">
-        <StatOverview :stats="stats" />
+        <StatOverview :stats="getBoxStats" />
       </section>
 
       <!-- Charts -->
@@ -39,7 +39,7 @@
               xl:p-8
             "
           >
-            <ChartOverview :data="chartData" :title="stats.chartTitle" />
+            <ChartOverview :data="chartData" :title="chartTitle" />
           </div>
 
           <div
@@ -157,6 +157,7 @@
 
 <script>
 import {
+  GET_BOX_STATS,
   GET_CATEGORIES,
   GET_CATEGORY_STATS,
   GET_OVERALL_STATS,
@@ -168,6 +169,7 @@ export default {
   layout: 'Dashboard',
 
   data: () => ({
+    chartTitle: 'Content Overview',
     metadata: {
       performance: {},
       categoryStat: {}
@@ -189,15 +191,7 @@ export default {
     tagFilters: [],
     categoryFilters: [],
     checked: [],
-    stats: {
-      shares: 0.0,
-      sharePercent: 0.0,
-      likes: 0.0,
-      likePercent: 0.0,
-      comments: 0.0,
-      commentPercent: 0.0,
-      chartTitle: 'Content Overview'
-    },
+    getBoxStats: {},
 
     chartData: []
   }),
@@ -249,6 +243,18 @@ export default {
               }
             : []
         }
+      }
+    },
+
+    getBoxStats: {
+      query: GET_BOX_STATS,
+      variables() {
+        return {
+          filters: { ...this.filters }
+        }
+      },
+      update(data) {
+        return data.getBoxStats
       }
     },
 
@@ -349,13 +355,8 @@ export default {
   methods: {
     onFilters(data) {
       this.filters = {
-        ...data,
-        categories: data.categories.length
-          ? data.categories.map((cat) => cat.name)
-          : data.categories,
-        tags: data.tags.length ? data.tags.map((tag) => tag.name) : data.tags
+        ...data
       }
-
       this.tagFilters = this.filters
       this.categoryFilters = this.filters
     },
