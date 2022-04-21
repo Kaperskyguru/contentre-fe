@@ -14,17 +14,19 @@
       <div class="flex flex-col space-y-2">
         <span
           class="
+            font-gilroy
+            text-xs
+            font-medium
             tracking-wide
-            font-gilroy font-medium
-            text-gray-400 text-xs
+            text-gray-400
             card-header
           "
           >{{ uppercaseText }}</span
         >
 
-        <span class="font-gilroy text-2xl font-bold tracking-wide"
-          >{{ statValue }}%</span
-        >
+        <span class="font-gilroy text-2xl font-bold tracking-wide">{{
+          statValue
+        }}</span>
       </div>
       <div class="px-1 mt-8">
         <div class="flex items-start rounded-lg row">

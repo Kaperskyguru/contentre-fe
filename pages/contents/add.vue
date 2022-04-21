@@ -146,6 +146,7 @@
         <ContentField
           v-model="$v.fieldExcerpt.$model"
           :rows="8"
+          :editor="true"
           :is-required="false"
           :show-border="false"
           placeholder="+ Type your content excerpt here"
@@ -162,6 +163,7 @@
         <ContentField
           v-model="$v.fieldContent.$model"
           :rows="20"
+          :editor="true"
           placeholder="+ Type your content here"
           :spellcheck="false"
           :disabled="true"
@@ -241,41 +243,17 @@
             </div>
           </div>
         </div>
-        <div class="flex flex-col justify-end my-8 md:flex-row">
-          <button
-            id="buttonmodal"
-            class="
-              py-4
-              px-24
-              mt-4
-              text-sm
-              font-bold
-              leading-5
-              text-center text-white
-              bg-teal-300
-              rounded-md
-              form-btn
-            "
-            type="submit"
-          >
-            Publish
-          </button>
-          <button
-            class="
-              py-4
-              px-24
-              mt-4
-              text-sm
-              font-bold
-              leading-5
-              text-center text-white
-              rounded-md
-              md:ml-4
-              form-btn
-            "
-          >
-            Schedule
-          </button>
+        <div
+          class="
+            flex flex-col
+            justify-end
+            my-8
+            space-y-4 space-x-0
+            md:flex-row md:space-y-0 md:space-x-4
+          "
+        >
+          <Button appearance="outline"> Schedule </Button>
+          <Button type="submit"> Publish </Button>
         </div>
       </div>
     </form>

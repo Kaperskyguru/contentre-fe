@@ -44,6 +44,11 @@
     <LazyContentsFilters
       v-model="filtersShowFloatingPanel"
       :filter-columns="filterColumns"
+      :clients="clients"
+      :categories="categories"
+      :topics="topics"
+      :tags="tags"
+      :remove="remove"
       :show-sort-by="showSortBy"
       @close-panel="onChangeFilters"
     />
@@ -61,6 +66,27 @@ export default {
       type: Array,
       default: () => []
     },
+    remove: {
+      type: Array,
+      default: () => []
+    },
+    clients: {
+      type: [Array, Object],
+      default: null
+    },
+    categories: {
+      type: [Array, Object],
+      default: null
+    },
+
+    topics: {
+      type: [Array, Object],
+      default: null
+    },
+    tags: {
+      type: [Array, Object],
+      default: null
+    },
     showSortBy: {
       type: Boolean,
       default: true
@@ -75,9 +101,6 @@ export default {
   computed: {
     hasFilter() {
       const filter = { ...this.filters }
-
-      delete filter.expense
-      delete filter.legalEntityIds
 
       return (
         Object.values(filter).filter((elem) =>

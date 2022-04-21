@@ -31,13 +31,12 @@
 
       <div>
         <Button
-          type="link"
-          :to="{ name: 'contents/add' }"
           appearance="primary"
           :is-pro-feature="hasExceededContent"
           :message="
             hasExceededContent ? 'You have exceeded this plan, upgrade now' : ''
           "
+          @click.prevent="onAddContent"
         >
           Add Content
         </Button>
@@ -57,6 +56,17 @@
     <!-- end of table -->
 
     <LazyCategoryEdit v-model="isAddCategory" @created="onCreateSuccess" />
+
+    <Dialog v-model="isAddContent">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <LazyAddContent @created="onCreateSuccess" />
+        </div>
+      </div>
+      <div class="flex justify-center pt-5 text-xs font-bold text-btn-green">
+        <Hyperlink to="#"> Or bulk import URLs </Hyperlink>
+      </div>
+    </Dialog>
   </section>
 </template>
 
@@ -71,6 +81,7 @@ export default {
     searchedTerm: '',
     filters: {},
     isAddCategory: false,
+    isAddContent: false,
     columns: [
       { name: 'Title', key: 'title' },
       { name: 'Client', key: 'client' },
@@ -100,6 +111,9 @@ export default {
   },
 
   methods: {
+    onAddContent() {
+      this.isAddContent = true
+    },
     onAddCategory() {
       this.isAddCategory = true
     },

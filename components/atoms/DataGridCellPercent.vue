@@ -76,11 +76,11 @@
         <div v-if="!isIconBack">
           <span
             v-if="isPositive"
-            class="inline-block relative text-green-500 text-md"
+            class="inline-block relative text-lg text-green-500"
           >
             <IncrementIcon />
           </span>
-          <span v-else class="inline-block relative text-red-500 text-md">
+          <span v-else class="inline-block relative text-lg text-red-500">
             <DecrementIcon />
           </span>
         </div>

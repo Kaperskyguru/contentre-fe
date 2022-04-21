@@ -43,7 +43,7 @@
               outline-none
               shadow-lg
               md:py-10 md:px-8
-              lg:px-12
+              lg:px-8
             "
             :class="{
               'flex flex-col': $slots.icon,

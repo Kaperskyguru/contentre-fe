@@ -252,3 +252,12 @@ nav#mobile {
 .logo-text {
   font-size: 1.5rem;
 }
+
+
+.ck-content .ck-editor__editable {
+  height: 200px;
+}
+
+.ck .ck-reset .ck-editor  .ck-rounded-corners {
+ width: 100% !important;
+}

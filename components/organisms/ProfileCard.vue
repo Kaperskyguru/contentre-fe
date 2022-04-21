@@ -24,12 +24,13 @@
           class="
             w-8
             h-8
-            hover:bg-green-600 hover:text-white
-            bg-white
-            rounded-full
-            duration-500
-            border-2 border-green-600
             text-xl text-green-500
+            hover:text-white
+            bg-white
+            hover:bg-green-600
+            rounded-full
+            border-2 border-green-600
+            duration-500
           "
         >
           <svg
@@ -53,12 +54,13 @@
           class="
             w-8
             h-8
-            hover:bg-blue-500 hover:text-white
-            bg-teal-200
-            rounded-full
-            duration-500
             text-xl text-blue-600
+            hover:text-white
+            bg-teal-200
+            hover:bg-blue-500
+            rounded-full
             border-2 border-blue-500
+            duration-500
           "
         >
           <svg
@@ -82,12 +84,13 @@
           class="
             w-8
             h-8
-            hover:bg-blue-400 hover:text-white
-            bg-teal-300
-            rounded-full
-            duration-500
             text-xl text-blue-600
+            hover:text-white
+            bg-teal-300
+            hover:bg-blue-400
+            rounded-full
             border-2 border-blue-400
+            duration-500
           "
         >
           <svg
@@ -111,17 +114,15 @@
           class="
             w-8
             h-8
+            text-xl text-pink-600
             hover:text-white
-            hover:from-indigo-600
-            hover:via-pink-600
-            hover:to-yellow-500
+            bg-white bg-gradient-to-b
+            hover:from-indigo-600 hover:via-pink-600 hover:to-yellow-500
             rounded-full
             border-2
             hover:border-0
             border-pink-500
             duration-500
-            text-xl text-pink-600
-            bg-white bg-gradient-to-b
             min-w-wull
           "
         >
@@ -147,12 +148,13 @@
             sticky
             w-8
             h-8
-            hover:bg-blue-600 hover:text-white
-            bg-white
-            rounded-full
-            duration-500
             text-xl text-blue-600
+            hover:text-white
+            bg-white
+            hover:bg-blue-600
+            rounded-full
             border-2 border-blue-600
+            duration-500
           "
         >
           <svg
@@ -176,12 +178,13 @@
           class="
             w-8
             h-8
-            hover:bg-yellow-300 hover:text-white
-            bg-white
-            rounded-full
-            duration-500
             text-xl text-yellow-300
+            hover:text-white
+            bg-white
+            hover:bg-yellow-300
+            rounded-full
             border-2 border-yellow-300
+            duration-500
           "
         >
           <svg

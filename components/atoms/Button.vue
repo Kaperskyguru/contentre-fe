@@ -128,7 +128,8 @@ export default defineComponent({
     },
     appearance: {
       type: String,
-      validate: (value) => ['primary', 'secondary', 'tertiary'].includes(value),
+      validate: (value) =>
+        ['primary', 'secondary', 'tertiary', 'outline'].includes(value),
       default: 'primary'
     },
 
@@ -174,7 +175,10 @@ export default defineComponent({
         'leading-5',
         'bg-teal-300',
         'rounded-md',
-        'text-center'
+        'text-center',
+        'duration-300',
+        'transition',
+        'ease-in'
       ]
 
       if (this.active) {
@@ -313,35 +317,23 @@ export default defineComponent({
 
 <style scoped>
 .button-primary {
-  @apply border rounded text-white border-btn-green;
+  @apply bg-btn-green border rounded text-white border-btn-green hover:border-btn-green hover:bg-white hover:text-btn-green;
 }
 
 .button-primary .loader {
   @apply filter invert;
 }
 
-.button-primary:not(.active) {
-  @apply bg-btn-green hover:bg-opacity-75 hover:border-opacity-75;
-}
-
-.button-primary.active {
-  @apply bg-opacity-90  border-opacity-90 hover:border-btn-green hover:bg-btn-green hover:border-opacity-75;
-}
-
 .button-secondary {
-  @apply border rounded  border-red-500;
-}
-
-.button-secondary:not(.active) {
-  @apply border-solid bg-red-500  hover:bg-opacity-75 hover:border-opacity-75;
-}
-
-.button-secondary.active {
-  @apply bg-red-300;
+  @apply border bg-red-500 rounded  border-red-500 hover:border-red-500 hover:bg-white hover:text-red-500;
 }
 
 .button-tertiary {
-  @apply rounded-full  hover:bg-opacity-25;
+  @apply border hover:bg-btn-green hover:text-white border-btn-green bg-white text-btn-green rounded-full;
+}
+
+.button-outline {
+  @apply border hover:bg-btn-green hover:text-white border-btn-green bg-white text-btn-green;
 }
 
 .custom-icon:not(:only-child) {

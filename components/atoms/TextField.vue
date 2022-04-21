@@ -55,7 +55,6 @@
         order-2
         items-center
         bg-white
-        focus-within:bg-snow
         rounded
         transition-all
         cursor-text
@@ -65,18 +64,18 @@
         {
           'mt-1': !!label,
           'border-red-500': (!disabled && !!error) || isOnboarding,
-          'border-silver hover:bg-snow hover:border-warndarkgray focus-within:border-warndarkgray':
+          'border-silver hover:bg-white hover:border-btn-green focus-within:border-btn-green focus-within:bg-white':
             !disabled && !error && !isOnboarding,
-          'border-silver bg-warngray bg-opacity-10': !!disabled,
+          'border-silver bg-warngray hover:bg-warngray bg-opacity-10':
+            !!disabled,
           border: showBorder
         }
       ]"
       @click="focus"
     >
-      <!-- 'border-solid border border-border-inner border-gray-200': showBorder -->
       <div
         v-if="$slots['prepend-inner']"
-        class="flex-auto cursor-text"
+        class="flex-auto bg-white cursor-text"
         :class="{ 'overflow-hidden min-w-8 max-w-2/5': isFocused }"
         @click="focus"
       >
@@ -116,6 +115,46 @@
         @change="emitProxy('change', $event)"
       />
 
+      <div
+        v-else-if="rows && isEditor"
+        class="block w-full hover:border-btn-green outline-none"
+      >
+        <ckeditor
+          :id="uid"
+          ref="field"
+          class="w-full border-0"
+          :class="[
+            baseClass,
+            fieldClass,
+            {
+              uppercase: casing === 'uppercase',
+              lowercase: casing === 'lowercase',
+              'pl-1': !!$slots['prepend-inner'],
+              'pl-3': !$slots['prepend-inner'],
+              'pr-1': !!$slots['append-inner'],
+              'pr-3': !$slots['append-inner'],
+              'bg-gray-100': disabled
+            }
+          ]"
+          v-bind="attrsButClassAndType"
+          :editor="editor"
+          :config="editorConfig"
+          :value="lazy ? lazyInput : model"
+          :enterkeyhint="enterkeyhint"
+          :mozactionhint="enterkeyhint"
+          :disabled="disabled"
+          @input="onInput"
+          @focusin="onFocusIn"
+          @focusout="onFocusOut"
+          @animationstart="onAnimationStart"
+          @click="emitProxy('click', $event)"
+          @keydown="emitProxy('keydown', $event)"
+          @keypress.enter="emitProxy('keypress', $event)"
+          @keypress="validateKeypress($event, lazy ? lazyInput : value)"
+          @keyup="emitProxy('keyup', $event)"
+          @change="emitProxy('change', $event)"
+        ></ckeditor>
+      </div>
       <textarea
         v-else
         :id="uid"
@@ -150,22 +189,6 @@
         @keyup="emitProxy('keyup', $event)"
         @change="emitProxy('change', $event)"
       />
-      <!-- 'border-solid border border-border-inner border-gray-200':
-              showBorder,
-              
-                      class="
-          block
-          py-2
-          pr-12
-          pl-5
-          w-full
-          rounded
-          focus:border-body-text-color focus:outline-none
-          font-gilroy font-medium
-        "
-              
-              
-               -->
 
       <slot name="append-inner" :isFocused="isFocused" />
 
@@ -254,9 +277,9 @@
 </template>
 
 <script>
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import EyeOpen from '~/assets/img/auth-nav/eye-opened.svg'
 import EyeClosed from '~/assets/img/auth-nav/eye-closed.svg'
-
 export default {
   name: 'TextFieldTW',
 
@@ -346,6 +369,11 @@ export default {
       type: Boolean
     },
 
+    isEditor: {
+      type: Boolean,
+      default: false
+    },
+
     isOnboarding: {
       type: Boolean,
       default: false
@@ -364,7 +392,11 @@ export default {
     closedEye: EyeClosed,
     showPassword: false,
     lazyInput: '',
-    isFocused: false
+    isFocused: false,
+    editor: ClassicEditor,
+    editorConfig: {
+      ref: 'field'
+    }
   }),
 
   computed: {
@@ -411,6 +443,12 @@ export default {
   methods: {
     focus() {
       const field = this.$refs.field
+      if (field && this.isEditor) {
+        // field.$el.focus()
+        // field.$el.select()
+        console.log(field)
+        return
+      }
       if (field) {
         field.focus()
         field.select()

@@ -212,7 +212,9 @@ export default {
             style: !growth ? 'secondary' : undefined,
             value: parseFloat(growth).toFixed(2) || 'No growth provided'
           }
-        : {}
+        : {
+            value: 0.0
+          }
     },
 
     getStatusComponentOptions({ status }) {

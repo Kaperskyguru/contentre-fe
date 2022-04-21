@@ -19,13 +19,15 @@ export const GET_INDEX_METADATA = gql`
   query getIndexMetadata($filters: ContentFiltersInput) {
     getIndexMetadata(filters: $filters) {
       box {
-        likePercent
-        commentPercent
-        sharePercent
         amountPercent
-        likes
-        shares
-        comments
+        amount
+        totalContents
+        amountPercentStat
+        contentPercent
+        clientPercent
+        totalClients
+        interactionPercent
+        currentInteractions
       }
       revenue {
         months
@@ -34,6 +36,22 @@ export const GET_INDEX_METADATA = gql`
           last
         }
       }
+    }
+  }
+`
+
+export const GET_BOX_STATS = gql`
+  query getBoxStats($filters: ContentFiltersInput) {
+    getBoxStats(filters: $filters) {
+      amountPercent
+      amount
+      totalContents
+      amountPercentStat
+      contentPercent
+      clientPercent
+      totalClients
+      interactionPercent
+      currentInteractions
     }
   }
 `

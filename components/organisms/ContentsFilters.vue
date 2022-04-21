@@ -5,12 +5,13 @@
     </template>
 
     <Form @submit="onSubmitFilters">
-      <div class="mb-6">
+      <div v-if="!remove.includes('client')" class="mb-6">
         <ClientsAutocomplete
           v-model="$v.fieldClients.$model"
           :allow-creation="false"
           :fake-input="true"
           :should-update="false"
+          :items="clients"
           :options="{
             fakeInput: true,
             isGrid: true
@@ -22,10 +23,11 @@
         />
       </div>
 
-      <div class="mb-6">
+      <div v-if="!remove.includes('category')" class="mb-6">
         <CategoriesAutocomplete
           v-model="$v.fieldCategories.$model"
           :allow-creation="false"
+          :items="categories"
           :fake-input="true"
           :should-update="false"
           :options="{
@@ -39,11 +41,12 @@
         />
       </div>
 
-      <div class="mb-6">
+      <div v-if="!remove.includes('topic')" class="mb-6">
         <CategoriesAutocomplete
           v-model="$v.fieldTopics.$model"
           :allow-creation="false"
           :fake-input="true"
+          :items="topics"
           :should-update="false"
           :options="{
             fakeInput: true,
@@ -55,12 +58,13 @@
           @update:value="onUpdateFilterValue"
         />
       </div>
-      <div class="mb-6">
+      <div v-if="!remove.includes('tag')" class="mb-6">
         <TagsAutocomplete
           v-model="$v.fieldTags.$model"
           :allow-creation="false"
           :should-update="false"
           :all="false"
+          :items="tags"
           :fake-input="true"
           :options="{
             fakeInput: true,
@@ -89,7 +93,7 @@
         </DropdownField>
       </div>
 
-      <div class="flex mb-6 space-x-4">
+      <div v-if="!remove.includes('amount')" class="flex mb-6 space-x-4">
         <NumberField
           v-model="$v.fieldFromAmount.$model"
           lazy
@@ -113,7 +117,7 @@
         />
       </div>
 
-      <div class="flex mb-6 space-x-4">
+      <div v-if="!remove.includes('date')" class="flex mb-6 space-x-4">
         <DateField
           v-model="$v.fieldFromDate.$model"
           class="flex-1"
@@ -196,6 +200,30 @@ export default {
     bank: {
       type: Boolean,
       default: true
+    },
+
+    clients: {
+      type: [Array, Object],
+      default: null
+    },
+
+    categories: {
+      type: [Array, Object],
+      default: null
+    },
+
+    remove: {
+      type: Array,
+      default: () => []
+    },
+
+    topics: {
+      type: [Array, Object],
+      default: null
+    },
+    tags: {
+      type: [Array, Object],
+      default: null
     },
 
     showSortBy: {
@@ -369,7 +397,8 @@ export default {
       this.filterKeys.forEach((key) => {
         this.$set(this, key, null)
       })
-
+      const input = this.getModifiedData(this.filterKeys)
+      this.$emit('close-panel', input)
       this.showFloatingPanel = false
     },
 

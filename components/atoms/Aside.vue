@@ -135,7 +135,7 @@
                   rounded-lg
                 "
               >
-                <ClientIcon />
+                <ProfileIcon />
                 <span class="flex-1 ml-3 whitespace-nowrap">Clients</span>
               </Hyperlink>
             </li>
@@ -160,7 +160,7 @@
                   rounded-lg
                 "
               >
-                <ClientIcon />
+                <GroupingIcon />
                 <span class="flex-1 ml-3 whitespace-nowrap">Grouping</span>
               </Hyperlink>
               <div
@@ -190,7 +190,7 @@
                         rounded-lg
                       "
                     >
-                      <ClientIcon />
+                      <!-- <ClientIcon /> -->
 
                       <span class="flex-1 ml-3 whitespace-nowrap"
                         >Categories</span
@@ -214,7 +214,7 @@
                         rounded-lg
                       "
                     >
-                      <ClientIcon />
+                      <!-- <ClientIcon /> -->
 
                       <span class="flex-1 ml-3 whitespace-nowrap">Topics</span>
                     </Hyperlink>
@@ -236,7 +236,7 @@
                         rounded-lg
                       "
                     >
-                      <ClientIcon />
+                      <!-- <ClientIcon /> -->
 
                       <span class="flex-1 ml-3 whitespace-nowrap">Tags</span>
                     </Hyperlink>
@@ -384,10 +384,9 @@
 import { currentUser } from '../mixins/currentUser'
 import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
-
 import ContentIcon from '~/assets/icons/content.svg?inline'
 import PortfolioIcon from '~/assets/icons/porfolio.svg?inline'
-import ClientIcon from '~/assets/icons/client.svg?inline'
+import GroupingIcon from '~/assets/icons/client.svg?inline'
 
 export default {
   name: 'AsideBar',
@@ -396,7 +395,8 @@ export default {
     AnalyticIcon,
     ContentIcon,
     PortfolioIcon,
-    ClientIcon
+    GroupingIcon,
+    ProfileIcon: () => import('~/assets/icons/profile.svg?inline')
   },
   mixins: [currentUser],
 

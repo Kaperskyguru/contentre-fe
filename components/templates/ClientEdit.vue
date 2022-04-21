@@ -115,7 +115,9 @@
           md:flex-row md:space-y-0 md:space-x-2
         "
       >
-        <Button class="w-1/2" type="submit">Delete</Button>
+        <Button class="w-1/2" appearance="secondary" type="submit"
+          >Delete</Button
+        >
         <Button class="w-1/2" type="submit">Update</Button>
       </div>
     </form></FloatingPanel
