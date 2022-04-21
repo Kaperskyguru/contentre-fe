@@ -1,16 +1,7 @@
 <template>
   <div
     v-if="error"
-    class="
-      grid
-      justify-center
-      content-center
-      items-center
-      h-screen
-      bg-white
-      -auto
-      l-24
-    "
+    class="grid justify-center content-center items-center h-screen bg-white"
   >
     <NoData message="Portfolio not found">
       <Button
@@ -25,56 +16,10 @@
     </NoData>
   </div>
 
-  <div v-else class="bg-white l-24">
+  <main v-else class="bg-white">
     <section class="pt-3 my-8">
       <h1 class="text-3xl font-bold text-gray-900">{{ portfolio.name }}</h1>
     </section>
-
-    <!-- <div class="relative bg-teal-100">
-      <div
-        class="py-40 bg-center bg-cover"
-        :style="{ backgroundImage: `url(${image})` }"
-      >
-        <div class="container relative px--auto">
-          <div class="items-center lg:flex">
-            <section>
-              <div class="text-black">
-                <div class="containe-auto">
-                  <div
-                    class="
-                      flex flex-col
-                      justify-center
-                      items-start
-                      p-8
-                      w-full
-                      lg:w-1/2
-                    "
-                  >
-                    <h1 class="mb-4 text-xl font-bold text-white md:text-xl">
-                      {{ portfolio.about || 'About me not provided' }}
-                    </h1>
-                    <a
-                      href="#"
-                      class="
-                        py-2
-                        px-12
-                        text-sm text-white
-                        rounded
-                        shadow
-                        form-btn
-                      "
-                      style="background: #00aeff"
-                    >
-                      Writing Services</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    </div> -->
 
     <section class="text-center text-white">
       <div class="container flex flex-col pt-5 pb-8 mx-auto md:flex-row">
@@ -99,7 +44,7 @@
           "
           style="background: #13142b"
         >
-          <h1
+          <h2
             class="
               mt-8
               mb-4
@@ -111,7 +56,7 @@
             "
           >
             About Me
-          </h1>
+          </h2>
           <p class="mb-8 text-xs">
             {{ portfolio.about || 'About me not provided' }}
           </p>
@@ -140,9 +85,9 @@
     <section class="mb-4">
       <div class="container mx-auto">
         <div class="flex justify-between items-center py-2">
-          <h1 class="pt-4 text-3xl font-bold text-gray-900 uppercase">
+          <h2 class="pt-4 text-3xl font-bold text-gray-900 uppercase">
             Portfolio
-          </h1>
+          </h2>
         </div>
 
         <section
@@ -175,7 +120,7 @@
           </div>
         </section>
 
-        <div class="">
+        <div>
           <!-- Column -->
           <div v-if="noData" class="justify-center">
             <NoData message="No content added yet">
@@ -194,106 +139,38 @@
           <div v-else class="grid gap-4 lg:grid-cols-4">
             <!-- Card -->
             <div
-              v-for="(content, i) in [
-                ...portfolio.contents,
-                ...portfolio.contents
-              ]"
-              :key="i"
-              class="mb-2 max-w-sm rounded-lg shadow-lg"
+              v-for="content in getContents"
+              :key="content.id"
+              class="mb-2 max-w-md rounded-lg shadow-lg"
             >
-              <article class="w-full">
-                <div class="overflow-hidden relative w-full h-32">
+              <div class="w-full">
+                <div class="block overflow-hidden w-full h-32">
                   <div class="w-full">
                     <img
                       :alt="content.title"
-                      class="block w-full"
-                      style="object-fit: auto; max-width: 100%"
+                      class="w-full h-full"
+                      style="object-fit: cover; max-width: 100%"
                       :src="computedImage(content.featuredImage)"
                     />
                   </div>
                 </div>
                 <div class="p-5 pt-3">
                   <div class="py-4 leading-tight">
-                    <div class="flex justify-between py-4">
-                      <div class="flex space-x-1">
-                        <Avatar
-                          :name="content.client.name"
-                          :src="content.client.icon"
-                          size="small"
-                        />
-                        <a :href="getProfile(content.client)">{{
-                          content.client.name
-                        }}</a>
-                      </div>
-
-                      <div v-if="content.category" class="border-r"></div>
-                      <div
-                        class="px-2"
-                        :style="displayedCategoryStyle(content.category)"
-                      >
-                        <p class="p-1">
-                          {{ content.category ? content.category.name : '' }}
-                        </p>
-                      </div>
-                    </div>
-                    <a
-                      :href="content.url"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <h2 class="text-lg font-bold text-gray-500">
-                        {{ content.title }}
-                      </h2>
-                    </a>
-                    <div
-                      class="
-                        flex
-                        justify-between
-                        pt-2
-                        text-sm
-                        font-normal
-                        text-gray-600
-                      "
-                    >
-                      <div class="">
-                        <strong>Topics:</strong>
-                        <a
-                          v-for="(tag, index) in content.tags"
-                          :key="index"
-                          href="#"
-                          ><em class="text-gray-500">{{ tag }}</em
-                          >,
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="font-normal text-gray-600 text-md">
-                    {{ content.excerpt }}
-                  </p>
-
-                  <div
-                    class="
-                      flex
-                      py-5
-                      text-sm
-                      font-normal
-                      leading-tight
-                      text-gray-600
-                    "
-                  >
-                    <div>
-                      <strong>Tags:</strong>
+                    <h3 class="text-lg font-bold text-gray-500">
                       <a
-                        v-for="(tag, index) in content.tags"
-                        :key="index"
-                        href="#"
-                        class="text-btn-green"
-                        >{{ tag }}{{ content.tags - 1 === tag ? '' : ',' }}
+                        :href="content.url"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {{ content.title }}
                       </a>
-                    </div>
+                    </h3>
                   </div>
+                  <p class="text-lg font-normal text-gray-600">
+                    <span v-html="content.excerpt"></span>
+                  </p>
                 </div>
-              </article>
+              </div>
             </div>
 
             <!-- End Card -->
@@ -304,51 +181,30 @@
     </section>
 
     <section class="pb-10 mb-10">
-      <div class="flex justify-between space-x-1">
-        <Button
-          class="
-            flex
-            justify-start
-            items-center
-            py-2
-            px-4
-            text-gray-500
-            bg-gray-300
-            rounded-md
-          "
-          @click.prevent="previous"
-        >
-          Previous
-        </Button>
+      <div
+        class="
+          flex flex-col
+          justify-between
+          pt-2
+          mb-6
+          space-y-4 space-x-0
+          md:flex-row md:space-y-0 md:space-x-4
+        "
+      >
+        <Button @click.prevent="previous"> Previous </Button>
 
-        <Button
-          :disabled="portfolio.total"
-          class="
-            justify-end
-            py-2
-            px-4
-            font-bold
-            text-gray-500
-            hover:text-white
-            bg-gray-300
-            hover:bg-btn-green
-            rounded-md
-          "
-          @click.prevent="next"
-        >
+        <Button :disabled="portfolio.total" @click.prevent="next">
           Next
         </Button>
       </div>
     </section>
-  </div>
+  </main>
 </template>
 
 <script>
 import ImageBG from 'assets/img/cover_image.png'
 import { GET_PORTFOLIO_CONTENT } from '~/graphql'
-import Avatar from '~/components/atoms/Avatar.vue'
 export default {
-  components: { Avatar },
   layout: 'portfolio',
   data: () => ({
     image: ImageBG,
@@ -393,6 +249,9 @@ export default {
     }
   },
   computed: {
+    getContents() {
+      return this.portfolio?.contents ?? []
+    },
     noData() {
       return !this.portfolio?.contents?.length
     }
@@ -419,10 +278,10 @@ export default {
         this.skip = len
       }
 
-      return this.fetchMore({
-        size: this.size ?? 12,
-        skip: len
-      })
+      // return this.fetchMore({
+      //   size: this.size ?? 12,
+      //   skip: len,
+      // })
     },
 
     fetchMore(sizeAndSkip) {
