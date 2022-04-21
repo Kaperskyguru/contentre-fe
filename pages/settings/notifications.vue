@@ -57,7 +57,11 @@
               >
             </div>
             <div class="mr-4">
-              <CheckField id="push" v-model="push" class="text-gray-100"
+              <CheckField
+                id="push"
+                v-model="push"
+                :is-under-development="true"
+                class="text-gray-100"
                 >Push</CheckField
               >
             </div>

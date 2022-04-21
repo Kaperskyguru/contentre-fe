@@ -1,68 +1,66 @@
 <template>
-  <div
-    :id="`${uid}-container`"
-    class="check-field"
-    :class="[
-      $attrs.class,
-      type,
-      `size-${size}`,
-      {
-        'is-disabled': disabled,
-        'has-focus': isFocused,
-        'is-invalid': !!error,
-        'check-on-right': checkOnRight,
-        'check-on-left': !checkOnRight,
-        checked: isChecked
-      }
-    ]"
+  <Tooltip
+    :label="isUnderDevelopment ? 'Coming Soon' : ''"
+    :tooltip-class="isUnderDevelopment ? 'bg-red-400' : ''"
+    :trigger="['hover', 'focus']"
+    position="top"
   >
-    <label
-      class="flex text-sm cursor-pointer select-none"
-      :for="uid"
-      :class="labelClass"
+    <div
+      :id="`${uid}-container`"
+      class="check-field"
+      :class="[
+        $attrs.class,
+        type,
+        `size-${size}`,
+        {
+          'is-disabled': disabled || isUnderDevelopment,
+          'has-focus': isFocused,
+          'is-invalid': !!error,
+          'check-on-right': checkOnRight,
+          'check-on-left': !checkOnRight,
+          checked: isChecked
+        }
+      ]"
     >
-      <div
-        class="
-          justify-center
-          items-center
-          w-[30px]
-          bg-transparent
-          peer-checked:bg-primary-teal
-          rounded
-        "
+      <label
+        class="flex text-sm cursor-pointer select-none"
+        :for="uid"
+        :class="labelClass"
       >
-        <img v-if="isChecked" :src="Checked" alt="Checked" />
-        <img v-else :src="Unchecked" alt="Unchecked" />
-      </div>
-
-      <!-- <div class="relative w-full"> -->
-      <span class="peer relative ml-3 font-gilroy text-base text-gray-500">
-        <slot></slot>
-
-        <span
-          v-if="showLabel"
-          class="py-1 px-3 text-xs text-purple-600 bg-blue-200 rounded-lg"
-          :class="{ 'absolute top-0 right-0': labelType === 'absolute' }"
-          >Coming soon</span
+        <div
+          class="
+            justify-center
+            items-center
+            w-[30px]
+            bg-transparent
+            peer-checked:bg-primary-teal
+            rounded
+          "
         >
-      </span>
+          <img v-if="isChecked" :src="Checked" alt="Checked" />
+          <img v-else :src="Unchecked" alt="Unchecked" />
+        </div>
 
-      <!-- </div> -->
-      <input
-        :id="uid"
-        ref="field"
-        :type="type"
-        :checked="isChecked"
-        :value="value"
-        v-bind="attrsButClass"
-        :disabled="disabled"
-        class="hidden absolute w-0 h-0 opacity-0 cursor-pointer"
-        @input="onInput"
-        @focusin="onFocusIn"
-        @focusout="onFocusOut"
-      />
-    </label>
-  </div>
+        <span class="peer relative ml-3 font-gilroy text-base text-gray-500">
+          <slot></slot>
+        </span>
+
+        <input
+          :id="uid"
+          ref="field"
+          :type="type"
+          :checked="isChecked"
+          :value="value"
+          v-bind="attrsButClass"
+          :disabled="disabled || isUnderDevelopment"
+          class="hidden absolute w-0 h-0 opacity-0 cursor-pointer"
+          @input="onInput"
+          @focusin="onFocusIn"
+          @focusout="onFocusOut"
+        />
+      </label>
+    </div>
+  </Tooltip>
 </template>
 
 <script>
@@ -81,6 +79,11 @@ export default {
 
   props: {
     showLabel: {
+      type: Boolean,
+      default: false
+    },
+
+    isUnderDevelopment: {
       type: Boolean,
       default: false
     },

@@ -20,7 +20,9 @@
           <span class="tracking-wide">Connected Apps</span>
         </div>
         <div class="flex justify-end items-end px-3 my-6 w-full">
-          <Button>Connect Apps</Button>
+          <Button :is-pro-feature="isUnderDevelopment" message="Coming soon"
+            >Connect Apps</Button
+          >
         </div>
       </div>
     </div>
@@ -33,6 +35,10 @@
           <p class="mb-4 text-base">Manage and control your connected Apps</p>
         </div>
       </div>
+
+      <Warning v-if="isUnderDevelopment" href="#" button-text="Give Feedback"
+        >App feature is under development</Warning
+      >
 
       <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-2">
         <div class="p-3 bg-white rounded-md border shadow-sm">
@@ -201,7 +207,10 @@ export default {
     ToggleOnIcon: () => import('~/assets/icons/toggle-on.svg?inline'),
     ToggleOffIcon: () => import('~/assets/icons/toggle-off.svg?inline'),
     MediumIcon: () => import('~/assets/icons/medium.svg?inline')
-  }
+  },
+  data: () => ({
+    isUnderDevelopment: true
+  })
 }
 </script>
 

@@ -12,7 +12,7 @@
       <!-- end of calender -->
 
       <section class="container mx-auto">
-        <StatOverview :stats="getBoxStats" />
+        <StatOverview :columns="boxColumns" :stats="getBoxStats" />
       </section>
 
       <!-- Charts -->
@@ -156,6 +156,10 @@
 </template>
 
 <script>
+import Rocket from '~/assets/icons/rocket.svg'
+import Show from '~/assets/icons/show.svg'
+import Heart from '~/assets/icons/heart.svg'
+import Chat from '~/assets/icons/chat.svg'
 import {
   GET_BOX_STATS,
   GET_CATEGORIES,
@@ -192,6 +196,28 @@ export default {
     categoryFilters: [],
     checked: [],
     getBoxStats: {},
+    boxColumns: [
+      {
+        text: 'Total Revenue',
+        key: 'amounts',
+        icon: Rocket
+      },
+      {
+        text: 'Total Contents',
+        key: 'contents',
+        icon: Show
+      },
+      {
+        text: 'Total Clients',
+        key: 'clients',
+        icon: Heart
+      },
+      {
+        text: 'Interactions',
+        key: 'interactions',
+        icon: Chat
+      }
+    ],
 
     chartData: []
   }),

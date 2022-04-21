@@ -9,41 +9,75 @@
       hover:shadow-lg
       transition-shadow
     "
+    :class="{
+      'bg-gray-100': isUnderDevelopment
+    }"
   >
-    <div class="flex justify-between items-start">
-      <div class="flex flex-col space-y-2">
-        <span
-          class="
-            font-gilroy
-            text-xs
-            font-medium
-            tracking-wide
-            text-gray-400
-            card-header
-          "
-          >{{ uppercaseText }}</span
-        >
+    <Tooltip
+      v-if="isUnderDevelopment"
+      :label="'Coming Soon'"
+      tooltip-class="bg-red-400"
+      :trigger="['hover', 'focus']"
+      position="top"
+    >
+      <div class="flex justify-between items-start">
+        <div class="flex flex-col space-y-2">
+          <span
+            class="font-gilroy text-xs font-medium tracking-wide text-gray-400"
+            >{{ uppercaseText }}</span
+          >
 
-        <span class="font-gilroy text-2xl font-bold tracking-wide">{{
-          statValue
-        }}</span>
-      </div>
-      <div class="px-1 mt-8">
-        <div class="flex items-start rounded-lg row">
-          <div class="p-2 text-white bg-teal-300 rounded-lg teal-300">
-            <img :src="statIcon" :alt="uppercaseText" />
+          <span class="font-gilroy text-2xl font-bold tracking-wide">{{
+            statValue
+          }}</span>
+        </div>
+        <div class="px-1 mt-8">
+          <div class="flex items-start rounded-lg">
+            <div class="p-2 text-white bg-teal-300 rounded-lg">
+              <img :src="statIcon" :alt="uppercaseText" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="relative">
-      <DataGridCellPercent
-        :is-icon-back="true"
-        :options="{
-          value: statIncrement
-        }"
-      />
-    </div>
+      <div class="relative">
+        <DataGridCellPercent
+          :is-icon-back="true"
+          :options="{
+            value: statIncrement
+          }"
+        />
+      </div>
+    </Tooltip>
+
+    <span v-else>
+      <div class="flex justify-between items-start">
+        <div class="flex flex-col space-y-2">
+          <span
+            class="font-gilroy text-xs font-medium tracking-wide text-gray-400"
+            >{{ uppercaseText }}</span
+          >
+
+          <span class="font-gilroy text-2xl font-bold tracking-wide">{{
+            statValue
+          }}</span>
+        </div>
+        <div class="px-1 mt-8">
+          <div class="flex items-start rounded-lg">
+            <div class="p-2 text-white bg-teal-300 rounded-lg">
+              <img :src="statIcon" :alt="uppercaseText" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <DataGridCellPercent
+          :is-icon-back="true"
+          :options="{
+            value: statIncrement
+          }"
+        />
+      </div>
+    </span>
   </div>
 </template>
 
@@ -53,6 +87,10 @@ export default {
     stat: {
       type: Object,
       default: () => {}
+    },
+    isUnderDevelopment: {
+      type: Boolean,
+      default: false
     }
   },
 

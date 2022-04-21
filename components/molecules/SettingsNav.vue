@@ -8,10 +8,11 @@
         items-center
         py-2
         px-4
+        text-sm
         font-semibold
+        text-center text-gray-900
         bg-white
         hover:shadow-lg
-        text-gray-900 text-sm text-center
       "
     >
       <div class="flex items-center">
@@ -24,8 +25,8 @@
             mr-2
             w-10
             h-10
+            text-2xl text-black
             bg-blue-100
-            text-black text-2xl
           "
         >
           <svg
@@ -44,7 +45,7 @@
         <div>
           <span class="flex">Security</span>
           <span class="block text-xs text-teal-600"
-            >Login, Change Password,2FA</span
+            >Login, Change Password, and 2FA</span
           >
         </div>
       </div>
@@ -75,10 +76,11 @@
         items-center
         py-2
         px-4
+        text-sm
         font-semibold
+        text-center text-gray-900
         bg-white
         hover:shadow-lg
-        text-gray-900 text-sm text-center
       "
     >
       <div class="flex items-center">
@@ -91,8 +93,8 @@
             mr-2
             w-10
             h-10
+            text-2xl text-black
             bg-blue-100
-            text-black text-2xl
           "
         >
           <svg
@@ -154,10 +156,11 @@
         items-center
         py-2
         px-4
+        text-sm
         font-semibold
+        text-gray-900
         bg-white
         hover:shadow-lg
-        text-gray-900 text-sm
       "
     >
       <div class="flex items-center">
@@ -170,8 +173,8 @@
             mr-2
             w-10
             h-10
+            text-2xl text-black
             bg-blue-100
-            text-black text-2xl
           "
         >
           <svg
@@ -190,7 +193,7 @@
         <div>
           <span class="flex">Connected Apps</span>
           <span class="block text-xs text-teal-600"
-            >You can connect directly and upload comments at once</span
+            >Manage and control your connected Apps</span
           >
         </div>
       </div>
@@ -221,10 +224,11 @@
         items-center
         py-2
         px-4
+        text-sm
         font-semibold
+        text-center text-gray-900
         bg-white
         hover:shadow-lg
-        text-gray-900 text-sm text-center
       "
     >
       <div class="flex items-center">
@@ -237,8 +241,8 @@
             mr-2
             w-10
             h-10
+            text-2xl text-black
             bg-blue-100
-            text-black text-2xl
           "
         >
           <svg
@@ -257,7 +261,7 @@
         <div>
           <span class="flex">Connect</span>
           <span class="block text-xs text-teal-600"
-            >Share and invite friends</span
+            >Share and invite friends and team members</span
           >
         </div>
       </div>
@@ -288,10 +292,11 @@
         items-center
         py-2
         px-4
+        text-sm
         font-semibold
+        text-center text-gray-900
         bg-white
         hover:shadow-lg
-        text-gray-900 text-sm text-center
       "
     >
       <div class="flex items-center">
@@ -304,8 +309,8 @@
             mr-2
             w-10
             h-10
+            text-2xl text-black
             bg-blue-100
-            text-black text-2xl
           "
         >
           <svg
