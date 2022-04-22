@@ -41,7 +41,7 @@
             <div class="overflow-hidden">
               <header class="px-2 leading-tight">
                 <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
-                  >Overall Performance</span
+                  >Client Overview</span
                 >
                 <h3 class="pb-4 font-normal text-gray-500">
                   Yearly Content Impact
@@ -151,16 +151,15 @@ export default {
         const stat = data.getOverallStats?.performance
         return stat
           ? {
-              labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+              labels: ['Interactions', 'Contents', 'Amount'],
               title: '',
               datasets: [
                 {
                   label: '',
                   data: [
-                    stat.totalShares,
+                    stat.totalInteractions,
                     stat.totalContents,
-                    stat.totalLikes,
-                    stat.totalComments
+                    stat.totalAmount
                   ],
                   backgroundColor: [
                     'rgb(255, 99, 132)',

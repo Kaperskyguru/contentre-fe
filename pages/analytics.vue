@@ -1,158 +1,151 @@
 <template>
-  <PageContent>
-    <section class="px-3 h-full md:px-12">
-      <div class="flex justify-between items-center py-4">
-        <PageTitle>Analytics</PageTitle>
-      </div>
+  <!-- <PageContent> -->
+  <section class="px-3 h-full md:px-12">
+    <div class="flex justify-between items-center py-4">
+      <PageTitle>Analytics</PageTitle>
+    </div>
 
-      <!-- calender -->
-      <section class="mb-6">
-        <ContentFilter :show-sort-by="false" @filters="onFilters" />
-      </section>
-      <!-- end of calender -->
+    <!-- calender -->
+    <section class="mb-6">
+      <ContentFilter :show-sort-by="false" @filters="onFilters" />
+    </section>
+    <!-- end of calender -->
 
-      <section class="container mx-auto">
-        <StatOverview :columns="boxColumns" :stats="getBoxStats" />
-      </section>
+    <section class="container mx-auto">
+      <StatOverview :columns="boxColumns" :stats="getBoxStats" />
+    </section>
 
-      <!-- Charts -->
-      <div class="pt-6">
+    <!-- Charts -->
+    <div class="pt-6">
+      <div
+        class="
+          grid grid-cols-1
+          gap-4
+          w-full
+          md:grid-cols-2
+          lg:grid-cols-2
+          xl:grid-cols-3
+          2xl:grid-cols-3
+        "
+      >
+        <div
+          class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
+        >
+          <ChartOverview :data="chartData" :title="chartTitle" />
+        </div>
+
         <div
           class="
-            grid grid-cols-1
-            gap-4
+            pt-4
             w-full
-            md:grid-cols-2
-            lg:grid-cols-2
-            xl:grid-cols-3
-            2xl:grid-cols-3
+            bg-white
+            rounded-lg
+            shadow-lg
+            sm:col-span-2
+            md:col-span-1
+            lg:px-2
           "
         >
-          <div
-            class="
-              p-4
-              bg-white
-              rounded-lg
-              shadow-lg
-              sm:p-6
-              md:col-span-2
-              xl:p-8
-            "
-          >
-            <ChartOverview :data="chartData" :title="chartTitle" />
-          </div>
-
-          <div
-            class="
-              pt-4
-              w-full
-              bg-white
-              rounded-lg
-              shadow-lg
-              sm:col-span-2
-              md:col-span-1
-              lg:px-2
-            "
-          >
-            <!-- Card -->
-            <div class="overflow-hidden">
-              <header class="px-2 leading-tight">
-                <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
-                  >Overall Performance</span
-                >
-                <h3 class="pb-4 font-normal text-gray-500 text-normal">
+          <!-- Card -->
+          <div class="overflow-hidden">
+            <header class="px-2 leading-tight">
+              <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
+                >Client Overview</span
+              >
+              <!-- <h3 class="pb-4 font-normal text-gray-500 text-normal">
                   Weekly Content Impact
-                </h3>
-              </header>
+                </h3> -->
+            </header>
 
-              <div class="">
-                <Loading
-                  v-if="$apollo.queries.metadata.loading"
-                  class="flex flex-1 items-center"
-                />
-                <Column
-                  v-else
-                  type="doughnut"
-                  :chart-data="metadata.performance"
-                />
-              </div>
+            <div class="">
+              <Loading
+                v-if="$apollo.queries.metadata.loading"
+                class="flex flex-1 items-center"
+              />
+              <Column
+                v-else
+                type="doughnut"
+                :show-header="false"
+                :chart-data="metadata.performance"
+              />
             </div>
-            <!-- END Card -->
+          </div>
+          <!-- END Card -->
+        </div>
+      </div>
+    </div>
+
+    <!-- End of Charts -->
+
+    <!-- footer Articles -->
+    <section class="container mx-auto">
+      <div class="flex justify-between items-center py-4">
+        <h1 class="pt-4 text-3xl font-bold text-gray-900">Top Groupings</h1>
+      </div>
+      <div class="flex flex-wrap space-y-3">
+        <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
+          <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
+            <Loading
+              v-if="$apollo.queries.getCategoryStats.loading"
+              class="flex flex-1 items-center"
+            />
+            <Column
+              v-else
+              :chart-data="getCategoryStats"
+              type="bar"
+              :show-selector="true"
+              :selector-data="{
+                data: getCategories,
+                title: 'Categories',
+                placeholder: getCategoryPlaceholder
+              }"
+              @selected="selectCategory"
+            />
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
+          <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
+            <Column
+              :show-selector="true"
+              :selector-data="{
+                data: getCategories,
+                title: 'Topics',
+                placeholder: getCategoryPlaceholder
+              }"
+            />
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
+          <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
+            <Loading
+              v-if="$apollo.queries.getTagStats.loading"
+              class="flex flex-1 items-center"
+            />
+            <Column
+              v-else
+              type="bar"
+              :chart-data="getTagStats"
+              :show-selector="true"
+              :selector-data="{
+                data: getTags,
+                title: 'Tags',
+                placeholder: getTagPlaceholder
+              }"
+              @selected="selectTag"
+            />
           </div>
         </div>
       </div>
-
-      <!-- End of Charts -->
-
-      <!-- end of footer Articles -->
-
-      <section class="container px-4 mx-auto mt-4">
-        <OverallStatTable :checked.sync="checked" />
-      </section>
-      <!-- end of table -->
-
-      <!-- footer Articles -->
-      <section class="container px-4 mx-auto">
-        <div class="flex justify-between items-center py-4">
-          <h1 class="pt-4 text-3xl font-bold text-gray-900">Top Articles</h1>
-        </div>
-        <div class="flex flex-wrap">
-          <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
-            <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
-              <Loading
-                v-if="$apollo.queries.getCategoryStats.loading"
-                class="flex flex-1 items-center"
-              />
-              <Column
-                v-else
-                :chart-data="getCategoryStats"
-                type="bar"
-                :show-selector="true"
-                :selector-data="{
-                  data: getCategories,
-                  title: 'Categories',
-                  placeholder: getCategoryPlaceholder
-                }"
-                @selected="selectCategory"
-              />
-            </div>
-          </div>
-          <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
-            <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
-              <Column
-                :show-selector="true"
-                :selector-data="{
-                  data: getCategories,
-                  title: 'Topics',
-                  placeholder: getCategoryPlaceholder
-                }"
-              />
-            </div>
-          </div>
-          <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
-            <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
-              <Loading
-                v-if="$apollo.queries.getTagStats.loading"
-                class="flex flex-1 items-center"
-              />
-              <Column
-                v-else
-                type="bar"
-                :chart-data="getTagStats"
-                :show-selector="true"
-                :selector-data="{
-                  data: getTags,
-                  title: 'Tags',
-                  placeholder: getTagPlaceholder
-                }"
-                @selected="selectTag"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
     </section>
-  </PageContent>
+
+    <!-- end of footer Articles -->
+
+    <section class="container mx-auto mt-4">
+      <OverallStatTable :checked.sync="checked" />
+    </section>
+    <!-- end of table -->
+  </section>
+  <!-- </PageContent> -->
 </template>
 
 <script>
@@ -178,6 +171,7 @@ export default {
       performance: {},
       categoryStat: {}
     },
+    getTags: {},
     getCategoryStats: {
       labels: [],
       title: '',
@@ -247,16 +241,15 @@ export default {
         return {
           performance: stat
             ? {
-                labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+                labels: ['Interactions', 'Contents', 'Amount'],
                 title: '',
                 datasets: [
                   {
                     label: '',
                     data: [
-                      stat.totalShares,
+                      stat.totalInteractions,
                       stat.totalContents,
-                      stat.totalLikes,
-                      stat.totalComments
+                      stat.totalAmount
                     ],
                     backgroundColor: [
                       'rgb(255, 99, 132)',
@@ -296,7 +289,7 @@ export default {
 
         return category
           ? {
-              labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+              labels: ['Amount', 'Contents', 'Interactions', 'Clients'],
               title: category.name,
               datasets: [
                 {
@@ -309,10 +302,10 @@ export default {
                   categoryPercentage: 1,
                   label: '',
                   data: [
-                    category.totalShares,
+                    category.totalAmount,
                     category.totalContents,
-                    category.totalLikes,
-                    category.totalComments
+                    category.totalInteractions,
+                    category.totalClients
                   ]
                 }
               ]
@@ -331,9 +324,9 @@ export default {
       update(data) {
         const tag = data.getTagStats
 
-        return tag && tag.name
+        return tag
           ? {
-              labels: ['Views', 'Clicks', 'Likes', 'Comments'],
+              labels: ['Amount', 'Contents', 'Interactions', 'Clients'],
               title: tag.name,
               datasets: [
                 {
@@ -346,10 +339,10 @@ export default {
                   tagPercentage: 1,
                   label: '',
                   data: [
-                    tag.totalShares,
+                    tag.totalAmount,
                     tag.totalContents,
-                    tag.totalLikes,
-                    tag.totalComments
+                    tag.totalInteractions,
+                    tag.totalClients
                   ]
                 }
               ]
@@ -368,7 +361,7 @@ export default {
     getTags: {
       query: GET_TAGS,
       update(data) {
-        return data.getTags
+        return data.getTags?.tags
       }
     }
   },

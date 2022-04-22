@@ -3,10 +3,11 @@
     <div class="flex justify-between items-center py-4">
       <h1 class="pt-4 text-3xl font-bold text-gray-900">Overall Stats</h1>
     </div>
-    <div class="overflow-x-auto font-sans bg-gray-100 rounded-lg">
+    <div class="overflow-x-auto font-sans rounded-lg">
       <div class="inline-block overflow-hidden min-w-full rounded-lg shadow">
-        <div class="bg-white rounded shadow-md">
+        <div class="bg-white rounded">
           <DataGrid
+            class="px-3"
             :columns="columns"
             :items="stats.items"
             :loading="$apollo.queries.stats.loading"
@@ -231,10 +232,11 @@ export default {
             style: !totalContents ? 'secondary' : undefined,
             value: totalContents || 'No Client provided'
           }
-        : {}
+        : {
+            value: 0
+          }
     },
     fetchMore(sizeAndSkip) {
-      // console.log(sizeAndSkip)
       const itemsKey = 'clients'
       const queryName = 'getClients'
       this.$apollo.queries.analytics.fetchMore({
