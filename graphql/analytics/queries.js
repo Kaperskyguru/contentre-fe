@@ -14,9 +14,8 @@ export const GET_OVERALL_STATS = gql`
         totalContents
       }
       performance {
-        totalShares
-        totalComments
-        totalLikes
+        totalInteractions
+        totalAmount
         totalContents
       }
       categoryStat {
@@ -34,10 +33,10 @@ export const GET_CATEGORY_STATS = gql`
   query getCategoryStats($filters: ContentFiltersInput) {
     getCategoryStats(filters: $filters) {
       name
+      totalAmount
       totalContents
-      totalLikes
-      totalComments
-      totalShares
+      totalInteractions
+      totalClients
     }
   }
 `
@@ -46,10 +45,10 @@ export const GET_TAG_STATS = gql`
   query getTagStats($filters: ContentFiltersInput) {
     getTagStats(filters: $filters) {
       name
+      totalAmount
       totalContents
-      totalLikes
-      totalComments
-      totalShares
+      totalInteractions
+      totalClients
     }
   }
 `

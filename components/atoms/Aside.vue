@@ -27,14 +27,8 @@
                 />
                 <span class="self-center whitespace-nowrap">Contentre</span>
               </Hyperlink>
-
-              <!-- <Tooltip v-else>
-                <Hyperlink to="/" class="flex items-center font-bold">
-                  <img src="/logo.png" class="img-fluid" alt="contentre logo" />
-                </Hyperlink>
-              </Tooltip> -->
             </div>
-            <!-- <CollapseSidebarButton @onCollapse="onCollapsed" /> -->
+
             <li>
               <Hyperlink
                 :to="{ name: 'index' }"
@@ -190,8 +184,6 @@
                         rounded-lg
                       "
                     >
-                      <!-- <ClientIcon /> -->
-
                       <span class="flex-1 ml-3 whitespace-nowrap"
                         >Categories</span
                       >
@@ -214,8 +206,6 @@
                         rounded-lg
                       "
                     >
-                      <!-- <ClientIcon /> -->
-
                       <span class="flex-1 ml-3 whitespace-nowrap">Topics</span>
                     </Hyperlink>
                   </li>
@@ -236,118 +226,12 @@
                         rounded-lg
                       "
                     >
-                      <!-- <ClientIcon /> -->
-
                       <span class="flex-1 ml-3 whitespace-nowrap">Tags</span>
                     </Hyperlink>
                   </li>
                 </ul>
               </div>
             </li>
-
-            <!-- Aside Footer -->
-
-            <!-- <ul class="py-2 space-y-2">
-                <li>
-                  <Hyperlink
-                    :to="{ name: 'index' }"
-                    class="
-                      group
-                      flex
-                      items-center
-                      p-2
-                      font-roboto
-                      text-base
-                      font-normal
-                      text-gray-500
-                      hover:text-white
-                      rounded-lg
-                    "
-                  >
-                    <span class="text-white">
-                      <DashboardIcon />
-                    </span>
-                    <span class="flex-1 ml-3 whitespace-nowrap"
-                      >Upload Content</span
-                    >
-                  </Hyperlink>
-                </li>
-
-                <li>
-                  <Hyperlink
-                    :to="{ name: 'index' }"
-                    class="
-                      group
-                      flex
-                      items-center
-                      p-2
-                      font-roboto
-                      text-base
-                      font-normal
-                      text-gray-500
-                      hover:text-white
-                      rounded-lg
-                    "
-                  >
-                    <span class="text-white">
-                      <DashboardIcon />
-                    </span>
-                    <span class="flex-1 ml-3 whitespace-nowrap"
-                      >Create new portfolio</span
-                    >
-                  </Hyperlink>
-                </li>
-
-                <li>
-                  <Hyperlink
-                    :to="{ name: 'index' }"
-                    class="
-                      group
-                      flex
-                      items-center
-                      p-2
-                      font-roboto
-                      text-base
-                      font-normal
-                      text-gray-500
-                      hover:text-white
-                      rounded-lg
-                    "
-                  >
-                    <span class="text-white">
-                      <DashboardIcon />
-                    </span>
-                    <span class="flex-1 ml-3 whitespace-nowrap"
-                      >Generate Statements</span
-                    >
-                  </Hyperlink>
-                </li>
-
-                <li>
-                  <Hyperlink
-                    :to="{ name: 'index' }"
-                    class="
-                      group
-                      flex
-                      items-center
-                      p-2
-                      font-roboto
-                      text-base
-                      font-normal
-                      text-gray-500
-                      hover:text-white
-                      rounded-lg
-                    "
-                  >
-                    <span class="text-white">
-                      <DashboardIcon />
-                    </span>
-                    <span class="flex-1 ml-3 whitespace-nowrap"
-                      >Make a payment</span
-                    >
-                  </Hyperlink>
-                </li>
-              </ul> -->
 
             <div
               class="

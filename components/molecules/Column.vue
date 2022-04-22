@@ -1,12 +1,10 @@
 <template>
-  <!-- Article -->
   <div class="flex overflow-hidden flex-col">
     <div v-if="showSelector" class="mb-5 w-full">
       <DropdownField
         v-model="selectedItem"
         :placeholder="selectorData.placeholder"
         :label="selectorData.title"
-        :items="selectorData.data"
         @update:value="selected"
       >
         <option
@@ -28,7 +26,7 @@
         <BarChart
           v-if="type === 'bar'"
           :chart-data="getChartData"
-          :options="options"
+          :options="getBarOptions"
         />
         <Doughnut v-else :chart-data="getChartData" :options="options" />
       </div>
@@ -51,7 +49,10 @@
           class="flex items-center text-black"
           href="#"
         >
-          <div class="analyticsfooter-footer"></div>
+          <div
+            class="analyticsfooter-footer"
+            :style="{ backgroundColor: getChartDataColors[i] }"
+          ></div>
           <p class="mx-2 text-sm">{{ label }}</p>
         </a>
       </footer>
@@ -64,14 +65,10 @@
           href="#"
         >
           <p class="text-base">{{ value }}</p>
-          <div class="w-full h-1 rounded-full footer2-progress">
-            <div class="w-2/3 h-full rounded-full footer2-progressball"></div>
-          </div>
         </a>
       </footer>
     </span>
   </div>
-  <!-- END Article -->
 </template>
 
 <script>
@@ -115,25 +112,6 @@ export default {
       legend: {
         display: false
       },
-      scales: {
-        yAxes: [
-          {
-            gridLines: {
-              display: false
-            },
-            ticks: {
-              fontColor: '#fff'
-            }
-          }
-        ],
-        xAxes: [
-          {
-            gridLines: {
-              display: false
-            }
-          }
-        ]
-      },
       responsive: true,
       maintainAspectRatio: false
     }
@@ -141,6 +119,31 @@ export default {
   computed: {
     isBar() {
       return this.type.toLowerCase() === 'bar'
+    },
+
+    getBarOptions() {
+      return {
+        ...this.options,
+        scales: {
+          yAxes: [
+            {
+              gridLines: {
+                display: false
+              },
+              ticks: {
+                fontColor: '#fff'
+              }
+            }
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                display: false
+              }
+            }
+          ]
+        }
+      }
     },
 
     noData() {
@@ -161,6 +164,14 @@ export default {
       const datasets = this.getChartData?.datasets
       if (datasets) {
         return datasets[0]?.data
+      }
+      return []
+    },
+
+    getChartDataColors() {
+      const datasets = this.getChartData?.datasets
+      if (datasets) {
+        return datasets[0]?.backgroundColor
       }
       return []
     },
@@ -192,7 +203,7 @@ export default {
 .analyticsfooter-footer {
   width: 12px;
   height: 26px;
-  background: rgb(79, 209, 197);
+  /* background: rgb(79, 209, 197); */
   border-radius: 5px;
 }
 
