@@ -21,11 +21,11 @@
             <div class="absolute aside-header">
               <Hyperlink to="/" class="flex items-center font-bold lg:ml-2.5">
                 <img
-                  src="~/assets/img/dashboard_logo.svg"
-                  class="img-fluid"
+                  src="~/assets/img/Concentre.io-iconpng.png"
+                  class="h-12"
                   alt="contentre logo"
                 />
-                <!-- <span class="self-center whitespace-nowrap">contentr</span> -->
+                <span class="self-center whitespace-nowrap">Contentre</span>
               </Hyperlink>
 
               <!-- <Tooltip v-else>
