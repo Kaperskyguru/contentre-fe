@@ -35,8 +35,8 @@ export const RESET_PASSWORD = gql`
 `
 
 export const SEND_EMAIL_CODE = gql`
-  mutation sendEmailCode($email: String!) {
-    sendEmailCode(email: $email)
+  mutation sendEmailCode($email: String!, $template: String) {
+    sendEmailCode(email: $email, template: $template)
   }
 `
 

@@ -216,12 +216,16 @@ export default {
           await this.$apollo.mutate({
             mutation: SEND_EMAIL_CODE,
             variables: {
-              email: this.currentUser.email
+              email: this.currentUser.email,
+              template:'email-verification'
             }
           })
         }
 
-        await this.$router.push('/auth/verify-email')
+        await this.$router.push({
+          path: '/auth/verify-email',
+          query: { email: this.fieldEmail.toLocaleLowerCase() }
+        })
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false
