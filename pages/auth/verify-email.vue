@@ -119,7 +119,7 @@ export default {
         await this.$apollo.mutate({
           mutation: SEND_EMAIL_CODE,
           variables: {
-            email: this.$route.query.email
+            email: this.email
           }
         })
 
