@@ -2,7 +2,7 @@
   <!-- Main -->
 
   <!-- Right Side -->
-  <div class="mx-2 w-full h-64 bg-white rounded-xl shadow md:w-10/12">
+  <div class="w-full h-64 bg-white rounded-xl shadow md:w-10/12">
     <!-- Profile tab -->
     <!-- About Section -->
     <div class="bg-white rounded-xl shadow-sm">
@@ -25,7 +25,7 @@
     <!-- End of about section -->
 
     <!-- select notification -->
-    <div class="p-2 bg-white rounded-sm shadow-sm">
+    <div class="p-2 w-full bg-white rounded-sm shadow-sm">
       <div class="block w-full text-gray-700 bg-white">
         <div class="block pb-2 text-gray-500">
           <p class="mb-4 text-base">
@@ -167,7 +167,7 @@
 
       <!-- End of select notification--->
 
-      <div class="py-6 px-4 w-full bg-white rounded-sm shadow-sm">
+      <div class="py-6 w-full bg-white rounded-sm shadow-sm">
         <Reminders />
       </div>
 

@@ -9,7 +9,16 @@
     "
   >
     <div class="border-2 border-red-300"></div>
-    <div class="flex justify-between items-center p-2">
+    <div
+      class="
+        flex flex-col
+        justify-between
+        items-center
+        p-2
+        space-y-2
+        md:flex-row
+      "
+    >
       <div class="w-10 h-10">
         <IconInformationCircle />
       </div>

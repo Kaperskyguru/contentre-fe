@@ -4,7 +4,7 @@
     <!-- Profile tab -->
     <!-- About Section -->
     <div class="bg-white rounded-xl shadow-sm">
-      <div class="flex justify-between border-b-2">
+      <div class="flex flex-col justify-between border-b-2 md:flex-row">
         <div
           class="
             flex
