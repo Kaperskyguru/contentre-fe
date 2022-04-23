@@ -29,7 +29,7 @@
         <p class="text-sm">Email Verification</p>
       </div>
 
-      <div class="grid grid-cols-3 gap-4">
+      <div class="flex flex-col gap-4 justify-between md:flex-row">
         <div class="col-span-2 pt-2">
           <p class="text-sm text-gray-600">
             Backup email for verification link
@@ -50,7 +50,7 @@
         <p class="text-sm">SMA 2FA</p>
       </div>
 
-      <div class="grid grid-cols-3 gap-4">
+      <div class="flex flex-col gap-4 justify-between md:flex-row">
         <div class="col-span-2 pt-2">
           <p class="text-sm text-gray-600">
             To get OTP incase of any login attempt

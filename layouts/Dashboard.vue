@@ -1,35 +1,35 @@
 <template>
-  <div class="block overflow-hidden h-full md:flex">
-    <!-- <div class="flex flex-1"> -->
-    <div class="hidden z-20 flex-none sm:w-0 md:block md:w-64">
+  <main class="flex">
+    <div class="hidden flex-none sm:w-0 md:block md:w-64">
       <Aside @onCollapse="collapse" />
     </div>
 
-    <!-- <section class=""> -->
-    <header class="fixed z-10 mb-5 bg-white navside-bs">
-      <nav class="pr-1 md:pr-14">
-        <Nav @logout="onLogout" @onToggleMenu="showMenu" />
+    <section class="grow">
+      <header class="fixed z-30 mb-5 bg-white navside-bs">
+        <nav class="md:w-10/12">
+          <Nav @logout="onLogout" @onToggleMenu="showMenu" />
+        </nav>
+      </header>
+
+      <nav
+        id="mobile"
+        class="w-full md:hidden"
+        :class="{ 'mt-16': isMenuShown }"
+      >
+        <div v-if="isMenuShown" class="pt-5">
+          <MobileMenu
+            v-click-outside="onClickOutside"
+            @onMenuClick="onClickOutside"
+          />
+        </div>
       </nav>
-    </header>
 
-    <nav id="mobile" class="w-full md:hidden" :class="{ 'mt-16': isMenuShown }">
-      <div v-if="isMenuShown" class="pt-5">
-        <MobileMenu
-          v-click-outside="onClickOutside"
-          @onMenuClick="onClickOutside"
-        />
+      <div :class="{ 'mt-0': isMenuShown, 'mt-16': !isMenuShown }">
+        <Nuxt />
       </div>
-    </nav>
-
-    <Nuxt
-      class="flex-1 mb-5"
-      :class="{ 'mt-0': isMenuShown, 'mt-16': !isMenuShown }"
-    />
-
-    <Toast />
-    <!-- </section> -->
-  </div>
-  <!-- </div> -->
+      <Toast />
+    </section>
+  </main>
 </template>
 
 <script>

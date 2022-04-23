@@ -1,15 +1,6 @@
 <template>
   <div
-    class="
-      block
-      py-6
-      px-3
-      w-full
-      text-gray-700
-      bg-white
-      rounded-lg
-      border border-gray-200
-    "
+    class="py-6 w-full text-gray-700 bg-white rounded-lg border border-gray-200"
   >
     <div
       class="
@@ -44,7 +35,7 @@
           >
             <PlusIcon />
           </a>
-          <!-- </li> -->
+
           <div
             v-if="showChildren"
             class="
@@ -162,12 +153,13 @@
       </span>
     </div>
 
-    <Warning v-if="isUnderDevelopment" href="#" button-text="Give Feedback"
-      >Reminder feature is under development</Warning
-    >
-
+    <div class="w-full">
+      <Warning v-if="isUnderDevelopment" href="#" button-text="Give Feedback"
+        >Reminder feature is under development</Warning
+      >
+    </div>
     <!-- ====== Cards Section Start -->
-    <div class="container space-y-6">
+    <div class="container space-y-6 w-full">
       <div class="flex flex-wrap -mx-2 mt-8">
         <div class="px-4 w-full">
           <div
@@ -197,14 +189,15 @@
                   >
                 </div>
               </div>
-              <div class="px-1 mt-8">
-                <div class="flex items-start rounded-lg">
+              <div class="px-1 mt-8 w-full">
+                <div class="flex items-start w-full rounded-lg">
                   <div
                     class="
                       flex flex-col
                       pt-2
                       mb-6
                       space-y-4 space-x-0
+                      w-full
                       md:flex-row md:space-y-0 md:space-x-4
                     "
                   >
@@ -247,14 +240,15 @@
                   >Time:12:00 AM</span
                 >
               </div>
-              <div class="px-1 mt-8">
-                <div class="flex items-start rounded-lg">
+              <div class="px-1 mt-8 w-full">
+                <div class="flex items-start w-full rounded-lg">
                   <div
                     class="
                       flex flex-col
                       pt-2
                       mb-6
                       space-y-4 space-x-0
+                      w-full
                       md:flex-row md:space-y-0 md:space-x-4
                     "
                   >
@@ -288,7 +282,7 @@ export default {
 
   methods: {
     onShowChildren() {
-      if (this.isUnderDevelopment) return
+      // if (this.isUnderDevelopment) return
       this.showChildren = !this.showChildren
     }
   }

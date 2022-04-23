@@ -12,13 +12,14 @@
             class="
               py-3
               px-5
+              font-roboto
+              text-xs
+              font-semibold
               tracking-wider
-              text-gray-600
+              text-left text-gray-600
               uppercase
               bg-gray-100
               border-b-2 border-gray-200
-              text-left text-xs
-              font-semibold font-roboto
             "
           >
             <CheckField />
@@ -29,13 +30,14 @@
             class="
               py-3
               px-5
+              font-roboto
+              text-xs
+              font-semibold
               tracking-wider
-              text-gray-600
+              text-left text-gray-600
               uppercase
               bg-gray-100
               border-b-2 border-gray-200
-              text-left text-xs
-              font-semibold font-roboto
             "
           >
             {{ header }}

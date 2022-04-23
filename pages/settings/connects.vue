@@ -1,6 +1,6 @@
 <template>
   <!-- Right Side -->
-  <div class="mx-2 w-full h-64 bg-white rounded-xl shadow md:w-10/12">
+  <div class="w-full h-64 bg-white rounded-xl shadow md:w-10/12">
     <!-- Profile tab -->
     <!-- About Section -->
     <div class="bg-white rounded-xl shadow-sm">
@@ -45,8 +45,8 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-3 gap-4">
-          <div class="col-span-2 pb-2">
+        <div class="flex flex-col gap-4 justify-evenly md:flex-row">
+          <div class="pb-2 w-full">
             <TextField
               type="email"
               class="w-full text-sm"
@@ -61,8 +61,8 @@
           <p class="text-base text-gray-500">Invite friends to Contentre</p>
         </div>
 
-        <div class="grid grid-cols-3 gap-4 mb-5">
-          <div class="col-span-2 pb-4">
+        <div class="flex flex-col gap-4 justify-evenly mb-5 md:flex-row">
+          <div class="pb-4 w-full">
             <TextField
               type="email"
               class="w-full text-sm"
@@ -96,17 +96,24 @@
         <div class="block pb-2 font-bold text-black">
           <p class="mb-4 text-sm">Teams Members</p>
         </div>
-        <Warning v-if="isUnderDevelopment" href="#" button-text="Give Feedback"
-          >Team feature is under development</Warning
-        >
+        <div class="w-full">
+          <Warning
+            v-if="isUnderDevelopment"
+            href="#"
+            button-text="Give Feedback"
+            >Team feature is under development</Warning
+          >
+        </div>
         <div class="block pb-2 mt-6 font-normal text-black">
           <p class="text-base text-gray-500">
             Invite team members to Contentre
           </p>
         </div>
 
-        <div class="grid grid-cols-3 gap-4 mb-8">
-          <div class="col-span-2 pb-4">
+        <div
+          class="flex flex-col gap-4 justify-between mb-8 w-full md:flex-row"
+        >
+          <div class="pb-4 w-full">
             <TextField
               type="email"
               class="w-full text-sm"
