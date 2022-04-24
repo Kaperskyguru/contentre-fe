@@ -27,6 +27,7 @@
           block
           py-6
           px-3
+          mb-5
           text-gray-700
           bg-white
           rounded-lg
@@ -43,12 +44,67 @@
       </div>
 
       <!-- DIV 2 -->
-      <div class="my-8 social media">
+      <div
+        class="
+          block
+          py-6
+          px-3
+          w-full
+          text-gray-700
+          bg-white
+          rounded-lg
+          border border-gray-200
+        "
+      >
+        <div class="pb-4 space-x-3 text-sm font-normal leading-8 text-gray-900">
+          <div
+            class="block pb-4 pl-2 font-bold text-black md:flex md:items-center"
+          >
+            <span class="text-sm"> Social Links </span>
+          </div>
+        </div>
+
+        <div class="block justify-between px-3 w-full text-gray-700 bg-white">
+          <Form class="w-full" @submit.prevent="onCreateSocial">
+            <div class="mb-6">
+              <TextField
+                v-model="$v.fieldName.$model"
+                label="Social Name"
+                placeholder="Twitter"
+                :error="getValidationMessage($v.fieldName)"
+              />
+            </div>
+
+            <div class="mb-6">
+              <TextField
+                v-model="$v.fieldLink.$model"
+                label="Link"
+                placeholder="https://twitter.com/contentreio"
+                :error="getValidationMessage($v.fieldLink)"
+              />
+            </div>
+
+            <div class="mb-6">
+              <TextField
+                v-model="$v.fieldIcon.$model"
+                label="Upload Icon"
+                type="file"
+                :error="getValidationMessage($v.fieldIcon)"
+              />
+            </div>
+
+            <div class="flex justify-center items-center mt-4 w-full">
+              <Button class="w-1/2" type="submit"> Add </Button>
+            </div>
+          </Form>
+        </div>
+      </div>
+      <div class="my-8">
         <div class="pb-4 space-x-3 text-sm font-normal leading-8 text-gray-900">
           <span>Social Links</span>
         </div>
 
-        <SocialLinks />
+        <SocialLinks :socials="getSocials" />
       </div>
     </div>
 
@@ -57,7 +113,76 @@
 </template>
 
 <script>
-export default {}
+import { CREATE_SOCIAL, GET_SOCIALS } from '~/graphql'
+import { isURL, hasLetter } from '~/plugins/validators'
+export default {
+  data: () => ({
+    getSocials: [],
+    fieldName: '',
+    fieldIcon: '',
+    fieldLink: ''
+  }),
+
+  validations: {
+    fieldLink: { isURL },
+    fieldIcon: {},
+    fieldName: {
+      hasLetter
+    },
+    honeyPot: {}
+  },
+
+  apollo: {
+    getSocials: {
+      query: GET_SOCIALS,
+      variables: {},
+      update(data) {
+        return data.getSocials.socials
+      }
+    }
+  },
+  methods: {
+    async onCreateSocial() {
+      if (this.honeyPot) return
+
+      if (await this.isValidationInvalid()) return
+
+      this.sending = true
+
+      if (this.imageBlob) {
+        this.cloudinary = await this.$cloudinary.upload(this.imageBlob, {
+          folder: 'contentre/socials/' + this.currentUser.id,
+          upload_preset: 'yijnms7k'
+        })
+      }
+
+      const input = {
+        name: this.fieldName || undefined,
+        link: this.fieldLink || undefined,
+        icon: this.cloudinary?.secure_url || undefined
+      }
+
+      try {
+        await this.$apollo.mutate({
+          mutation: CREATE_SOCIAL,
+          variables: {
+            input
+          },
+          update: (cache, { data: { createdSocial } }) => {
+            this.socials.push(createdSocial)
+            this.$apollo.queries.getSocials.refetch()
+          }
+        })
+
+        this.$toast.positive('Social created successfully')
+        this.sending = false
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+      }
+    }
+  }
+}
 </script>
 
 <style>

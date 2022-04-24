@@ -276,15 +276,7 @@
 
 <script>
 import { CREATE_CONTENT } from '~/graphql'
-import {
-  // maxLength,
-  // minLength,
-  required,
-  // hasNumber,
-  hasLetter
-  // hasSymbol,
-  // hasCapital
-} from '~/plugins/validators'
+import { required, hasLetter } from '~/plugins/validators'
 export default {
   name: 'AddPage',
   layout: 'Dashboard',

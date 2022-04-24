@@ -248,12 +248,7 @@
             >
               <Upgrade
                 :contents="currentUser.totalContents"
-                :max="
-                  $utils.getFeatureValue(
-                    currentUser.subscription,
-                    'TOTAL_CONTENTS'
-                  )
-                "
+                :max="$utils.getFeatureValue(getSubscription, 'TOTAL_CONTENTS')"
               />
             </div>
             <!-- End -->
@@ -288,6 +283,12 @@ export default {
     isSidebarCollapsed: false
   }),
 
+  computed: {
+    getSubscription() {
+      // console.log(this.currentUser.subscription)
+      return this.currentUser.subscription
+    }
+  },
   methods: {
     onCollapsed(collapse) {
       this.isSidebarCollapsed = collapse

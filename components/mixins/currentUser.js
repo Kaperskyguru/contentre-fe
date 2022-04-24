@@ -9,7 +9,11 @@ export const currentUser = {
     currentUser: {
       query: GET_CURRENT_USER,
       update: (data) => {
-        return data.getCurrentUser
+        console.log(data.getCurrentUser, 'mixins')
+        return {
+          ...data.getCurrentUser,
+          subscription: data.getCurrentUser.subscription
+        }
       }
     }
   },

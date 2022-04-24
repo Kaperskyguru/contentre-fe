@@ -295,6 +295,7 @@ export const getWindowHeight = () => {
  * @returns float
  */
 export const getFeatureValue = (subscription, name) => {
+  console.log(subscription, name)
   const feature = subscription?.features.find((item) => item.feature === name)
   if (!feature) return null
   return feature.value === 'unlimited' ? 0 : feature.value

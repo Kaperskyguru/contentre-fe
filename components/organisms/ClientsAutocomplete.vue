@@ -215,7 +215,7 @@
         :label="label"
         :label-class="labelClass"
         :chip-style="chipStyle"
-        :items="clients"
+        :items="clients.items"
         :loading="$apollo.queries.clients.loading"
         :allow-creation="allowCreation"
         :hide-pencil-icon="hidePencilIcon"
@@ -245,7 +245,7 @@
     :label="label"
     :label-class="labelClass"
     :chip-style="chipStyle"
-    :items="items ? items : clients"
+    :items="items ? items : clients.items"
     :loading="$apollo.queries.clients.loading"
     :allow-creation="allowCreation"
     :hide-pencil-icon="hidePencilIcon"
@@ -394,7 +394,10 @@ export default {
         //     (category) => category.id !== this.categoryId
         //   )
         // }
-        return data.getClients.clients
+        return {
+          items: data.getClients.clients,
+          total: data.getClients.meta.total
+        }
       },
       skip() {
         return !!this.items
@@ -406,7 +409,11 @@ export default {
     showOptions: false,
     disableField: false,
     search: '',
-    showAutoComplete: false
+    showAutoComplete: false,
+    clients: {
+      items: [],
+      total: 0
+    }
   }),
 
   computed: {

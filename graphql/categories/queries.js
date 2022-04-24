@@ -4,12 +4,17 @@ import { gql } from 'graphql-tag'
 export const GET_CATEGORIES = gql`
   query getCategories($size: Int, $skip: Int, $filters: CategoryFiltersInput) {
     getCategories(size: $size, skip: $skip, filters: $filters) {
-      id
-      name
-      color
-      totalContents
-      totalAmount
-      createdAt
+      categories {
+        id
+        name
+        color
+        totalContents
+        totalAmount
+        createdAt
+      }
+      meta {
+        total
+      }
     }
   }
 `

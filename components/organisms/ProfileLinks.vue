@@ -103,7 +103,8 @@
 import { GET_CLIENTS } from '~/graphql'
 export default {
   components: {
-    ShareIcon: () => import('~/assets/icons/share.svg?inline')
+    ShareIcon: () => import('~/assets/icons/share.svg?inline'),
+    PencilIcon: () => import('~/assets/icons/pencil.svg?inline')
   },
   props: {
     user: {

@@ -13,25 +13,27 @@
     </div>
     <div
       class="
-        flex
+        hidden
         justify-center
         items-center
         p-4
         w-full
         min-h-80vh
-        bg-auth-background
+        bg-center bg-no-repeat bg-cover bg-auth-background
+        md:flex
         lg:flex-1 lg:items-start lg:pt-20 lg:pl-10vw lg:min-h-screen
-        bg-center bg-no-repeat bg-cover
       "
     >
       <div class="lg:pt-20 lg:mt-20">
         <h1
           class="
             mb-6
+            font-gilroy
+            text-xl
+            font-bold
             tracking-wide
+            text-white
             sm:text-3xl
-            text-white text-xl
-            font-gilroy font-bold
           "
         >
           Paste your Author Link and get all your contents in one place.

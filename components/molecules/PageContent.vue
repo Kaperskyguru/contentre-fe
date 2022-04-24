@@ -7,6 +7,7 @@
       p-4
       mb-5
       space-y-6
+      w-full
       min-h-full
       md:flex-row md:p-6 md:space-y-0 md:space-x-6 md:min-h-0
     "

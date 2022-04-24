@@ -215,7 +215,7 @@
         :label="label"
         :label-class="labelClass"
         :chip-style="chipStyle"
-        :items="getCategories"
+        :items="items ? items : getCategories.items"
         :allow-creation="allowCreation"
         :hide-pencil-icon="hidePencilIcon"
         :disabled="disabled"
@@ -244,7 +244,7 @@
     :label="label"
     :label-class="labelClass"
     :chip-style="chipStyle"
-    :items="items ? items : getCategories"
+    :items="items ? items : getCategories.items"
     :allow-creation="allowCreation"
     :loading="$apollo.queries.getCategories.loading"
     :hide-pencil-icon="hidePencilIcon"
@@ -384,7 +384,10 @@ export default {
         }
       },
       update(data) {
-        return data.getCategories
+        return {
+          items: data.getCategories.categories ?? [],
+          total: data.getCategories.meta.total
+        }
       },
       skip() {
         return !!this.items
@@ -396,7 +399,11 @@ export default {
     showOptions: false,
     disableField: false,
     search: '',
-    showAutoComplete: false
+    showAutoComplete: false,
+    getCategories: {
+      items: [],
+      total: 0
+    }
   }),
 
   computed: {
