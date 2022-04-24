@@ -36,7 +36,10 @@
         </div>
       </div>
 
-      <Warning v-if="isUnderDevelopment" href="#" button-text="Give Feedback"
+      <Warning
+        v-if="isUnderDevelopment"
+        href="https://forms.gle/9PG1eC373JZLhFXK7"
+        button-text="Give Feedback"
         >App feature is under development</Warning
       >
 
