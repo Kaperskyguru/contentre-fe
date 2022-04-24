@@ -446,7 +446,6 @@ export default {
       if (field && this.isEditor) {
         // field.$el.focus()
         // field.$el.select()
-        console.log(field)
         return
       }
       if (field) {

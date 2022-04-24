@@ -49,7 +49,6 @@ export default {
       return this.contents * 100
     },
     maxText() {
-      console.log(this.max)
       if (this.max === 0) return 'Unlimited'
       return this.max
     },
