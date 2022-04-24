@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="grid gap-4 w-full lg:grid-cols-3">
+    <div class="grid grid-cols-2 gap-4 w-full lg:grid-cols-3">
       <div
         class="
           flex flex-col
@@ -128,6 +128,12 @@ export default {
   methods: {
     uploadContent() {
       this.isConfirmModalVisible = true
+    },
+
+    onContentUploaded(content) {
+      if (!content) return
+
+      return this.$emit('created', content)
     }
   }
 }

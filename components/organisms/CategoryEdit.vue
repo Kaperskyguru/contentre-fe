@@ -200,22 +200,24 @@ export default {
         mutation: CREATE_CATEGORY,
         variables: { input },
         update: (cache, { data: { createCategory: category } }) => {
-          // cache.modify({
-          //   id: 'ROOT_QUERY',
-          //   fields: {
-          //     getCategoriesWithAmount: (queryRef) => {
-          //       const categoryRef = cache.identify({
-          //         __typename: 'Category',
-          //         ...category,
-          //         amount: 0
-          //       })
-          //       return {
-          //         categories: [{ __ref: categoryRef }, ...queryRef.categories],
-          //         total: queryRef.total + 1
-          //       }
-          //     }
-          //   }
-          // })
+          cache.modify({
+            id: 'ROOT_QUERY',
+            fields: {
+              getCategories: (queryRef) => {
+                const categoryRef = cache.identify({
+                  __typename: 'Category',
+                  ...category
+                })
+
+                return {
+                  ...queryRef,
+                  categories: [{ __ref: categoryRef }, ...queryRef.categories],
+                  meta: { ...queryRef.meta, total: queryRef.meta.total + 1 }
+                }
+              }
+            }
+          })
+          this.$emit('created', category)
           return category
         }
       })
@@ -224,7 +226,8 @@ export default {
     async updateCategory(input) {
       return await this.$apollo.mutate({
         mutation: UPDATE_CATEGORY,
-        variables: { id: this.categoryId, input }
+        variables: { id: this.categoryId, input },
+        update: (cache) => updateCategoryCache(cache, this.categoryId)
       })
     },
 

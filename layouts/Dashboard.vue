@@ -35,6 +35,7 @@
 <script>
 import vClickOutside from 'v-click-outside'
 import base from './base.vue'
+import { currentUser } from '~/components/mixins'
 export default {
   name: 'DashboardNav',
 
@@ -43,6 +44,8 @@ export default {
   },
 
   extends: base,
+
+  mixins: [currentUser],
 
   middleware: [
     'isAuthenticated',
@@ -54,6 +57,21 @@ export default {
     isSidebarCollapsed: false,
     isMenuShown: false
   }),
+
+  computed: {
+    apolloClient() {
+      return this.$apollo.provider.defaultClient
+    },
+
+    cache() {
+      return this.apolloClient.cache
+    },
+
+    locales() {
+      return this.$i18n.locales
+    }
+  },
+
   methods: {
     collapse(c) {
       this.isSidebarCollapsed = c
