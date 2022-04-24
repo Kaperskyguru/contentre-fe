@@ -285,7 +285,6 @@ export default {
 
   computed: {
     getSubscription() {
-      // console.log(this.currentUser.subscription)
       return this.currentUser.subscription
     }
   },
