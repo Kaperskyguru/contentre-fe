@@ -29,6 +29,7 @@
         v-bind="$attrs"
         :type="link ? 'link' : ''"
         :to="link === '#' ? '' : link"
+        target="_blank"
         appearance="outline-red"
         >{{ buttonText }}</Button
       >

@@ -99,7 +99,7 @@
         <div class="w-full">
           <Warning
             v-if="isUnderDevelopment"
-            href="#"
+            href="https://forms.gle/9PG1eC373JZLhFXK7"
             button-text="Give Feedback"
             >Team feature is under development</Warning
           >
