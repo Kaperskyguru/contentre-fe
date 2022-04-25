@@ -150,6 +150,7 @@ export default {
 
         this.$toast.positive('User deleted successfully')
         this.sending = false
+        this.$router.push('/login')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

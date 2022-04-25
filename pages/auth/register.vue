@@ -217,7 +217,7 @@ export default {
             mutation: SEND_EMAIL_CODE,
             variables: {
               email: this.currentUser.email,
-              template:'email-verification'
+              template: 'email-verification'
             }
           })
         }
@@ -227,6 +227,7 @@ export default {
           query: { email: this.fieldEmail.toLocaleLowerCase() }
         })
       } catch (error) {
+        console.log(error)
         this.$toast.negative(error.message)
         this.sending = false
       }
