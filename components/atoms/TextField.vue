@@ -94,7 +94,8 @@
             'pl-1': !!$slots['prepend-inner'],
             'pl-3': !$slots['prepend-inner'],
             'pr-1': !!$slots['append-inner'],
-            'pr-3': !$slots['append-inner']
+            'pr-3': !$slots['append-inner'],
+            'w-full': $attrs.type !== 'websiteURL'
           }
         ]"
         :type="showPassword ? 'text' : $attrs.type"
@@ -133,7 +134,8 @@
               'pl-3': !$slots['prepend-inner'],
               'pr-1': !!$slots['append-inner'],
               'pr-3': !$slots['append-inner'],
-              'bg-gray-100': disabled
+              'bg-gray-100': disabled,
+              'w-full': $attrs.type !== 'websiteURL'
             }
           ]"
           v-bind="attrsButClassAndType"
@@ -170,7 +172,8 @@
             'pl-3': !$slots['prepend-inner'],
             'pr-1': !!$slots['append-inner'],
             'pr-3': !$slots['append-inner'],
-            'bg-gray-100': disabled
+            'bg-gray-100': disabled,
+            'w-full': $attrs.type !== 'websiteURL'
           }
         ]"
         v-bind="attrsButClassAndType"
@@ -387,7 +390,7 @@ export default {
 
   data: () => ({
     baseClass:
-      'flex-auto min-w-3 w-full py-2 text-black bg-transparent border-none outline-none',
+      'flex-auto min-w-3  py-2 text-black bg-transparent border-none outline-none',
     openedEye: EyeOpen,
     closedEye: EyeClosed,
     showPassword: false,
