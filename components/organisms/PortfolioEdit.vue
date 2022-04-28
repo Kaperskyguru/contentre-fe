@@ -26,12 +26,21 @@
       <div class="mb-6 w-full">
         <TextField
           v-model="$v.fieldURL.$model"
-          type="text"
           class="w-full text-sm"
           label="URL"
-          placeholder="Enter URL"
+          type="websiteURL"
+          enterkeyhint="next"
+          maxlength="2048"
+          field-class="pl-0.5"
+          autocomplete="url"
           :error="getValidationMessage($v.fieldURL)"
-        />
+        >
+          <template #prepend-inner>
+            <span class="pl-2 w-full text-darksilver"
+              >https://contentre.io/{{ currentUser.username }}?type=</span
+            >
+          </template>
+        </TextField>
       </div>
 
       <section class="mb-6">
@@ -95,10 +104,13 @@
 
 <script>
 import { CREATE_PORTFOLIO, GET_PORTFOLIO, UPDATE_PORTFOLIO } from '~/graphql'
-import { required, isURL } from '~/plugins/validators'
+import { currentUser } from '~/components/mixins/currentUser'
+import { required, hasNoSpace } from '~/plugins/validators'
 
 export default {
   name: 'PortfolioEdit',
+
+  mixins: [currentUser],
 
   model: {
     prop: 'visible',
@@ -134,7 +146,7 @@ export default {
     honeyPot: ''
   }),
   validations: {
-    fieldURL: { isURL },
+    fieldURL: { hasNoSpace },
     fieldTemplate: {},
     fieldTitle: {
       required
@@ -191,6 +203,7 @@ export default {
   },
 
   mounted() {
+    console.log(`${window.location.protocol}//${window.location.host}`)
     this.resetForm()
   },
 
@@ -238,9 +251,13 @@ export default {
         this.sending = true
         this.$toast.message = ''
 
+        const url = process.server
+          ? 'https://contentre.io'
+          : `${window.location.protocol}//${window.location.host}`
+
         const input = {
           title: this.fieldTitle,
-          url: this.fieldURL,
+          url: `${url}/${currentUser.username}?type=${this.fieldURL}`,
           description: this.fieldDescription,
           templateId:
             this.fieldTemplate === 'blank' ? undefined : this.fieldTemplate

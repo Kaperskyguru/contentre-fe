@@ -156,7 +156,8 @@ export const errors = (type, params) => {
     hasLetter: 'Please provide at least one letter',
     hasNumber: 'Please provide at least one number',
     hasSymbol: 'Please provide at least one special character',
-    hasCapital: 'Please provide at least one capital character'
+    hasCapital: 'Please provide at least one capital character',
+    hasNoSpace: 'No space is allowed'
   }
 
   return messages[type]
