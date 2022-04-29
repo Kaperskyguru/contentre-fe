@@ -35,8 +35,8 @@
       </div>
 
       <div class="pl-2 my-4 leading-6 bg-teal-100 rounded-lg links">
-        <a :href="user.portfolio" target="_blank" class="text-gray-600">
-          {{ user.portfolio }}
+        <a :href="user.portfolioURL" target="_blank" class="text-gray-600">
+          {{ user.portfolioURL }}
         </a>
       </div>
     </div>

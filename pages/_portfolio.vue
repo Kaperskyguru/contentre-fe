@@ -22,15 +22,15 @@
     </section>
 
     <section class="text-center text-white">
-      <div class="container flex flex-col pt-5 pb-8 mx-auto md:flex-row">
-        <div
-          class="mb-2 w-full rounded-lg md:mr-2 md:w-1/2 lg:w-full lg:max-w-lg"
-        >
-          <img
-            class="object-cover object-center rounded"
-            alt="profile image"
-            :src="computedProfileImage(portfolio.profileImage)"
-          />
+      <div class="flex flex-col pt-5 pb-8 mx-auto md:flex-row">
+        <div class="mb-2 w-full rounded-lg">
+          <div class="relative w-80 h-80">
+            <img
+              class="object-cover object-center rounded-full"
+              alt="profile image"
+              :src="computedProfileImage(portfolio.profileImage)"
+            />
+          </div>
         </div>
         <div
           class="
