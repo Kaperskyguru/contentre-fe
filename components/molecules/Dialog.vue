@@ -29,7 +29,69 @@
           enter-class="translate-y-full"
         >
           <div
-            v-if="visible"
+            v-if="visible && title"
+            ref="dialog"
+            role="dialog"
+            class="
+              items-center
+              pt-1
+              w-full
+              bg-btn-green
+              rounded-lg
+              outline-none
+              shadow-lg
+              md:pt-2
+            "
+            :class="{
+              'flex flex-col': $slots.icon,
+              ' max-w-5xl my-10': isLarge,
+              ' max-w-md': !isLarge
+            }"
+            tabindex="0"
+            @click.stop
+          >
+            <div class="pb-2 bg-btn-green border-b">
+              <div v-if="title" class="px-6 text-white md:px-8 lg:px-8">
+                <h2 class="mb-1 font-bold">{{ title }}</h2>
+                <p v-if="description" class="text-gray-100">
+                  {{ description }}
+                </p>
+              </div>
+            </div>
+            <div class="px-6 pt-4 bg-white md:px-8 lg:px-8">
+              <div
+                :class="{ 'text-sm md:text-base text-center': $slots.icon }"
+                class="pb-8"
+              >
+                <slot />
+              </div>
+
+              <div
+                v-if="primaryText || secondaryText"
+                class="mt-8 space-x-3 text-center"
+              >
+                <Button
+                  v-if="secondaryText"
+                  appearance="secondary"
+                  class="min-w-30"
+                  @click="answer(false)"
+                >
+                  {{ secondaryText }}
+                </Button>
+
+                <Button
+                  v-if="primaryText"
+                  class="min-w-30"
+                  @click="answer(true)"
+                >
+                  {{ primaryText }}
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            v-else
             ref="dialog"
             role="dialog"
             class="
@@ -111,6 +173,11 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    title: {
+      type: String,
+      default: ''
+    },
+    description: { type: String, default: '' },
     isLarge: {
       type: Boolean,
       default: false

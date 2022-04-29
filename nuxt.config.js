@@ -34,8 +34,7 @@ export default {
     '~/plugins/utils',
     '~/plugins/toast',
     '~/plugins/currentUser',
-    '~/plugins/resizable',
-    { src: '~/plugins/CKEditor', mode: 'client' }
+    '~/plugins/resizable'
   ],
 
   cloudinary: {
