@@ -14,7 +14,7 @@ export const userFragments = {
       lastname
       bio
       homeAddress
-      portfolio
+      portfolioURL
       subscriptionId
       subscription {
         id

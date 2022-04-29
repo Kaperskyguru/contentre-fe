@@ -178,69 +178,12 @@
       <div class="flex flex-col justify-between md:flex-row">
         <div class="flex flex-col justify-start">
           <div class="flex justify-start mt-8">
-            <div class="mr-3">Published to:</div>
-            <div
-              class="
-                flex flex-col
-                justify-end
-                items-start
-                -mb-3
-                text-gray-100
-                md:flex-row md:flex-wrap
-              "
-            >
-              <div class="mr-4">
-                <CheckField id="medium" v-model="medium" class="text-gray-100"
-                  >Medium</CheckField
-                >
+            <!-- <div class="mr-3">Published to:</div> -->
+            <Button appearance="outline-red" @click.prevent="onApps">
+              <div class="text-red-600 hover:text-white">
+                <GroupingIcon />
               </div>
-              <div class="mr-4">
-                <CheckField id="devto" v-model="devto" class="text-gray-100"
-                  >Dev Community</CheckField
-                >
-              </div>
-              <div class="mr-4">
-                <CheckField
-                  id="hashnode"
-                  v-model="hashnode"
-                  class="text-gray-100"
-                  >Hashnode</CheckField
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="flex justify-start mt-4 sm:mt-8">
-            <div class="mr-3">Share to:</div>
-            <div
-              class="
-                flex flex-col
-                justify-end
-                items-start
-                -mb-3
-                text-gray-100
-                md:flex-row md:flex-wrap
-              "
-            >
-              <div class="mr-4">
-                <CheckField id="medium" v-model="medium" class="text-gray-100"
-                  >Facebook</CheckField
-                >
-              </div>
-              <div class="mr-4">
-                <CheckField id="devto" v-model="devto" class="text-gray-100"
-                  >Twitter</CheckField
-                >
-              </div>
-              <div class="mr-4">
-                <CheckField
-                  id="hashnode"
-                  v-model="hashnode"
-                  class="text-gray-100"
-                  >Linkedin</CheckField
-                >
-              </div>
-            </div>
+            </Button>
           </div>
         </div>
         <div
@@ -271,19 +214,36 @@
         </div>
       </div>
     </Dialog>
+
+    <Dialog
+      v-model="isPluginModalVisible"
+      :is-large="true"
+      title="Connected Apps"
+    >
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <Apps @create:success="onContentUploaded" />
+        </div>
+      </div>
+    </Dialog>
   </section>
 </template>
 
 <script>
 import { CREATE_CONTENT } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
+import GroupingIcon from '~/assets/icons/client.svg?inline'
 export default {
   name: 'AddPage',
+  components: {
+    GroupingIcon
+  },
   layout: 'Dashboard',
 
   data: () => ({
     checked: [],
     isConfirmModalVisible: false,
+    isPluginModalVisible: false,
     isPreviewModalVisible: false,
     selectedClient: null,
     showAutoComplete: false,
@@ -362,6 +322,9 @@ export default {
     onUpdateClient(client) {
       this.showAutoComplete = false
       this.fieldClient = client
+    },
+    onApps() {
+      this.isPluginModalVisible = true
     },
 
     onUpdateTags(tags) {
