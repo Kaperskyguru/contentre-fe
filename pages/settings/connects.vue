@@ -51,7 +51,7 @@
               type="email"
               class="w-full text-sm"
               :disabled="true"
-              :value="`https://www.contentre.io/register?referrer=${currentUser.username}`"
+              :value="`https://app.contentre.io/auth/register?referrer=${currentUser.username}`"
             />
           </div>
           <Button type="submit"> Copy Link </Button>
