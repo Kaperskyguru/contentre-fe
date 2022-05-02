@@ -10,7 +10,7 @@ export default async ({ redirect, $getCurrentUser, $toast, route }) => {
       if (!currentUser.emailConfirmed) {
         if (route.path === '/auth/verify-email') return
 
-        return redirect('/auth/verify-email')
+        return redirect(`/auth/verify-email?email=${currentUser.email}`)
       } else if (
         !currentUser.bio ||
         !currentUser.jobTitle ||
