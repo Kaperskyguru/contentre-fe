@@ -49,7 +49,17 @@
           "
         />
       </template>
-      <div class="flex justify-center my-9 w-full">
+      <div
+        class="
+          flex flex-col
+          justify-center
+          pt-2
+          mb-6
+          space-y-4 space-x-0
+          w-full
+          md:flex-row md:space-y-0 md:space-x-4
+        "
+      >
         <Button
           type="button"
           appearance="secondary"

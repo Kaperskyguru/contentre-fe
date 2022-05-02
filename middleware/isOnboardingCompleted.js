@@ -23,7 +23,7 @@ export default async ({ redirect, $getCurrentUser, $toast, route }) => {
     if (currentUser.totalContents === 0 && route.hash === '#onboarding') {
       return redirect('/contents/add#upload')
     } else if (!currentUser.emailConfirmed) {
-      return redirect('/auth/verify-email')
+      return redirect(`/auth/verify-email?email=${currentUser.email}`)
     } else if (
       !currentUser.bio ||
       !currentUser.jobTitle ||

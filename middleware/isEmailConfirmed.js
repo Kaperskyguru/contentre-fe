@@ -8,8 +8,8 @@ export default async ({ route, redirect, $getCurrentUser, $toast }) => {
 
     // Force 2FA email verification.
     return redirect({
-      path: '/auth/forgot-password/verify-email',
-      query: { redirect: route.path }
+      path: '/auth/verify-email',
+      query: { redirect: route.path, email: currentUser.email }
     })
   } catch (error) {
     $toast.message = error.message
