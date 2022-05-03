@@ -76,9 +76,7 @@
       />
       <PasswordMeter :correct="passwordsMatch" text="Passwords should match" />
       <div class="flex justify-center my-9 w-full">
-        <Button :disabled="!shouldEnableButton" :waiting="sending"
-          >Create Account</Button
-        >
+        <Button :waiting="sending">Create Account</Button>
       </div>
     </form>
     <p class="font-gilroy text-base font-bold text-center text-body-text-color">
