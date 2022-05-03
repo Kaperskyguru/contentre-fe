@@ -67,7 +67,7 @@
             class="p-4 mb-4 w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3"
           >
             <article class="overflow-hidden p-4 bg-white rounded-lg shadow">
-              <div class="w-full">
+              <!-- <div class="w-full">
                 <a href="#">
                   <img
                     alt="Placeholder"
@@ -75,12 +75,16 @@
                     src="~/assets/img/portfolio-pic2.png"
                   />
                 </a>
-              </div>
+              </div> -->
               <header class="py-4 leading-tight">
                 <span class="font-bold text-gray-900">
                   {{ portfolio.title }}
                 </span>
               </header>
+
+              <div class="py-4 w-full">
+                <p>{{ portfolio.description }}</p>
+              </div>
 
               <div
                 class="
@@ -206,12 +210,13 @@ export default {
   methods: {
     onFilters() {},
     onAddPortfolio() {
-      this.isConfirmModalVisible = !this.isConfirmModalVisible
+      this.portfolioId = null
+      this.isConfirmModalVisible = true
     },
 
     onEditPortfolio(id) {
       this.portfolioId = id
-      this.isConfirmModalVisible = !this.isConfirmModalVisible
+      this.isConfirmModalVisible = true
     },
 
     onDeletePortfolio(id) {

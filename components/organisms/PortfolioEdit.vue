@@ -23,23 +23,23 @@
         type="text"
         class="absolute invisible"
       />
-      <div class="mb-6 w-full">
+      <div v-if="portfolioId" class="mb-6 w-full">
         <TextField
           v-model="$v.fieldURL.$model"
           class="w-full text-sm"
           label="URL"
           type="websiteURL"
+          disabled
           enterkeyhint="next"
           maxlength="2048"
-          field-class="pl-0.5"
           autocomplete="url"
           :error="getValidationMessage($v.fieldURL)"
         >
-          <template #prepend-inner>
-            <span class="pl-2 w-full text-darksilver"
-              >https://contentre.io/{{ currentUser.username }}?type=</span
-            >
-          </template>
+          <!-- <template #prepend-inner>
+            <span class="pl-2 w-full text-darksilver">{{
+              $v.fieldURL.$model
+            }}</span>
+          </template> -->
         </TextField>
       </div>
 
@@ -65,10 +65,10 @@
           :error="getValidationMessage($v.fieldTemplate)"
         >
           <option value="blank">Create Blank</option>
-          <option value="1">Sample 1</option>
+          <!-- <option value="1">Sample 1</option>
           <option value="2">Sample 2</option>
           <option value="3">Sample 3</option>
-          <option value="4">Sample 4</option>
+          <option value="4">Sample 4</option> -->
         </DropdownField>
       </section>
 
@@ -203,7 +203,6 @@ export default {
   },
 
   mounted() {
-    console.log(`${window.location.protocol}//${window.location.host}`)
     this.resetForm()
   },
 
@@ -251,13 +250,13 @@ export default {
         this.sending = true
         this.$toast.message = ''
 
-        const url = process.server
-          ? 'https://contentre.io'
-          : `${window.location.protocol}//${window.location.host}`
+        // const url = process.server
+        //   ? 'https://contentre.io'
+        //   : `${window.location.protocol}//${window.location.host}`
 
         const input = {
           title: this.fieldTitle,
-          url: `${url}/${currentUser.username}?type=${this.fieldURL}`,
+          // url: `${url}/${currentUser.username}?type=${this.fieldURL}`,
           description: this.fieldDescription,
           templateId:
             this.fieldTemplate === 'blank' ? undefined : this.fieldTemplate
