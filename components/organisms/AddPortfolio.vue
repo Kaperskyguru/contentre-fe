@@ -15,7 +15,7 @@
       type="text"
       class="absolute invisible"
     />
-    <div class="mb-6 w-full">
+    <!-- <div class="mb-6 w-full">
       <TextField
         v-model="$v.fieldURL.$model"
         type="text"
@@ -24,7 +24,7 @@
         placeholder="Enter URL"
         :error="getValidationMessage($v.fieldURL)"
       />
-    </div>
+    </div> -->
 
     <section class="mb-6">
       <TextField
@@ -63,17 +63,17 @@
 
 <script>
 import { CREATE_PORTFOLIO } from '~/graphql'
-import { required, isURL } from '~/plugins/validators'
+import { required } from '~/plugins/validators'
 export default {
   data: () => ({
     fieldTitle: '',
-    fieldURL: '',
+    // fieldURL: '',
     fieldDescription: '',
     fieldTemplate: '',
     honeyPot: ''
   }),
   validations: {
-    fieldURL: { isURL },
+    // fieldURL: { isURL },
     fieldTemplate: {},
     fieldTitle: {
       required
@@ -96,7 +96,7 @@ export default {
           variables: {
             input: {
               title: this.fieldTitle,
-              url: this.fieldURL,
+              // url: this.fieldURL,
               templateId:
                 this.fieldTemplate === 'blank' ? undefined : this.fieldTemplate,
               description: this.fieldDescription
