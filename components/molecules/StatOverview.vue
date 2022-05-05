@@ -88,7 +88,7 @@ export default {
         if (item.key === 'contents')
           stats.push({
             ...item,
-            value: parseInt(this.stats.totalContents),
+            value: parseInt(this.stats?.totalContents ?? 0),
             increment: parseFloat(this.stats.contentPercent).toFixed(2)
           })
       })

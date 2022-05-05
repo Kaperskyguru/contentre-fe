@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { DELETE_USER, GET_CURRENT_USER } from '~/graphql'
+import { DELETE_USER } from '~/graphql'
 import { required } from '~/plugins/validators'
 export default {
   name: 'AccountSettings',
@@ -140,17 +140,16 @@ export default {
             oldPassword: this.fieldPassword,
             feedback: this.fieldFeedback
           },
-          update: (cache, { data: { updateUser } }) => {
-            cache.writeQuery({
-              query: GET_CURRENT_USER,
-              data: { getCurrentUser: updateUser }
-            })
+          update: (cache) =>
+            cache.evict({ id: 'ROOT_QUERY', fieldName: 'getCurrentUser' }),
+          optimisticResponse: {
+            deleteUser: true
           }
         })
 
         this.$toast.positive('User deleted successfully')
         this.sending = false
-        this.$router.push('/login')
+        await this.$router.push('/auth/login')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

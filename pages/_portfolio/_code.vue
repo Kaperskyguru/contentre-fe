@@ -212,6 +212,43 @@ import { GET_PORTFOLIO_CONTENT } from '~/graphql'
 export default {
   name: 'CodePage',
   layout: 'portfolio',
+
+  async asyncData(context) {
+    const client = context.app.apolloProvider.defaultClient
+
+    const url = process.server
+      ? 'https://contentre.io'
+      : `${window.location.protocol}//${window.location.host}`
+
+    try {
+      const {
+        data: { getPortfolioContent: portfolios }
+      } = await client.query({
+        query: GET_PORTFOLIO_CONTENT,
+        variables: {
+          size: 12,
+          skip: 0,
+          filters: {
+            username: context.params.portfolio,
+            code: context.params.code,
+            url: `${url}${context.route.fullPath}`
+          }
+        },
+        skip: !context.params.portfolio && !context.params.code
+      })
+      return {
+        portfolio: {
+          ...portfolios,
+          total: portfolios?.contents?.meta?.total ?? 0,
+          contents: portfolios.contents.contents
+        }
+      }
+    } catch (e) {
+      return {
+        error: true
+      }
+    }
+  },
   data: () => ({
     image: ImageBG,
     username: '',
@@ -224,37 +261,6 @@ export default {
     size: 12,
     skip: 0
   }),
-  apollo: {
-    portfolio: {
-      query: GET_PORTFOLIO_CONTENT,
-      fetchPolicy: 'cache-and-network',
-      variables() {
-        return {
-          size: this.size,
-          skip: this.skip,
-          filters: {
-            username: this.username,
-            terms: this.filters?.terms,
-            ...this.filters
-          }
-        }
-      },
-      update(data) {
-        return {
-          ...data.getPortfolioContent,
-          total: data.getPortfolioContent?.contents?.meta?.total ?? 0,
-          contents: data.getPortfolioContent.contents.contents
-        }
-      },
-      skip() {
-        return !this.username
-      },
-      error(e) {
-        console.log(e)
-        this.error = true
-      }
-    }
-  },
 
   head() {
     if (!this.error) {
