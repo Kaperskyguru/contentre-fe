@@ -247,7 +247,7 @@
               "
             >
               <Upgrade
-                :contents="currentUser.totalContents"
+                :contents="getTotalContents"
                 :max="$utils.getFeatureValue(getSubscription, 'TOTAL_CONTENTS')"
               />
             </div>
@@ -286,6 +286,9 @@ export default {
   computed: {
     getSubscription() {
       return this.currentUser.subscription
+    },
+    getTotalContents() {
+      return this.currentUser?.totalContents ?? 0
     }
   },
   methods: {

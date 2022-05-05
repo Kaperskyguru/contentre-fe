@@ -220,7 +220,7 @@
             :max="
               $utils.getFeatureValue(currentUser.subscription, 'TOTAL_CONTENTS')
             "
-            :contents="currentUser.totalContents"
+            :contents="getTotalContents"
           />
         </div>
       </ul>
@@ -244,7 +244,13 @@ export default {
     ClientIcon
   },
 
-  mixins: [currentUser]
+  mixins: [currentUser],
+
+  computed: {
+    getTotalContents() {
+      return this.currentUser?.totalContents ?? 0
+    }
+  }
 }
 </script>
 
