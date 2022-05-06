@@ -35,11 +35,6 @@
           autocomplete="url"
           :error="getValidationMessage($v.fieldURL)"
         >
-          <!-- <template #prepend-inner>
-            <span class="pl-2 w-full text-darksilver">{{
-              $v.fieldURL.$model
-            }}</span>
-          </template> -->
         </TextField>
       </div>
 
@@ -55,6 +50,52 @@
         />
       </section>
 
+      <section class="p-3 mb-6 border">
+        <div class="mb-6">
+          <div class="mb-5 text-darksilver"><p>Content rules:</p></div>
+          <ClientsAutocomplete
+            id="1"
+            key="autocomplete"
+            v-model="$v.fieldClient.$model"
+            label="Client"
+            :should-update="false"
+            :allow-creation="false"
+            :fake-input="true"
+            :show-border="true"
+            class="mr-1 w-full"
+            placeholder="Select a client"
+            :error="getValidationMessage($v.fieldClient)"
+          />
+        </div>
+        <div
+          class="flex flex-col mb-6 space-y-3 w-full md:flex-row md:space-y-0"
+        >
+          <CategoriesAutocomplete
+            v-model="$v.fieldCategory.$model"
+            label="Category"
+            :error="getValidationMessage($v.fieldCategory)"
+            :should-update="false"
+            :fake-input="true"
+            :show-border="true"
+            :allow-creation="false"
+            class="mr-1 w-full md:w-1/2"
+            placeholder="Select a category"
+          />
+
+          <TagsAutocomplete
+            v-model="$v.fieldTags.$model"
+            label="Tags"
+            class="mr-1 w-full md:w-1/2"
+            placeholder="Select up 5 tags"
+            :should-update="false"
+            :fake-input="true"
+            :show-border="true"
+            :allow-creation="false"
+            :error="getValidationMessage($v.fieldTags)"
+            @update:value="onUpdateTags"
+          />
+        </div>
+      </section>
       <section v-if="!isEditing" class="mb-6">
         <DropdownField
           v-model="$v.fieldTemplate.$model"
@@ -65,10 +106,6 @@
           :error="getValidationMessage($v.fieldTemplate)"
         >
           <option value="blank">Create Blank</option>
-          <!-- <option value="1">Sample 1</option>
-          <option value="2">Sample 2</option>
-          <option value="3">Sample 3</option>
-          <option value="4">Sample 4</option> -->
         </DropdownField>
       </section>
 
@@ -141,12 +178,19 @@ export default {
     sending: false,
     fieldTitle: '',
     fieldURL: '',
+    fieldTags: '',
+    fieldCategory: '',
+    fieldClient: '',
     fieldDescription: '',
     fieldTemplate: '',
-    honeyPot: ''
+    honeyPot: '',
+    tags: []
   }),
   validations: {
     fieldURL: { hasNoSpace },
+    fieldTags: {},
+    fieldClient: {},
+    fieldCategory: {},
     fieldTemplate: {},
     fieldTitle: {
       required
@@ -207,6 +251,12 @@ export default {
   },
 
   methods: {
+    onUpdateTags(tags) {
+      this.showAutoComplete = false
+      this.fieldTags = tags
+      this.tags.push(tags?.name)
+    },
+
     resetForm() {
       this.$v.$reset()
 
@@ -215,6 +265,7 @@ export default {
         this.fieldURL = this.portfolio?.url
         this.fieldDescription = this.portfolio?.description
         this.fieldTemplate = this.portfolio?.template?.title
+        // this.fieldCategory =
       } else {
         this.fieldTitle = ''
         this.fieldURL = ''
@@ -257,6 +308,9 @@ export default {
         const input = {
           title: this.fieldTitle,
           // url: `${url}/${currentUser.username}?type=${this.fieldURL}`,
+          clientId: this.fieldClient?.id ?? undefined,
+          categoryId: this.fieldCategory?.id ?? undefined,
+          tags: this.tags,
           description: this.fieldDescription,
           templateId:
             this.fieldTemplate === 'blank' ? undefined : this.fieldTemplate

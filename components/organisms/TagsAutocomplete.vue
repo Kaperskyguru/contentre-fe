@@ -256,29 +256,50 @@
     </div>
   </div>
 
-  <AutocompleteField
-    v-else
-    :id="id"
-    ref="elementRef"
-    class="w-full"
-    hide-arrow-down
-    :placeholder="placeholder"
-    :value="value"
-    :label="label"
-    :label-class="labelClass"
-    :chip-style="chipStyle"
-    :items="items ? items : getTags.items"
-    :loading="$apollo.queries.getTags.loading"
-    :allow-creation="allowCreation"
-    :hide-pencil-icon="hidePencilIcon"
-    :disabled="disabled"
-    :show-border="showBorder"
-    @update:search="search = $event"
-    @update:value="selectTag"
-    @create="selectTag"
-    @blur="onBlurAutocomplete"
-    @focus="onFocusAutocomplete"
-  />
+  <div v-else class="flex flex-col max-w-md leading-4 text-gray-400">
+    <AutocompleteField
+      :id="id"
+      ref="elementRef"
+      class="w-full"
+      hide-arrow-down
+      :placeholder="placeholder"
+      :value="value"
+      :label="label"
+      :label-class="labelClass"
+      :chip-style="chipStyle"
+      :items="items ? items : getTags.items"
+      :loading="$apollo.queries.getTags.loading"
+      :allow-creation="allowCreation"
+      :hide-pencil-icon="hidePencilIcon"
+      :disabled="disabled"
+      :show-border="showBorder"
+      @update:search="search = $event"
+      @update:value="selectTag"
+      @create="selectTag"
+      @blur="onBlurAutocomplete"
+      @focus="onFocusAutocomplete"
+    />
+    <Tooltip
+      v-if="!showAutoComplete && filteredTags.length"
+      key="label"
+      :trigger="['hover']"
+      :label="filteredTags && filteredTags.map((tag) => tag.name).join(',')"
+      :disabled="!filteredTags"
+    >
+      <div class="flex overflow-x-auto w-full">
+        <span
+          v-for="(tag, i) in filteredTags"
+          :key="i"
+          class="leading-snug text-gray-800 whitespace-nowrap cursor-pointer"
+          @click="onClickShowAutoComplete"
+        >
+          <p class="p-1 mx-2 mt-5 text-white bg-primary-teal">
+            {{ tag && tag.name }}
+          </p>
+        </span>
+      </div>
+    </Tooltip>
+  </div>
 </template>
 
 <script>
