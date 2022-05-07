@@ -26,7 +26,12 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['@/assets/css/main.css'],
+  css: [
+    '@/assets/css/main.css',
+    'medium-editor/dist/css/medium-editor.css',
+    'vuejs-medium-editor/src/themes/default.css',
+    'highlight.js/styles/ocean.css'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -35,7 +40,8 @@ export default {
     '~/plugins/toast',
     '~/plugins/currentUser',
     '~/plugins/resizable',
-    { src: '~/plugins/CKEditor', mode: 'client' }
+    { src: '~/plugins/CKEditor', mode: 'client' },
+    { src: '~/plugins/medium-editor', ssr: false }
   ],
 
   cloudinary: {
