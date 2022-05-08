@@ -26,7 +26,12 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['@/assets/css/main.css'],
+  css: [
+    '@/assets/css/main.css',
+    'medium-editor/dist/css/medium-editor.css',
+    'vuejs-medium-editor/src/themes/default.css',
+    'highlight.js/styles/ocean.css'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -35,7 +40,8 @@ export default {
     '~/plugins/toast',
     '~/plugins/currentUser',
     '~/plugins/resizable',
-    { src: '~/plugins/CKEditor', mode: 'client' }
+    { src: '~/plugins/CKEditor', mode: 'client' },
+    { src: '~/plugins/medium-editor', ssr: false }
   ],
 
   cloudinary: {
@@ -74,20 +80,21 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
     // https://i18n.nuxtjs.org
     ['@nuxtjs/i18n', nuxtI18nConfig],
-    '@nuxtjs/cloudinary'
+    '@nuxtjs/cloudinary',
+
+    // https://github.com/nuxt-community/gtm-module
+    '@nuxtjs/gtm'
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/'
+  gtm: {
+    id: 'G-Q2JRSLVRYZ',
+    pageTracking: true,
+    pageViewEventName: 'virtualPageview'
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

@@ -77,6 +77,12 @@
           <FavoriteIcon />
         </button>
       </span>
+
+      <!-- <span class="inline-block relative">
+        <button class="text-2xl leading-10 text-left text-gray-500">
+          <PortfolioIcon />
+        </button>
+      </span> -->
     </div>
   </div>
 </template>
@@ -88,6 +94,7 @@ export default {
     DownloadIcon: () => import('~/assets/icons/download.svg?inline'),
     FavoriteIcon: () => import('~/assets/icons/favourite.svg?inline'),
     ExportIcon: () => import('~/assets/icons/export.svg?inline')
+    // PortfolioIcon: () => import('~/assets/icons/porfolio.svg?inline')
   },
   props: {
     selected: {

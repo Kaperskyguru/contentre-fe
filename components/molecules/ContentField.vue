@@ -81,8 +81,8 @@
               </div>
             </li>
           </span>
-          <span class="pl-2 text-2xl font-bold text-gray-600"
-            ><slot name="title">Sample title</slot></span
+          <span class="pl-2 text-2xl font-bold text-gray-600">
+            <slot name="title">Sample title</slot></span
           >
           <span
             v-if="isRequired"

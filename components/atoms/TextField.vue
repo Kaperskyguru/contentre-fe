@@ -502,10 +502,18 @@ export default {
     },
     onInput(event) {
       if (!this.lazy) {
+        if (this.isEditor) {
+          this.model = event
+          return
+        }
         const target = event.target
         if (!event || !target) return false
         if (this.model !== target.value) this.model = target.value
       } else {
+        if (this.isEditor) {
+          this.lazyInput = event
+          return
+        }
         const target = event.target
         if (!event || !target) return false
         this.lazyInput = target.value
