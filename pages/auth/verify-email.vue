@@ -129,7 +129,8 @@ export default {
         await this.$apollo.mutate({
           mutation: SEND_EMAIL_CODE,
           variables: {
-            email: this.email
+            email: this.email,
+            template: 'email-verification'
           }
         })
 
