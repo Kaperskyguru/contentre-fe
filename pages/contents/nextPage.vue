@@ -206,16 +206,17 @@
           </ckeditor>
         </div> -->
 
-      <medium-editor
-        v-model="content"
-        :prefill="defaultValue"
-        :options="options"
-        :on-change="onChange"
-        :hide-gist="false"
-        @uploaded="uploadCallback"
-      >
-      </medium-editor>
-
+      <Portal selector="#portal-panel" class="p-5">
+        <medium-editor
+          v-model="content"
+          :prefill="defaultValue"
+          :options="options"
+          :on-change="onChange"
+          :hide-gist="false"
+          @uploaded="uploadCallback"
+        >
+        </medium-editor>
+      </Portal>
       <div class="flex justify-end my-8 space-x-4">
         <button
           class="
@@ -259,8 +260,12 @@
 </template>
 
 <script>
+import { Portal } from '@linusborg/vue-simple-portal'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 export default {
+  components: {
+    Portal
+  },
   layout: 'Dashboard',
   data: () => ({
     editor: ClassicEditor,

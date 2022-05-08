@@ -80,20 +80,21 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
     // https://i18n.nuxtjs.org
     ['@nuxtjs/i18n', nuxtI18nConfig],
-    '@nuxtjs/cloudinary'
+    '@nuxtjs/cloudinary',
+
+    // https://github.com/nuxt-community/gtm-module
+    '@nuxtjs/gtm'
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/'
+  gtm: {
+    id: 'G-Q2JRSLVRYZ',
+    pageTracking: true,
+    pageViewEventName: 'virtualPageview'
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

@@ -207,7 +207,11 @@ export default {
           name: this.fieldName,
           password: this.fieldPassword,
           referrer: this.$route.query.referrer,
-          signedUpThrough: 'CONTENTRE'
+          signedUpThrough: 'CONTENTRE',
+          source: this.$route.query?.source || undefined,
+          analyticsSource: this.$route.query?.analytics_source || undefined,
+          analyticsSourceData:
+            this.$route.query?.analytics_source_data || undefined
         })
 
         if (!this.currentUser.emailConfirmed) {
@@ -225,7 +229,6 @@ export default {
           query: { email: this.fieldEmail.toLocaleLowerCase() }
         })
       } catch (error) {
-        console.log(error)
         this.$toast.negative(error.message)
         this.sending = false
       }
@@ -237,10 +240,7 @@ export default {
         variables: {
           input: {
             ...input,
-            language: this.$i18n.getLocaleCookie(),
-            signedUpThrough: 'CONTENTRE',
-            analyticsSource: this.$route.query.source || undefined,
-            analyticsSourceData: this.$route.query.source_data || undefined
+            language: this.$i18n.getLocaleCookie()
           }
         },
         update: (cache, { data: { createUser } }) => {
