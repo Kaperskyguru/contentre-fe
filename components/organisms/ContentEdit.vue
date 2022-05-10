@@ -1,5 +1,10 @@
 <template>
   <FloatingPanel v-model="open" from="right">
+    <template #header>
+      <strong>
+        {{ isEditing ? 'Edit content' : 'Create content' }}
+      </strong>
+    </template>
     <Form class="w-full" @submit.prevent="updateContent">
       <div class="mb-6">
         <TextField
@@ -156,6 +161,13 @@
           {{ 'Update' }}
         </Button>
       </div>
+      <Hyperlink
+        v-if="isEditing"
+        class="text-red-700"
+        :to="{ path: `/contents/${contentId}/` }"
+      >
+        Edit full content
+      </Hyperlink>
     </Form>
   </FloatingPanel>
 </template>
@@ -211,6 +223,9 @@ export default {
     honeyPot: {}
   },
   computed: {
+    isEditing() {
+      return !!this.contentId
+    },
     open: {
       get() {
         return !!this.contentId

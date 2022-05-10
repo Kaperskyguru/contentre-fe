@@ -443,7 +443,17 @@ export default {
     }
   },
 
+  mounted(){
+    this.checkAutofocusField()
+  },
+
   methods: {
+    checkAutofocusField() {
+      if (this.autofocus) {
+        const field = this.$el.querySelector(this.rows ? 'textarea' : 'input')
+        field?.focus()
+      }
+    },
     focus() {
       const field = this.$refs.field
       if (field && this.isEditor) {

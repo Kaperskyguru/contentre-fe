@@ -395,7 +395,7 @@ export default {
         //   )
         // }
         return {
-          items: data.getClients.clients,
+          items: [...data.getClients.clients, { name: 'Personal' }],
           total: data.getClients.meta.total
         }
       },

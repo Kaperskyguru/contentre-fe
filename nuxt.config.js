@@ -28,7 +28,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/main.css',
-    'medium-editor/dist/css/medium-editor.css',
+    'medium-editor/dist/css/medium-editor.min.css',
     'vuejs-medium-editor/src/themes/default.css',
     'highlight.js/styles/ocean.css'
   ],

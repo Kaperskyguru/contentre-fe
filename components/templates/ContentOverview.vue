@@ -369,7 +369,11 @@ export default {
             url: client.website,
             value: client.name || 'No Client provided'
           }
-        : {}
+        : {
+            style: !client ? 'secondary' : undefined,
+            class: 'capitalize',
+            value: 'Personal'
+          }
     },
 
     getCategoryComponentOptions({ category }) {

@@ -3,7 +3,7 @@
     <section
       class="flex flex-wrap justify-between items-center py-4 mt-4 w-full"
     >
-      <PageTitle>Add Content</PageTitle>
+      <PageTitle>Edit Content</PageTitle>
     </section>
 
     <section class="container">
@@ -16,7 +16,7 @@
           :show-border="false"
           :autofocus="true"
           :error="getValidationMessage($v.fieldTitle)"
-          @update:value="onUpdateTitle"
+          @update:value="onChange"
         ></TextField>
 
         <section class="flex flex-row space-x-2 w-full h-full">
@@ -48,7 +48,7 @@
           md:flex-row md:space-y-0 md:space-x-4
         "
       >
-        <Button> Publish </Button>
+        <Button @click.prevent="onPublish"> Publish </Button>
       </div>
     </section>
   </section>
@@ -59,18 +59,43 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 // import MeMarkdown from 'medium-editor-markdown'
 import TurndownService from 'turndown'
-import { CREATE_CONTENT } from '~/graphql'
+import { GET_CONTENT, UPDATE_CONTENT } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 // import MediumEditor from 'medium-editor'
 
 export default {
-  name: 'AddPage',
+  name: 'EditPage',
   layout: 'Dashboard',
+
+  async asyncData(context) {
+    const client = context.app.apolloProvider.defaultClient
+
+    try {
+      const {
+        data: { getContent: savedContent }
+      } = await client.query({
+        query: GET_CONTENT,
+        variables: {
+          id: context.params.slug
+        },
+        skip: !context.params.slug
+      })
+      return {
+        savedContent
+      }
+    } catch (e) {
+      return {
+        error: true
+      }
+    }
+  },
   data: () => ({
     editor: ClassicEditor,
     content: '',
     defaultValue: '',
     savedContent: null,
+    contentId: null,
+    saved: true,
     fieldTitle: '',
     showMarkdown: false,
     editorConfig: {
@@ -85,7 +110,7 @@ export default {
       subscribeToMeEditableInput: true,
       imgur: true,
       placeholder: {
-        text: 'Write your heart out...'
+        text: 'Write your heart out'
       },
       anchor: {
         linkValidation: true
@@ -163,7 +188,8 @@ export default {
             contentFA: '<i class="fa fa-picture-o"></i>'
           }
         ]
-      }
+      },
+      extensions: {}
     }
   }),
 
@@ -171,24 +197,50 @@ export default {
     fieldTitle: {
       required,
       hasLetter
+    },
+    fieldExcerpt: {
+      required,
+      hasLetter
     }
   },
 
-  methods: {
-    async onUpdateTitle() {
-      if (this.honeyPot) return
-
-      if (await this.isValidationInvalid()) return
-      const contents = {
-        title: this.fieldTitle,
-        content: this.content,
-        visibility: 'PRIVATE',
-        status: 'DRAFT',
-        tags: [],
-        category: 'Uncategorized'
+  watch: {
+    '$route.params': {
+      immediate: true,
+      handler(params) {
+        this.contentId = params.slug
       }
+    }
+  },
 
-      await this.saveDraft(contents)
+  mounted() {
+    // await new MediumEditor('#editor', this.options)
+    this.defaultValue = `${this.getContent(this.savedContent)}`
+    this.fieldTitle = this.savedContent?.title
+
+    const _this = this
+    this.$nextTick(() => {
+      // Save draft every 5 minutes
+      setInterval(async () => {
+        if (!_this.saved) {
+          const contents = {
+            title: _this.fieldTitle,
+            content: _this.content,
+            status: 'DRAFT',
+            visibility: 'PRIVATE',
+            tags: [],
+            category: 'Uncategorized'
+          }
+          await _this.updateDraft(contents)
+          _this.saved = true
+        }
+      }, 5000)
+    })
+  },
+  methods: {
+    getContent(content) {
+      if (content?.content) return content?.content
+      else return content?.excerpt
     },
     async onChange(s) {
       if (this.showMarkdown) {
@@ -209,23 +261,46 @@ export default {
         tags: [],
         category: 'Uncategorized'
       }
+      // Save to state
       await this.$store.commit('content/appendContent', contents)
+      this.saved = false
     },
 
     uploadCallback(url) {},
 
-    async saveDraft(input) {
-      const {
-        data: { createContent: content }
-      } = await this.$apollo.mutate({
-        mutation: CREATE_CONTENT,
+    async updateDraft(input) {
+      return await this.$apollo.mutate({
+        mutation: UPDATE_CONTENT,
         variables: {
-          input
+          id: this.contentId,
+          input: { ...input }
+        },
+        update(data) {
+          return data.content
+        },
+        skip() {
+          return !this.contentId
         }
       })
+    },
 
-      await this.$store.commit('content/saveContent', content)
-      return await this.$router.push(`/contents/${content.id}`)
+    async onPublish() {
+      try {
+        const contents = {
+          title: this.fieldTitle,
+          content: this.content,
+          visibility: 'PRIVATE',
+          status: 'PUBLISHED',
+          tags: [],
+          category: 'Uncategorized'
+        }
+        await this.updateDraft(contents)
+        return await this.$router.push(`/contents/${this.contentId}/edit`)
+
+        // Redirect to 'add'
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
