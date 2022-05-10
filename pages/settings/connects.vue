@@ -120,7 +120,7 @@
               placeholder="Enter your team member email"
             />
           </div>
-          <Button type="submit" :is-pro-feature="true" :message="'Coming Soon'">
+          <Button type="submit" :is-pro-feature="true" message="Coming Soon">
             Invite
           </Button>
         </div>
