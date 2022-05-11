@@ -63,11 +63,19 @@
     <Dialog v-model="isAddContent">
       <div class="block w-full text-gray-700 bg-white">
         <div class="flex justify-between w-full text-gray-700 bg-white">
-          <LazyAddContent @created="onCreateSuccess" />
+          <LazyAddContent @created="onCreatedContent" />
         </div>
       </div>
       <div class="flex justify-center pt-5 text-xs font-bold text-btn-green">
-        <Hyperlink to="#"> Or bulk import URLs </Hyperlink>
+        <div @click.prevent="onMultipleUpload">Or bulk import URLs</div>
+      </div>
+    </Dialog>
+
+    <Dialog v-model="isAddMultipleContent">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <LazyUploadMultipleContents @created="onCreatedContent" />
+        </div>
       </div>
     </Dialog>
 
@@ -98,6 +106,7 @@ export default {
 
   data: () => ({
     contentId: null,
+    isAddMultipleContent: false,
     searchedTerm: '',
     isAddCategory: false,
     isAddContent: false,
@@ -240,13 +249,21 @@ export default {
   },
 
   methods: {
+    onMultipleUpload() {
+      this.isAddMultipleContent = true
+    },
     onAddContent() {
       this.isAddContent = true
     },
 
-    onCreateSuccess() {
+    onCreatedContent(done) {
+      if (!done) {
+        this.$toast.positive('Content failed')
+        return
+      }
       this.isAddContent = false
-      this.$toast.positive('Category created successfully')
+      this.isAddMultipleContent = false
+      this.$toast.positive('Content created successfully')
       this.$apollo.queries.contents.refetch()
     },
     onFilters(v) {
