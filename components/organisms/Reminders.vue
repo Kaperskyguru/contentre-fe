@@ -292,7 +292,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .mega-dropdown {
   width: 28rem;
   margin-left: -22rem;

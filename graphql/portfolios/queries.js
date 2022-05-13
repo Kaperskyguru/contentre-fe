@@ -26,10 +26,6 @@ export const GET_PORTFOLIO_CONTENT = gql`
     $filters: PortfolioContentFilters!
   ) {
     getPortfolioContent(size: $size, skip: $skip, filters: $filters) {
-      about
-      coverImage
-      profileImage
-      name
       clients {
         id
         name
@@ -64,6 +60,18 @@ export const GET_PORTFOLIO_CONTENT = gql`
           total
         }
       }
+    }
+  }
+`
+
+export const GET_PORTFOLIO_DETAIL = gql`
+  query getPortfolioDetail($filters: PortfolioContentFilters!) {
+    getPortfolioDetail(filters: $filters) {
+      about
+      coverImage
+      job
+      profileImage
+      name
     }
   }
 `

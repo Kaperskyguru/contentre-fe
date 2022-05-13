@@ -62,13 +62,34 @@ export default {
               urls: this.fieldURLs.split(/\r?\n/)
             }
           },
-          update(data) {
-            console.log(data)
+          update(cache, { data: { uploadMultipleContent: contents } }) {
+            contents.forEach((content) => {
+              cache.modify({
+                id: 'ROOT_QUERY',
+                fields: {
+                  getContents: (queryRef) => {
+                    const contentRef = cache.identify({
+                      __typename: 'Content',
+                      ...content
+                    })
+
+                    return {
+                      ...queryRef,
+                      contents: [{ __ref: contentRef }, ...queryRef.contents],
+                      meta: {
+                        ...queryRef.meta,
+                        total: queryRef.meta.total + 1
+                      }
+                    }
+                  }
+                }
+              })
+            })
           }
         })
         this.$toast.positive('Content upload successfully')
         this.sending = false
-        this.$emit('create:success', true)
+        this.$emit('created', true)
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

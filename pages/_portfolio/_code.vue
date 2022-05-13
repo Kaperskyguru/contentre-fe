@@ -16,78 +16,68 @@
     </NoData>
   </div>
 
-  <main v-else class="container bg-white">
-    <section
-      class="container items-start mb-8 lg:container lg:pt-6 lg:mx-auto xl:flex"
-    >
-      <section class="w-full">
-        <div class="py-4">
-          <div class="container m-auto text-gray-600">
-            <div class="grid gap-12 lg:grid-cols-2">
-              <div class="p-5 pl-0">
-                <div class="space-y-2">
-                  <div class="space-y-4">
-                    <p class="text-gray-900">
-                      Hi! I'am
-                      <span class="text-brand">{{ portfolio.name }}</span
-                      >,
-                    </p>
-                    <h4 class="text-3xl font-semibold text-gray-900">
-                      {{ portfolio.job }}
-                    </h4>
-                    <p class="text-gray-600">
-                      {{ portfolio.about }}
-                    </p>
-                  </div>
-                  <div class="flex flex-row py-6">
-                    <div class="container flex m-auto">
-                      <a
-                        href="#"
-                        class="py-3 border-b-4 text-brand border-text-brand"
-                      >
-                        Connect with me →</a
-                      >
-                      <div class="justify-center py-4 ml-5"></div>
-                    </div>
-                  </div>
-                </div>
+  <main v-else class="container p-5 mx-auto">
+    <section class="w-full">
+      <div class="py-4">
+        <div class="container mx-auto" style="max-width: 1000px">
+          <div
+            class="flex flex-col justify-between items-center mt-10 md:flex-row"
+          >
+            <div class="items-center w-full">
+              <div class="w-full">
+                <Avatar
+                  :src="computedProfileImage(portfolio.profileImage)"
+                  :name="portfolio.name"
+                  :size="'medium'"
+                />
               </div>
 
-              <div class="rounded-lg">
-                <div class="p-1">
-                  <img
-                    :src="computedProfileImage(portfolio.profileImage)"
-                    alt="art cover"
-                    loading="lazy"
-                    width="1000"
-                    height="667"
-                    class="
-                      object-cover object-top
-                      w-full
-                      h-56
-                      rounded-lg
-                      group-hover:rounded-xl
-                      transition
-                      duration-500
-                      sm:h-full
-                    "
-                  />
+              <div class="flex flex-row py-6">
+                <div class="container flex m-auto">
+                  <a
+                    href="#"
+                    class="py-3 border-b-4 text-brand border-text-brand"
+                  >
+                    Connect with me →</a
+                  >
+                  <div class="justify-center py-4 ml-5"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-end p-5 pl-0 w-full">
+              <div class="space-y-2">
+                <div class="pt-3">
+                  <h2 class="text-3xl text-gray-900">
+                    {{ portfolio.name }}
+                  </h2>
+                  <h4 class="font-semibold text-gray-900">
+                    {{ portfolio.job }}
+                  </h4>
+                </div>
+                <div class="space-y-4">
+                  <!-- <h3>About Me</h3> -->
+                  <article class="mt-4 text-lg text-justify">
+                    <!-- eslint-disable-next-line vue/no-v-html -->
+                    <p class="text-gray-500" v-html="portfolio.about"></p>
+                  </article>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </section>
 
-    <section class="container mb-4">
-      <div class="container mx-auto">
-        <div class="flex justify-between items-center py-2">
-          <h2 class="pt-4 text-3xl font-bold text-gray-900 uppercase">
-            Portfolio
-          </h2>
-        </div>
+    <section class="container mx-auto">
+      <div class="mt-14 mb-10 text-center">
+        <h1 class="text-4xl font-bold">Latest Contents</h1>
+        <p class="text-lg text-gray-600">
+          All {{ portfolio.name }}'s latest contents right here
+        </p>
+      </div>
 
+      <div class="container mx-auto">
         <section
           class="
             flex flex-col
@@ -97,7 +87,8 @@
             md:flex-row md:space-y-0 md:space-x-5
           "
         >
-          <div>
+          <div class="flex items-center space-x-3">
+            <p>Filter by:</p>
             <ContentFilter
               :filter-columns="columns"
               :clients="portfolio.clients"
@@ -109,17 +100,17 @@
             />
           </div>
 
-          <div class="w-full">
+          <div class="flex items-center bg-white rounded-lg">
             <SearchField
               id="search"
               v-model="filters.terms"
+              class="text-xl focus:outline-none"
               placeholder="Search by name..."
             />
           </div>
         </section>
 
         <div>
-          <!-- Column -->
           <div v-if="noData" class="justify-center">
             <NoData message="No content added yet">
               <Button
@@ -134,41 +125,45 @@
             </NoData>
           </div>
 
-          <div v-else class="grid gap-4 lg:grid-cols-4">
-            <!-- Card -->
-            <div
-              v-for="content in getContents"
-              :key="content.id"
-              class="mb-2 max-w-md rounded-lg shadow-lg"
-            >
-              <div class="w-full">
-                <div class="block overflow-hidden w-full h-full">
-                  <div class="w-full">
-                    <img
-                      :alt="content.title"
-                      class="w-full h-full"
-                      style="object-fit: cover; max-width: 100%"
-                      :src="computedImage(content.featuredImage)"
-                    />
+          <div v-else class="grid gap-5 mb-4 md:grid-cols-2 lg:grid-cols-3">
+            <div v-for="content in getContents" :key="content.id">
+              <div
+                id="card"
+                class="
+                  bg-white
+                  rounded-lg
+                  shadow
+                  hover:shadow-2xl
+                  transition
+                  duration-300
+                  ease-in
+                  hover:-translate-y-2
+                "
+              >
+                <a
+                  :href="content.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    :alt="content.title"
+                    :src="computedImage(content.featuredImage)"
+                    class="w-full"
+                    style="object-fit: cover; max-width: 100%"
+                  />
+                  <div class="p-4">
+                    <h2 class="text-xl font-bold">{{ content.title }}</h2>
+
+                    <article class="overflow-auto mt-4 h-40 text-lg">
+                      <!--  eslint-disable-next-line vue/no-v-html -->
+                      <span v-html="content.excerpt"></span>
+                    </article>
+
+                    <div class="flex justify-end mb-4">
+                      <p>{{ content.datePublished }}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="p-5 pt-3">
-                  <div class="py-4 leading-tight">
-                    <a
-                      :href="content.url"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <h2 class="text-lg font-bold text-gray-700">
-                        {{ content.title }}
-                      </h2>
-                    </a>
-                  </div>
-                  <article class="font-normal text-md">
-                    <!--  eslint-disable-next-line vue/no-v-html -->
-                    <span v-html="content.excerpt"></span>
-                  </article>
-                </div>
+                </a>
               </div>
             </div>
 
@@ -179,27 +174,14 @@
       </div>
     </section>
 
-    <section class="container pb-10 mb-10">
-      <div
-        class="
-          flex flex-col
-          justify-between
-          mt-2
-          mb-6
-          space-y-4 space-x-0
-          md:flex-row md:space-y-0 md:space-x-4
-        "
-      >
-        <Button appearance="outline-red" @click.prevent="previous"
-          >Previous</Button
-        >
-
+    <section class="container pb-10 mt-10">
+      <div class="flex justify-center">
         <Button
-          appearance="outline-red"
-          :disabled="portfolio.total <= 1"
+          appearance="outline"
+          :disabled="portfolios.total === getContents.length"
           @click.prevent="next"
         >
-          Next
+          View more
         </Button>
       </div>
     </section>
@@ -208,39 +190,34 @@
 
 <script>
 import ImageBG from 'assets/img/cover_image.png'
-import { GET_PORTFOLIO_CONTENT } from '~/graphql'
+import { GET_PORTFOLIO_CONTENT, GET_PORTFOLIO_DETAIL } from '~/graphql'
+
 export default {
   name: 'CodePage',
-  layout: 'portfolio',
 
+  layout: 'portfolio',
   async asyncData(context) {
     const client = context.app.apolloProvider.defaultClient
-
-    const url = process.server
-      ? 'https://contentre.io'
-      : `${window.location.protocol}//${window.location.host}`
-
+    const url = `${process.env.FE_URL ?? 'https://contentre.io'}`
     try {
       const {
-        data: { getPortfolioContent: portfolios }
+        data: { getPortfolioDetail: portfolios }
       } = await client.query({
-        query: GET_PORTFOLIO_CONTENT,
+        query: GET_PORTFOLIO_DETAIL,
         variables: {
-          size: 12,
-          skip: 0,
           filters: {
             username: context.params.portfolio,
             code: context.params.code,
             url: `${url}${context.route.fullPath}`
           }
         },
-        skip: !context.params.portfolio && !context.params.code
+        skip() {
+          return !context.params.portfolio && !context.params.code
+        }
       })
       return {
         portfolio: {
-          ...portfolios,
-          total: portfolios?.contents?.meta?.total ?? 0,
-          contents: portfolios.contents.contents
+          ...portfolios
         }
       }
     } catch (e) {
@@ -253,15 +230,15 @@ export default {
     image: ImageBG,
     username: '',
     portfolio: {},
+    portfolios: {},
     filters: {},
     remove: ['amount'],
     columns: [],
     error: false,
     total: 0,
-    size: 12,
+    size: 9,
     skip: 0
   }),
-
   head() {
     if (!this.error) {
       return {
@@ -277,7 +254,6 @@ export default {
             name: 'description',
             content: `${this.portfolio?.about}`
           },
-
           {
             hid: 'og:title',
             property: 'og:title',
@@ -317,12 +293,41 @@ export default {
       }
     }
   },
+  apollo: {
+    portfolios: {
+      query: GET_PORTFOLIO_CONTENT,
+      fetchPolicy: 'cache-and-network',
+      variables() {
+        const url = `${process.env.FE_URL ?? 'https://contentre.io'}`
+        return {
+          size: 9,
+          skip: 0,
+          filters: {
+            ...this.filters,
+            username: this.username,
+            code: this.code,
+            url: `${url}${this.$route.fullPath}`
+          }
+        }
+      },
+      update(data) {
+        return {
+          ...data.getPortfolioContent,
+          total: data.getPortfolioContent?.contents?.meta?.total ?? 0,
+          contents: data.getPortfolioContent.contents.contents
+        }
+      },
+      skip() {
+        return !this.username && !this.code
+      }
+    }
+  },
   computed: {
     getContents() {
-      return this.portfolio?.contents ?? []
+      return this.portfolios?.contents ?? []
     },
     noData() {
-      return !this.portfolio?.contents?.length
+      return !this.portfolios?.contents?.length
     }
   },
   watch: {
@@ -330,55 +335,60 @@ export default {
       immediate: true,
       handler(params) {
         this.username = params.portfolio
+        this.code = params.code
       }
     }
   },
   methods: {
     previous() {},
-
     next() {
-      const len = this.portfolio?.contents?.length
+      const len = this.portfolios?.contents?.length
       if (
-        !this.$apollo.queries.portfolio.loading &&
+        !this.$apollo.queries.portfolios.loading &&
         len !== 0 &&
-        len !== (this.portfolio?.total ?? 0)
+        len !== (this.portfolios?.total ?? 0)
       ) {
-        this.size = this.size ?? 12
+        this.size = this.size ?? 9
         this.skip = len
       }
-
-      // return this.fetchMore({
-      //   size: this.size ?? 12,
-      //   skip: len,
-      // })
+      this.fetchMore({
+        size: this.size ?? 12,
+        skip: len
+      })
     },
-
     fetchMore(sizeAndSkip) {
       const itemsKey = 'contents'
       const queryName = 'getPortfolioContent'
-      this.$apollo.queries.portfolio.fetchMore({
+      const url = `${process.env.FE_URL ?? 'https://contentre.io'}`
+      this.$apollo.queries.portfolios.fetchMore({
         // New variables
         variables: {
           ...sizeAndSkip,
-          filters: this.filters
+          filters: {
+            username: this.username,
+            code: this.code,
+            url: `${url}${this.$route.fullPath}`
+          }
         },
         // Transform the previous result with new data
         updateQuery: (previousResult, { fetchMoreResult }) => {
           const newItems =
-            ((fetchMoreResult ?? {})[queryName] ?? {})[itemsKey] ?? []
+            ((fetchMoreResult ?? {})[queryName] ?? {})[itemsKey][itemsKey] ?? []
           const oldItems =
-            ((previousResult ?? {})[queryName] ?? {})[itemsKey] ?? []
+            ((previousResult ?? {})[queryName] ?? {})[itemsKey][itemsKey] ?? []
 
           return {
             [queryName]: {
               ...fetchMoreResult[queryName],
-              [itemsKey]: [...oldItems, ...newItems]
+              [itemsKey]: {
+                [itemsKey]: [...oldItems, ...newItems],
+                meta: fetchMoreResult[queryName][itemsKey].meta
+              }
             }
           }
         }
       })
     },
-
     onFilters(data) {
       if (this.deleteFilter('amount')) {
         delete data.fromAmount
@@ -390,11 +400,9 @@ export default {
         tags: data.tags.length ? data.tags.map((tag) => tag.name) : undefined
       }
     },
-
     getProfile(client) {
       return client.profile ? client.profile : '#'
     },
-
     deleteFilter(name) {
       return this.remove.includes(name)
     },
@@ -440,8 +448,20 @@ export default {
   margin-right: 8rem;
 }
 
+#card {
+  height: 500px;
+  min-height: 300px;
+}
+
 .get-intouch {
   padding-top: 5rem;
   padding-bottom: 4rem;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 992px) and (-webkit-min-device-pixel-ratio: 1) {
+  #card {
+    height: 600px;
+    min-height: 300px;
+  }
 }
 </style>

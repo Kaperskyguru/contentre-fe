@@ -1,4 +1,7 @@
+import dotenv from 'dotenv'
 import nuxtI18nConfig from './nuxt.i18n.config'
+
+dotenv.config({ silent: process.env.NODE_ENV === 'production' })
 export default {
   ssr: false,
 
@@ -48,6 +51,7 @@ export default {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME,
     apiKey: process.env.CLOUDINARY_API_KEY,
     apiSecret: process.env.CLOUDINARY_API_SECRET,
+    fe_url: process.env.FE_URL,
     secure: true
   },
 
@@ -65,6 +69,9 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     // '@nuxtjs/eslint-module',
+
+    // https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
 
     '@nuxt/postcss8',
 

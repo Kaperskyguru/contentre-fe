@@ -61,8 +61,26 @@ export default {
               url: this.fieldURL
             }
           },
-          update(data) {
-            // console.log(data)
+          update(cache, { data: { uploadContent: content } }) {
+            cache.modify({
+              id: 'ROOT_QUERY',
+              fields: {
+                getContents: (queryRef) => {
+                  const contentRef = cache.identify({
+                    __typename: 'Content',
+                    ...content
+                  })
+                  return {
+                    ...queryRef,
+                    contents: [{ __ref: contentRef }, ...queryRef.contents],
+                    meta: {
+                      ...queryRef.meta,
+                      total: queryRef.meta.total + 1
+                    }
+                  }
+                }
+              }
+            })
           }
         })
         this.$toast.positive('Content upload successfully')
