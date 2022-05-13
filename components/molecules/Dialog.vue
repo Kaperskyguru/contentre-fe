@@ -18,7 +18,7 @@
           place-items-center
           w-full
           h-full
-          bg-gray-500 bg-opacity-50
+          bg-gray-500
           backdrop-blur
         "
         @click.prevent="closeByBackdrop"
@@ -50,13 +50,16 @@
             tabindex="0"
             @click.stop
           >
-            <div class="pb-2 bg-btn-green border-b">
+            <div class="flex justify-between pb-2 bg-btn-green border-b">
               <div v-if="title" class="px-6 text-white md:px-8 lg:px-8">
                 <h2 class="mb-1 font-bold">{{ title }}</h2>
                 <p v-if="description" class="text-gray-100">
                   {{ description }}
                 </p>
               </div>
+              <button class="mr-6 text-gray-500 focus:outline-none">
+                <IconClose @click.prevent="close" />
+              </button>
             </div>
             <div class="px-6 pt-4 bg-white md:px-8 lg:px-8">
               <div
@@ -154,12 +157,13 @@
 import { Portal } from '@linusborg/vue-simple-portal'
 import { defineComponent } from '@nuxtjs/composition-api'
 import Button from '~/components/atoms/Button.vue'
-
+import IconClose from '~/assets/icons/big-close.svg?inline'
 export default defineComponent({
   name: 'DialogBox',
 
   components: {
     Button,
+    IconClose,
     Portal
   },
 

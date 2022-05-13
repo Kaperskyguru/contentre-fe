@@ -76,23 +76,6 @@
           <span slot="title">Canonical URL </span></ContentField
         >
 
-        <ContentField
-          type="file"
-          accept=".jpeg,.jpg,.png,image/jpeg,image/png"
-          class="w-full text-sm"
-          label="Cover image"
-          :is-required="false"
-          @change="selectFile"
-        >
-          <span slot="title">Cover image </span></ContentField
-        >
-      </section>
-
-      <!-- end of card link -->
-
-      <!-- card category -->
-
-      <section class="flex flex-col w-full md:flex-row">
         <ClientsAutocomplete
           id="1"
           key="autocomplete"
@@ -100,7 +83,7 @@
           :should-update="false"
           :allow-creation="false"
           :is-required="false"
-          class="mr-1 w-full md:w-1/2"
+          class="mr-1 w-full"
           :hide-pencil-icon="false"
           :placeholder="defaultClient"
           :error="getValidationMessage($v.fieldClient)"
@@ -109,7 +92,13 @@
           @blur="onBlurAutocomplete"
           ><span slot="title">Client</span></ClientsAutocomplete
         >
+      </section>
 
+      <!-- end of card link -->
+
+      <!-- card category -->
+
+      <section class="flex flex-col w-full md:flex-row">
         <CategoriesAutocomplete
           v-model="$v.fieldCategory.$model"
           :error="getValidationMessage($v.fieldCategory)"
@@ -380,7 +369,7 @@ export default {
         const input = {
           url: this.fieldURL,
           tags: this.tags,
-          featuredImage: this.coverImage,
+          // featuredImage: this.coverImage,
           content: this.fieldContent,
           excerpt: this.fieldExcerpt,
           title: this.fieldTitle,

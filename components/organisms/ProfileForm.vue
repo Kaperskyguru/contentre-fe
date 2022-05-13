@@ -84,6 +84,7 @@
           v-model="$v.fieldBio.$model"
           :rows="10"
           label="Bio"
+          :is-editor="true"
           :is-onboarding="isOnboarding"
           placeholder="Minimum of 600 words"
           :error="getValidationMessage($v.fieldBio)"

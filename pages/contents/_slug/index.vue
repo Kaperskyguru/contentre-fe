@@ -8,6 +8,33 @@
 
     <section class="container">
       <div>
+        <div
+          class="flex items-center mb-6 space-x-1 cursor-pointer md:mb-0"
+          @click.prevent="onUploadImage"
+        >
+          <span class="relative">
+            <svg
+              class="mx-auto"
+              xmlns="http://www.w3.org/2000/svg"
+              width="10=4"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+          </span>
+          <span class="mr-4 text-sm font-normal text-gray-500 md:mr-6"
+            >Add Image Cover</span
+          >
+        </div>
+
         <TextField
           v-model="$v.fieldTitle.$model"
           placeholder="Title"
@@ -51,6 +78,14 @@
         <Button @click.prevent="onPublish"> Publish </Button>
       </div>
     </section>
+
+    <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload Image">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="justify-between w-full text-gray-700 bg-white">
+          <UploadImage />
+        </div>
+      </div>
+    </Dialog>
   </section>
   <!-- end of page -->
 </template>
@@ -93,6 +128,7 @@ export default {
     editor: ClassicEditor,
     content: '',
     defaultValue: '',
+    isImageModalVisible: false,
     savedContent: null,
     contentId: null,
     saved: true,
@@ -238,6 +274,26 @@ export default {
     })
   },
   methods: {
+    async selectFile(e) {
+      const file = e.target.files[0]
+
+      /* Make sure file exists */
+      if (!file) return
+
+      const readData = (f) =>
+        new Promise((resolve) => {
+          const reader = new FileReader()
+          reader.onloadend = () => resolve(reader.result)
+          reader.readAsDataURL(f)
+        })
+
+      /* Read data */
+      this.coverImage = await readData(file)
+    },
+
+    onUploadImage() {
+      this.isImageModalVisible = true
+    },
     getContent(content) {
       if (content?.content) return content?.content
       else return content?.excerpt

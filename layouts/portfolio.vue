@@ -1,50 +1,46 @@
 <template>
   <main class="w-full min-h-screen">
     <div id="hero" class="sticky top-0 z-10 px-2 pt-2 w-full bg-white">
-      <header>
+      <header class="container px-2 mx-auto" style="max-width: 1300px">
         <nav
           class="
+            flex
             z-30
+            flex-wrap
             justify-between
             items-center
             py-4
             w-full
             md:py-0
-            flex flex-wrap
           "
         >
           <div>
-            <a href="/">
-              <img
-                class="pl-3 icon"
-                src="~/assets/img/icon.png"
-                width="60"
-                alt="logo"
-              />
-              <span class="text logo-text">Contentre</span>
+            <a href="/" class="inline-flex justify-center items-center">
+              <span>
+                <img
+                  class="pl-3 icon"
+                  src="~/assets/img/icon.png"
+                  width="60"
+                  alt="logo"
+                />
+              </span>
+              <span class="hidden md:block logo-text">Contentre</span>
             </a>
           </div>
 
-          <svg
-            id="menu-button"
-            xmlns="http://www.w3.org/2000/svg"
-            class="block w-6 h-6 cursor-pointer md:hidden"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            @click.prevent="toggleDropdown"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-
+          <div class="py-3">
+            <a
+              href="https://app.contentre.io/auth/register?source=portfolio"
+              class="p-2 text-white rounded-lg border form-btn"
+            >
+              Create a Portfolio
+            </a>
+          </div>
+          <!-- 
           <div
+            v-if="toggle"
             id="navDropdown1"
-            class="hidden w-full md:flex md:items-center md:w-auto"
+            class="w-full md:flex md:items-center md:w-auto"
           >
             <ul class="pt-4 text-gray-700 md:flex md:justify-between md:pt-0">
               <li class="pr-5">
@@ -53,11 +49,12 @@
                   class="
                     inline-flex
                     py-3
-                    px-20
+                    px-2
                     mb-3
                     text-white
                     rounded-md
                     border
+                    md:px-20
                     form-btn
                   "
                 >
@@ -65,18 +62,18 @@
                 </a>
               </li>
             </ul>
-          </div>
+          </div> -->
         </nav>
       </header>
     </div>
-    <section class="container px-2 bg-white md:px-12 lg:mx-24">
+    <section class="container px-2 mx-auto bg-white" style="max-width: 1300px">
       <Nuxt />
 
       <Toast />
     </section>
 
     <footer
-      class="py-8 mt-20 text-gray-600 sm:px-10 md:px-20 body-font"
+      class="py-8 mt-20 text-gray-600 sm:px-10 md:px-20"
       style="background: #102a27"
     >
       <div class="grid grid-cols-2 p-2">
@@ -128,7 +125,17 @@
 
 <script>
 export default {
-  name: 'PortfolioL'
+  name: 'PortfolioL',
+
+  data: () => ({
+    toggle: false
+  }),
+
+  methods: {
+    toggleDropdown() {
+      this.toggle = !this.toggle
+    }
+  }
 }
 </script>
 

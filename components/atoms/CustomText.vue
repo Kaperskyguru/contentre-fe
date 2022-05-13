@@ -1,7 +1,5 @@
 <template>
-  <p class="text-sm text-gray-500 leading-6">
-    {{ text }}
-  </p>
+  <p class="text-sm leading-6 text-gray-500" v-html="text"></p>
 </template>
 
 <script>
