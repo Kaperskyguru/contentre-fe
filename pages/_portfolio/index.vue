@@ -45,7 +45,7 @@
               </div>
             </div>
 
-            <div class="flex justify-end p-5 pl-0 w-full">
+            <div class="flex justify-end px-5 pb-5 pl-0 w-full">
               <div class="space-y-2">
                 <div class="pt-3">
                   <h2 class="text-3xl text-gray-900">
@@ -154,14 +154,14 @@
                   <div class="p-4">
                     <h2 class="text-xl font-bold">{{ content.title }}</h2>
 
-                    <article class="overflow-auto mt-4 h-40 text-lg">
+                    <article class="overflow-auto mt-4 h-40 text-base">
                       <!--  eslint-disable-next-line vue/no-v-html -->
                       <span v-html="content.excerpt"></span>
                     </article>
 
-                    <div class="flex justify-end mb-4">
-                      <p>{{ content.datePublished }}</p>
-                    </div>
+                    <!-- <div class="flex justify-end mb-4">
+                      <p>{{ getCategory(content) }}</p>
+                    </div> -->
                   </div>
                 </a>
               </div>
@@ -199,9 +199,10 @@ export default {
   async asyncData(context) {
     const client = context.app.apolloProvider.defaultClient
     const url = `${process.env.FE_URL ?? 'https://contentre.io'}`
+
     try {
       const {
-        data: { getPortfolioDetail: portfolios }
+        data: { getPortfolioDetail: portfolioDetail }
       } = await client.query({
         query: GET_PORTFOLIO_DETAIL,
         variables: {
@@ -216,7 +217,7 @@ export default {
       })
       return {
         portfolio: {
-          ...portfolios
+          ...portfolioDetail
         }
       }
     } catch (e) {
@@ -338,7 +339,9 @@ export default {
     }
   },
   methods: {
-    previous() {},
+    getCategory(content) {
+      return content?.category?.name || ''
+    },
     next() {
       const len = this.portfolios?.contents?.length
       if (
