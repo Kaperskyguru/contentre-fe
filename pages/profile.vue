@@ -23,7 +23,12 @@
 <script>
 export default {
   name: 'ProfilePage',
-  layout: 'Dashboard'
+  layout: 'Dashboard',
+  head() {
+    return {
+      title: 'Profile'
+    }
+  }
 }
 </script>
 

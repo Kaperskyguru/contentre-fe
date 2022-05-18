@@ -19,7 +19,12 @@
 <script>
 export default {
   name: 'SettingsPage',
-  layout: 'Dashboard'
+  layout: 'Dashboard',
+  head() {
+    return {
+      title: 'Settings'
+    }
+  }
 }
 </script>
 

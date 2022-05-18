@@ -76,6 +76,12 @@ export default {
     fieldPassword: ''
   }),
 
+  head() {
+    return {
+      title: 'Change Password'
+    }
+  },
+
   validations: {
     fieldPassword: {
       required,

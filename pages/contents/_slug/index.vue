@@ -239,6 +239,11 @@ export default {
       hasLetter
     }
   },
+  head() {
+    return {
+      title: 'Add Content'
+    }
+  },
 
   watch: {
     '$route.params': {

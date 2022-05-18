@@ -79,6 +79,11 @@ export default {
   validations: {
     fieldVerificationCode: { required, minLength: minLength(6) }
   },
+  head() {
+    return {
+      title: 'Verify Phone'
+    }
+  },
 
   mounted() {
     this.resendSecondsInterval = setInterval(() => {

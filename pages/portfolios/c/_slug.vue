@@ -62,6 +62,11 @@ export default {
     menu: false,
     panel: false
   }),
+  head() {
+    return {
+      title: 'Portfolios | Customize Portfolio'
+    }
+  },
 
   computed: {
     window() {

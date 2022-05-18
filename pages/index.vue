@@ -170,6 +170,11 @@ export default {
       }
     }
   },
+  head() {
+    return {
+      title: 'Dashboard'
+    }
+  },
 
   computed: {
     getRevenueChartData() {

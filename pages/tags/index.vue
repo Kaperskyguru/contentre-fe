@@ -73,6 +73,11 @@ export default {
       { name: 'Total Amount', key: 'amount' }
     ]
   }),
+  head() {
+    return {
+      title: 'Tags'
+    }
+  },
 
   methods: {
     onAddTag() {

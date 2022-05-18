@@ -215,6 +215,11 @@ export default {
 
     chartData: []
   }),
+  head() {
+    return {
+      title: 'Analytics'
+    }
+  },
 
   computed: {
     getTagPlaceholder() {

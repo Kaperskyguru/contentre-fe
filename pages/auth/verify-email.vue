@@ -94,6 +94,11 @@ export default {
   validations: {
     fieldVerificationCode: { required, minLength: minLength(6) }
   },
+  head() {
+    return {
+      title: 'Verify Email'
+    }
+  },
   computed: {
     email() {
       return this.$route.query.email || ''

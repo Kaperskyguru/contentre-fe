@@ -291,6 +291,11 @@ export default {
 
     honeyPot: {}
   },
+  head() {
+    return {
+      title: 'Edit Content'
+    }
+  },
 
   computed: {
     defaultClient() {

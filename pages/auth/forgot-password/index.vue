@@ -60,6 +60,12 @@ export default {
     honeyPot: ''
   }),
 
+  head() {
+    return {
+      title: 'Forgot Password'
+    }
+  },
+
   validations: {
     fieldEmail: { required, email },
     honeyPot: {}
