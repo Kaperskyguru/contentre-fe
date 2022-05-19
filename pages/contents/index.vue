@@ -14,6 +14,11 @@ export default {
   data: () => ({
     checked: []
   }),
+  head() {
+    return {
+      title: 'Contents'
+    }
+  },
 
   watch: {
     $route() {

@@ -209,7 +209,7 @@
     >
       <div class="block w-full text-gray-700 bg-white">
         <div class="flex justify-between w-full text-gray-700 bg-white">
-          <Apps />
+          <Apps @add="onAddApps" />
         </div>
       </div>
     </Dialog>
@@ -271,7 +271,8 @@ export default {
     medium: '',
     devto: '',
     hashnode: '',
-    coverImage: null
+    coverImage: null,
+    apps: {}
   }),
 
   validations: {
@@ -290,6 +291,11 @@ export default {
     fieldCategory: {},
 
     honeyPot: {}
+  },
+  head() {
+    return {
+      title: 'Edit Content'
+    }
   },
 
   computed: {
@@ -323,6 +329,12 @@ export default {
   },
 
   methods: {
+    onAddApps(app) {
+      const name = app.name
+      this.apps = {
+        [name]: app.data
+      }
+    },
     generateExcerpt(content) {
       return content.substring(0, 140)
     },
@@ -374,6 +386,7 @@ export default {
           excerpt: this.fieldExcerpt,
           title: this.fieldTitle,
           status: 'PUBLISHED',
+          apps: this.apps,
           clientId: this.fieldClient?.id,
           category: this.fieldCategory?.name ?? this.fieldCategory
         }

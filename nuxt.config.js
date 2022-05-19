@@ -98,11 +98,11 @@ export default {
     '@nuxtjs/gtm'
   ],
 
-  gtm: {
-    id: 'G-Q2JRSLVRYZ',
-    pageTracking: true,
-    pageViewEventName: 'virtualPageview'
-  },
+  // gtm: {
+  //   id: 'G-Q2JRSLVRYZ',
+  //   pageTracking: true,
+  //   pageViewEventName: 'virtualPageview'
+  // },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

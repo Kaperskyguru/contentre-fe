@@ -20,7 +20,12 @@ export default {
   data: () => ({
     isEditPanelVisible: false,
     checked: []
-  })
+  }),
+  head() {
+    return {
+      title: 'Categories'
+    }
+  }
 }
 </script>
 

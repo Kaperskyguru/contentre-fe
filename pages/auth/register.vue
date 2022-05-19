@@ -120,6 +120,12 @@ export default {
     usernameError: ''
   }),
 
+  head() {
+    return {
+      title: 'Register'
+    }
+  },
+
   validations: {
     fieldEmail: { required, email },
     fieldName: {

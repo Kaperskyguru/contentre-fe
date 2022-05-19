@@ -192,6 +192,11 @@ export default {
     reminders: false,
     activities: false
   }),
+  head() {
+    return {
+      title: 'Settings | Notifications'
+    }
+  },
 
   methods: {
     onShowChildren() {

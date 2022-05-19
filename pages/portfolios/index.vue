@@ -12,7 +12,12 @@ export default {
     fragment
   },
 
-  layout: 'Dashboard'
+  layout: 'Dashboard',
+  head() {
+    return {
+      title: 'Portfolios'
+    }
+  }
 }
 </script>
 

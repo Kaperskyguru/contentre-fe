@@ -69,6 +69,11 @@ export default {
     fieldRemember: false,
     fieldPassword: ''
   }),
+  head() {
+    return {
+      title: 'Login'
+    }
+  },
 
   validations: {
     fieldEmail: { required, email },

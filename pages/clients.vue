@@ -75,6 +75,11 @@ export default {
       { name: 'Status', key: 'status' }
     ]
   }),
+  head() {
+    return {
+      title: 'Clients',
+    }
+  },
 
   methods: {
     onAddClient() {
@@ -87,7 +92,7 @@ export default {
         ...v
       }
     }
-  }
+  },
 }
 </script>
 

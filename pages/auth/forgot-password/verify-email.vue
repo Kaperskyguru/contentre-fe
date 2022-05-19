@@ -97,6 +97,12 @@ export default {
     fieldVerificationCode: ''
   }),
 
+  head() {
+    return {
+      title: 'Verify Email'
+    }
+  },
+
   validations: {
     fieldVerificationCode: { required, minLength: minLength(6) }
   },

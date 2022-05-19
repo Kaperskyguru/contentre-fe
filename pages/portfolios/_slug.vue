@@ -357,6 +357,11 @@ export default {
 
     honeyPot: {}
   },
+  head() {
+    return {
+      title: 'Portfolios | Edit Portfolio'
+    }
+  },
 
   computed: {
     defaultClient() {

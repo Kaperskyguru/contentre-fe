@@ -153,7 +153,12 @@ export default {
         date: 'here'
       }
     ]
-  })
+  }),
+  head() {
+    return {
+      title: 'Settings | Connects'
+    }
+  }
 }
 </script>
 

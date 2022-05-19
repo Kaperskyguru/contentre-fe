@@ -50,7 +50,8 @@
               <MediumIcon />
             </div>
             <div class="text-right">
-              <ToggleOnIcon />
+              <ToggleOnIcon @click="isOpenApp" />
+              <ToggleOffIcon v-if="false" @click="isOpenApp" />
             </div>
           </div>
           <div class="py-10 leading-8">
@@ -59,7 +60,11 @@
           </div>
         </div>
 
-        <div class="p-3 bg-white rounded-md border shadow-sm">
+        <div
+          v-for="app in apps.items"
+          :key="app.id"
+          class="p-3 bg-white rounded-md border shadow-sm"
+        >
           <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent" style="font-size: 20px">
               <img
@@ -69,18 +74,24 @@
               />
             </div>
             <div class="text-right">
-              <ToggleOnIcon />
+              <ToggleOnIcon v-if="app.isActivated" @click="isOpenApp(app.id)" />
+              <ToggleOffIcon v-else @click="isOpenApp" />
             </div>
           </div>
           <div class="py-10 leading-8">
-            <p class="text-xl font-bold text-teal-600">Dev Community</p>
+            <p class="text-xl font-bold text-teal-600">
+              {{ app.name }}
+            </p>
+
+            <!-- Dev Community -->
             <p class="text-base text-gray-500">
-              We're a place where coders share, stay up-to-date and grow their
-              careers.
+              {{ app.app.description }}
+              <!-- We're a place where coders share, stay up-to-date and grow their
+              careers. -->
             </p>
           </div>
         </div>
-
+        <!-- 
         <div class="p-3 bg-white rounded-md border shadow-sm">
           <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent" style="font-size: 20px">
@@ -195,15 +206,18 @@
             <p class="text-xl font-bold text-gray-500">Google Calender</p>
             <p class="text-base text-gray-500">Make the most of everyday</p>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- End of connected apps--->
     </div>
     <!-- End of profile tab -->
+
+    <lazyAppEdit v-model="appId" />
   </div>
 </template>
 
 <script>
+import { GET_APPS } from '~/graphql'
 export default {
   name: 'ConnectedApp',
   components: {
@@ -212,8 +226,38 @@ export default {
     MediumIcon: () => import('~/assets/icons/medium.svg?inline')
   },
   data: () => ({
-    isUnderDevelopment: true
-  })
+    isUnderDevelopment: true,
+    appId: null,
+    apps: { items: [], total: 0 }
+  }),
+
+  apollo: {
+    apps: {
+      query: GET_APPS,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        return { items: data.getApps.apps, total: data.getApps.meta.total }
+      },
+      variables() {
+        return {
+          size: 30,
+          skip: 0,
+          filters: { ...this.filters }
+        }
+      }
+    }
+  },
+  head() {
+    return {
+      title: 'Settings | Apps'
+    }
+  },
+
+  methods: {
+    isOpenApp(id) {
+      this.appId = id
+    }
+  }
 }
 </script>
 

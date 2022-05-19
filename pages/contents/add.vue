@@ -173,6 +173,11 @@ export default {
       hasLetter
     }
   },
+  head() {
+    return {
+      title: 'Add Content'
+    }
+  },
 
   methods: {
     async onUpdateTitle() {

@@ -65,7 +65,7 @@ export const GET_PORTFOLIO_CONTENT = gql`
 `
 
 export const GET_PORTFOLIO_DETAIL = gql`
-  query getPortfolioDetail($filters: PortfolioContentFilters!) {
+  query getPortfolioDetail($filters: PortfolioDetailsFilters!) {
     getPortfolioDetail(filters: $filters) {
       about
       coverImage

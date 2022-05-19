@@ -118,6 +118,11 @@ export default {
     },
     honeyPot: {}
   },
+  head() {
+    return {
+      title: 'Settings | Accounts'
+    }
+  },
   methods: {
     async onClickConfirm() {
       if (this.honeyPot) return
