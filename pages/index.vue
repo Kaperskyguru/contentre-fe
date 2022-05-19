@@ -72,7 +72,7 @@
           Clients
         </h2>
       </div>
-      <ClientOverview :checked.sync="checked" />
+      <ClientOverview :checked.sync="checked" placement="dashboard" />
     </section>
 
     <!-- End of table -->

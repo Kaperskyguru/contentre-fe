@@ -20,9 +20,7 @@
     <section class="w-full">
       <div class="py-4">
         <div class="container mx-auto" style="max-width: 1000px">
-          <div
-            class="flex flex-col justify-between items-center mt-10 md:flex-row"
-          >
+          <div class="flex flex-col justify-between mt-10 md:flex-row">
             <div class="items-center w-full">
               <div class="w-full">
                 <Avatar

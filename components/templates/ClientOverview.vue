@@ -11,18 +11,18 @@
       @item-click="onItemClick"
     />
 
-    <ClientEdit v-model="clientId"></ClientEdit>
+    <ClientEdit v-model="clientId" @deleted="refetch"></ClientEdit>
   </span>
 </template>
 
 <script>
-// import fragment from 'vue-frag'
 import { GET_CLIENTS } from '~/graphql'
 export default {
-  // directives: {
-  //   fragment
-  // },
   props: {
+    placement: {
+      type: String,
+      default: 'clients'
+    },
     checked: {
       type: Array,
       default: () => []
@@ -51,7 +51,7 @@ export default {
       },
       variables() {
         return {
-          size: 30,
+          size: this.placement === 'clients' ? 30 : 15,
           skip: 0,
           filters: { ...this.filters }
         }
@@ -99,15 +99,6 @@ export default {
           component: () => 'DataGridCellIcon',
           componentOptions: this.getCreatedAtComponentOptions
         },
-        // {
-        //   title: 'Amount',
-        //   key: 'amount',
-        //   component: () => {
-        //     return 'DataGridCellMoney'
-        //   },
-        //   componentOptions: this.getAmountComponentOptions
-        // },
-
         {
           title: 'Amount Spent',
           key: 'totalAmount',
@@ -130,6 +121,9 @@ export default {
   },
 
   methods: {
+    refetch() {
+      this.$apollo.queries.clients.refetch()
+    },
     onItemClick({ id }) {
       this.clientId = id
     },
@@ -146,8 +140,10 @@ export default {
     },
 
     fetchMore(sizeAndSkip) {
+      if (this.placement === 'dashboard') return
       const itemsKey = 'clients'
       const queryName = 'getClients'
+
       this.$apollo.queries.clients.fetchMore({
         // New variables
         variables: {
@@ -209,24 +205,6 @@ export default {
           }
         : {}
     },
-
-    // getAmountComponentOptions({ amount }) {
-    //   return amount
-    //     ? {
-    //         style: !amount ? 'secondary' : undefined,
-    //         value: amount === null ? 'No payment provided' : amount,
-    //         name: 'Amount',
-    //         currency: 'USD',
-    //         currencyBefore: true
-    //       }
-    //     : {
-    //         style: !amount ? 'secondary' : undefined,
-    //         value: 0.0,
-    //         name: 'Amount',
-    //         currency: 'USD',
-    //         currencyBefore: true
-    //       }
-    // },
 
     getTotalAmountComponentOptions({ totalAmount }) {
       return totalAmount

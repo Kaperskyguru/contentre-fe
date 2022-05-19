@@ -115,7 +115,10 @@
           md:flex-row md:space-y-0 md:space-x-2
         "
       >
-        <Button class="w-1/2" appearance="secondary" type="submit"
+        <Button
+          class="w-1/2"
+          appearance="secondary"
+          @click.prevent="deleteClient"
           >Delete</Button
         >
         <Button class="w-1/2" type="submit">Update</Button>
@@ -126,7 +129,12 @@
 
 <script>
 import { isURL } from '~/plugins/validators'
-import { GET_CLIENT, UPDATE_CLIENT } from '~/graphql'
+import {
+  DELETE_CLIENT,
+  GET_CLIENT,
+  updateContentCache,
+  UPDATE_CLIENT
+} from '~/graphql'
 export default {
   model: {
     prop: 'clientId',
@@ -209,6 +217,21 @@ export default {
   },
 
   methods: {
+    async deleteClient() {
+      try {
+        const client = await this.$apollo.mutate({
+          mutation: DELETE_CLIENT,
+          variables: {
+            id: this.clientId
+          },
+          update: (cache) => updateContentCache(cache)
+        })
+        this.$emit('deleted', client)
+      } catch (e) {
+        this.$toast.negative(e.message)
+        this.sending = false
+      }
+    },
     selectedPayment(type) {
       if (type === 'ARTICLE') {
         this.fieldAmount = 0
