@@ -54,8 +54,11 @@
               <MediumIcon />
             </div>
             <div class="text-right">
-              <ToggleOnIcon v-if="app.isActivated" @click="isOpenApp(app.id)" />
-              <ToggleOffIcon v-else @click="isOpenApp(app.id)" />
+              <ToggleOnIcon
+                v-if="app.isActivated"
+                @click.prevent="isOpenApp(app.id)"
+              />
+              <ToggleOffIcon v-else @click.prevent="isOpenApp(app.id)" />
             </div>
           </div>
           <div class="py-10 leading-8">
@@ -75,7 +78,7 @@
     <Dialog v-model="isAppModalVisible" :is-large="true" title="Apps">
       <div class="block w-full text-gray-700 bg-white">
         <div class="flex justify-between w-full h-4/5 text-gray-700 bg-white">
-          <Apps />
+          <Apps @add="refetch" />
         </div>
       </div>
     </Dialog>
@@ -126,6 +129,9 @@ export default {
     },
     isOpenApp(id) {
       this.appId = id
+    },
+    refetch() {
+      this.$apollo.queries.apps.refetch()
     }
   }
 }

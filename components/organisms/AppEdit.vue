@@ -5,7 +5,7 @@
         {{ isEditing ? 'Edit app' : 'Create app' }}
       </strong>
     </template>
-    <form class="w-full" @submit.prevent="updateClient">
+    <form class="w-full" @submit.prevent="updateApp">
       <div class="mb-6">
         <TextField
           v-model="$v.fieldName.$model"
@@ -66,9 +66,7 @@
           md:flex-row md:space-y-0 md:space-x-2
         "
       >
-        <Button class="w-1/2" appearance="secondary" type="submit"
-          >Disable</Button
-        >
+        <Button class="w-1/2" appearance="secondary">Disable</Button>
         <Button class="w-1/2" type="submit">Enable</Button>
       </div>
     </form></FloatingPanel
@@ -145,7 +143,7 @@ export default {
   },
 
   methods: {
-    async updateClient() {
+    async updateApp() {
       if (this.honeyPot) return
 
       if (await this.isValidationInvalid()) return
@@ -164,7 +162,7 @@ export default {
             }
           }
         })
-        this.$toast.positive('Client updated successfully')
+        this.$toast.positive('App updated successfully')
         this.sending = false
       } catch (error) {
         this.$toast.negative(error.message)

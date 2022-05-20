@@ -228,6 +228,7 @@ export default {
         this.$toast.positive('App added successfully')
         this.sending = false
         this.isAdded = true
+        this.$emit('add')
       } catch (error) {
         if (error.message.includes('App already created')) {
           this.isAdded = true
