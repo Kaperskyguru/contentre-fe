@@ -8,7 +8,7 @@
           :rows="20"
           class="w-full text-sm"
           label="Content URLs"
-          placeholder="Paste all your content URLs (separate by space)"
+          placeholder="Paste all your content URLs (separate by newline)"
           :error="getValidationMessage($v.fieldURLs)"
         />
       </div>

@@ -75,7 +75,7 @@
             :is-pro-feature="true"
             message="Coming Soon"
             @click.prevent="onAddApp('Hashnode')"
-            >Add {{ isAdded }}</Button
+            >Add</Button
           >
         </div>
       </div>
