@@ -320,6 +320,7 @@ export default {
       this.apps = {
         [name]: app.data
       }
+      this.$toast.positive(`${name} plugin added successfully`)
     },
     generateExcerpt(content) {
       return content.substring(0, 140).replace(/<\/p>/g, '').concat('</p>')

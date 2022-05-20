@@ -179,20 +179,26 @@
       </div>
     </div>
 
-    <!-- <div class="p-3 bg-white rounded-md border shadow-sm">
+    <div class="p-3 bg-white rounded-md border shadow-sm">
       <div class="group flex justify-between font-medium text-black">
         <div class="flex bg-transparent">
           <img class="mx-auto w-10 h-10" src="~/assets/img/date.png" alt="" />
         </div>
         <div class="text-right text-gray-500">
-          <ToggleOffIcon />
+          <Button
+            :disabled="isAdded"
+            :is-pro-feature="true"
+            message="Coming Soon"
+            @click.prevent="onAddApp('Google Calender')"
+            >Add</Button
+          >
         </div>
       </div>
       <div class="py-10 leading-8">
         <p class="text-xl font-bold text-gray-500">Google Calender</p>
         <p class="text-base text-gray-500">Make the most of everyday</p>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 

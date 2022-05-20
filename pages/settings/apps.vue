@@ -36,13 +36,6 @@
         </div>
       </div>
 
-      <Warning
-        v-if="isUnderDevelopment"
-        href="https://forms.gle/9PG1eC373JZLhFXK7"
-        button-text="Give Feedback"
-        >App feature is under development</Warning
-      >
-
       <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-2">
         <div
           v-for="app in apps.items"
@@ -77,7 +70,9 @@
 
     <Dialog v-model="isAppModalVisible" :is-large="true" title="Apps">
       <div class="block w-full text-gray-700 bg-white">
-        <div class="flex justify-between w-full h-4/5 text-gray-700 bg-white">
+        <div
+          class="flex justify-between w-full h-[42rem] text-gray-700 bg-white"
+        >
           <Apps @add="refetch" />
         </div>
       </div>

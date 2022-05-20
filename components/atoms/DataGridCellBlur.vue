@@ -1,5 +1,5 @@
 <template>
-  <span class="blur-sm select-none text-darksilver">
+  <span class="w-full text-darksilver blur-sm select-none">
     {{ $utils.stringGenerateRandom(options.length) }}
   </span>
 </template>

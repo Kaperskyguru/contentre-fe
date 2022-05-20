@@ -8,6 +8,7 @@ export const GET_APPS = gql`
         name
         token
         secret
+        slug
         isActivated
         app {
           name
@@ -22,6 +23,7 @@ export const GET_APPS = gql`
     }
   }
 `
+// SLUG should be inside APP
 
 export const GET_APP = gql`
   query getApp($id: ID!) {
@@ -29,6 +31,7 @@ export const GET_APP = gql`
       id
       name
       token
+      slug
       secret
       isActivated
       createdAt
