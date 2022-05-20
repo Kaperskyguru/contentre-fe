@@ -142,6 +142,7 @@
         <ContentField
           v-model="$v.fieldExcerpt.$model"
           :rows="8"
+          :editor="true"
           :is-required="true"
           :show-border="false"
           placeholder="+ Type your content excerpt here"
@@ -152,23 +153,6 @@
         </ContentField>
       </section>
       <!-- end of card tags -->
-
-      <section v-if="false">
-        <ContentField
-          v-model="$v.fieldContent.$model"
-          :rows="20"
-          :editor="true"
-          placeholder="+ Type your content here"
-          :spellcheck="false"
-          :disabled="true"
-          :show-border="false"
-          :is-required="false"
-          :should-show-editing-options="true"
-          :error="getValidationMessage($v.fieldContent)"
-        >
-          <span slot="title">Content</span>
-        </ContentField>
-      </section>
 
       <div class="flex flex-col justify-between md:flex-row">
         <div class="flex flex-col justify-start">
@@ -313,10 +297,12 @@ export default {
     }
   },
 
-  mounted() {
-    this.fieldExcerpt = this.generateExcerpt(
-      this.savedContent.excerpt ?? this.savedContent?.content
-    )
+  created() {
+    this.fieldExcerpt = `${
+      this.generateExcerpt(
+        this.savedContent.excerpt ?? this.savedContent?.content
+      ) ?? ''
+    }`
     this.fieldTitle = this.savedContent?.title
   },
 
@@ -336,7 +322,7 @@ export default {
       }
     },
     generateExcerpt(content) {
-      return content.substring(0, 140)
+      return content.substring(0, 140).replace(/<\/p>/g, '').concat('</p>')
     },
     async selectFile(e) {
       const file = e.target.files[0]

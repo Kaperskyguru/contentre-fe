@@ -443,7 +443,7 @@ export default {
     }
   },
 
-  mounted(){
+  mounted() {
     this.checkAutofocusField()
   },
 

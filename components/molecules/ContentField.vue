@@ -178,7 +178,7 @@
         :placeholder="placeholder"
         class="w-full h-full"
         :show-border="false"
-        :is-editor="editor"
+        :is-editor="true"
         :required="isRequired"
         :rows="rows"
         :type="type"
