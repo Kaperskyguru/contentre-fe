@@ -64,12 +64,17 @@
         <div class="flex flex-col gap-4 justify-evenly mb-5 md:flex-row">
           <div class="pb-4 w-full">
             <TextField
+              v-model="$v.fieldEmails.$model"
               type="email"
+              :rows="2"
+              :error="getValidationMessage($v.fieldEmails)"
               class="w-full text-sm"
-              placeholder="Enter your friend's email"
+              placeholder="Enter all your friend's email (separated by new line)"
             />
           </div>
-          <Button type="submit"> Invite </Button>
+          <Button type="submit" @click.prevent="onInviteFriends">
+            Invite
+          </Button>
         </div>
 
         <CustomText
@@ -116,13 +121,12 @@
           <div class="pb-4 w-full">
             <TextField
               type="email"
+              :rows="2"
               class="w-full text-sm"
-              placeholder="Enter your team member email"
+              placeholder="Enter all your team member's email (separated by new line)"
             />
           </div>
-          <Button type="submit" :is-pro-feature="true" message="Coming Soon">
-            Invite
-          </Button>
+          <Button :is-pro-feature="true" message="Coming Soon"> Invite </Button>
         </div>
 
         <section class="container px-4 mx-auto bg-white">
@@ -137,6 +141,8 @@
 
 <script>
 import { currentUser } from '~/components/mixins'
+import { INVITE_FRIENDS } from '~/graphql'
+import { required } from '~/plugins/validators'
 export default {
   name: 'ConnectS',
 
@@ -144,6 +150,8 @@ export default {
 
   data: () => ({
     headers: ['Website', 'Profile link', 'Total Contents'],
+    fieldEmails: '',
+    sending: false,
     isUnderDevelopment: true,
     data: [
       {
@@ -157,6 +165,35 @@ export default {
   head() {
     return {
       title: 'Settings | Connects'
+    }
+  },
+
+  validations: {
+    fieldEmails: {
+      required
+    }
+  },
+
+  methods: {
+    async onInviteFriends() {
+      if (await this.isValidationInvalid()) return
+
+      this.sending = true
+      try {
+        await this.$apollo.mutate({
+          mutation: INVITE_FRIENDS,
+          variables: {
+            data: {
+              emails: this.fieldEmails.split(/\r?\n/)
+            }
+          }
+        })
+        this.$toast.positive('Friends invited successfully')
+        this.sending = false
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+      }
     }
   }
 }
