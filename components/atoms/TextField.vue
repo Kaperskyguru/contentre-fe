@@ -404,7 +404,7 @@ export default {
 
   computed: {
     uid() {
-      return this.$utils.uidGenerator(this.id)
+      return this.$utils?.uidGenerator(this.id) ?? undefined
     },
     attrsButClassAndType() {
       const attrs = Object.assign({}, this.$attrs)

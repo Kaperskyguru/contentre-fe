@@ -18,29 +18,80 @@
       </div>
 
       <div class="mb-6">
-        <TextField
-          v-model="$v.fieldToken.$model"
-          type="text"
-          class="w-full text-sm"
-          label="App Token"
-          placeholder="Enter your app token"
-          :error="getValidationMessage($v.fieldToken)"
-        />
+        <div v-if="!viewToken">
+          <div class="mb-1 text-darksilver">
+            <label class="shrink text-sm">App Token</label>
+          </div>
+          <div class="flex justify-between">
+            <div class="w-full">
+              <DataGridCellBlur
+                :options="{
+                  length: 100
+                }"
+              />
+            </div>
+            <Button class="w-5" @click.prevent="onViewToken">{{
+              viewToken ? 'Hide' : 'View'
+            }}</Button>
+          </div>
+        </div>
+        <div v-else>
+          <TextField
+            v-model="$v.fieldToken.$model"
+            type="text"
+            class="w-full text-sm"
+            label="App Token"
+            placeholder="Enter your app token"
+            :error="getValidationMessage($v.fieldToken)"
+          >
+            <template #append-inner>
+              <Button class="w-5" @click.prevent="onViewToken">{{
+                viewToken ? 'Hide' : 'View'
+              }}</Button>
+            </template>
+          </TextField>
+        </div>
       </div>
       <input
         v-model="$v.honeyPot.$model"
         type="text"
         class="absolute invisible"
       />
-      <div class="mb-6 w-full">
-        <TextField
-          v-model="$v.fieldKey.$model"
-          type="text"
-          class="w-full text-sm"
-          label="App Key"
-          placeholder="Enter app key"
-          :error="getValidationMessage($v.fieldKey)"
-        />
+
+      <div class="mb-6">
+        <div v-if="!viewKey">
+          <div class="mb-1 text-darksilver">
+            <label class="shrink text-sm">App Key</label>
+          </div>
+          <div class="flex justify-between">
+            <div class="w-full">
+              <DataGridCellBlur
+                :options="{
+                  length: 100
+                }"
+              />
+            </div>
+            <Button class="w-5" @click.prevent="onViewKey">{{
+              viewKey ? 'Hide' : 'View'
+            }}</Button>
+          </div>
+        </div>
+        <div v-else>
+          <TextField
+            v-model="$v.fieldKey.$model"
+            type="text"
+            class="w-full text-sm"
+            label="App Key"
+            placeholder="Enter your app key"
+            :error="getValidationMessage($v.fieldKey)"
+          >
+            <template #append-inner>
+              <Button class="w-5" @click.prevent="onViewKey">{{
+                viewKey ? 'Hide' : 'View'
+              }}</Button>
+            </template>
+          </TextField>
+        </div>
       </div>
 
       <!-- <div class="mb-6">
@@ -76,8 +127,10 @@
 </template>
 
 <script>
+import DataGridCellBlur from '../atoms/DataGridCellBlur.vue'
 import { GET_APP, UPDATE_APP } from '~/graphql'
 export default {
+  components: { DataGridCellBlur },
   model: {
     prop: 'appId',
     event: 'update:appId'
@@ -88,11 +141,12 @@ export default {
       default: ''
     }
   },
-
   data: () => ({
     fieldName: '',
     fieldToken: '',
     fieldKey: '',
+    viewToken: false,
+    viewKey: false,
     // fieldActivate: '',
     honeyPot: ''
   }),
@@ -121,6 +175,8 @@ export default {
       handler(newItem) {
         if (this.app) {
           this.fieldName = newItem?.name
+          this.fieldToken = newItem?.token
+          this.fieldKey = newItem?.secret
         }
       },
       deep: true,
@@ -143,8 +199,13 @@ export default {
       }
     }
   },
-
   methods: {
+    onViewToken() {
+      this.viewToken = !this.viewToken
+    },
+    onViewKey() {
+      this.viewKey = !this.viewKey
+    },
     async deactivate() {
       try {
         await this.$apollo.mutate({
@@ -165,20 +226,17 @@ export default {
     },
     async updateApp() {
       if (this.honeyPot) return
-
       if (await this.isValidationInvalid()) return
-
       this.sending = true
-
       try {
         await this.$apollo.mutate({
           mutation: UPDATE_APP,
           variables: {
             id: this.appId,
             input: {
-              name: this.fieldName,
-              token: this.fieldToken,
-              key: this.fieldKey,
+              name: this.fieldName ?? undefined,
+              token: this.fieldToken ?? undefined,
+              key: this.fieldKey ?? undefined,
               isActivated: true
             }
           }
