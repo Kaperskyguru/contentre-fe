@@ -66,7 +66,9 @@
           md:flex-row md:space-y-0 md:space-x-2
         "
       >
-        <Button class="w-1/2" appearance="secondary">Disable</Button>
+        <Button class="w-1/2" appearance="secondary" @click.prevent="deactivate"
+          >Disable</Button
+        >
         <Button class="w-1/2" type="submit">Enable</Button>
       </div>
     </form></FloatingPanel
@@ -143,6 +145,24 @@ export default {
   },
 
   methods: {
+    async deactivate() {
+      try {
+        await this.$apollo.mutate({
+          mutation: UPDATE_APP,
+          variables: {
+            id: this.appId,
+            input: {
+              isActivated: false
+            }
+          }
+        })
+        this.$toast.positive('App deactivated successfully')
+        this.sending = false
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+      }
+    },
     async updateApp() {
       if (this.honeyPot) return
 
@@ -158,7 +178,8 @@ export default {
             input: {
               name: this.fieldName,
               token: this.fieldToken,
-              key: this.fieldKey
+              key: this.fieldKey,
+              isActivated: true
             }
           }
         })

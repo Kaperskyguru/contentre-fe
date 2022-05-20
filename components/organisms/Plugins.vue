@@ -327,18 +327,19 @@
           <div class="p-5 my-5 bg-white border border-btn-green">
             <div class="flex flex-col justify-start pb-5 mb-3 space-x-2">
               <div class="mr-3">Content Format</div>
-              <div class="flex flex-col space-y-3">
+              <div class="flex flex-col mt-2 space-y-3">
                 <CheckField
                   v-model="medium_content_format"
                   type="radio"
-                  value="HTML"
+                  value="html"
                   class="text-gray-100"
                   >HTML</CheckField
                 >
                 <CheckField
                   v-model="medium_content_format"
+                  :disabled="true"
                   type="radio"
-                  value="MARKDOWN"
+                  value="markdown"
                   class="text-gray-100"
                   >MARKDOWN</CheckField
                 >
@@ -374,9 +375,9 @@
                   placeholder="Publish Status"
                   label="Publish Status"
                 >
-                  <option value="PUBLIC">PUBLIC</option>
-                  <option value="DRAFT">DRAFT</option>
-                  <option value="UNLISTED">UNLISTED</option>
+                  <option value="public">PUBLIC</option>
+                  <option value="draft">DRAFT</option>
+                  <option value="unlisted">UNLISTED</option>
                 </DropdownField>
               </div>
             </div>
@@ -551,7 +552,7 @@ export default {
     medium_action: 'Publish',
     medium_notifyFollowers: false,
     medium_content_canonical_url: '',
-    medium_content_format: 'HTML',
+    medium_content_format: 'html',
     medium_publish_status: '',
     medium_content_format_markdown: false,
 
