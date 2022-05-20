@@ -174,7 +174,7 @@
         <div class="flex flex-col justify-start">
           <div class="flex justify-start mt-8">
             <!-- <div class="mr-3">Published to:</div> -->
-            <Button appearance="outline-red" @click.prevent="onApps">
+            <Button appearance="outline-red" @click.prevent="onPlugins">
               <div class="text-red-600 hover:text-white">
                 <GroupingIcon />
               </div>
@@ -209,7 +209,7 @@
     >
       <div class="block w-full text-gray-700 bg-white">
         <div class="flex justify-between w-full text-gray-700 bg-white">
-          <Apps @add="onAddApps" />
+          <Plugins @add="onAddApps" />
         </div>
       </div>
     </Dialog>
@@ -358,7 +358,7 @@ export default {
       this.showAutoComplete = false
       this.fieldClient = client
     },
-    onApps() {
+    onPlugins() {
       this.isPluginModalVisible = true
     },
 
