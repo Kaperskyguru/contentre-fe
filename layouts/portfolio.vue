@@ -36,33 +36,6 @@
               Create a Portfolio
             </a>
           </div>
-          <!-- 
-          <div
-            v-if="toggle"
-            id="navDropdown1"
-            class="w-full md:flex md:items-center md:w-auto"
-          >
-            <ul class="pt-4 text-gray-700 md:flex md:justify-between md:pt-0">
-              <li class="pr-5">
-                <a
-                  href="https://app.contentre.io/auth/register?source=portfolio"
-                  class="
-                    inline-flex
-                    py-3
-                    px-2
-                    mb-3
-                    text-white
-                    rounded-md
-                    border
-                    md:px-20
-                    form-btn
-                  "
-                >
-                  <span class="">Create A Portfolio</span>
-                </a>
-              </li>
-            </ul>
-          </div> -->
         </nav>
       </header>
     </div>
