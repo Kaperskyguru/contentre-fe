@@ -61,7 +61,8 @@ export default {
       '~/components/atoms',
       '~/components/molecules',
       '~/components/organisms',
-      '~/components/templates'
+      '~/components/templates',
+      '~/components/templates/portfolios'
     ]
   },
 
