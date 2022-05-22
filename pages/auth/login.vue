@@ -32,7 +32,7 @@
           >Remember me</CheckField
         >
         <NuxtLink
-          to="forgot-password"
+          to="/auth/forgot-password"
           class="font-gilroy text-base font-bold text-primary-teal"
           >Forgot Password?
         </NuxtLink>

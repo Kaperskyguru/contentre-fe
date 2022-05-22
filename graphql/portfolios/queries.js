@@ -10,6 +10,16 @@ export const GET_PORTFOLIOS = gql`
   ${portfolioFragments.portfolio}
 `
 
+export const GET_TEMPLATES = gql`
+  query getTemplates($size: Int, $skip: Int, $filters: TemplateFiltersInput) {
+    getTemplates(size: $size, skip: $skip, filters: $filters) {
+      id
+      title
+      slug
+    }
+  }
+`
+
 export const GET_PORTFOLIO = gql`
   query getPortfolio($id: ID!) {
     getPortfolio(id: $id) {
@@ -67,6 +77,8 @@ export const GET_PORTFOLIO_CONTENT = gql`
 export const GET_PORTFOLIO_DETAIL = gql`
   query getPortfolioDetail($filters: PortfolioDetailsFilters!) {
     getPortfolioDetail(filters: $filters) {
+      templateType
+      templateSlug
       about
       coverImage
       job

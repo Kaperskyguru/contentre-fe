@@ -105,7 +105,13 @@
           placeholder="Select your template"
           :error="getValidationMessage($v.fieldTemplate)"
         >
-          <option value="blank">Create Blank</option>
+          <option
+            v-for="template in templates"
+            :key="template.id"
+            :value="template.id"
+          >
+            {{ template.title === 'Blank' ? 'Use Default' : template.title }}
+          </option>
         </DropdownField>
       </section>
 
@@ -140,7 +146,12 @@
 </template>
 
 <script>
-import { CREATE_PORTFOLIO, GET_PORTFOLIO, UPDATE_PORTFOLIO } from '~/graphql'
+import {
+  CREATE_PORTFOLIO,
+  GET_PORTFOLIO,
+  GET_TEMPLATES,
+  UPDATE_PORTFOLIO
+} from '~/graphql'
 import { currentUser } from '~/components/mixins/currentUser'
 import { required, hasNoSpace } from '~/plugins/validators'
 
@@ -184,7 +195,8 @@ export default {
     fieldDescription: '',
     fieldTemplate: '',
     honeyPot: '',
-    tags: []
+    tags: [],
+    templates: []
   }),
   validations: {
     fieldURL: { hasNoSpace },
@@ -213,6 +225,16 @@ export default {
       },
       result() {
         this.resetForm()
+      }
+    },
+    templates: {
+      query: GET_TEMPLATES,
+      variables: {
+        size: 10,
+        skip: 0
+      },
+      update(data) {
+        return data.getTemplates
       }
     }
   },
