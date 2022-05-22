@@ -203,13 +203,13 @@ export default {
         await this.$apollo.mutate({
           mutation: VERIFY_USERNAME,
           variables: {
-            username: this.fieldUsername
+            username: this.fieldUsername.toLocaleLowerCase()
           }
         })
 
         await this.createNewUser({
           email: this.fieldEmail.toLocaleLowerCase(),
-          username: this.fieldUsername,
+          username: this.fieldUsername.toLocaleLowerCase(),
           name: this.fieldName,
           password: this.fieldPassword,
           referrer: this.$route.query.referrer,
