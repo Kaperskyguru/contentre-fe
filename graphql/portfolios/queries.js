@@ -84,6 +84,11 @@ export const GET_PORTFOLIO_DETAIL = gql`
       job
       profileImage
       name
+      contact {
+        email
+        phone
+        address
+      }
     }
   }
 `
