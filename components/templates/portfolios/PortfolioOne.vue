@@ -152,7 +152,7 @@
                       ></p>
                     </article>
 
-                    <div class="flex justify-between pb-4">
+                    <div class="flex justify-end pb-4">
                       <!-- <div class="flex">
                         <div>
                           <img src="~/assets/portfolio/clock.png" alt="" />
