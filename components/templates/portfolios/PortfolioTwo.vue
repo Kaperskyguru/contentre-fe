@@ -128,7 +128,14 @@
                     <img
                       :alt="content.title"
                       :src="computedImage(content.featuredImage)"
-                      class="w-full img"
+                      class="
+                        w-full
+                        h-[220px]
+                        max-h-[410px]
+                        bg-center bg-cover
+                        sm:h-full
+                        md:w-full md:h-full
+                      "
                     />
                   </div>
                   <div class="py-16 pl-0 sm:w-6/12">
@@ -147,7 +154,11 @@
                       </div>
                     </div>
                     <div class="flex justify-center">
-                      <a href="#" class="block w-max text-cyan-600"
+                      <a
+                        :href="content.url"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="block w-max text-cyan-600"
                         ><button
                           class="
                             p-2
@@ -207,7 +218,11 @@
                       </div>
                     </div>
                     <div class="flex justify-center">
-                      <a href="#" class="block w-max text-cyan-600"
+                      <a
+                        :href="content.url"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="block w-max text-cyan-600"
                         ><button
                           class="
                             p-2
@@ -232,7 +247,14 @@
                     <img
                       :alt="content.title"
                       :src="computedImage(content.featuredImage)"
-                      class="w-full img"
+                      class="
+                        w-full
+                        h-[220px]
+                        max-h-[410px]
+                        bg-center bg-cover
+                        sm:h-full
+                        md:w-full md:h-full
+                      "
                     />
                   </div>
                 </div>
@@ -542,26 +564,6 @@ html {
 }
 .border-text-brand {
   border-bottom: 4px solid rgba(255, 53, 101);
-}
-.nav-links {
-  color: #000;
-}
-
-.nav-links a:hover {
-  color: rgba(255, 53, 101);
-}
-
-.bg-800 {
-  background-color: rgba(31, 41, 55, 1);
-}
-
-.card-text {
-  margin-left: 8rem;
-  margin-right: 8rem;
-}
-
-.img {
-  @apply md:w-full md:h-full h-[220px] bg-cover bg-center max-h-[410px] sm:h-full;
 }
 
 .get-intouch {
