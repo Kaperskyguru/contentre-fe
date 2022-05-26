@@ -30,7 +30,13 @@
       @filters="onFilters"
     />
 
-    <span v-else> CUSTOMIZED TEMPLATE</span>
+    <span v-else>
+      <component :is="`style`"> {{ portfolio.css }} </component>
+      <component :is="`section`">
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-html="portfolio.html"></span>
+      </component>
+    </span>
   </span>
 </template>
 

@@ -82,6 +82,8 @@ export const GET_PORTFOLIO_DETAIL = gql`
       about
       coverImage
       job
+      css
+      html
       profileImage
       name
       contact {
@@ -89,6 +91,15 @@ export const GET_PORTFOLIO_DETAIL = gql`
         phone
         address
       }
+    }
+  }
+`
+
+export const GET_USER_TEMPLATE = gql`
+  mutation getUserTemplate($id: ID!) {
+    getUserTemplate(id: $id) {
+      id
+      title
     }
   }
 `
