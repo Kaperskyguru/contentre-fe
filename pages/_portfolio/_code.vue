@@ -30,7 +30,14 @@
       @filters="onFilters"
     />
 
-    <span v-else> CUSTOMIZED TEMPLATE</span>
+    <span v-else>
+      <component :is="`style`"> {{ portfolio.css }} </component>
+
+      <component :is="`section`" id="customizer">
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-html="portfolio.html"></span>
+      </component>
+    </span>
   </span>
 </template>
 
@@ -176,10 +183,84 @@ export default {
       }
     }
   },
+
+  mounted() {
+    const _self = this
+    const btn = document.querySelector('#nextPage')
+    if (btn)
+      btn.addEventListener('click', function () {
+        _self.next()
+      })
+  },
+
   methods: {
+    next() {
+      const len = this.contentData?.contents?.length
+      if (len !== 0 && len !== (this.contentData?.total ?? 0)) {
+        this.size = this.size ?? 9
+        this.skip = len
+      }
+
+      this.fetchMoreAndAppend({
+        size: this.size ?? 12,
+        skip: len
+      })
+    },
     generateName(name) {
       return name?.split('_')[0]
     },
+
+    fetchMoreAndAppend(sizeAndSkip) {
+      this.fetchMore(sizeAndSkip)
+      const domContents =
+        document.querySelector('#allContents').lastElementChild
+      if (!domContents) return
+      this.contentData.contents.forEach((content) => {
+        const html = `
+      <div
+        class="
+          flex
+          overflow-hidden
+          relative
+          flex-col
+          col-span-4
+          justify-between
+          items-center
+          py-12
+          px-8
+          space-y-4
+          bg-gray-100
+          sm:rounded-xl
+        "
+      >
+        <div class="p-3 text-white bg-blue-500 rounded-full">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-8 h-8"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+            <path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5"></path>
+            <circle cx="6" cy="14" r="3"></circle>
+            <path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5"></path>
+          </svg>
+        </div>
+        <h4 class="text-xl font-medium text-gray-700">${content.title}</h4>
+        <p class="text-base text-center text-gray-500">${content.excerpt}</p>
+      </div>
+      
+      `
+
+        domContents.insertAdjacentHTML('afterend', html)
+      })
+    },
+
     fetchMore(sizeAndSkip) {
       if (this.$apollo.queries.contentData.loading) return
       const itemsKey = 'contents'

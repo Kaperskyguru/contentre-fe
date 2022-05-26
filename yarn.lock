@@ -5907,6 +5907,28 @@ babel-walk@3.0.0-canary-5:
   dependencies:
     "@babel/types" "^7.9.6"
 
+backbone-undo@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/backbone-undo/-/backbone-undo-0.2.5.tgz#55b25230f90319ca622465e89a80248b893c2ce2"
+  integrity sha512-fmIFggCqDpQKWj2YlxjipGlKqEKjIrCoee4BnHJoLNflSy4/Rd9T7DVsELJ50CrQctOscdFfB7cGnqncluIthQ==
+  dependencies:
+    backbone "1.0.0 - 1.2.1"
+    underscore "1.4.4 - 1.8.3"
+
+"backbone@1.0.0 - 1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/backbone/-/backbone-1.2.1.tgz#d7219c5ed49e5e131dbffaf25c96d6d2cc3ca03e"
+  integrity sha512-asKBzZd9YIkgzdGw1hWQ4zgPS+Rk2CTFb9iDcznb7/NjX6LJ+53aIdc/jLhTLSDy2pzKtq0PHReYi17NKBOFTQ==
+  dependencies:
+    underscore ">=1.7.0"
+
+backbone@1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/backbone/-/backbone-1.3.3.tgz#4cc80ea7cb1631ac474889ce40f2f8bc683b2999"
+  integrity sha512-aK+k3TiU4tQDUrRCymDDE7XDFnMVuyE6zbZ4JX7mb4pJbQTVOH997/kyBzb8wB2s5Y/Oh7EUfj+sZhwRPxWwow==
+  dependencies:
+    underscore ">=1.8.3"
+
 backo2@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/backo2/-/backo2-1.0.2.tgz#31ab1ac8b129363463e35b3ebb69f4dfcfba7947"
@@ -6869,6 +6891,16 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
+
+codemirror-formatting@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/codemirror-formatting/-/codemirror-formatting-1.0.0.tgz#879cc1fdd9018343c1d5511769ce5360d705ebf2"
+  integrity sha1-h5zB/dkBg0PB1VEXac5TYNcF6/I=
+
+codemirror@^5.63.0:
+  version "5.65.4"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.65.4.tgz#384c257f27d1d06f44311722c98ad802cce3984e"
+  integrity sha512-tytrSm5Rh52b6j36cbDXN+FHwHCl9aroY4BrDZB2NFFL3Wjfq9nuYVLFFhaOYOczKAg3JXTr8BuT8LcE5QY4Iw==
 
 collapse-white-space@^1.0.2:
   version "1.0.6"
@@ -9143,6 +9175,11 @@ file-loader@^6.0.0, file-loader@^6.2.0:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
 
+file-saver@^1.3.2:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-1.3.8.tgz#e68a30c7cb044e2fb362b428469feb291c2e09d8"
+  integrity sha512-spKHSBQIxxS81N/O21WmuXA2F6wppUCsutpzenOeZzOCCJ5gEfcbqJP983IrpLXzYmXnMUa6J03SubcNPdKrlg==
+
 file-system-cache@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/file-system-cache/-/file-system-cache-1.0.5.tgz#84259b36a2bbb8d3d6eb1021d3132ffe64cfff4f"
@@ -9878,6 +9915,79 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.9.tgz#041b05df45755e587a24942279b9d113146e1c96"
   integrity sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==
 
+grapesjs-aviary@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/grapesjs-aviary/-/grapesjs-aviary-0.1.2.tgz#330e7de5ad8ba5fca4dea06adba94372a8d4b487"
+  integrity sha512-F7sYQWj5s9eyUqoOX6q1z2J06AqgXhQqdjQhM8b5BptxlbDsvDTCbqSRmLGkEQKaIF1ca5o9FFi9eKBeUAfLEw==
+
+grapesjs-blocks-basic@^0.1.7, grapesjs-blocks-basic@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/grapesjs-blocks-basic/-/grapesjs-blocks-basic-0.1.8.tgz#9eab7c8fd7bc30537143677320b07d85b9bd2e8f"
+  integrity sha512-Iy5M4qGkEE2llb5ZFxitDolRJ3CrQkcK1SQIjRRlkWIAC99On3T/09iFR7NkpTBfsgfdNwcwnSVOMOhSnVLDtw==
+
+grapesjs-component-countdown@^0.1.2:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/grapesjs-component-countdown/-/grapesjs-component-countdown-0.1.3.tgz#7df54b2a6c0bdf3275370f974ac9bd732188aae3"
+  integrity sha512-TmxDETedUDv1jGqNLn6E768iyp+xAK/XcTId5WpLrmKPFB6aCuWqfTowhtSvyRJJs83OAFMiQIwIu+tEtSWOeA==
+
+grapesjs-indexeddb@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/grapesjs-indexeddb/-/grapesjs-indexeddb-0.1.1.tgz#461e41911e87feba8ea076252a2cc1fdb2b5789a"
+  integrity sha512-lWXqYLuiygf0sZrO+Hq4336NDgFeSnw0E2UwpQFw+psXpKfdoqTXvREfGQsFiO82uipLMReWhGQfdw3LhVbOUQ==
+
+grapesjs-navbar@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/grapesjs-navbar/-/grapesjs-navbar-0.1.5.tgz#62e35eca0f391f94d455e96c206b74b5f495fa6e"
+  integrity sha512-tVKPtzlTUNCpzk3lHW69II2NsSzLNQd3K32CXssWCP3M1V8fvc9jG/MQECBkd/gMS+DjldD4/4b00ri9F3tKSg==
+
+grapesjs-plugin-ckeditor@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/grapesjs-plugin-ckeditor/-/grapesjs-plugin-ckeditor-0.0.10.tgz#9ce8b32cfd175ea040f8ea324910ce91d08759a2"
+  integrity sha512-WWKure+ptpssV6rFJZ006diL87IeU38cm1pMA4SI5C2i8DoTHui0IM7J5NG5Vit7/PMqDcn9/hHLJwt1IRsqDg==
+
+grapesjs-plugin-export@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/grapesjs-plugin-export/-/grapesjs-plugin-export-0.1.5.tgz#968631d8d22abdd1d05f14fa30ad86105690ce23"
+  integrity sha512-BgvPY68vIDxVv0Z3v1TTikHseMxbfvUvhk5qUHq3a9kFmc2sFfNA6f5NHP9A4v3Tnd4kuwOd2aIn+QNutZrLRg==
+  dependencies:
+    file-saver "^1.3.2"
+    jszip "^3.0.0"
+
+grapesjs-plugin-filestack@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/grapesjs-plugin-filestack/-/grapesjs-plugin-filestack-0.1.1.tgz#690d8b532fab6e01d614d1ab288da0086b748972"
+  integrity sha512-zRwgHUZd7qDVk92dtizOHxnPiCjBBmsA2BHm0J86tz8uiXf6ou0OoQiB4x4UDewb9ipTkBI6X5nGh/0YET6WLw==
+
+grapesjs-plugin-forms@^0.3.5:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/grapesjs-plugin-forms/-/grapesjs-plugin-forms-0.3.6.tgz#c55ee38ad74e2935e1e279deb0bca45ec0b1d301"
+  integrity sha512-JGIxky3if7FLlXBDuX2T2UoWQnvm55PcNp5P2qoX64zlA0+2npz9zbPcj9g1PUHXVPlTXwTr2qu5x3U/pb+xdw==
+
+grapesjs-preset-webpage@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/grapesjs-preset-webpage/-/grapesjs-preset-webpage-0.1.11.tgz#98dc9c0019683119b7bbb6d4f3b404aee286af6f"
+  integrity sha512-36SuSPwu3a09R6YR31Sklmowz/LvzxzGM74WcPd8KPwbs1mAQ4fFuqWKkX/wv8+GhY58Se9EO42yQVMwsZzELA==
+  dependencies:
+    grapesjs-aviary "^0.1.2"
+    grapesjs-blocks-basic "^0.1.7"
+    grapesjs-component-countdown "^0.1.2"
+    grapesjs-navbar "^0.1.5"
+    grapesjs-plugin-export "^0.1.5"
+    grapesjs-plugin-filestack "^0.1.1"
+    grapesjs-plugin-forms "^0.3.5"
+
+grapesjs@^0.18.4:
+  version "0.18.4"
+  resolved "https://registry.yarnpkg.com/grapesjs/-/grapesjs-0.18.4.tgz#3445502a8610dc2a676f5fae2a3a1faa5a6625b4"
+  integrity sha512-mOkmOc7Q9OyuW4H8h4NDhFK1cxBnw/En+sD60enOKQrNy5lfua6Lh5I0oTm93RU6ahQy2QPzn1ZbZWAQaDCKQw==
+  dependencies:
+    backbone "1.3.3"
+    backbone-undo "^0.2.5"
+    codemirror "^5.63.0"
+    codemirror-formatting "^1.0.0"
+    promise-polyfill "^8.1.3"
+    underscore "^1.13.1"
+
 graphql-anywhere@^4.1.0-alpha.0:
   version "4.2.7"
   resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-4.2.7.tgz#c06fb40b1d62b39470c80e3731478dbbef060067"
@@ -10555,6 +10665,11 @@ image-size@^0.5.1:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
   integrity sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=
+
+immediate@~3.0.5:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
+  integrity sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=
 
 immutable@~3.7.6:
   version "3.7.6"
@@ -11569,6 +11684,16 @@ jstransformer@1.0.0:
     is-promise "^2.0.0"
     promise "^7.0.1"
 
+jszip@^3.0.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/jszip/-/jszip-3.10.0.tgz#faf3db2b4b8515425e34effcdbb086750a346061"
+  integrity sha512-LDfVtOLtOxb9RXkYOwPyNBTQDL4eUbqahtoY6x07GiDJHwSYvn8sHHIw8wINImV3MqbMNve2gSuM1DDqEKk09Q==
+  dependencies:
+    lie "~3.3.0"
+    pako "~1.0.2"
+    readable-stream "~2.3.6"
+    setimmediate "^1.0.5"
+
 junk@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/junk/-/junk-3.1.0.tgz#31499098d902b7e98c5d9b9c80f43457a88abfa1"
@@ -11703,6 +11828,13 @@ levn@~0.3.0:
   dependencies:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
+
+lie@~3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/lie/-/lie-3.3.0.tgz#dcf82dee545f46074daf200c7c1c5a08e0f40f6a"
+  integrity sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==
+  dependencies:
+    immediate "~3.0.5"
 
 lilconfig@^2.0.4:
   version "2.0.4"
@@ -13226,7 +13358,7 @@ package-json@^6.3.0:
     registry-url "^5.0.0"
     semver "^6.2.0"
 
-pako@~1.0.5:
+pako@~1.0.2, pako@~1.0.5:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
@@ -14405,6 +14537,11 @@ promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
   integrity sha1-mEcocL8igTL8vdhoEputEsPAKeM=
+
+promise-polyfill@^8.1.3:
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-8.2.3.tgz#2edc7e4b81aff781c88a0d577e5fe9da822107c6"
+  integrity sha512-Og0+jCRQetV84U8wVjMNccfGCnMQ9mGs9Hv78QFe+pSDD3gWTpz0y+1QCuxy5d/vBFuZ3iwP2eycAkvqIMPmWg==
 
 promise.allsettled@^1.0.0:
   version "1.0.5"
@@ -16556,6 +16693,11 @@ table@6.7.3:
     string-width "^4.2.3"
     strip-ansi "^6.0.1"
 
+tailwind-scrollbar-hide@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/tailwind-scrollbar-hide/-/tailwind-scrollbar-hide-1.1.7.tgz#90b481fb2e204030e3919427416650c54f56f847"
+  integrity sha512-X324n9OtpTmOMqEgDUEA/RgLrNfBF/jwJdctaPZDzB3mppxJk7TLIDmOreEDm1Bq4R9LSPu4Epf8VSdovNU+iA==
+
 tailwindcss@^3.0.19, tailwindcss@^3.0.7:
   version "3.0.23"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.0.23.tgz#c620521d53a289650872a66adfcb4129d2200d10"
@@ -17092,7 +17234,12 @@ undefsafe@^2.0.5:
   resolved "https://registry.yarnpkg.com/undefsafe/-/undefsafe-2.0.5.tgz#38733b9327bdcd226db889fb723a6efd162e6e2c"
   integrity sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==
 
-underscore@^1.9.1:
+"underscore@1.4.4 - 1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
+  integrity sha1-Tz+1OxBuYJf8+ctBCfKl6b36UCI=
+
+underscore@>=1.7.0, underscore@>=1.8.3, underscore@^1.13.1, underscore@^1.9.1:
   version "1.13.3"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.3.tgz#54bc95f7648c5557897e5e968d0f76bc062c34ee"
   integrity sha512-QvjkYpiD+dJJraRA8+dGAU4i7aBbb2s0S3jA45TFOvg2VgqvdCDd/3N6CqA8gluk1W91GLoXg5enMUx560QzuA==

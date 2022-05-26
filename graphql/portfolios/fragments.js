@@ -8,6 +8,10 @@ export const portfolioFragments = {
       template {
         content
         id
+        template {
+          id
+          type
+        }
       }
       url
       type

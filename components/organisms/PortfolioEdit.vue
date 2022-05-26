@@ -96,23 +96,32 @@
           />
         </div>
       </section>
-      <section v-if="!isEditing" class="mb-6">
-        <DropdownField
-          v-model="$v.fieldTemplate.$model"
-          type="text"
-          class="w-full text-sm text-darksilver"
-          label="Description"
-          placeholder="Select your template"
-          :error="getValidationMessage($v.fieldTemplate)"
-        >
-          <option
-            v-for="template in templates"
-            :key="template.id"
-            :value="template.id"
+      <section v-if="!isEditing" class="p-3 mb-6 border">
+        <div class="mb-6">
+          <DropdownField
+            v-model="$v.fieldTemplate.$model"
+            type="text"
+            :disabled="disabled"
+            class="w-full text-sm text-darksilver"
+            label="Select a template"
+            placeholder="Select your template"
+            :error="getValidationMessage($v.fieldTemplate)"
           >
-            {{ template.title === 'Blank' ? 'Use Default' : template.title }}
-          </option>
-        </DropdownField>
+            <option
+              v-for="template in templates"
+              :key="template.id"
+              :value="template.id"
+            >
+              {{ template.title === 'Blank' ? 'Use Default' : template.title }}
+            </option>
+          </DropdownField>
+        </div>
+        <CheckField
+          v-model="shouldCustomize"
+          class="text-gray-100"
+          @changed="onShouldCustomize"
+          >Customize New Template</CheckField
+        >
       </section>
 
       <div
@@ -124,23 +133,21 @@
           md:flex-row md:space-y-0 md:space-x-4
         "
       >
-        <Button v-if="isEditing" appearance="secondary" class="w-full">
-          {{ 'Edit Page' }}
+        <Button
+          v-if="isCustomized && isEditing"
+          appearance="secondary"
+          class="w-full"
+          :to="{ path: `/portfolios/customizer/?id=${getTemplateId}` }"
+          type="link"
+          target="_blank"
+        >
+          {{ 'Customize Page' }}
         </Button>
 
         <Button class="w-full" type="submit" :waiting="sending">
           {{ isEditing ? 'Update' : 'Create' }}
         </Button>
       </div>
-
-      <Hyperlink
-        v-if="isEditing"
-        target="_blank"
-        class="text-red-700"
-        :to="{ path: `/portfolios/c/${getTemplateId}` }"
-      >
-        Customize in new page
-      </Hyperlink>
     </form>
   </FloatingPanel>
 </template>
@@ -185,6 +192,7 @@ export default {
   emits: ['toggle', 'created', 'updated'],
 
   data: () => ({
+    disabled: false,
     portfolio: {},
     sending: false,
     fieldTitle: '',
@@ -192,6 +200,7 @@ export default {
     fieldTags: '',
     fieldCategory: '',
     fieldClient: '',
+    shouldCustomize: false,
     fieldDescription: '',
     fieldTemplate: '',
     honeyPot: '',
@@ -207,6 +216,7 @@ export default {
     fieldTitle: {
       required
     },
+    shouldCustomize: {},
     fieldDescription: {},
     honeyPot: {}
   },
@@ -243,6 +253,10 @@ export default {
     getTemplateId() {
       return this.portfolio?.template?.id
     },
+
+    isCustomized() {
+      return this.portfolio?.template?.template?.type === 'CUSTOMIZED'
+    },
     isEditing() {
       return !!this.portfolioId
     },
@@ -273,6 +287,9 @@ export default {
   },
 
   methods: {
+    onShouldCustomize() {
+      this.disabled = !this.disabled
+    },
     onUpdateTags(tags) {
       this.showAutoComplete = false
       this.fieldTags = tags
@@ -333,6 +350,7 @@ export default {
           clientId: this.fieldClient?.id ?? undefined,
           categoryId: this.fieldCategory?.id ?? undefined,
           tags: this.tags,
+          shouldCustomize: this.shouldCustomize,
           description: this.fieldDescription,
           templateId:
             this.fieldTemplate === 'blank' ? undefined : this.fieldTemplate
