@@ -200,7 +200,11 @@ export default {
         this.size = this.size ?? 9
         this.skip = len
       }
-
+      if (this.contentData.total === len) {
+        const btn = document.querySelector('#nextPage')
+        if (btn) btn.disabled = true
+        return
+      }
       this.fetchMoreAndAppend({
         size: this.size ?? 12,
         skip: len
