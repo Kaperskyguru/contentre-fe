@@ -33,7 +33,7 @@
     <span v-else>
       <component :is="`style`"> {{ portfolio.css }} </component>
 
-      <component :is="`section`" id="customizer">
+      <component :is="`section`">
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="portfolio.html"></span>
       </component>
