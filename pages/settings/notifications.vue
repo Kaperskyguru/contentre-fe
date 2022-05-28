@@ -90,25 +90,6 @@
               </div>
             </div>
 
-            <!-- <div class="flex">
-              <div class="justify-center w-full">
-                <CheckField
-                  id="newComments"
-                  v-model="newComments"
-                  type="checkbox"
-                  class="peer relative z-20 focus:ring-0"
-                >
-                  <div>
-                    <span class="block text-base">News Comments</span>
-                    <span class="block text-xs text-gray-500"
-                      >Get notified on any new comments or direct message on any
-                      of your channel</span
-                    >
-                  </div>
-                </CheckField>
-              </div>
-            </div> -->
-
             <div class="flex">
               <div class="justify-center w-full">
                 <CheckField
@@ -143,24 +124,6 @@
                 </CheckField>
               </div>
             </div>
-
-            <!-- <div class="flex">
-              <div class="justify-center w-full">
-                <CheckField
-                  id="request"
-                  v-model="request"
-                  type="checkbox"
-                  class="peer relative z-20 focus:ring-0"
-                >
-                  <div>
-                    <span class="block text-base">Request</span>
-                    <span class="block text-xs text-gray-500">
-                      New request to connect or share with friends</span
-                    >
-                  </div>
-                </CheckField>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>

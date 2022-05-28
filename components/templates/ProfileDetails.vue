@@ -67,12 +67,19 @@
         <div class="block justify-between px-3 w-full text-gray-700 bg-white">
           <Form class="w-full" @submit.prevent="onCreateSocial">
             <div class="mb-6">
-              <TextField
+              <DropdownField
                 v-model="$v.fieldName.$model"
-                label="Social Name"
-                placeholder="Twitter"
-                :error="getValidationMessage($v.fieldName)"
-              />
+                label="Select social media"
+                placeholder="Facebook"
+              >
+                <option
+                  v-for="(item, itemIndex) in socials"
+                  :key="itemIndex"
+                  :value="item && item.name ? item.name : ''"
+                >
+                  {{ item && item.name ? item.name : '' }}
+                </option>
+              </DropdownField>
             </div>
 
             <div class="mb-6">
@@ -81,15 +88,6 @@
                 label="Link"
                 placeholder="https://twitter.com/contentreio"
                 :error="getValidationMessage($v.fieldLink)"
-              />
-            </div>
-
-            <div class="mb-6">
-              <TextField
-                v-model="$v.fieldIcon.$model"
-                label="Upload Icon"
-                type="file"
-                :error="getValidationMessage($v.fieldIcon)"
               />
             </div>
 
@@ -120,12 +118,33 @@ export default {
     getSocials: [],
     fieldName: '',
     fieldIcon: '',
-    fieldLink: ''
+    fieldLink: '',
+    socials: [
+      {
+        name: 'Facebook',
+        icon: ''
+      },
+      {
+        name: 'Twitter',
+        icon: ''
+      },
+      {
+        name: 'Instagram',
+        icon: ''
+      },
+      {
+        name: 'LinkedIn',
+        icon: ''
+      },
+      {
+        name: 'WhatsApp',
+        icon: ''
+      }
+    ]
   }),
 
   validations: {
     fieldLink: { isURL },
-    fieldIcon: {},
     fieldName: {
       hasLetter
     },
@@ -149,17 +168,9 @@ export default {
 
       this.sending = true
 
-      if (this.imageBlob) {
-        this.cloudinary = await this.$cloudinary.upload(this.imageBlob, {
-          folder: 'contentre/socials/' + this.currentUser.id,
-          upload_preset: 'yijnms7k'
-        })
-      }
-
       const input = {
         name: this.fieldName || undefined,
-        link: this.fieldLink || undefined,
-        icon: this.cloudinary?.secure_url || undefined
+        link: this.fieldLink || undefined
       }
 
       try {

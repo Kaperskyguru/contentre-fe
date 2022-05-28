@@ -29,3 +29,8 @@ export const DELETE_TAG = gql`
     deleteTag(id: $id)
   }
 `
+export const DELETE_BULK_TAG = gql`
+  mutation deleteBulkTag($input: DeleteBulkTagInput!) {
+    deleteBulkTag(input: $input)
+  }
+`

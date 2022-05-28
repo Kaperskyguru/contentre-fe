@@ -13,12 +13,12 @@
       <div
         class="
           grid grid-cols-1
+          2xl:grid-cols-3
           gap-4
           w-full
           md:grid-cols-2
           lg:grid-cols-2
           xl:grid-cols-3
-          2xl:grid-cols-3
         "
       >
         <!-- Chart 1 -->
@@ -38,10 +38,10 @@
           <div class="overflow-hidden">
             <header class="px-2 leading-tight">
               <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
-                >Client Overview</span
+                >Total Overview</span
               >
               <h3 class="pb-4 font-normal text-gray-500">
-                Yearly Content Impact
+                Yearly Account Overview
               </h3>
             </header>
 

@@ -48,13 +48,16 @@
         <div class="flex flex-col gap-4 justify-evenly md:flex-row">
           <div class="pb-2 w-full">
             <TextField
-              type="email"
+              id="copyTextInput"
+              type="text"
               class="w-full text-sm"
               :disabled="true"
               :value="`https://app.contentre.io/auth/register?referrer=${currentUser.username}`"
             />
           </div>
-          <Button type="submit"> Copy Link </Button>
+          <Button :disabled="copied" @click.prevent="copyToClipboard">
+            {{ copied ? 'Copied' : 'Copy Link' }}
+          </Button>
         </div>
 
         <div class="block pb-2 mt-6 font-normal text-black">
@@ -130,8 +133,15 @@
         </div>
 
         <section class="container px-4 mx-auto bg-white">
-          <div class="overflow-x-auto px-4 -mx-4 sm:-mx-8">
-            <Table title="Team Members" :headers="headers" :row-data="data" />
+          <div class="overflow-x-auto px-4 -mx-4 h-60 sm:-mx-8">
+            <DataGrid
+              :columns="columns"
+              :items="members"
+              :total="members.length"
+              :loading="$apollo.queries.members.loading"
+              :item-clickable="true"
+              @item-click="onItemClick"
+            />
           </div>
         </section>
       </div>
@@ -141,7 +151,7 @@
 
 <script>
 import { currentUser } from '~/components/mixins'
-import { INVITE_FRIENDS } from '~/graphql'
+import { GET_MEMBERS, INVITE_FRIENDS } from '~/graphql'
 import { required } from '~/plugins/validators'
 export default {
   name: 'ConnectS',
@@ -149,18 +159,12 @@ export default {
   mixins: [currentUser],
 
   data: () => ({
-    headers: ['Website', 'Profile link', 'Total Contents'],
     fieldEmails: '',
+    memberId: null,
+    members: [],
     sending: false,
     isUnderDevelopment: true,
-    data: [
-      {
-        id: 'aas-dsd-xx-ad-cdad',
-        name: 'Solomon Eseme',
-        username: 'Kap',
-        date: 'here'
-      }
-    ]
+    copied: false
   }),
   head() {
     return {
@@ -174,7 +178,76 @@ export default {
     }
   },
 
+  apollo: {
+    members: {
+      query: GET_MEMBERS,
+      fetchPolicy: 'cache-and-network',
+      variables() {
+        return {
+          contains: ''
+        }
+      },
+      update(data) {
+        return data.getMembers
+      }
+    }
+  },
+
+  computed: {
+    columns() {
+      return [
+        {
+          title: 'Name',
+          key: 'name',
+          component: () => 'DataGridCellIcon',
+          componentOptions: this.getNameComponentOptions
+        },
+
+        {
+          title: 'Username',
+          key: 'username',
+
+          component: () => {
+            return 'DataGridCellIcon'
+          },
+          componentOptions: this.getUsernameComponentOptions
+        },
+
+        {
+          title: 'Role',
+          key: 'role',
+
+          component: () => {
+            return 'DataGridCellIcon'
+          },
+          componentOptions: this.getRoleComponentOptions
+        },
+
+        {
+          title: 'Created',
+          key: 'createdAt',
+          component: () => 'DataGridCellIcon',
+          componentOptions: this.getCreatedAtComponentOptions
+        }
+      ]
+    }
+  },
+
   methods: {
+    copyToClipboard() {
+      const copyText = document.getElementById('copyTextInput')
+
+      /* Select the text field */
+      copyText.select()
+      copyText.setSelectionRange(0, 99999) /* For mobile devices */
+
+      /* Copy the text inside the text field */
+      navigator.clipboard.writeText(copyText.value)
+      this.copied = true
+    },
+    onItemClick({ id }) {
+      this.memberId = id
+    },
     async onInviteFriends() {
       if (await this.isValidationInvalid()) return
 
@@ -194,6 +267,54 @@ export default {
         this.$toast.negative(error.message)
         this.sending = false
       }
+    },
+
+    getCreatedAtComponentOptions({ createdAt }) {
+      return !createdAt
+        ? {
+            style: 'secondary',
+            value: 'No date provided'
+          }
+        : new Date(createdAt) > new Date()
+        ? {
+            type: 'icon',
+            size: 14,
+            name: 'Scheduled',
+            value: this.$d(new Date(createdAt), 'dateShorter')
+          }
+        : {
+            value: this.$d(new Date(createdAt), 'dateShorter')
+          }
+    },
+
+    getNameComponentOptions({ name }) {
+      return name
+        ? {
+            tooltip: true,
+            style: !name ? 'secondary' : undefined,
+            value: name || 'No name provided'
+          }
+        : {}
+    },
+
+    getUsernameComponentOptions({ username }) {
+      return username
+        ? {
+            tooltip: true,
+            style: !username ? 'secondary' : undefined,
+            value: username || 'No username provided'
+          }
+        : {}
+    },
+
+    getRoleComponentOptions({ role }) {
+      return role
+        ? {
+            tooltip: true,
+            style: !role ? 'secondary' : undefined,
+            value: role || 'No role provided'
+          }
+        : {}
     }
   }
 }

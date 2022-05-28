@@ -25,7 +25,11 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: []
+    script: [
+      // {
+      //   src: 'https://cdn.tailwindcss.com'
+      // }
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -42,7 +46,6 @@ export default {
     '~/plugins/utils',
     '~/plugins/toast',
     '~/plugins/currentUser',
-    '~/plugins/resizable',
     { src: '~/plugins/CKEditor', mode: 'client' },
     { src: '~/plugins/medium-editor', ssr: false }
   ],

@@ -25,3 +25,9 @@ export const DELETE_CATEGORY = gql`
     deleteCategory(id: $id)
   }
 `
+
+export const DELETE_BULK_CATEGORY = gql`
+  mutation deleteBulkCategory($input: DeleteBulkCategoryInput!) {
+    deleteBulkCategory(input: $input)
+  }
+`

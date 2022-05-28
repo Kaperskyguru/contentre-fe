@@ -41,17 +41,7 @@
     </div>
 
     <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="px-3 mb-6 w-full md:mb-0 md:w-1/2">
-        <TextField
-          v-model="$v.fieldEmail.$model"
-          type="email"
-          class="w-full text-sm"
-          label="Email Address"
-          placeholder=""
-          :error="getValidationMessage($v.fieldEmail)"
-        />
-      </div>
-      <div class="px-3 w-full md:w-1/2">
+      <div class="px-3 w-full">
         <TextField
           v-model="$v.fieldPhoneNumber.$model"
           type="text"

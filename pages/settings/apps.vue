@@ -31,14 +31,22 @@
     <!-- connected apps -->
     <div class="py-2 px-4 bg-white rounded-sm shadow-sm">
       <div class="block w-full text-gray-700 bg-white">
-        <div class="block pb-2 text-gray-500">
+        <div v-if="apps.items.length" class="block pb-2 text-gray-500">
           <p class="mb-4 text-base">Manage and control your connected Apps</p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-2">
         <div
+          v-if="!apps.items.length"
+          class="flex items-center p-3 mx-auto text-center text-gray-400"
+        >
+          Click "Connect Apps" to select plugins
+        </div>
+
+        <div
           v-for="app in apps.items"
+          v-else
           :key="app.id"
           class="p-3 bg-white rounded-md border shadow-sm"
         >
