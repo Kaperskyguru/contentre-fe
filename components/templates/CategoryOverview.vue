@@ -21,8 +21,14 @@
         />
       </div>
 
-      <div>
+      <div class="flex space-x-0 md:space-x-3">
         <Button @click.prevent="onAddCategory">Add Category</Button>
+        <Button
+          v-if="checked.length"
+          appearance="secondary"
+          @click.prevent="onDeleteBulkCategory"
+          >Delete Categor{{ checked.length > 1 ? 'ies' : 'y' }}</Button
+        >
       </div>
     </section>
 
@@ -65,16 +71,37 @@
       @created="onCreated"
       @updated="onUpdated"
     ></LazyCategoryEdit>
+
+    <Dialog
+      v-model="isBulkDeleteCategoryVisible"
+      primary-text="Confirm"
+      secondary-text="Cancel"
+      @answer="deleteBulkCategory"
+    >
+      <template #icon>
+        <IconInformationCircle class="w-20 h-20" />
+      </template>
+      <p>
+        Are you sure you want to delete {{ checked.length }} categor{{
+          checked.length > 1 ? 'ies' : 'y'
+        }}?
+      </p>
+    </Dialog>
   </span>
 </template>
 
 <script>
 // import fragment from 'vue-frag'
-import { GET_CATEGORIES } from '~/graphql'
+import { DELETE_BULK_CATEGORY, GET_CATEGORIES } from '~/graphql'
 export default {
   // directives: {
   //   fragment
   // },
+
+  components: {
+    IconInformationCircle: () =>
+      import('~/assets/icons/information-circle.svg?inline')
+  },
   props: {
     checked: {
       type: Array,
@@ -85,7 +112,7 @@ export default {
     categoryId: null,
     filters: {},
     searchedTerm: '',
-
+    isBulkDeleteCategoryVisible: false,
     sortColumns: [
       { name: 'Name', key: 'name' },
       { name: 'Total Contents', key: 'totalContents' },
@@ -162,6 +189,30 @@ export default {
   },
 
   methods: {
+    onDeleteBulkCategory() {
+      this.isBulkDeleteCategoryVisible = true
+    },
+    async deleteBulkCategory(answer) {
+      if (!answer) return
+      try {
+        await this.$apollo.mutate({
+          mutation: DELETE_BULK_CATEGORY,
+          refetchQueries: ['getCategories'],
+          variables: {
+            input: {
+              ids: this.checked
+            }
+          }
+        })
+
+        this.$emit('deleted')
+        this.sending = false
+        this.$toast.positive('Categories deleted successfully')
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+      }
+    },
     onDeleteSuccess() {
       this.refetch()
     },

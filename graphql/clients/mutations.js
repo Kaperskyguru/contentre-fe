@@ -24,3 +24,9 @@ export const DELETE_CLIENT = gql`
     deleteClient(id: $id)
   }
 `
+
+export const DELETE_BULK_CLIENT = gql`
+  mutation deleteBulkClient($input: DeleteBulkClientInput!) {
+    deleteBulkClient(input: $input)
+  }
+`
