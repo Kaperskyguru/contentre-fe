@@ -192,7 +192,7 @@
 
                   <li>
                     <Hyperlink
-                      :to="{ name: 'clients' }"
+                      :to="{ name: 'topics' }"
                       class="
                         group
                         flex

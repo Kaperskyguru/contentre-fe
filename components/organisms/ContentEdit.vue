@@ -150,35 +150,25 @@
         "
       >
         <Button
+          v-if="isEditing"
+          type="link"
+          :to="{ path: `/contents/${contentId}/` }"
           appearance="secondary"
           class="w-full"
-          @click.prevent="onClickDelete"
         >
-          {{ 'Delete' }}
+          {{ 'Edit full content' }}
         </Button>
 
         <Button type="submit" class="w-full">
           {{ 'Update' }}
         </Button>
       </div>
-      <Hyperlink
-        v-if="isEditing"
-        class="text-red-700"
-        :to="{ path: `/contents/${contentId}/` }"
-      >
-        Edit full content
-      </Hyperlink>
     </Form>
   </FloatingPanel>
 </template>
 
 <script>
-import {
-  DELETE_CONTENT,
-  GET_CONTENT,
-  updateContentCache,
-  UPDATE_CONTENT
-} from '~/graphql'
+import { GET_CONTENT, UPDATE_CONTENT } from '~/graphql'
 import { decimal } from '~/plugins/validators'
 export default {
   model: {
@@ -272,27 +262,6 @@ export default {
   },
 
   methods: {
-    async onClickDelete() {
-      try {
-        this.$emit(
-          'deleted',
-          await this.$apollo.mutate({
-            mutation: DELETE_CONTENT,
-            variables: {
-              id: this.contentId
-            },
-            update: (cache) => updateContentCache(cache, this.contentId)
-          })
-        )
-        this.$toast.positive('Content deleted successfully')
-        this.sending = false
-        this.open = false
-      } catch (error) {
-        this.$toast.negative(error.message)
-        this.sending = false
-        this.open = false
-      }
-    },
     selectedPayment(type) {
       if (type === 'MONTHLY') {
         // Disable only if not a new month

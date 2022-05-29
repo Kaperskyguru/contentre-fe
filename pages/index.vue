@@ -38,8 +38,9 @@
           <div class="overflow-hidden">
             <header class="px-2 leading-tight">
               <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
-                >Total Overview</span
+                >Client Overview</span
               >
+              <!-- Total Overview -->
               <h3 class="pb-4 font-normal text-gray-500">
                 Yearly Account Overview
               </h3>
