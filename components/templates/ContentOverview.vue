@@ -116,7 +116,7 @@ export default {
       { name: 'Client', key: 'client' },
       { name: 'Category', key: 'category' },
       { name: 'Visibility', key: 'visibility' },
-      { name: 'Last Updated', key: 'lastUpdated' },
+      { name: 'Updated', key: 'lastUpdated' },
       { name: 'Amount', key: 'amount' }
     ],
     contents: {
@@ -219,7 +219,7 @@ export default {
           componentOptions: this.getInteractionsComponentOptions
         },
         {
-          title: 'Last Updated',
+          title: 'Updated',
           key: 'lastUpdated',
           titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellIcon',
