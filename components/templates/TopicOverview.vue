@@ -26,12 +26,12 @@
       </div>
 
       <div class="flex space-x-0 md:space-x-3">
-        <Button @click.prevent="onAddCategory">Add Category</Button>
+        <Button @click.prevent="onAddTopic">Add Topic</Button>
         <Button
           v-if="checked.length"
           appearance="secondary"
-          @click.prevent="onDeleteBulkCategory"
-          >Delete Categor{{ checked.length > 1 ? 'ies' : 'y' }}</Button
+          @click.prevent="onDeleteBulkTopic"
+          >Delete Topic{{ checked.length > 1 ? 's' : '' }}</Button
         >
       </div>
     </section>
@@ -40,54 +40,36 @@
       <div class="bg-white">
         <div class="container px-4 mx-auto">
           <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <!--  -->
-
+            <!-- <TopicOverview :checked.sync="checked" :filters="filters" /> -->
             <DataGrid
               :columns="columns"
               :checked.sync="computedChecked"
-              :items="categories.items"
-              :total="categories.total"
-              :loading="$apollo.queries.categories.loading"
+              :items="topics.items"
+              :total="topics.total"
+              :loading="$apollo.queries.topics.loading"
               :item-clickable="true"
               @load-more-data="fetchMore"
               @item-click="onItemClick"
-            >
-              <template slot="data-name" slot-scope="{ item }">
-                <Chip
-                  class="-my-2"
-                  :appearance="item.name ? 'primary' : 'secondary'"
-                  :value="item.name || $t('cashFlow.categories.uncategorized')"
-                  :style="{
-                    background: item.color ? `#${item.color}80` : undefined
-                  }"
-                />
-              </template>
-            </DataGrid>
+            />
           </div>
         </div>
       </div>
     </section>
 
-    <LazyCategoryEdit
-      v-model="isEditPanelVisible"
-      :category-id="categoryId"
-      @deleted="onDeleteSuccess"
-      @created="onCreated"
-      @updated="onUpdated"
-    ></LazyCategoryEdit>
+    <TopicEdit v-model="isConfirmModalVisible" :topic-id="topicId" />
 
     <Dialog
-      v-model="isBulkDeleteCategoryVisible"
+      v-model="isBulkDeleteTopicVisible"
       primary-text="Confirm"
       secondary-text="Cancel"
-      @answer="deleteBulkCategory"
+      @answer="deleteBulkTopic"
     >
       <template #icon>
         <IconInformationCircle class="w-20 h-20" />
       </template>
       <p>
-        Are you sure you want to delete {{ checked.length }} categor{{
-          checked.length > 1 ? 'ies' : 'y'
+        Are you sure you want to delete {{ checked.length }} topic{{
+          checked.length > 1 ? 's' : ''
         }}?
       </p>
     </Dialog>
@@ -95,13 +77,8 @@
 </template>
 
 <script>
-// import fragment from 'vue-frag'
-import { DELETE_BULK_CATEGORY, GET_CATEGORIES } from '~/graphql'
+import { DELETE_BULK_TOPIC, GET_TOPICS } from '~/graphql'
 export default {
-  // directives: {
-  //   fragment
-  // },
-
   components: {
     IconInformationCircle: () =>
       import('~/assets/icons/information-circle.svg?inline')
@@ -113,36 +90,37 @@ export default {
     }
   },
   data: () => ({
+    topicId: null,
+    topics: {
+      items: [],
+      total: 0
+    },
+    isConfirmModalVisible: false,
+    isBulkDeleteTopicVisible: false,
     remove: ['client', 'category', 'topic', 'tag'],
-    categoryId: null,
-    filters: {},
     searchedTerm: '',
-    isBulkDeleteCategoryVisible: false,
+    filters: {},
+
     sortColumns: [
       { name: 'Name', key: 'name' },
       { name: 'Total Contents', key: 'totalContents' },
       { name: 'Created', key: 'createdAt' },
       { name: 'Amount', key: 'amount' }
-    ],
-    isEditPanelVisible: false,
-    categories: {
-      items: [],
-      total: 0
-    }
+    ]
   }),
   apollo: {
-    categories: {
-      query: GET_CATEGORIES,
+    topics: {
+      query: GET_TOPICS,
       fetchPolicy: 'cache-and-network',
       update(data) {
         return {
-          items: data.getCategories.categories,
-          total: data.getCategories.meta.total
+          items: data.getTopics.topics,
+          total: data.getTopics.meta.total
         }
       },
       variables() {
         return {
-          size: 10,
+          size: 30,
           skip: 0,
           filters: { ...this.filters }
         }
@@ -163,9 +141,20 @@ export default {
       return [
         {
           title: 'Name',
-          key: 'name'
+          key: 'name',
+          component: () => 'DataGridCellAvatar',
+          componentOptions: this.getNameComponentOptions
         },
 
+        {
+          title: 'Total Contents',
+          key: 'totalContents',
+
+          component: () => {
+            return 'DataGridCellIcon'
+          },
+          componentOptions: this.getTotalContentsComponentOptions
+        },
         {
           title: 'Created',
           key: 'createdAt',
@@ -173,89 +162,47 @@ export default {
           componentOptions: this.getCreatedAtComponentOptions
         },
         {
-          title: 'Amount',
+          title: 'Amount Spent',
           key: 'totalAmount',
           component: () => {
             return 'DataGridCellMoney'
           },
-          componentOptions: this.getAmountComponentOptions
-        },
-
-        {
-          title: 'Total Content',
-          key: 'totalContents',
-          component: () => {
-            return 'DataGridCellIcon'
-          },
-          componentOptions: this.getTotalContentsComponentOptions
+          componentOptions: this.getTotalAmountComponentOptions
         }
       ]
     }
   },
 
   methods: {
-    onDeleteBulkCategory() {
-      this.isBulkDeleteCategoryVisible = true
-    },
-    async deleteBulkCategory(answer) {
-      if (!answer) return
-      try {
-        await this.$apollo.mutate({
-          mutation: DELETE_BULK_CATEGORY,
-          refetchQueries: ['getCategories'],
-          variables: {
-            input: {
-              ids: this.checked
-            }
-          }
-        })
-
-        this.$emit('deleted')
-        this.sending = false
-        this.$toast.positive('Categories deleted successfully')
-      } catch (error) {
-        this.$toast.negative(error.message)
-        this.sending = false
-      }
-    },
-    onDeleteSuccess() {
-      this.refetch()
+    refetch() {
+      this.$apollo.queries.topics.refetch()
     },
     onItemClick({ id }) {
-      this.categoryId = id
-      this.isEditPanelVisible = true
+      this.topicId = id
+      this.isConfirmModalVisible = true
     },
 
-    onAddCategory() {
-      this.isEditPanelVisible = !this.isEditPanelVisible
-    },
-
-    onCreated() {
-      this.refetch()
-    },
-
-    onUpdated() {
-      this.refetch()
-    },
-
-    refetch() {
-      this.$apollo.queries.categories.refetch()
-    },
-
-    onFilters(v) {
-      this.filters = {
-        ...this.filters,
-        ...v
-      }
+    getNameComponentOptions({ name, website, icon }) {
+      return name
+        ? {
+            icon,
+            url: website,
+            style: !name ? 'secondary' : undefined,
+            value: name || 'No name provided'
+          }
+        : {}
     },
 
     fetchMore(sizeAndSkip) {
-      const itemsKey = 'categories'
-      const queryName = 'getCategories'
-      this.$apollo.queries.clients.fetchMore({
+      if (this.placement === 'dashboard') return
+      const itemsKey = 'topics'
+      const queryName = 'getTopics'
+
+      this.$apollo.queries.topics.fetchMore({
         // New variables
         variables: {
-          ...sizeAndSkip
+          ...sizeAndSkip,
+          filters: this.filters
         },
         // Transform the previous result with new data
         updateQuery: (previousResult, { fetchMoreResult }) => {
@@ -283,6 +230,7 @@ export default {
         : new Date(createdAt) > new Date()
         ? {
             type: 'icon',
+            // file: IconTransactionDateClock,
             size: 14,
             name: 'Scheduled',
             value: this.$d(new Date(createdAt), 'dateShorter')
@@ -292,34 +240,70 @@ export default {
           }
     },
 
+    getTotalAmountComponentOptions({ totalAmount }) {
+      return totalAmount
+        ? {
+            style: !totalAmount ? 'secondary' : undefined,
+            value:
+              totalAmount === null
+                ? 'No total amount spent provided'
+                : totalAmount,
+            name: 'Amount Spent',
+            currency: 'USD',
+            currencyBefore: true
+          }
+        : {
+            style: !totalAmount ? 'secondary' : undefined,
+            value: 0.0,
+            name: 'Amount Spent',
+            currency: 'USD',
+            currencyBefore: true
+          }
+    },
+
     getTotalContentsComponentOptions({ totalContents }) {
       return totalContents
         ? {
             style: !totalContents ? 'secondary' : undefined,
-            value: totalContents ?? 0,
-            name: 'total content'
+            value: totalContents || 'No Topic provided'
           }
-        : {
-            value: 0
-          }
+        : { value: 0 }
     },
 
-    getAmountComponentOptions({ totalAmount }) {
-      return totalAmount
-        ? {
-            style: !totalAmount ? 'secondary' : undefined,
-            value: totalAmount === null ? 0 : Number(totalAmount),
-            name: 'Amount',
-            currency: 'USD',
-            currencyBefore: true
+    onAddTopic() {
+      this.isConfirmModalVisible = !this.isConfirmModalVisible
+    },
+
+    onDeleteBulkTopic() {
+      this.isBulkDeleteTopicVisible = true
+    },
+    async deleteBulkTopic(answer) {
+      if (!answer) return
+      try {
+        await this.$apollo.mutate({
+          mutation: DELETE_BULK_TOPIC,
+          refetchQueries: ['getTopics'],
+          variables: {
+            input: {
+              ids: this.checked
+            }
           }
-        : {
-            style: !totalAmount ? 'secondary' : undefined,
-            value: 0,
-            name: 'Amount',
-            currency: 'USD',
-            currencyBefore: true
-          }
+        })
+
+        this.$emit('deleted')
+        this.sending = false
+        this.$toast.positive('Topics deleted successfully')
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+      }
+    },
+
+    onFilters(v) {
+      this.filters = {
+        ...this.filters,
+        ...v
+      }
     }
   }
 }

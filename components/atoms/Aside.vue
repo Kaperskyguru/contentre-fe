@@ -109,7 +109,7 @@
                 "
               >
                 <PortfolioIcon />
-                <span class="flex-1 ml-3 whitespace-nowrap">Portfolio</span>
+                <span class="flex-1 ml-3 whitespace-nowrap">Portfolios</span>
               </Hyperlink>
             </li>
 
@@ -155,7 +155,7 @@
                 "
               >
                 <GroupingIcon />
-                <span class="flex-1 ml-3 whitespace-nowrap">Grouping</span>
+                <span class="flex-1 ml-3 whitespace-nowrap">Groupings</span>
               </Hyperlink>
               <div
                 id="dropdownDivider"
@@ -192,7 +192,7 @@
 
                   <li>
                     <Hyperlink
-                      :to="{ name: 'clients' }"
+                      :to="{ name: 'topics' }"
                       class="
                         group
                         flex

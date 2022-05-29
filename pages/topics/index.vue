@@ -1,28 +1,24 @@
 <template>
   <section class="px-3 h-full md:px-12">
     <div class="flex justify-between items-center py-4">
-      <PageTitle>Categories</PageTitle>
+      <PageTitle>Topics & Niches</PageTitle>
     </div>
 
-    <CategoryOverview :checked.sync="checked" />
+    <TopicOverview :checked.sync="checked" />
   </section>
 </template>
 
 <script>
-// import fragment from 'vue-frag'
 export default {
-  name: 'CategoryTw',
-  // directives: {
-  //   fragment
-  // },
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Topics',
 
   layout: 'Dashboard',
-  data: () => ({
-    checked: []
-  }),
+
+  data: () => ({ checked: [] }),
   head() {
     return {
-      title: 'Categories'
+      title: 'Topics'
     }
   }
 }

@@ -14,7 +14,11 @@
       "
     >
       <div>
-        <ContentFilter :filter-columns="columns" @filters="onFilters" />
+        <ContentFilter
+          :remove="remove"
+          :filter-columns="columns"
+          @filters="onFilters"
+        />
       </div>
 
       <div class="basis-4/5">
@@ -85,6 +89,7 @@ export default {
   data: () => ({
     isConfirmModalVisible: false,
     checked: [],
+    remove: ['client', 'category', 'topic', 'tag'],
     sending: false,
     isBulkDeleteTagVisible: false,
     searchedTerm: '',
