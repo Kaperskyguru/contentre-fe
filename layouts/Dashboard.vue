@@ -49,7 +49,8 @@ export default {
 
   middleware: [
     'isAuthenticated',
-    'isEmailConfirmed'
+    'isEmailConfirmed',
+    'checkSubscription'
     // 'isPhoneConfirmed',
     // 'hasActiveCompany'
   ],

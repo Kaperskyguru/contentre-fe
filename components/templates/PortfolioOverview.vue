@@ -13,9 +13,9 @@
         md:flex-row md:space-y-0
       "
     >
-      <div>
+      <!-- <div>
         <ContentFilter :filter-columns="columns" @filters="onFilters" />
-      </div>
+      </div> -->
 
       <div>
         <Button
