@@ -31,7 +31,7 @@
           v-model="$v.fieldHomeAddress.$model"
           type="text"
           class="w-full text-sm"
-          placeholder="16, Challenge, Ibadan - Oyo State, Nigeria"
+          placeholder="Enter your address"
           label="Home Address"
           :is-onboarding="isOnboarding"
           :error="getValidationMessage($v.fieldHomeAddress)"
@@ -83,7 +83,9 @@
       </div>
     </div>
     <div class="flex justify-center items-center mb-6 w-full">
-      <Button id="btn" class="w-1/2" type="submit"> Save </Button>
+      <Button id="btn" class="w-1/2" :waiting="sending" type="submit">
+        Save
+      </Button>
     </div>
   </form>
 </template>
