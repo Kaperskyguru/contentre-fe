@@ -18,7 +18,32 @@
         class="absolute invisible"
       />
 
-      <div class="flex justify-center items-center px-3 mt-4 w-full">
+      <div
+        v-if="isOnboarding"
+        class="
+          flex flex-col
+          justify-center
+          items-center
+          px-3
+          mt-4
+          space-y-4 space-x-0
+          w-full
+          md:flex-row md:space-y-0 md:space-x-4
+        "
+      >
+        <Button
+          appearance="outline"
+          class="flex-1"
+          @click.prevent="$emit('close')"
+        >
+          {{ 'Skip' }}
+        </Button>
+
+        <Button type="submit" :waiting="sending" class="flex-1">
+          {{ 'Upload' }}
+        </Button>
+      </div>
+      <div v-else class="flex justify-center items-center px-3 mt-4 w-full">
         <Button type="submit" :waiting="sending"> Upload </Button>
       </div>
     </form>
@@ -32,6 +57,12 @@
 import { UPLOAD_MULTIPLE_CONTENT } from '~/graphql'
 import { required } from '~/plugins/validators'
 export default {
+  props: {
+    isOnboarding: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: () => ({
     fieldURLs: '',
     honeyPot: '',

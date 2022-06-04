@@ -21,19 +21,9 @@ export default async ({ redirect, $getCurrentUser, $toast, route }) => {
 
     // Not an invited user, just go through the main onboarding flow.
     if (currentUser?.totalContents === 0 && route.hash === '#onboarding') {
-      return redirect('/contents/add#upload')
+      return redirect('/contents#upload')
     } else if (!currentUser.emailConfirmed) {
       return redirect(`/auth/verify-email?email=${currentUser.email}`)
-    } else if (
-      !currentUser.bio ||
-      !currentUser.jobTitle ||
-      !currentUser.homeAddress ||
-      !currentUser.phoneNumber
-    ) {
-      return redirect('/profile#onboarding')
-
-      // } else if (!currentUser.phoneConfirmed) {
-      //   return redirect('/auth/verify-phone')
     }
   } catch (error) {
     $toast.message = error.message

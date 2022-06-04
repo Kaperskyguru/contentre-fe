@@ -98,6 +98,10 @@ export default {
   },
   mixins: [currentUser],
   props: {
+    onBoarded: {
+      type: Boolean,
+      default: false
+    },
     checked: {
       type: Array,
       default: () => []
@@ -124,29 +128,6 @@ export default {
       total: 0
     }
   }),
-
-  apollo: {
-    contents: {
-      query: GET_CONTENTS,
-      fetchPolicy: 'cache-and-network',
-      variables() {
-        return {
-          size: 30,
-          skip: 0,
-          filters: {
-            terms: this.filters?.terms,
-            ...this.filters
-          }
-        }
-      },
-      update(data) {
-        return {
-          items: data.getContents.contents,
-          total: data.getContents.meta.total
-        }
-      }
-    }
-  },
 
   computed: {
     hasExceededContent() {
@@ -245,6 +226,40 @@ export default {
           componentOptions: this.getStatusComponentOptions
         }
       ]
+    }
+  },
+
+  watch: {
+    onBoarded: {
+      handler(done) {
+        if (!done) return
+        this.onCreatedContent(done)
+      },
+      immediate: true,
+      deep: true
+    }
+  },
+
+  apollo: {
+    contents: {
+      query: GET_CONTENTS,
+      fetchPolicy: 'cache-and-network',
+      variables() {
+        return {
+          size: 30,
+          skip: 0,
+          filters: {
+            terms: this.filters?.terms,
+            ...this.filters
+          }
+        }
+      },
+      update(data) {
+        return {
+          items: data.getContents.contents,
+          total: data.getContents.meta.total
+        }
+      }
     }
   },
 

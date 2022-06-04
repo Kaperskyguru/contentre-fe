@@ -10,26 +10,20 @@
   >
     <div class="border-2 border-red-300"></div>
     <div
-      class="
-        flex flex-col
-        justify-between
-        items-center
-        p-2
-        space-y-2
-        md:flex-row
-      "
+      class="flex flex-col items-center p-2 space-y-2 md:flex-row"
+      :class="{ 'justify-between': showButton }"
     >
       <div class="w-10 h-10">
         <IconInformationCircle />
       </div>
-      <div class="items-center text-sm font-normal">
+      <div class="items-start" :class="{ 'items-center': showButton }">
         <slot />
       </div>
       <Button
+        v-if="showButton"
         v-bind="$attrs"
         :type="link ? 'link' : ''"
         :to="link === '#' ? '' : link"
-        target="_blank"
         appearance="outline-red"
         >{{ buttonText }}</Button
       >
@@ -47,6 +41,10 @@ export default {
   },
 
   props: {
+    showButton: {
+      type: Boolean,
+      default: true
+    },
     buttonText: {
       type: String,
       default: 'Upgrade'
