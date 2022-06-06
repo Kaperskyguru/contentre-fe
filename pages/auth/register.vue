@@ -95,7 +95,8 @@ import {
   hasLetter,
   hasNumber,
   hasSymbol,
-  hasCapital
+  hasCapital,
+  isUsername
 } from '~/plugins/validators'
 import { CREATE_USER, GET_CURRENT_USER, VERIFY_USERNAME } from '~/graphql'
 import { SEND_EMAIL_CODE } from '~/graphql/auth/mutations'
@@ -149,6 +150,7 @@ export default {
     },
     fieldUsername: {
       required,
+      isUsername,
       minLength: minLength(2),
       maxLength: maxLength(35)
     },
@@ -191,6 +193,16 @@ export default {
       )
     }
   },
+
+  watch: {
+    '$route.query': {
+      immediate: true,
+      handler(query) {
+        this.fieldEmail = query.email
+      }
+    }
+  },
+
   methods: {
     async handleSubmission() {
       if (this.honeyPot) return
