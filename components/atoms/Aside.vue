@@ -247,8 +247,8 @@
               "
             >
               <Upgrade
-                :contents="getTotalContents"
-                :max="$utils.getFeatureValue(getSubscription, 'TOTAL_CONTENTS')"
+                :contents="totalNumber ? totalNumber : 0"
+                :max="$utils.getFeatureValue(subscription, 'TOTAL_CONTENTS')"
               />
             </div>
             <!-- End -->
@@ -260,6 +260,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { currentUser } from '../mixins/currentUser'
 import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
@@ -284,13 +285,20 @@ export default {
   }),
 
   computed: {
-    getSubscription() {
-      return this.currentUser.subscription
-    },
-    getTotalContents() {
-      return this.currentUser?.totalContents ?? 0
-    }
+    // getTotalContents() {
+    //   return this.currentUser?.totalContents ?? 0
+    // },
+
+    ...mapState({
+      totalNumber: (state) => {
+        return state.subscription.numberOfContents ?? 0
+      },
+      subscription: (state) => {
+        return state.subscription.subscription
+      }
+    })
   },
+
   methods: {
     onCollapsed(collapse) {
       this.isSidebarCollapsed = collapse

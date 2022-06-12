@@ -88,6 +88,7 @@
 
 <script>
 import fragment from 'vue-frag'
+import { mapState } from 'vuex'
 import { currentUser } from '~/components/mixins'
 import DownloadIcon from '~/assets/icons/download.svg'
 import { GET_CONTENTS } from '~/graphql'
@@ -112,6 +113,7 @@ export default {
     contentId: null,
     isAddMultipleContent: false,
     searchedTerm: '',
+    num: 0,
     isAddCategory: false,
     isAddContent: false,
     filters: {},
@@ -130,14 +132,22 @@ export default {
   }),
 
   computed: {
+    ...mapState({
+      subscription: (state) => {
+        return state.subscription.subscription
+      },
+      totalNumber: (state) => {
+        return state.subscription.numberOfContents ?? 0
+      }
+    }),
     hasExceededContent() {
       const subValue = this.$utils.getFeatureValue(
-        this.currentUser.subscription,
+        this.subscription,
         'TOTAL_CONTENTS'
       )
 
       if (subValue === 0) return false
-      return this.currentUser.totalContent <= subValue
+      return this.totalNumber <= subValue
     },
     computedChecked: {
       get() {
@@ -280,6 +290,10 @@ export default {
       this.isAddMultipleContent = false
       this.$toast.positive('Content created successfully')
       this.$apollo.queries.contents.refetch()
+      this.$store.commit(
+        'subscription/updateTotalContents',
+        this.contents.total
+      )
     },
     onFilters(v) {
       this.filters = {

@@ -1,6 +1,8 @@
 // import MeetupEvents from '~/Services/Scrappers/event-scrapper'
 
 export const state = () => ({
+  numberOfContents: 0,
+  numberOfPortfolios: 0,
   contents: {
     content: ''
   }
@@ -14,8 +16,6 @@ export const mutations = {
     state.contents = payload
   }
 }
-
-export const getters = {}
 
 export const actions = {
   //   async saveDraft({ commit, app }, payload) {
