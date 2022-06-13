@@ -72,7 +72,7 @@ export default {
         },
 
         {
-          title: 'Total Contents',
+          title: 'Contents',
           key: 'totalContents',
           titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => {

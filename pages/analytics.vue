@@ -31,7 +31,15 @@
         <div
           class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
         >
-          <ChartOverview :data="chartData" :title="chartTitle" />
+          <Loading
+            v-if="$apollo.queries.contentStats.loading"
+            class="flex flex-1 items-center"
+          />
+          <ChartOverview
+            :hide-percent="true"
+            :data="contentStats.revenue"
+            :title="chartTitle"
+          />
         </div>
 
         <div
@@ -105,12 +113,18 @@
         </div>
         <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
           <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
+            <Loading
+              v-if="$apollo.queries.getTopicStats.loading"
+              class="flex flex-1 items-center"
+            />
             <Column
+              v-else
               :show-selector="true"
+              :chart-data="getTopicStats"
               :selector-data="{
-                data: getCategories,
+                data: getTopics,
                 title: 'Topics',
-                placeholder: getCategoryPlaceholder
+                placeholder: getTopicPlaceholder
               }"
             />
           </div>
@@ -157,9 +171,12 @@ import {
   GET_BOX_STATS,
   GET_CATEGORIES,
   GET_CATEGORY_STATS,
+  GET_CONTENT_STATS,
   GET_OVERALL_STATS,
   GET_TAGS,
-  GET_TAG_STATS
+  GET_TAG_STATS,
+  GET_TOPICS,
+  GET_TOPIC_STATS
 } from '~/graphql'
 export default {
   name: 'AnalyticPage',
@@ -170,6 +187,10 @@ export default {
     metadata: {
       performance: {},
       categoryStat: {}
+    },
+    contentStats: {
+      stats: [],
+      revenue: {}
     },
     getTags: {},
     getCategoryStats: {
@@ -182,11 +203,18 @@ export default {
       title: '',
       datasets: []
     },
+    getTopicStats: {
+      labels: [],
+      title: '',
+      datasets: []
+    },
     filters: {
       tags: [],
+      topics: [],
       categories: []
     },
     tagFilters: [],
+    topicFilters: [],
     categoryFilters: [],
     checked: [],
     getBoxStats: {},
@@ -228,10 +256,33 @@ export default {
 
     getCategoryPlaceholder() {
       return this.filters?.categories[0] ?? 'Select a category'
+    },
+
+    // getPercentAmount() {
+    //   return parseFloat(this.contentStats?.stats?.amountPercent).toFixed(2)
+    // },
+
+    getTopicPlaceholder() {
+      return this.filters?.topics[0] ?? 'Select a topic'
     }
   },
 
   apollo: {
+    contentStats: {
+      query: GET_CONTENT_STATS,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        const stat = data.getContentStats
+        return {
+          stats: stat?.box,
+          revenue: {
+            labels: stat?.revenue?.months,
+            current: stat?.revenue?.data?.current,
+            last: stat?.revenue?.data?.last
+          }
+        }
+      }
+    },
     metadata: {
       query: GET_OVERALL_STATS,
       fetchPolicy: 'cache-and-network',
@@ -319,6 +370,43 @@ export default {
       }
     },
 
+    getTopicStats: {
+      query: GET_TOPIC_STATS,
+      variables() {
+        return {
+          filters: { ...this.topicFilters }
+        }
+      },
+      update(data) {
+        const topic = data.getTopicStats
+
+        return topic
+          ? {
+              labels: ['Amount', 'Contents', 'Interactions', 'Clients'],
+              title: topic.name,
+              datasets: [
+                {
+                  backgroundColor: '#fff',
+                  barPercentage: 1,
+                  borderWidth: 700,
+                  barThickness: 6,
+                  maxBarThickness: 8,
+                  minBarLength: 2,
+                  categoryPercentage: 1,
+                  label: '',
+                  data: [
+                    topic.totalAmount,
+                    topic.totalContents,
+                    topic.totalInteractions,
+                    topic.totalClients
+                  ]
+                }
+              ]
+            }
+          : []
+      }
+    },
+
     getTagStats: {
       query: GET_TAG_STATS,
       variables() {
@@ -359,7 +447,14 @@ export default {
     getCategories: {
       query: GET_CATEGORIES,
       update(data) {
-        return data.getCategories
+        return data.getCategories?.categories
+      }
+    },
+
+    getTopics: {
+      query: GET_TOPICS,
+      update(data) {
+        return data.getTopics?.topics
       }
     },
 
@@ -392,6 +487,15 @@ export default {
       }
 
       this.$apollo.queries.getCategoryStats.refetch()
+    },
+
+    selectTopic(name) {
+      this.topicFilters = {
+        ...this.filters,
+        topics: name ? [name] : null
+      }
+
+      this.$apollo.queries.getTagStats.refetch()
     },
 
     selectTag(name) {
