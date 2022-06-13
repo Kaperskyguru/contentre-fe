@@ -8,7 +8,7 @@
         >
 
         <h3
-          v-if="!noData"
+          v-if="!noData && !hidePercent"
           class="font-gilroy text-base font-medium text-gray-500"
         >
           <span
@@ -38,12 +38,7 @@
     <div v-else-if="noData" class="text-xl text-center">
       <NoData @clear="$emit('clear')" />
     </div>
-    <Chart
-      v-else
-      :data="data"
-      :percent="getPercentAmount"
-      :options="getChartOptions"
-    />
+    <Chart v-else :data="data" :percent="percent" :options="getChartOptions" />
   </div>
 </template>
 
@@ -54,7 +49,10 @@ export default {
       type: String,
       default: 'Revenue Overview'
     },
-
+    hidePercent: {
+      type: Boolean,
+      default: false
+    },
     percent: {
       type: [String, Number],
       default: 0.0
