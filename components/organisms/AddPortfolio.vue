@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { CREATE_PORTFOLIO } from '~/graphql'
 import { required } from '~/plugins/validators'
 export default {
@@ -80,6 +81,18 @@ export default {
     },
     fieldDescription: {},
     honeyPot: {}
+  },
+
+  computed: {
+    canCustomizePortfolio() {
+      return this.$utils.getFeatureValue(this.subscription, 'TOTAL_CONTENTS')
+    },
+
+    ...mapState({
+      subscription: (state) => {
+        return state.subscription.subscription
+      }
+    })
   },
 
   methods: {

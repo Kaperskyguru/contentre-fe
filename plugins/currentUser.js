@@ -8,7 +8,6 @@ export default ({ app, redirect }, inject) => {
       const apolloClient = app.apolloProvider.defaultClient
       const result = await apolloClient.query({ query: GET_CURRENT_USER })
 
-      // if (!result?.data?.getCurrentUser) return redirect('/auth/login')
       return result?.data?.getCurrentUser ?? null
     } catch (err) {
       if (err.message.includes('You must be logged in.')) {

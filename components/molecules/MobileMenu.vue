@@ -217,10 +217,8 @@
           "
         >
           <Upgrade
-            :max="
-              $utils.getFeatureValue(currentUser.subscription, 'TOTAL_CONTENTS')
-            "
-            :contents="getTotalContents"
+            :max="$utils.getFeatureValue(subscription, 'TOTAL_CONTENTS')"
+            :contents="totalNumber"
           />
         </div>
       </ul>
@@ -229,7 +227,7 @@
 </template>
 
 <script>
-import { currentUser } from '../mixins/currentUser'
+import { mapState } from 'vuex'
 import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
 import ContentIcon from '~/assets/icons/content.svg?inline'
@@ -244,12 +242,15 @@ export default {
     ClientIcon
   },
 
-  mixins: [currentUser],
-
   computed: {
-    getTotalContents() {
-      return this.currentUser?.totalContents ?? 0
-    }
+    ...mapState({
+      totalNumber: (state) => {
+        return state.content.numberOfContents ?? 0
+      },
+      subscription: (state) => {
+        return state.subscription.subscription
+      }
+    })
   }
 }
 </script>

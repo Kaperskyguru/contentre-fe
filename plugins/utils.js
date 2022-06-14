@@ -153,6 +153,7 @@ export const errors = (type, params) => {
     macAddress: 'Value is not a valid MAC address',
     sameAs: 'Value must be equal to the other value',
     isURL: 'Value is not a valid URL address',
+    isUsername: 'Value is not a valid Username',
     hasLetter: 'Please provide at least one letter',
     hasNumber: 'Please provide at least one number',
     hasSymbol: 'Please provide at least one special character',

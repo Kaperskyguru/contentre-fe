@@ -6,7 +6,7 @@
 
     <!-- Text -->
     <div class="py-6 px-4 text-center border-t-2">
-      <CustomText :text="currentUser.bio" />
+      <CustomText :text="getBio" />
     </div>
     <!-- End of Text -->
 
@@ -23,7 +23,13 @@
 <script>
 import { currentUser } from '~/components/mixins'
 export default {
-  mixins: [currentUser]
+  mixins: [currentUser],
+
+  computed: {
+    getBio() {
+      return this.currentUser?.bio ?? ''
+    }
+  }
 }
 </script>
 

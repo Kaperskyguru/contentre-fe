@@ -1,7 +1,7 @@
 <template>
   <Tooltip
-    :label="isUnderDevelopment ? 'Coming Soon' : ''"
-    :tooltip-class="isUnderDevelopment ? 'bg-red-400' : ''"
+    :label="isPro || isUnderDevelopment ? getMessage : ''"
+    :tooltip-class="isUnderDevelopment || isPro ? 'bg-red-400' : ''"
     :trigger="['hover', 'focus']"
     position="top"
   >
@@ -13,7 +13,7 @@
         type,
         `size-${size}`,
         {
-          'is-disabled': disabled || isUnderDevelopment,
+          'is-disabled': disabled || isUnderDevelopment || isPro,
           'has-focus': isFocused,
           'is-invalid': !!error,
           'check-on-right': checkOnRight,
@@ -52,7 +52,7 @@
           :checked="isChecked"
           :value="value"
           v-bind="attrsButClass"
-          :disabled="disabled || isUnderDevelopment"
+          :disabled="disabled || isUnderDevelopment || isPro"
           class="hidden absolute w-0 h-0 opacity-0 cursor-pointer"
           @input="onInput"
           @focusin="onFocusIn"
@@ -81,6 +81,12 @@ export default {
     showLabel: {
       type: Boolean,
       default: false
+    },
+
+    isPro: { type: Boolean, default: false },
+    message: {
+      type: String,
+      default: ''
     },
 
     isUnderDevelopment: {
@@ -151,6 +157,11 @@ export default {
   computed: {
     uid() {
       return this.$utils?.uidGenerator(this.id) ?? undefined
+    },
+
+    getMessage() {
+      console.log(this.message)
+      return this.message || 'coming Soon'
     },
 
     attrsButClass() {
