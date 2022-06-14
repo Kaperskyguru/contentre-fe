@@ -10,13 +10,11 @@ export const userFragments = {
       emailConfirmed
       name
       username
-      firstname
-      lastname
       bio
       homeAddress
       portfolioURL
       subscriptionId
-      subscription {
+      activeSubscription {
         id
         name
         expiry
