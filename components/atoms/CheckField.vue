@@ -160,7 +160,6 @@ export default {
     },
 
     getMessage() {
-      console.log(this.message)
       return this.message || 'coming Soon'
     },
 
