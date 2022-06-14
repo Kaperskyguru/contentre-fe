@@ -78,9 +78,9 @@ export default {
   computed: {
     isProfileCompleted() {
       return (
-        this.currentUser.bio &&
-        this.currentUser.jobTitle &&
-        this.currentUser.avatarURL
+        this.currentUser?.bio &&
+        this.currentUser?.jobTitle &&
+        this.currentUser?.avatarURL
       )
     }
   }

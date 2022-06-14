@@ -102,11 +102,12 @@ export default {
     '@nuxtjs/gtm'
   ],
 
-  // gtm: {
-  //   id: 'G-Q2JRSLVRYZ',
-  //   pageTracking: true,
-  //   pageViewEventName: 'virtualPageview'
-  // },
+  gtm: {
+    enabled: process.env.NODE_ENV === 'production' || false,
+    id: 'G-Q2JRSLVRYZ',
+    pageTracking: true,
+    pageViewEventName: 'virtualPageview'
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

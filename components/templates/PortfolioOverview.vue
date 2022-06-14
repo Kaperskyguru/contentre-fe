@@ -5,13 +5,7 @@
     </div>
 
     <section
-      class="
-        flex flex-col
-        justify-between
-        mb-6
-        space-y-6
-        md:flex-row md:space-y-0
-      "
+      class="flex flex-col justify-end mb-6 space-y-6 md:flex-row md:space-y-0"
     >
       <!-- <div>
         <ContentFilter :filter-columns="columns" @filters="onFilters" />
@@ -26,7 +20,7 @@
               : ''
           "
           @click.prevent="onAddPortfolio"
-          >Add Portfolio</Button
+          >Add Portfolio {{ totalNumber }}</Button
         >
       </div>
     </section>
@@ -138,6 +132,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Rocket from '~/assets/icons/rocket.svg'
 import Show from '~/assets/icons/show.svg'
 import Chat from '~/assets/icons/chat.svg'
@@ -198,15 +193,22 @@ export default {
   computed: {
     hasExceededPortfolio() {
       const subValue = this.$utils.getFeatureValue(
-        this.currentUser.subscription,
-        'TOTAL_CONTENTS'
+        this.subscription,
+        'TOTAL_PORTFOLIOS'
       )
 
       if (subValue === 0) return false
-      return this.currentUser.totalContent <= subValue
-    }
+      return this.totalNumber <= subValue
+    },
+    ...mapState({
+      totalNumber: (state) => {
+        return state.subscription.numberOfPortfolios ?? 0
+      },
+      subscription: (state) => {
+        return state.subscription.subscription
+      }
+    })
   },
-
   methods: {
     onFilters() {},
     onAddPortfolio() {
@@ -226,6 +228,10 @@ export default {
 
     refetch() {
       this.$apollo.queries.portfolios.refetch()
+      this.$store.commit(
+        'subscription/updateTotalPortfolios',
+        this.portfolios.total
+      )
     },
 
     async deletePortfolio(answer) {

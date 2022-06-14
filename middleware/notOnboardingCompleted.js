@@ -4,23 +4,23 @@ export default async ({ redirect, $getCurrentUser, $toast, route }) => {
     const currentUser = await $getCurrentUser()
 
     // Allow access route only when user has not finished onboarding flow.
-    if (currentUser.totalContent === 0) {
+    if (currentUser?.totalContent === 0) {
       return redirect('/contents/add#upload')
-    } else if (!currentUser.hasFinishedOnboarding) {
-      if (!currentUser.emailConfirmed) {
+    } else if (!currentUser?.hasFinishedOnboarding) {
+      if (!currentUser?.emailConfirmed) {
         if (route.path === '/auth/verify-email') return
 
-        return redirect(`/auth/verify-email?email=${currentUser.email}`)
+        return redirect(`/auth/verify-email?email=${currentUser?.email}`)
       } else if (
-        !currentUser.bio ||
-        !currentUser.jobTitle ||
-        !currentUser.address ||
-        !currentUser.phoneNumber
+        !currentUser?.bio ||
+        !currentUser?.jobTitle ||
+        !currentUser?.address ||
+        !currentUser?.phoneNumber
       ) {
         if (route.path === '/profile') return
 
         return redirect('/profile')
-      } else if (!currentUser.phoneNumber || !currentUser.phoneConfirmed) {
+      } else if (!currentUser?.phoneNumber || !currentUser?.phoneConfirmed) {
         if (['/auth/add-phone', '/settings'].includes(route.path)) return
 
         return redirect('/settings')
