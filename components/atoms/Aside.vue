@@ -294,7 +294,6 @@ export default {
         return state.subscription.numberOfContents ?? 0
       },
       subscription: (state) => {
-        console.log(state.subscription.subscription)
         return state.subscription.subscription
       }
     })

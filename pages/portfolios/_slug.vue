@@ -432,9 +432,6 @@ export default {
               clientId: this.fieldClient?.id,
               category: this.fieldCategory
             }
-          },
-          update(data) {
-            console.log(data)
           }
         })
         this.$toast.positive('Content created successfully')

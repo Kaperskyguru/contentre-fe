@@ -102,6 +102,19 @@
               >
                 <span>Web</span>
               </div>
+              <div
+                class="
+                  inline-flex
+                  items-center
+                  px-2
+                  space-x-2
+                  text-black
+                  bg-gray-200
+                  rounded
+                "
+              >
+                <span>4 more</span>
+              </div>
             </div>
           </div>
           <div class="flex mb-6 space-x-2">
@@ -158,6 +171,7 @@
             </div>
           </div>
         </div> -->
+
         <TextField
           v-model="$v.fieldTitle.$model"
           placeholder="Title"

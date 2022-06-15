@@ -20,7 +20,7 @@
               : ''
           "
           @click.prevent="onAddPortfolio"
-          >Add Portfolio {{ totalNumber }}</Button
+          >Add Portfolio</Button
         >
       </div>
     </section>
@@ -198,7 +198,7 @@ export default {
       )
 
       if (subValue === 0) return false
-      return this.totalNumber <= subValue
+      return this.totalNumber >= subValue
     },
     ...mapState({
       totalNumber: (state) => {
