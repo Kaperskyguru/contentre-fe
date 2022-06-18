@@ -256,7 +256,7 @@
     </div>
   </div>
 
-  <div v-else class="flex flex-col max-w-md leading-4 text-gray-400">
+  <div v-else class="flex flex-col w-full leading-4 text-gray-400">
     <AutocompleteField
       :id="id"
       ref="elementRef"
@@ -266,6 +266,7 @@
       :value="value"
       :label="label"
       :label-class="labelClass"
+      :rows="rows"
       :chip-style="chipStyle"
       :items="items ? items : getTags.items"
       :loading="$apollo.queries.getTags.loading"
@@ -285,12 +286,19 @@
       :trigger="['hover']"
       :label="filteredTags && filteredTags.map((tag) => tag.name).join(',')"
       :disabled="!filteredTags"
+      class="w-full"
     >
-      <div class="flex overflow-x-auto w-full">
+      <div class="flex w-full">
         <span
           v-for="(tag, i) in filteredTags"
           :key="i"
-          class="leading-snug text-gray-800 whitespace-nowrap cursor-pointer"
+          class="
+            flex
+            leading-snug
+            text-gray-800
+            whitespace-nowrap
+            cursor-pointer
+          "
           @click="onClickShowAutoComplete"
         >
           <p class="p-1 mx-2 mt-5 text-white bg-primary-teal">
@@ -348,6 +356,11 @@ export default {
     value: {
       type: [String, Object],
       default: null
+    },
+
+    rows: {
+      default: null,
+      type: [String, Number]
     },
 
     label: {

@@ -13,6 +13,7 @@
       v-model="textField"
       class="w-full"
       :name="uid"
+      :rows="rows"
       :autocomplete="`new-${uid}`"
       :clearable="!!value && !disabled"
       :container-class="computedContainerClass"
@@ -235,6 +236,10 @@ export default {
     value: {
       type: [String, Object],
       default: null
+    },
+    rows: {
+      default: null,
+      type: [String, Number]
     },
 
     disabled: {

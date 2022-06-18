@@ -59,7 +59,7 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 // import MeMarkdown from 'medium-editor-markdown'
 import TurndownService from 'turndown'
-import { CREATE_CONTENT } from '~/graphql'
+import { CREATE_CONTENT, CREATE_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 // import MediumEditor from 'medium-editor'
 
@@ -209,10 +209,7 @@ export default {
       const contents = {
         title: this.fieldTitle,
         content: this.content,
-        status: 'DRAFT',
-        visibility: 'PRIVATE',
-        tags: [],
-        category: 'Uncategorized'
+        notebook: 'Personal Notebook'
       }
       await this.$store.commit('content/appendContent', contents)
     },
@@ -221,9 +218,9 @@ export default {
 
     async saveDraft(input) {
       const {
-        data: { createContent: content }
+        data: { create: content }
       } = await this.$apollo.mutate({
-        mutation: CREATE_CONTENT,
+        mutation: CREATE_NOTE,
         variables: {
           input
         }

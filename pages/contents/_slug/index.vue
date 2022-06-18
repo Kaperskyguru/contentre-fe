@@ -8,7 +8,7 @@
 
     <section class="container">
       <div>
-        <!-- <div class="items-center mb-6">
+        <div class="items-center mb-6">
           <div class="items-center mb-6 md:mb-0">
             <div
               class="flex items-center mb-6 space-x-1 cursor-pointer"
@@ -62,46 +62,21 @@
             </div>
             <div class="relative gap-2 text-xs">
               <div
+                v-for="(tag, index) in tags"
+                :key="index"
                 class="
                   inline-flex
                   items-center
                   px-2
+                  mx-1
                   space-x-2
                   bg-blue-200
                   rounded
-                  text-dark
                 "
               >
-                <span>Tech</span>
+                <span>{{ tag }}</span>
               </div>
 
-              <div
-                class="
-                  inline-flex
-                  items-center
-                  px-2
-                  space-x-2
-                  bg-gray-500
-                  rounded
-                  text-dark
-                "
-              >
-                <span>Internet</span>
-              </div>
-
-              <div
-                class="
-                  inline-flex
-                  items-center
-                  px-2
-                  space-x-2
-                  bg-pink-200
-                  rounded
-                  text-dark
-                "
-              >
-                <span>Web</span>
-              </div>
               <div
                 class="
                   inline-flex
@@ -109,11 +84,13 @@
                   px-2
                   space-x-2
                   text-black
-                  bg-gray-200
                   rounded
                 "
+                @click.prevent="onOpenTagManager"
               >
-                <span>4 more</span>
+                <span>
+                  <IconPencil class="mr-2 h-3.5 pointer-events-none"
+                /></span>
               </div>
             </div>
           </div>
@@ -170,7 +147,7 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
 
         <TextField
           v-model="$v.fieldTitle.$model"
@@ -223,6 +200,14 @@
         </div>
       </div>
     </Dialog>
+
+    <Dialog v-model="isTagModalVisible" :is-large="true" title="Tag manager">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="justify-between w-full text-gray-700 bg-white">
+          <TagManager @addTags="onTags" />
+        </div>
+      </div>
+    </Dialog>
   </section>
   <!-- end of page -->
 </template>
@@ -237,6 +222,10 @@ import { required, hasLetter } from '~/plugins/validators'
 
 export default {
   name: 'EditPage',
+
+  components: {
+    IconPencil: () => import('~/assets/icons/pencil.svg?inline')
+  },
   layout: 'Dashboard',
 
   async asyncData(context) {
@@ -266,9 +255,11 @@ export default {
     content: '',
     defaultValue: '',
     isImageModalVisible: false,
+    isTagModalVisible: false,
     savedContent: null,
     contentId: null,
     saved: true,
+    tags: [],
     fieldTitle: '',
     showMarkdown: false,
     editorConfig: {
@@ -416,6 +407,13 @@ export default {
     })
   },
   methods: {
+    onTags(tags) {
+      this.tags = tags
+      this.isTagModalVisible = false
+    },
+    onOpenTagManager() {
+      this.isTagModalVisible = true
+    },
     async selectFile(e) {
       const file = e.target.files[0]
 
