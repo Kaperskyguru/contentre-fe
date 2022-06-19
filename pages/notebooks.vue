@@ -26,7 +26,7 @@
       </div> -->
 
       <div class="flex space-x-0 md:space-x-3">
-        <Button appearance="secondary" @click.prevent="onSwitchNotebook"
+        <Button appearance="outline" @click.prevent="onSwitchNotebook"
           >Switch Notebook</Button
         >
         <Button @click.prevent="onAddNotebook">Create Notebook</Button>
@@ -73,11 +73,23 @@
               <div class="mb-5">
                 <a href="#">
                   <p class="text-[14px] font-semibold">
-                    NOTES <span><i class="bx bx-chevron-right"></i></span>
+                    NOTES
+                    <span
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        style="fill: rgba(0, 0, 0, 1); transform: ; msfilter: "
+                      >
+                        <path
+                          d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+                        ></path>
+                      </svg>
+                    </span>
                   </p>
                 </a>
               </div>
-              <div>
+              <!-- <div>
                 <ul class="flex text-sm">
                   <li>
                     <a
@@ -87,12 +99,26 @@
                     >
                   </li>
                 </ul>
-              </div>
+              </div> -->
             </div>
             <div>
               <div class="flex items-center">
                 <a href="#" class="flex items-center">
-                  <i class="text-2xl bx bxs-edit"></i>
+                  <i class="text-2xl">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      style="fill: rgba(0, 0, 0, 1); transform: ; msfilter: "
+                    >
+                      <path
+                        d="m18.988 2.012 3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287-3-3L8 13z"
+                      ></path>
+                      <path
+                        d="M19 19H8.158c-.026 0-.053.01-.079.01-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2V19z"
+                      ></path>
+                    </svg>
+                  </i>
                 </a>
                 <a href="#" class="flex items-center ml-4">
                   <img
@@ -107,32 +133,38 @@
 
           <div class="overflow-hidden w-full">
             <div class="flex overflow-x-auto gap-1 mt-4 w-full">
-              <div
+              <Hyperlink
                 v-for="(item, index) in notes.items"
                 :key="index"
-                class="
-                  flex flex-col
-                  justify-between
-                  p-3
-                  min-w-[10.72rem]
-                  h-[16.125rem]
-                  bg-white
-                  rounded-lg
-                  border-2
-                "
+                :to="{ path: `/contents/${item.id}` }"
               >
-                <div>
-                  <h3 class="text-lg font-bold">{{ item.title }}</h3>
-
-                  <article class="mt-3 text-sm">
-                    {{ item.content }}
-                  </article>
+                <div
+                  class="
+                    flex flex-col
+                    justify-between
+                    p-3
+                    min-w-[10.72rem]
+                    h-[16.125rem]
+                    bg-white
+                    hover:bg-gray-100
+                    rounded-lg
+                    border-2
+                    cursor-pointer
+                  "
+                >
+                  <div>
+                    <h3 class="text-lg font-bold">{{ item.title }}</h3>
+                    <!--  eslint-disable-next-line vue/no-v-html -->
+                    <article
+                      class="mt-3 text-sm"
+                      v-html="item.content"
+                    ></article>
+                  </div>
+                  <div class="text-sm">
+                    {{ $d(item.updatedA, 'monthDayShortLong') }}
+                  </div>
                 </div>
-                <div class="text-sm">
-                  {{ $d(item.updatedA, 'monthDayShortLong') }}
-                </div>
-              </div>
-
+              </Hyperlink>
               <div
                 class="
                   flex
@@ -166,7 +198,18 @@
                         rounded-full
                       "
                     >
-                      <i class="text-2xl text-white bx bxs-book-add"></i>
+                      <i class="text-2xl text-white">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          style="fill: white; transform: ; msfilter: "
+                        >
+                          <path
+                            d="M6.012 18H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1zM8 9h3V6h2v3h3v2h-3v3h-2v-3H8V9z"
+                          ></path>
+                        </svg>
+                      </i>
                     </div>
                     <p class="text-[14px] font-semibold">Create new note</p>
                   </div>

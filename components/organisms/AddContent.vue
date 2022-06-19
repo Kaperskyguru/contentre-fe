@@ -84,7 +84,7 @@
       </div>
 
       <Hyperlink
-        :to="{ name: 'contents/add' }"
+        :to="{ name: 'contents/add', query: { type: 'note' } }"
         class="
           flex flex-col
           justify-center

@@ -26,7 +26,17 @@ export const CREATE_NOTE = gql`
   mutation createNote($input: CreateNoteInput!) {
     createNote(input: $input) {
       id
-      name
+      title
+      createdAt
+    }
+  }
+`
+
+export const UPDATE_NOTE = gql`
+  mutation updateNote($id: ID!, $input: UpdateNoteInput!) {
+    updateNote(id: $id, input: $input) {
+      id
+      title
       createdAt
     }
   }

@@ -216,7 +216,7 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 // import MeMarkdown from 'medium-editor-markdown'
 import TurndownService from 'turndown'
-import { GET_CONTENT, UPDATE_CONTENT } from '~/graphql'
+import { GET_NOTE, UPDATE_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 // import MediumEditor from 'medium-editor'
 
@@ -229,20 +229,28 @@ export default {
   layout: 'Dashboard',
 
   async asyncData(context) {
+    const getNote = await context.store.getters['content/getNote']
+    const savedNote = await getNote(context.params.slug)
+
+    if (savedNote)
+      return {
+        savedNote
+      }
+
     const client = context.app.apolloProvider.defaultClient
 
     try {
       const {
-        data: { getContent: savedContent }
+        data: { getNote: savedNote }
       } = await client.query({
-        query: GET_CONTENT,
+        query: GET_NOTE,
         variables: {
           id: context.params.slug
         },
         skip: !context.params.slug
       })
       return {
-        savedContent
+        savedNote
       }
     } catch (e) {
       return {
@@ -256,9 +264,9 @@ export default {
     defaultValue: '',
     isImageModalVisible: false,
     isTagModalVisible: false,
-    savedContent: null,
+    savedNote: null,
     contentId: null,
-    saved: true,
+    saved: false,
     tags: [],
     fieldTitle: '',
     showMarkdown: false,
@@ -384,26 +392,29 @@ export default {
 
   mounted() {
     // await new MediumEditor('#editor', this.options)
-    this.defaultValue = `${this.getContent(this.savedContent)}`
-    this.fieldTitle = this.savedContent?.title
+    this.defaultValue = `${this.getContent(this.savedNote)}`
+    this.fieldTitle = this.savedNote?.title
 
     const _this = this
     this.$nextTick(() => {
       // Save draft every 5 minutes
-      setInterval(async () => {
-        if (!_this.saved) {
-          const contents = {
-            title: _this.fieldTitle,
-            content: _this.content,
-            status: 'DRAFT',
-            visibility: 'PRIVATE',
-            tags: [],
-            category: 'Uncategorized'
+
+      let refreshIntervalId
+      try {
+        refreshIntervalId = setInterval(async () => {
+          if (!_this.saved) {
+            const contents = {
+              title: _this.fieldTitle,
+              content: _this.content
+            }
+            await _this.updateDraft(contents)
+            _this.saved = true
           }
-          await _this.updateDraft(contents)
-          _this.saved = true
-        }
-      }, 5000)
+        }, 5000)
+      } catch (error) {
+        if (refreshIntervalId) clearInterval(refreshIntervalId)
+      }
+      if (_this.saved) clearInterval(refreshIntervalId)
     })
   },
   methods: {
@@ -435,8 +446,7 @@ export default {
       this.isImageModalVisible = true
     },
     getContent(content) {
-      if (content?.content) return content?.content
-      else return content?.excerpt
+      return content?.content
     },
     async onChange(s) {
       if (this.showMarkdown) {
@@ -452,28 +462,28 @@ export default {
       const contents = {
         title: this.fieldTitle,
         content: this.content,
-        status: 'DRAFT',
-        visibility: 'PRIVATE',
-        tags: [],
-        category: 'Uncategorized'
+        id: this.contentId
       }
       // Save to state
-      await this.$store.commit('content/appendContent', contents)
+      await this.$store.commit('content/saveContent', contents)
       this.saved = false
     },
 
     uploadCallback(url) {},
 
     async updateDraft(input) {
+      if (!this.contentId) return
+      await this.$store.commit('content/saveContent', {
+        id: this.contentId,
+        ...input
+      })
       return await this.$apollo.mutate({
-        mutation: UPDATE_CONTENT,
+        mutation: UPDATE_NOTE,
         variables: {
           id: this.contentId,
           input: { ...input }
         },
-        update(data) {
-          return data.content
-        },
+
         skip() {
           return !this.contentId
         }
@@ -482,16 +492,12 @@ export default {
 
     async onPublish() {
       try {
-        const contents = {
+        const content = {
           title: this.fieldTitle,
-          content: this.content,
-          visibility: 'PRIVATE',
-          status: 'PUBLISHED',
-          tags: [],
-          category: 'Uncategorized'
+          content: this.content
         }
-        await this.updateDraft(contents)
-        return await this.$router.push(`/contents/${this.contentId}/edit`)
+        await this.updateDraft(content)
+        return await this.$router.push(`/contents/${this.contentId}/publish`)
 
         // Redirect to 'add'
       } catch (error) {

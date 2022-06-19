@@ -59,7 +59,7 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 // import MeMarkdown from 'medium-editor-markdown'
 import TurndownService from 'turndown'
-import { CREATE_CONTENT, CREATE_NOTE } from '~/graphql'
+import { CREATE_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 // import MediumEditor from 'medium-editor'
 
@@ -184,16 +184,12 @@ export default {
       if (this.honeyPot) return
 
       if (await this.isValidationInvalid()) return
-      const contents = {
+      const content = {
         title: this.fieldTitle,
-        content: this.content,
-        visibility: 'PRIVATE',
-        status: 'DRAFT',
-        tags: [],
-        category: 'Uncategorized'
+        content: this.content
       }
 
-      await this.saveDraft(contents)
+      await this.saveDraft(content)
     },
     async onChange(s) {
       if (this.showMarkdown) {
@@ -208,8 +204,7 @@ export default {
 
       const contents = {
         title: this.fieldTitle,
-        content: this.content,
-        notebook: 'Personal Notebook'
+        content: this.content
       }
       await this.$store.commit('content/appendContent', contents)
     },
@@ -218,7 +213,7 @@ export default {
 
     async saveDraft(input) {
       const {
-        data: { create: content }
+        data: { createNote: note }
       } = await this.$apollo.mutate({
         mutation: CREATE_NOTE,
         variables: {
@@ -226,8 +221,8 @@ export default {
         }
       })
 
-      await this.$store.commit('content/saveContent', content)
-      return await this.$router.push(`/contents/${content.id}`)
+      await this.$store.commit('content/saveContent', note)
+      return await this.$router.push(`/contents/${note.id}?type=note`)
     }
   }
 }
