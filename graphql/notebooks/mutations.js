@@ -47,6 +47,12 @@ export const DELETE_NOTEBOOK = gql`
     deleteNotebook(id: $id)
   }
 `
+export const DELETE_NOTE = gql`
+  mutation deleteNote($id: ID!) {
+    deleteNote(id: $id)
+  }
+`
+
 export const DELETE_BULK_NOTEBOOK = gql`
   mutation deleteBulkNotebook($input: DeleteBulkNotebookInput!) {
     deleteBulkNotebook(input: $input)

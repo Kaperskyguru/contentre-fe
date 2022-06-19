@@ -7,7 +7,6 @@ export const GET_NOTEBOOKS = gql`
       notebooks {
         id
         name
-        totalAmount
         totalNotes
         createdAt
       }
@@ -23,7 +22,6 @@ export const GET_NOTEBOOK = gql`
     getNotebook(id: $id) {
       id
       name
-      totalAmount
       totalNotes
       createdAt
     }

@@ -77,6 +77,8 @@
         />
       </div>
 
+      <slot />
+
       <div v-if="showSortBy" class="mb-6">
         <DropdownField
           placeholder="Sort by"
