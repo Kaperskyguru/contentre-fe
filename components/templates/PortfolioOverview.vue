@@ -20,7 +20,7 @@
               : ''
           "
           @click.prevent="onAddPortfolio"
-          >Add Portfolio {{ totalNumber }}</Button
+          >Add Portfolio</Button
         >
       </div>
     </section>
@@ -194,11 +194,11 @@ export default {
     hasExceededPortfolio() {
       const subValue = this.$utils.getFeatureValue(
         this.subscription,
-        'TOTAL_PORTFOLIOS'
+        'TOTAL_CONTENTS'
       )
 
       if (subValue === 0) return false
-      return this.totalNumber <= subValue
+      return this.totalNumber >= subValue
     },
     ...mapState({
       totalNumber: (state) => {
