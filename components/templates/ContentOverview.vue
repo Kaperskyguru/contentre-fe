@@ -147,7 +147,7 @@ export default {
       )
 
       if (subValue === 0) return false
-      return this.totalNumber <= subValue
+      return this.totalNumber >= subValue
     },
     computedChecked: {
       get() {
