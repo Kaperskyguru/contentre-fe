@@ -329,7 +329,7 @@ export default {
     },
 
     getModifiedData(data) {
-      return {
+      const filter = {
         categories: !data.fieldCategories
           ? []
           : data.fieldCategories?.name
@@ -365,6 +365,21 @@ export default {
         toDate: data.fieldToDate,
         sortBy: this.sortBy ?? undefined
       }
+
+      if (this.remove.includes('category')) delete filter.categories
+      if (this.remove.includes('tag')) delete filter.tags
+      if (this.remove.includes('topic')) delete filter.topics
+      if (this.remove.includes('client')) delete filter.clients
+      if (this.remove.includes('sortby')) delete filter.sortBy
+      if (this.remove.includes('amount')) {
+        delete filter.toAmount
+        delete filter.fromAmount
+      }
+      if (this.remove.includes('date')) {
+        delete filter.toDate
+        delete filter.fromDate
+      }
+      return filter
     },
 
     saveTransactionFilters() {

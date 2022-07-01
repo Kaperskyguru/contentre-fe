@@ -26,6 +26,7 @@
       :show-border="showBorder"
       :error="error"
       @keypress.enter.stop.prevent="createItem()"
+      @keyup.188="onCommaKeyDown"
       @keydown="onKeyDown"
       @icon:click="$emit('update:value', null)"
       @focus="onFocusTextField"
@@ -425,6 +426,21 @@ export default {
       this.$emit('focus')
       this.open = true
       this.currentFocus = this.$refs.textFieldRef
+    },
+
+    onCommaKeyDown() {
+      if (this.loading) return
+      if (!this.itemFound) {
+        this.$emit('comma', this.textField)
+        this.textField = ''
+        this.open = false
+      } else {
+        this.$emit('comma:value', this.textField)
+        this.textField = ''
+        setTimeout(() => {
+          this.open = false
+        }, 100)
+      }
     },
 
     onKeyDown(event) {

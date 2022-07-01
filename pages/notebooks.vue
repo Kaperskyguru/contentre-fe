@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-html  -->
 <template>
-  <section class="px-3 h-full md:px-12">
+  <section class="px-3 w-full h-full md:px-12">
     <div class="flex justify-between items-center py-4">
       <PageTitle>Notebooks</PageTitle>
     </div>
@@ -11,6 +11,7 @@
         justify-between
         mb-6
         space-y-6 space-x-0
+        w-full
         md:flex-row md:space-y-0 md:space-x-6
       "
     >
@@ -22,6 +23,7 @@
         >
           <div class="mb-6">
             <DropdownField
+              placeholder="Select a notebook"
               :items="notebooks.items"
               label="Notebooks"
               @update:value="onNotebookFilter"
@@ -38,7 +40,13 @@
         />
       </div> -->
 
-      <div class="flex space-x-0 md:space-x-3">
+      <div
+        class="
+          flex flex-col
+          space-y-3 space-x-0
+          md:flex-row md:space-y-0 md:space-x-3
+        "
+      >
         <Button appearance="outline" @click.prevent="onSwitchNotebook"
           >View Notebooks</Button
         >
@@ -46,7 +54,7 @@
       </div>
     </section>
 
-    <section class="mt-5">
+    <section class="mt-5 w-full">
       <div
         class="grid grid-cols-1 gap-4 px-5 w-full h-60 md:grid-cols-12 lg:px-0"
       >
@@ -60,91 +68,126 @@
             lg:col-span-4 lg:mr-6
           "
         >
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center w-full">
             <p class="text-sm font-semibold text-white">SCRATCH PAD</p>
-            <a href="#">
-              <img
-                src="https://raw.githubusercontent.com/Succyvibe/example_portfolio/main/img/dots.png"
-                alt=""
-                class="w-[20px]"
-            /></a>
+            <div>
+              <button @click.prevent="onOpenScratchMenu">
+                <img
+                  src="https://raw.githubusercontent.com/Succyvibe/example_portfolio/main/img/dots.png"
+                  alt=""
+                  class="w-[20px]"
+                />
+              </button>
+              <div
+                v-if="scratchMenu"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95"
+                class="
+                  absolute
+                  top-auto
+                  z-40
+                  py-3
+                  px-5
+                  mt-2
+                  w-60
+                  bg-white
+                  dark:bg-gray-800
+                  rounded-lg
+                  border
+                  dark:border-transparent
+                  shadow
+                "
+              >
+                <ul class="space-y-3 dark:text-white">
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      href="#"
+                      class="flex items-center transition-colors duration-200"
+                    >
+                      Convert to note
+                    </button>
+                  </li>
+                  <li class="font-medium hover:bg-gray-100">
+                    <Hyperlink to="#">
+                      <button
+                        class="flex items-center transition-colors duration-200"
+                      >
+                        Convert to content
+                      </button>
+                    </Hyperlink>
+                  </li>
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      class="flex items-center transition-colors duration-200"
+                    >
+                      Convert to brief
+                    </button>
+                  </li>
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      href="#"
+                      class="flex items-center transition-colors duration-200"
+                    >
+                      Convert to task
+                    </button>
+                  </li>
+                  <hr class="dark:border-gray-700" />
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      class="flex items-center transition-colors duration-200"
+                      @click.prevent="content = ''"
+                    >
+                      Clear scratch card
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
           <textarea
             id=""
+            v-model="content"
             name=""
             cols="30"
             rows="10"
-            class="mt-2 w-full text-sm bg-transparent outline-none"
+            class="
+              mt-2
+              w-full
+              font-gilroy
+              text-lg text-white
+              bg-transparent
+              outline-none
+            "
             placeholder="Start writing"
           ></textarea>
         </div>
         <div
-          class="col-span-12 p-4 bg-white rounded-lg shadow-lg lg:col-span-12"
+          class="
+            col-span-12
+            p-4
+            w-full
+            bg-white
+            rounded-lg
+            shadow-lg
+            lg:col-span-12
+          "
         >
           <div class="flex justify-between">
             <div>
               <div class="mb-5">
                 <a href="#">
-                  <p class="text-[14px] font-semibold">
-                    NOTES
-                    <span
-                      ><svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        style="fill: rgba(0, 0, 0, 1); transform: ; msfilter: "
-                      >
-                        <path
-                          d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
-                        ></path>
-                      </svg>
-                    </span>
-                  </p>
-                </a>
-              </div>
-              <!-- <div>
-                <ul class="flex text-sm">
-                  <li>
-                    <a
-                      href=""
-                      class="text-[#102A27] border-b-2 border-[#102A27]"
-                      >Recent</a
-                    >
-                  </li>
-                </ul>
-              </div> -->
-            </div>
-            <div>
-              <div class="flex items-center">
-                <a href="#" class="flex items-center">
-                  <i class="text-2xl">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      style="fill: rgba(0, 0, 0, 1); transform: ; msfilter: "
-                    >
-                      <path
-                        d="m18.988 2.012 3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287-3-3L8 13z"
-                      ></path>
-                      <path
-                        d="M19 19H8.158c-.026 0-.053.01-.079.01-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2V19z"
-                      ></path>
-                    </svg>
-                  </i>
-                </a>
-                <a href="#" class="flex items-center ml-4">
-                  <img
-                    src="https://raw.githubusercontent.com/Succyvibe/example_portfolio/main/img/dots.png"
-                    alt=""
-                    class="mt-1 w-[20px]"
-                  />
+                  <p class="text-[14px] font-semibold">NOTES</p>
                 </a>
               </div>
             </div>
+            <div></div>
           </div>
 
-          <div class="overflow-hidden w-full">
+          <div v-click-outside="onClickOutside" class="overflow-hidden w-full">
             <div class="flex overflow-x-auto gap-1 mt-4 w-full">
               <div
                 v-for="(item, index) in notes.items"
@@ -306,7 +349,7 @@
                   border-2
                 "
               >
-                <a href="">
+                <hyperlink to="/contents/add">
                   <div
                     class="
                       flex flex-col
@@ -342,7 +385,7 @@
                     </div>
                     <p class="text-[14px] font-semibold">Create new note</p>
                   </div>
-                </a>
+                </hyperlink>
               </div>
             </div>
           </div>
@@ -415,21 +458,26 @@
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
 import { DELETE_NOTE, GET_NOTEBOOKS, GET_NOTES, UPDATE_NOTE } from '~/graphql'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Notebooks',
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   layout: 'Dashboard',
-
   data: () => ({
     deleteNoteId: null,
     updatedNoteId: null,
     searchedTerm: '',
     filters: {},
+    content: '',
     filteredNotebookId: null,
     fieldName: '',
     activeMenu: null,
     menu: false,
+    scratchMenu: false,
     isConfirmModalVisible: false,
     isDeleteModalVisible: false,
     isSwitchModalVisible: false,
@@ -462,6 +510,9 @@ export default {
   },
 
   methods: {
+    onOpenScratchMenu() {
+      this.scratchMenu = !this.scratchMenu
+    },
     onAddToNotebook() {
       this.isAddToNotebookModalVisible = !this.isAddToNotebookModalVisible
     },
@@ -544,6 +595,22 @@ export default {
         this.sending = false
         this.deleteNoteId = null
       }
+    },
+
+    onClickOutside() {
+      // this.isMenuShown = false
+      this.closeDropdown()
+    },
+
+    closeDropdown() {
+      this.menu = false
+      // this.scratchMenu = false
+      document.removeEventListener('keyup', this.onKeyUp)
+    },
+
+    onKeyUp(event) {
+      const keyCode = event.keyCode || event.which
+      if (keyCode === 27) this.closeDropdown()
     }
   },
 
@@ -570,13 +637,6 @@ export default {
         return {
           items: data.getNotebooks.notebooks,
           total: data.getNotebooks.meta.total
-        }
-      },
-      variables() {
-        return {
-          size: 30,
-          skip: 0,
-          filters: { ...this.filters }
         }
       }
     }

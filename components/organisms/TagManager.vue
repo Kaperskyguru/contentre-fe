@@ -43,22 +43,32 @@
 </template>
 <script>
 export default {
-  props: {},
+  props: {
+    tags: {
+      type: Array,
+      default: () => []
+    }
+  },
 
   data: () => ({
     fieldTags: '',
-    tags: [],
+    newTags: [],
     showAutoComplete: false
   }),
 
   validations: {
     fieldTags: {}
   },
+  computed: {
+    computedTags() {
+      return this.newTags.concat(this.tags)
+    }
+  },
   methods: {
     onUpdateTags(tags) {
       this.showAutoComplete = false
       this.fieldTags = tags
-      this.tags.push(tags?.name)
+      this.newTags.push(tags?.name)
     },
 
     onAddTags() {

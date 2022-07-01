@@ -189,6 +189,9 @@
           md:flex-row md:space-y-0 md:space-x-4
         "
       >
+        <Button appearance="outline" @click.prevent="saveNote">
+          Save Note
+        </Button>
         <Button @click.prevent="onPublish"> Publish </Button>
       </div>
     </section>
@@ -470,6 +473,15 @@ export default {
     },
 
     uploadCallback(url) {},
+
+    async saveNote() {
+      const content = {
+        title: this.fieldTitle,
+        content: this.content
+      }
+      await this.updateDraft(content)
+      return await this.$router.push(`/contents`)
+    },
 
     async updateDraft(input) {
       if (!this.contentId) return
