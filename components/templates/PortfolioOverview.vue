@@ -194,7 +194,7 @@ export default {
     hasExceededPortfolio() {
       const subValue = this.$utils.getFeatureValue(
         this.subscription,
-        'TOTAL_PORTFOLIOS'
+        'TOTAL_CONTENTS'
       )
 
       if (subValue === 0) return false
