@@ -81,6 +81,8 @@ export default {
 
     '@nuxtjs/svg',
 
+    'vue-ssr-carousel/nuxt',
+
     '@nuxtjs/device',
 
     // https://composition-api.nuxtjs.org/
