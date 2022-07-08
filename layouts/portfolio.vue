@@ -61,7 +61,7 @@
             <span class="ml-3 text-xl text-white">Contentre</span>
           </a>
           <p class="pt-2 text-sm text-white">
-            Manage all your contents from one place.
+            Grow your technical writing career from one place.
           </p>
         </div>
         <div class="justify-items-end text-right sm:pt-4">

@@ -30,7 +30,16 @@
                       <p class="text-gray-600" v-html="portfolio.about"></p>
                     </article>
                   </div>
-                  <div class="py-6">
+                  <div
+                    class="
+                      py-6
+                      flex
+                      space-y-10
+                      lg:space-y-0
+                      flex-col
+                      lg:flex-row
+                    "
+                  >
                     <div class="container m-auto">
                       <a
                         href="#"
@@ -38,6 +47,21 @@
                       >
                         Connect with me →</a
                       >
+                    </div>
+                    <div class="flex lg:ml-1 w-full">
+                      <a
+                        v-for="social in portfolio.socials"
+                        :key="social.id"
+                        target="_blank"
+                        class="w-9 h-9 mr-2"
+                        :href="social.link"
+                      >
+                        <Avatar
+                          :name="social.name"
+                          :src="computeIcon(social.name)"
+                          size="auto"
+                        />
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -299,10 +323,37 @@
             Contact me <br />
             right Now
           </h2>
-          <div class="container mb-8">
-            <a href="#" class="py-4 border-b-4 text-brand border-text-brand">
-              Connect with me →</a
+          <div class="mb-6 container">
+            <div
+              class="
+                flex
+                space-y-10
+                lg:space-y-0
+                flex-col
+                lg:space-x-10
+                space-x-0
+                lg:flex-row
+              "
             >
+              <div class="border-b-4 text-brand border-text-brand w-60">
+                Connect with me →
+              </div>
+              <div class="flex lg:ml-1 w-full">
+                <a
+                  v-for="social in portfolio.socials"
+                  :key="social.id"
+                  target="_blank"
+                  class="w-9 h-9 mr-2"
+                  :href="social.link"
+                >
+                  <Avatar
+                    :name="social.name"
+                    :src="computeIcon(social.name)"
+                    size="auto"
+                  />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
         <section
@@ -530,7 +581,9 @@ export default {
     deleteFilter(name) {
       return this.remove.includes(name)
     },
-
+    computeIcon(name) {
+      return require(`~/assets/portfolio/${name}.png`)
+    },
     computedImage(image) {
       return image ?? require('~/assets/img/portfolio-pic1.png')
     },
