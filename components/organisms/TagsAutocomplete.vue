@@ -1,304 +1,68 @@
 <template>
-  <div
-    v-if="!fakeInput"
-    v-click-outside="onClickOutside"
-    class="relative mb-8 bg-white rounded-lg border shadow-sm transition-shadow"
-  >
-    <div
-      class="
-        flex
-        justify-between
-        items-center
-        px-4
-        text-gray-900
-        border-b-2 border-dashed
-      "
-    >
-      <div class="flex flex-col items-center">
-        <div class="flex relative">
-          <span
-            v-if="shouldShowEditingOptions"
-            class="relative top-2"
-            style="top: 7px"
-          >
-            <li
-              class="block relative"
-              :x-data="showEditingOptions"
-              @click.prevent="toggleEditingOptions"
+  <div class="field tag-selector" :class="classes">
+    <label :for="id">{{ label }}</label>
+    <div class="tag-selector--input">
+      <div v-for="(tag, i) in filteredTags" :key="i" class="tag-selector--item">
+        <p class="p-1 mx-2 mt-5 text-white bg-primary-teal">
+          {{ tag && tag.name }}
+
+          <i class="icon tag-selector--remove" @click="removeTag(i)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
             >
-              <svg
-                class="shrink-0 w-8 h-6 text-gray-500"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                ></path>
-                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-
-              <div
-                class="absolute top-auto left-0 z-30 mt-1 rounded-lg"
-                :x-show="showEditingOptions"
-                x-transition:enter="transition ease duration-300 transform"
-                x-transition:enter-start="opacity-0 translate-y-2"
-                x-transition:enter-end="opacity-100 translate-y-0"
-                x-transition:leave="transition ease duration-300 transform"
-                x-transition:leave-start="opacity-100 translate-y-0"
-                x-transition:leave-end="opacity-0 translate-y-4"
-                :class="{ hidden: showEditingOptions }"
-              >
-                <div
-                  class="
-                    py-2
-                    pr-24
-                    pl-2
-                    text-gray-700
-                    bg-white
-                    rounded-lg
-                    border
-                  "
-                >
-                  <div class="flex px-3 text-gray-700">
-                    <div class="flex flex-wrap">
-                      <div class="space-y-3 font-medium">
-                        <p>Color</p>
-                        <p>Heading</p>
-                        <p>Link</p>
-                        <p>Text Style</p>
-                        <p>Font</p>
-                        <p>Font size</p>
-                        <p>List</p>
-                        <p>File</p>
-                        <p>Delete</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </span>
-          <span class="pl-2 text-2xl font-bold text-gray-600"
-            ><slot name="title">Sample title</slot></span
-          >
-          <span
-            v-if="isRequired"
-            class="relative pl-4 text-xs text-teal-300 uppercase"
-            style="top: 10px"
-            >Required</span
-          >
-        </div>
+              <path
+                d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+              />
+            </svg>
+          </i>
+        </p>
       </div>
-      <li
-        v-if="!shouldShowOptions"
-        class="block relative py-9 mx-1 cursor-pointer"
-      ></li>
-      <li
-        v-if="shouldShowOptions"
-        class="block relative cursor-pointer"
-        :x-data="showOptions"
-        @click.prevent="toggleOptions"
-      >
-        <span class="mx-1">
-          <svg
-            class="shrink-0 w-8 h-6 text-gray-500"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-            ></path>
-            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-          </svg>
-        </span>
-        <div
-          class="absolute top-auto right-0 z-50 text-sm rounded-lg"
-          style="right: -14px; top: 55px"
-          :x-show="showOptions"
-          x-transition:enter="transition ease duration-300 transform"
-          x-transition:enter-start="opacity-0 translate-y-2"
-          x-transition:enter-end="opacity-100 translate-y-0"
-          x-transition:leave="transition ease duration-300 transform"
-          x-transition:leave-start="opacity-100 translate-y-0"
-          x-transition:leave-end="opacity-0 translate-y-4"
-          :class="{ hidden: !showOptions }"
-        >
-          <div
-            class="
-              py-4
-              pr-24
-              pl-8
-              mr-0
-              text-gray-700
-              bg-white
-              rounded-lg
-              border
-            "
-          >
-            <div class="flex justify-between w-full text-gray-700">
-              <div class="flex flex-wrap">
-                <ul class="space-y-3 dark:text-white">
-                  <li
-                    class="font-medium"
-                    @click.prevent="disableField = !disableField"
-                  >
-                    <!-- <a href="#" class="flex"> -->
-                    {{ disableField ? 'Enable' : 'Disable' }}
-                    <!-- </a> -->
-                  </li>
-                  <li class="font-medium">
-                    <a href="#" class="flex"> Archive </a>
-                  </li>
-                  <li class="font-medium">
-                    <a href="#" class="flex"> Duplicate </a>
-                  </li>
-                  <li class="font-medium">
-                    <a href="#" class="flex"> Delete </a>
-                  </li>
-                  <li class="font-medium">
-                    <a href="#" class="flex"> Settings </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-    </div>
-    <div class="flex max-w-md leading-4 text-gray-400">
-      <!-- <p>Related tags for the articles</p> -->
 
-      <Tooltip
-        v-if="!showAutoComplete && filteredTags.length"
-        key="label"
-        :trigger="['hover']"
-        :label="filteredTags && filteredTags.map((tag) => tag.name).join(',')"
-        :disabled="!filteredTags"
-      >
-        <div class="flex overflow-x-auto w-full">
-          <span
-            v-for="(tag, i) in filteredTags"
-            :key="i"
-            class="leading-snug text-gray-800 whitespace-nowrap cursor-pointer"
-            @click="onClickShowAutoComplete"
-          >
-            <p class="p-1 mx-2 mt-5 text-white bg-primary-teal">
-              {{ tag && tag.name }}
-            </p>
-          </span>
-        </div>
-      </Tooltip>
-
-      <Tooltip
-        v-else-if="!showAutoComplete && displayTag && filteredTags.length <= 0"
-        key="label1"
-        :trigger="['hover']"
-        :label="displayTag"
-        :disabled="!displayTag"
-      >
-        <span
-          class="
-            overflow-hidden
-            pt-5
-            pl-5
-            w-full
-            leading-snug
-            text-gray-800 text-ellipsis
-            whitespace-nowrap
-            cursor-pointer
-          "
-          :class="[
-            {
-              'text-gray-400': !displayTag
-            }
-          ]"
-          @click="onClickShowAutoComplete"
-        >
-          {{ displayTag }}
-        </span>
-      </Tooltip>
-
+      <!-- <input
+        :id="name"
+        v-model="tag"
+        type="text"
+        :name="name"
+        class="tag-selector-input"
+        @keyup.enter.prevent="addTag"
+        @keyup.space="selectTagKey"
+        @keyup.188="selectTagKey"
+        @keyup.8="handleBackspace"
+      /> -->
       <AutocompleteField
-        v-else
         :id="id"
         ref="elementRef"
+        v-model="tag"
         class="w-full"
         hide-arrow-down
         :placeholder="placeholder"
-        :value="value"
         :label="label"
         :label-class="labelClass"
+        :rows="rows"
         :chip-style="chipStyle"
         :items="getTags.items"
+        :loading="$apollo.queries.getTags.loading"
         :allow-creation="allowCreation"
         :hide-pencil-icon="hidePencilIcon"
         :disabled="disabled"
         :show-border="showBorder"
+        @keyup.enter.prevent="addTag"
+        @keyup.space="addTagKey"
+        @keyup.188="addTagKey"
+        @keyup.8="handleBackspace"
         @update:search="search = $event"
         @update:value="selectTag"
+        @comma="selectTagKey"
+        @comma:value="selectTagKey"
         @create="selectTag"
         @blur="onBlurAutocomplete"
         @focus="onFocusAutocomplete"
       />
     </div>
-    <div v-if="error" class="mt-3">
-      <small class="ml-5 font-gilroy text-xs font-bold text-red-600">{{
-        error
-      }}</small>
-    </div>
-  </div>
-
-  <div v-else class="flex flex-col max-w-md leading-4 text-gray-400">
-    <AutocompleteField
-      :id="id"
-      ref="elementRef"
-      class="w-full"
-      hide-arrow-down
-      :placeholder="placeholder"
-      :value="value"
-      :label="label"
-      :label-class="labelClass"
-      :chip-style="chipStyle"
-      :items="items ? items : getTags.items"
-      :loading="$apollo.queries.getTags.loading"
-      :allow-creation="allowCreation"
-      :hide-pencil-icon="hidePencilIcon"
-      :disabled="disabled"
-      :show-border="showBorder"
-      @update:search="search = $event"
-      @update:value="selectTag"
-      @create="selectTag"
-      @blur="onBlurAutocomplete"
-      @focus="onFocusAutocomplete"
-    />
-    <Tooltip
-      v-if="!showAutoComplete && filteredTags.length"
-      key="label"
-      :trigger="['hover']"
-      :label="filteredTags && filteredTags.map((tag) => tag.name).join(',')"
-      :disabled="!filteredTags"
-    >
-      <div class="flex overflow-x-auto w-full">
-        <span
-          v-for="(tag, i) in filteredTags"
-          :key="i"
-          class="leading-snug text-gray-800 whitespace-nowrap cursor-pointer"
-          @click="onClickShowAutoComplete"
-        >
-          <p class="p-1 mx-2 mt-5 text-white bg-primary-teal">
-            {{ tag && tag.name }}
-          </p>
-        </span>
-      </div>
-    </Tooltip>
+    <p v-if="error" class="validation-message">{{ error }}</p>
   </div>
 </template>
 
@@ -350,6 +114,11 @@ export default {
       default: null
     },
 
+    rows: {
+      default: null,
+      type: [String, Number]
+    },
+
     label: {
       type: String,
       default: null
@@ -358,6 +127,21 @@ export default {
     labelClass: {
       default: '',
       type: String
+    },
+    classes: {
+      default: '',
+      type: String
+    },
+
+    regex: {
+      type: RegExp,
+      default: () => {
+        return /^[\s\S]*$/
+      }
+    },
+    regexError: {
+      type: String,
+      default: 'Invalid format'
     },
 
     chipStyle: {
@@ -389,10 +173,6 @@ export default {
       default: true
     },
 
-    transaction: {
-      type: Object,
-      default: null
-    },
     showBorder: {
       type: Boolean,
       default: false
@@ -447,6 +227,7 @@ export default {
     showOptions: false,
     disableField: false,
     search: '',
+    tag: '',
     showAutoComplete: false,
     tags: [],
     getTags: {
@@ -491,6 +272,9 @@ export default {
   },
 
   methods: {
+    validate(tag) {
+      return this.regex.test(tag)
+    },
     onClickShowAutoComplete() {
       if (this.disabled) return
 
@@ -501,6 +285,20 @@ export default {
         input?.focus()
       })
     },
+
+    removeTag(index) {
+      this.tags.splice(index, 1)
+    },
+
+    selectTagKey(tag) {
+      const name = tag?.name ?? tag
+      if (!this.validate(name)) {
+        this.$toast.negative(this.regexError)
+      }
+
+      this.selectTag(name.substring(0, name.length - 1))
+    },
+
     async selectTag(tag) {
       if (this.shouldUpdate) {
         try {
@@ -511,52 +309,7 @@ export default {
               input: {
                 name: tag?.name ?? tag
               }
-            },
-            update: (
-              cache,
-              { data: { updateTransaction: transactionData } }
-            ) => {
-              // updateTagCache(cache, tag?.id)
-              // let tagRef = null
-              // if (transactionData?.tag?.id) {
-              //   tagRef = cache.writeFragment({
-              //     data: {
-              //       ...transactionData?.tag,
-              //       color: null
-              //     },
-              //     fragment: gql`
-              //       fragment NewTag on Tag {
-              //         id
-              //         color
-              //         name
-              //       }
-              //     `
-              //   })
-              // }
-              // cache.modify({
-              //   id: `Transaction:${transactionData.id}`,
-              //   fields: {
-              //     tag: () => tagRef
-              //   }
-              // })
             }
-            //   optimisticResponse: {
-            //     updateTag: {
-            //       ...this.transaction,
-            //       __typename: 'Tag',
-            //       tag: tag?.name
-            //         ? tag
-            //         : {
-            //             name: tag,
-            //             id: null,
-            //             website: null,
-            //             profile: null,
-            //             totalContents: 0,
-            //             createdAt: null,
-            //             updatedAt: null
-            //           }
-            //     }
-            //   }
           })
         } catch (error) {
           this.$toast.negative(error.message)
@@ -605,5 +358,39 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+label {
+  margin-bottom: 8px;
+  display: block;
+}
+.tag-selector--input {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  border: 1px solid #ccc;
+}
+.tag-selector--item {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+.tag-selector--remove {
+  display: inline-block;
+  vertical-align: text-top;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.tag-selector--remove svg {
+  fill: currentColor;
+}
+.tag-selector-input {
+  margin-bottom: 0;
+  min-width: 60px;
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  background: transparent;
+}
 </style>

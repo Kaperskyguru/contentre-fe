@@ -14,14 +14,28 @@
               </div>
 
               <div class="flex flex-row py-6">
-                <div class="container flex m-auto">
-                  <a
-                    href="#"
-                    class="py-3 border-b-4 text-brand border-text-brand"
+                <div class="container flex flex-col m-auto">
+                  <div
+                    class="flex py-3 border-b-4 text-brand border-text-brand"
                   >
-                    Connect with me →</a
-                  >
-                  <div class="justify-center py-4 ml-5"></div>
+                    <span> Connect with me →</span>
+
+                    <div class="flex justify-center ml-5">
+                      <a
+                        v-for="social in portfolio.socials"
+                        :key="social.id"
+                        target="_blank"
+                        class="w-9 h-9"
+                        :href="social.link"
+                      >
+                        <Avatar
+                          :name="social.name"
+                          :src="computeIcon(social.name)"
+                          size="auto"
+                        />
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -257,6 +271,9 @@ export default {
 
     computedImage(image) {
       return image ?? require('~/assets/img/portfolio-pic1.png')
+    },
+    computeIcon(name) {
+      return require(`~/assets/portfolio/${name}.png`)
     },
     computedProfileImage(image) {
       return (

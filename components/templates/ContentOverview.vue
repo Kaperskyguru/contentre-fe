@@ -290,10 +290,12 @@ export default {
       this.isAddMultipleContent = false
       this.$toast.positive('Content created successfully')
       this.$apollo.queries.contents.refetch()
-      this.$store.commit(
-        'subscription/updateTotalContents',
-        this.contents.total
-      )
+
+      if (this.contents.total)
+        this.$store.commit(
+          'subscription/updateTotalContents',
+          this.contents.total
+        )
     },
     onFilters(v) {
       this.filters = {

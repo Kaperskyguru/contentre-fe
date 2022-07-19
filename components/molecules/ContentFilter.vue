@@ -51,7 +51,9 @@
       :remove="remove"
       :show-sort-by="showSortBy"
       @close-panel="onChangeFilters"
-    />
+    >
+      <slot />
+    </LazyContentsFilters>
   </div>
 </template>
 

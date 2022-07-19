@@ -13,6 +13,7 @@
       v-model="textField"
       class="w-full"
       :name="uid"
+      :rows="rows"
       :autocomplete="`new-${uid}`"
       :clearable="!!value && !disabled"
       :container-class="computedContainerClass"
@@ -25,6 +26,7 @@
       :show-border="showBorder"
       :error="error"
       @keypress.enter.stop.prevent="createItem()"
+      @keyup.188="onCommaKeyDown"
       @keydown="onKeyDown"
       @icon:click="$emit('update:value', null)"
       @focus="onFocusTextField"
@@ -236,6 +238,10 @@ export default {
       type: [String, Object],
       default: null
     },
+    rows: {
+      default: null,
+      type: [String, Number]
+    },
 
     disabled: {
       type: Boolean,
@@ -420,6 +426,21 @@ export default {
       this.$emit('focus')
       this.open = true
       this.currentFocus = this.$refs.textFieldRef
+    },
+
+    onCommaKeyDown() {
+      if (this.loading) return
+      if (!this.itemFound) {
+        this.$emit('comma', this.textField)
+        this.textField = ''
+        this.open = false
+      } else {
+        this.$emit('comma:value', this.textField)
+        this.textField = ''
+        setTimeout(() => {
+          this.open = false
+        }, 100)
+      }
     },
 
     onKeyDown(event) {

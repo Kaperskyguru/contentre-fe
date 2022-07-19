@@ -3,17 +3,24 @@
 export const state = () => ({
   numberOfContents: 0,
   numberOfPortfolios: 0,
-  contents: {
-    content: ''
-  }
+  note: {}
 })
 
 export const mutations = {
   appendContent(state, payload) {
-    state.contents.content = payload.content
+    state.note.content = payload.content
   },
   saveContent(state, payload) {
-    state.contents = payload
+    state.note = payload
+  }
+}
+
+export const getters = {
+  getNote: (state) => (id) => {
+    if (state.note.id === id) {
+      return state.note
+    }
+    return null
   }
 }
 

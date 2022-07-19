@@ -86,6 +86,10 @@ export const GET_PORTFOLIO_DETAIL = gql`
       html
       profileImage
       name
+      socials {
+        name
+        link
+      }
       contact {
         email
         phone

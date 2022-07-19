@@ -49,6 +49,10 @@ export default {
           month: 'short',
           year: 'numeric'
         },
+        monthDayShortLong: {
+          month: 'short',
+          day: '2-digit'
+        },
         monthYearLong: {
           month: 'long',
           year: 'numeric'
@@ -91,6 +95,10 @@ export default {
         },
         monthDayShort: {
           month: '2-digit',
+          day: '2-digit'
+        },
+        monthDayShortLong: {
+          month: 'short',
           day: '2-digit'
         },
         monthShortYearLong: {
@@ -148,6 +156,10 @@ export default {
         monthYearLong: {
           month: 'long',
           year: 'numeric'
+        },
+        monthDayShortLong: {
+          month: 'short',
+          day: '2-digit'
         },
         dateShorter: {
           year: '2-digit',

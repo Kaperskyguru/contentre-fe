@@ -59,7 +59,7 @@ export default {
 
   methods: {
     computeIcon(name) {
-      return require(`~/assets/socials/${name}.png`)
+      return require(`~/assets/portfolio/${name}.png`)
     }
   }
 }

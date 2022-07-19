@@ -181,7 +181,7 @@
           >
             Schedule
           </Button>
-          <Button type="submit"> Publish </Button>
+          <Button type="submit"> Publish and send now</Button>
         </div>
       </div>
     </form>
@@ -201,31 +201,38 @@
 </template>
 
 <script>
-import { GET_CONTENT, UPDATE_CONTENT } from '~/graphql'
+import { CREATE_CONTENT, GET_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 import GroupingIcon from '~/assets/icons/client.svg?inline'
 export default {
-  name: 'AddPage',
+  name: 'PublishContent',
   components: {
     GroupingIcon
   },
   layout: 'Dashboard',
 
   async asyncData(context) {
+    const savedNote = await context.store.state.content.contents
+
+    if (savedNote)
+      return {
+        savedNote
+      }
+
     const client = context.app.apolloProvider.defaultClient
 
     try {
       const {
-        data: { getContent: savedContent }
+        data: { getNote: savedNote }
       } = await client.query({
-        query: GET_CONTENT,
+        query: GET_NOTE,
         variables: {
           id: context.params.slug
         },
         skip: !context.params.slug
       })
       return {
-        savedContent
+        savedNote
       }
     } catch (e) {
       return {
@@ -241,20 +248,15 @@ export default {
     isPreviewModalVisible: false,
     selectedClient: null,
     showAutoComplete: false,
-    contentId: null,
     fieldTitle: '',
     fieldURL: '',
     fieldExcerpt: '',
     honeyPot: '',
-    fieldContent: '',
     fieldClient: '',
     fieldTags: '',
     fieldCategory: '',
     tags: [],
     sending: false,
-    medium: '',
-    devto: '',
-    hashnode: '',
     coverImage: null,
     apps: {}
   }),
@@ -268,7 +270,6 @@ export default {
       required,
       hasLetter
     },
-    fieldContent: {},
     fieldURL: {},
     fieldClient: {},
     fieldTags: {},
@@ -278,7 +279,7 @@ export default {
   },
   head() {
     return {
-      title: 'Edit Content'
+      title: 'Publish Content'
     }
   },
 
@@ -292,18 +293,14 @@ export default {
     '$route.params': {
       immediate: true,
       handler(params) {
-        this.contentId = params.slug
+        this.noteId = params.slug
       }
     }
   },
 
   created() {
-    this.fieldExcerpt = `${
-      this.generateExcerpt(
-        this.savedContent.excerpt ?? this.savedContent?.content
-      ) ?? ''
-    }`
-    this.fieldTitle = this.savedContent?.title
+    this.fieldExcerpt = `${this.generateExcerpt(this.savedNote?.content) ?? ''}`
+    this.fieldTitle = this.savedNote?.title
   },
 
   beforeMount() {
@@ -363,51 +360,51 @@ export default {
 
       if (await this.isValidationInvalid()) return
 
+      if (!this.savedNote) return
+
       try {
         this.sending = true
         const input = {
           url: this.fieldURL,
           tags: this.tags,
           // featuredImage: this.coverImage,
-          content: this.fieldContent,
+          content: this.savedNote.content,
           excerpt: this.fieldExcerpt,
-          title: this.fieldTitle,
+          title: this.savedNote.title,
           status: 'PUBLISHED',
           apps: this.apps,
           clientId: this.fieldClient?.id,
-          category: this.fieldCategory?.name ?? this.fieldCategory
+          category:
+            this.fieldCategory?.name ?? this.fieldCategory ?? 'Uncategorized'
         }
         if (type === 'DRAFT') {
           input.status = 'DRAFT'
         }
 
-        await this.updateContent(input)
+        await this.createContent(input)
         this.$toast.positive('Content created successfully')
         this.sending = false
+        return await this.$router.push(`/contents`)
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false
       }
     },
 
-    async updateContent(input) {
+    async createContent(input) {
       return await this.$apollo.mutate({
-        mutation: UPDATE_CONTENT,
+        mutation: CREATE_CONTENT,
         variables: {
-          id: this.contentId,
           input: { ...input }
         },
         update(data) {
           return data.content
-        },
-        skip() {
-          return !this.contentId
         }
       })
     },
 
     async onBack() {
-      return await this.$router.push(`/contents/${this.contentId}`)
+      return await this.$router.push(`/contents/${this.noteId}`)
     },
 
     onFocusAutocomplete() {

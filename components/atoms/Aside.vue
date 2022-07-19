@@ -51,9 +51,13 @@
                 <span class="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
               </Hyperlink>
             </li>
-            <li>
+            <li
+              id="dropdownDividerButton"
+              class="dropdown"
+              data-dropdown-toggle="dropdownDivider"
+            >
               <Hyperlink
-                :to="{ name: 'contents' }"
+                to="#"
                 class="
                   group
                   flex
@@ -70,6 +74,56 @@
                 <ContentIcon />
                 <span class="flex-1 ml-3 whitespace-nowrap">Contents</span>
               </Hyperlink>
+
+              <div
+                id="dropdownDivider"
+                class="hidden divide-y divide-gray-100 dropdown-menu"
+              >
+                <ul aria-labelledby="dropdownDividerButton">
+                  <li>
+                    <Hyperlink
+                      :to="{ name: 'contents' }"
+                      class="
+                        group
+                        flex
+                        items-center
+                        p-2
+                        font-roboto
+                        text-base
+                        font-normal
+                        text-gray-500
+                        hover:text-white
+                        rounded-lg
+                      "
+                    >
+                      <ContentIcon />
+                      <span class="flex-1 ml-3 whitespace-nowrap"
+                        >All Contents</span
+                      >
+                    </Hyperlink>
+                  </li>
+                  <li>
+                    <Hyperlink
+                      :to="{ name: 'notebooks' }"
+                      class="
+                        group
+                        flex
+                        items-center
+                        p-2
+                        font-roboto
+                        text-base
+                        font-normal
+                        text-gray-500
+                        hover:text-white
+                        rounded-lg
+                      "
+                    >
+                      <NoteIcon />
+                      <span class="flex-1 ml-3 whitespace-nowrap">Notes</span>
+                    </Hyperlink>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li>
               <Hyperlink
@@ -276,6 +330,7 @@ export default {
     ContentIcon,
     PortfolioIcon,
     GroupingIcon,
+    NoteIcon: () => import('~/assets/icons/note.svg?inline'),
     ProfileIcon: () => import('~/assets/icons/profile.svg?inline')
   },
   mixins: [currentUser],
@@ -294,7 +349,6 @@ export default {
         return state.subscription.numberOfContents ?? 0
       },
       subscription: (state) => {
-        console.log(state.subscription.subscription)
         return state.subscription.subscription
       }
     })

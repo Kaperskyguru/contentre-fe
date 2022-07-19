@@ -198,48 +198,19 @@
             </article>
 
             <div class="flex mt-6">
-              <div>
+              <a
+                v-for="social in portfolio.socials"
+                :key="social.id"
+                target="_blank"
+                class="mr-4"
+                :href="social.link"
+              >
                 <img
-                  src="~/assets/portfolio/Facebook_black.png"
-                  alt=""
+                  :src="computeIcon(social.name)"
+                  :alt="social.name"
                   class="w-9"
                 />
-              </div>
-              <div>
-                <img
-                  src="~/assets/portfolio/Gmail_black.png"
-                  alt=""
-                  class="ml-4 w-9"
-                />
-              </div>
-              <div>
-                <img
-                  src="~/assets/portfolio/Instagram_black.png"
-                  alt=""
-                  class="ml-4 w-9"
-                />
-              </div>
-              <div>
-                <img
-                  src="~/assets/portfolio/Twitter_black.png"
-                  alt=""
-                  class="ml-4 w-9"
-                />
-              </div>
-              <div>
-                <img
-                  src="~/assets/portfolio/WhatsApp_black.png"
-                  alt=""
-                  class="ml-4 w-9"
-                />
-              </div>
-              <div>
-                <img
-                  src="~/assets/portfolio/Medium_black.png"
-                  alt=""
-                  class="ml-4 w-9"
-                />
-              </div>
+              </a>
             </div>
             <div class="mt-10">
               <Button :is-pro-feature="true" message="Coming soon"
@@ -434,6 +405,10 @@ export default {
 
     deleteFilter(name) {
       return this.remove.includes(name)
+    },
+
+    computeIcon(name) {
+      return require(`~/assets/portfolio/${name}.png`)
     },
 
     computedImage(image) {
