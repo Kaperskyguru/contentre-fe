@@ -6,7 +6,7 @@
         <p class="p-1 mx-2 mt-5 text-white bg-primary-teal">
           {{ tag && tag.name }}
 
-          <i class="icon tag-selector--remove" @click="removeTag(index)">
+          <i class="icon tag-selector--remove" @click="removeTag(i)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -43,7 +43,7 @@
         :label-class="labelClass"
         :rows="rows"
         :chip-style="chipStyle"
-        :items="items ? items : getTags.items"
+        :items="getTags.items"
         :loading="$apollo.queries.getTags.loading"
         :allow-creation="allowCreation"
         :hide-pencil-icon="hidePencilIcon"
@@ -128,6 +128,10 @@ export default {
       default: '',
       type: String
     },
+    classes: {
+      default: '',
+      type: String
+    },
 
     regex: {
       type: RegExp,
@@ -169,10 +173,6 @@ export default {
       default: true
     },
 
-    transaction: {
-      type: Object,
-      default: null
-    },
     showBorder: {
       type: Boolean,
       default: false
@@ -287,7 +287,7 @@ export default {
     },
 
     removeTag(index) {
-      this.newValue.splice(index, 1)
+      this.tags.splice(index, 1)
     },
 
     selectTagKey(tag) {

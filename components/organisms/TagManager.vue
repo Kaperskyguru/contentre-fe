@@ -50,6 +50,10 @@ export default {
     }
   },
 
+  apollo: {
+    // Todo: Load existing Tags from Content ID into tags array
+  },
+
   data: () => ({
     fieldTags: '',
     newTags: [],
@@ -67,12 +71,15 @@ export default {
   methods: {
     onUpdateTags(tags) {
       this.showAutoComplete = false
+      console.log(tags)
       this.fieldTags = tags
       this.newTags.push(tags?.name)
     },
 
     onAddTags() {
-      this.$emit('addTags', this.tags)
+      //Todo:: Save to DB with Content ID
+
+      this.$emit('addTags', this.newTags)
     },
     onFocusAutocomplete() {
       this.showAutoComplete = true

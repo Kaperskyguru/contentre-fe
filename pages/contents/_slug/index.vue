@@ -8,7 +8,7 @@
 
     <section class="container">
       <div>
-        <div class="items-center mb-6">
+        <!-- <div class="items-center mb-6">
           <div class="items-center mb-6 md:mb-0">
             <div
               class="flex items-center mb-6 space-x-1 cursor-pointer"
@@ -147,7 +147,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <TextField
           v-model="$v.fieldTitle.$model"
@@ -207,7 +207,7 @@
     <Dialog v-model="isTagModalVisible" :is-large="true" title="Tag manager">
       <div class="block w-full text-gray-700 bg-white">
         <div class="justify-between w-full text-gray-700 bg-white">
-          <TagManager @addTags="onTags" />
+          <TagManager :tags="tags" @addTags="onTags" />
         </div>
       </div>
     </Dialog>
@@ -227,7 +227,7 @@ export default {
   name: 'EditPage',
 
   components: {
-    IconPencil: () => import('~/assets/icons/pencil.svg?inline')
+    // IconPencil: () => import('~/assets/icons/pencil.svg?inline')
   },
   layout: 'Dashboard',
 
