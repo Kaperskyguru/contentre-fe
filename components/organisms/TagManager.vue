@@ -17,16 +17,16 @@
           key="tagAutocomplete"
           v-model="$v.fieldTags.$model"
           class="mr-1 w-full"
-          placeholder="Select up 5 tags"
+          placeholder="Add a tag..."
           :should-update="false"
           :fake-input="true"
-          :rows="5"
+          :rows="1"
           :options="{
             fakeInput: true,
             isGrid: true
           }"
           :is-required="false"
-          :hide-pencil-icon="false"
+          :hide-pencil-icon="true"
           :error="getValidationMessage($v.fieldTags)"
           :is-input-border-enabled="false"
           @update:value="onUpdateTags"
@@ -71,13 +71,12 @@ export default {
   methods: {
     onUpdateTags(tags) {
       this.showAutoComplete = false
-      console.log(tags)
       this.fieldTags = tags
       this.newTags.push(tags?.name)
     },
 
     onAddTags() {
-      //Todo:: Save to DB with Content ID
+      // Todo:: Save to DB with Content ID
 
       this.$emit('addTags', this.newTags)
     },

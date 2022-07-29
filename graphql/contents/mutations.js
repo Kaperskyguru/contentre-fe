@@ -10,6 +10,15 @@ export const CREATE_CONTENT = gql`
   ${contentFragments.content}
 `
 
+export const CONVERT_NOTE_CONTENT = gql`
+  mutation convertNoteContent($id: ID!, $input: ConvertContentInput!) {
+    convertNoteContent(id: $id, input: $input) {
+      ...content
+    }
+  }
+  ${contentFragments.content}
+`
+
 export const UPLOAD_CONTENT = gql`
   mutation uploadContent($input: UploadContentInput!) {
     uploadContent(input: $input) {

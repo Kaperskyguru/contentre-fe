@@ -222,7 +222,7 @@
                       absolute
                       top-auto
                       right-0
-                      z-40
+                      z-[100]
                       py-3
                       px-5
                       mt-2
@@ -263,9 +263,8 @@
                       </li>
                       <hr class="dark:border-gray-700" />
                       <li class="font-medium hover:bg-gray-100">
-                        <Hyperlink
-                          :to="{ path: `/contents/${item.id}/publish` }"
-                        >
+                        <!-- :to="{ path: `/contents/${item.id}/publish` }" -->
+                        <Hyperlink to="#">
                           <button
                             class="
                               flex
@@ -321,7 +320,7 @@
                     </ul>
                   </div>
                 </div>
-                <Hyperlink :to="{ path: `/contents/${item.id}` }">
+                <Hyperlink :to="{ path: `/contents/${item.id}?type=NOTE` }">
                   <div class="flex flex-col justify-between w-full h-full">
                     <div>
                       <h3 class="text-lg font-bold">{{ item.title }}</h3>

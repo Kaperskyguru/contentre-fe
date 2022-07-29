@@ -52,28 +52,123 @@
 
     <!-- card title -->
     <form @submit.prevent="addContent()">
-      <section>
-        <ContentField
-          v-model="$v.fieldTitle.$model"
-          placeholder="Enter Content title"
-          :is-required="false"
-          :error="getValidationMessage($v.fieldTitle)"
-        >
-          <span slot="title">Content Title</span></ContentField
-        >
+      <section class="flex">
+        <div class="flex justify-center mr-6 mb-6 w-3/4 bg-white">
+          <div
+            v-if="coverImage"
+            class="relative w-full opacity-100 hover:opacity-40 cursor-pointer"
+            @click.prevent="onUploadImage"
+          >
+            <div class="w-full">
+              <img :src="coverImage" alt="" class="w-full" />
+            </div>
+          </div>
+
+          <div
+            v-else
+            class="flex items-center mb-6 space-x-1 cursor-pointer"
+            @click.prevent="onUploadImage"
+          >
+            <span class="relative">
+              <svg
+                class="mx-auto"
+                xmlns="http://www.w3.org/2000/svg"
+                width="10=4"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+            </span>
+            <span class="mr-4 text-sm font-normal text-gray-500 md:mr-6"
+              >Add Image Cover</span
+            >
+          </div>
+        </div>
+
+        <div class="mb-6 w-full">
+          <TextField
+            v-model="$v.fieldTitle.$model"
+            placeholder="Enter Content title"
+            label="Content Title"
+            :is-required="false"
+            :rows="1"
+            :error="getValidationMessage($v.fieldTitle)"
+          >
+          </TextField>
+          <section class="flex flex-col mt-4 w-full md:flex-row">
+            <div class="mr-4 w-full">
+              <TagsAutocomplete
+                key="tagAutocomplete"
+                v-model="$v.fieldTags.$model"
+                class="w-full"
+                placeholder="Add a tag..."
+                label="Tag"
+                :should-update="false"
+                :is-required="false"
+                :error="getValidationMessage($v.fieldTags)"
+                :is-input-border-enabled="false"
+                @update:value="onUpdateTags"
+                @focus="onFocusAutocomplete"
+                @blur="onBlurAutocomplete"
+              ></TagsAutocomplete>
+            </div>
+            <div class="w-full">
+              <TagsAutocomplete
+                key="tagAutocomplete"
+                v-model="$v.fieldTopics.$model"
+                class="mr-1 w-full"
+                placeholder="Add a topic..."
+                label="Topic"
+                :should-update="false"
+                :is-required="false"
+                :error="getValidationMessage($v.fieldTags)"
+                :is-input-border-enabled="false"
+                @update:value="onUpdateTopics"
+                @focus="onFocusAutocomplete"
+                @blur="onBlurAutocomplete"
+              ></TagsAutocomplete>
+            </div>
+          </section>
+          <div class="mt-4 w-full">
+            <TextField
+              v-model="$v.fieldURL.$model"
+              placeholder="Paste Canonical URL"
+              label="Canonical URL"
+              :is-required="false"
+              :error="getValidationMessage($v.fieldURL)"
+            >
+              <template #append-inner>
+                <div class="mr-2 ml-3 text-darksilver fill-current">
+                  <!-- <IconSearch /> -->
+                  M
+                </div>
+              </template>
+            </TextField>
+          </div>
+        </div>
       </section>
 
-      <!-- end of card title -->
-
-      <!-- card link -->
-      <section class="flex flex-col space-x-1 w-full md:flex-row">
-        <ContentField
-          v-model="$v.fieldURL.$model"
-          placeholder="Paste Canonical URL"
+      <section class="flex flex-col w-full md:flex-row">
+        <CategoriesAutocomplete
+          v-model="$v.fieldCategory.$model"
+          :error="getValidationMessage($v.fieldCategory)"
+          :should-update="false"
           :is-required="false"
-          :error="getValidationMessage($v.fieldURL)"
-        >
-          <span slot="title">Canonical URL </span></ContentField
+          :hide-pencil-icon="false"
+          class="mr-1 w-full"
+          placeholder="Select a category"
+          @update:value="onUpdateCategory"
+          @focus="onFocusAutocomplete"
+          @blur="onBlurAutocomplete"
+          ><span slot="title">Categories</span></CategoriesAutocomplete
         >
 
         <ClientsAutocomplete
@@ -91,43 +186,6 @@
           @focus="onFocusAutocomplete"
           @blur="onBlurAutocomplete"
           ><span slot="title">Client</span></ClientsAutocomplete
-        >
-      </section>
-
-      <!-- end of card link -->
-
-      <!-- card category -->
-
-      <section class="flex flex-col w-full md:flex-row">
-        <CategoriesAutocomplete
-          v-model="$v.fieldCategory.$model"
-          :error="getValidationMessage($v.fieldCategory)"
-          :should-update="false"
-          :is-required="false"
-          :hide-pencil-icon="false"
-          class="mr-1 w-full md:w-1/2"
-          placeholder="Select a category"
-          @update:value="onUpdateCategory"
-          @focus="onFocusAutocomplete"
-          @blur="onBlurAutocomplete"
-          ><span slot="title">Categories</span></CategoriesAutocomplete
-        >
-
-        <TagsAutocomplete
-          id="3"
-          key="tagAutocomplete"
-          v-model="$v.fieldTags.$model"
-          class="mr-1 w-full md:w-1/2"
-          placeholder="Select up 5 tags"
-          :should-update="false"
-          :is-required="false"
-          :hide-pencil-icon="false"
-          :error="getValidationMessage($v.fieldTags)"
-          :is-input-border-enabled="false"
-          @update:value="onUpdateTags"
-          @focus="onFocusAutocomplete"
-          @blur="onBlurAutocomplete"
-          ><span slot="title">Tags</span></TagsAutocomplete
         >
       </section>
       <!-- end of card category -->
@@ -197,17 +255,28 @@
         </div>
       </div>
     </Dialog>
+
+    <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload Image">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="justify-between w-full text-gray-700 bg-white">
+          <UploadImage @image="uploadedImage" />
+        </div>
+      </div>
+    </Dialog>
   </section>
 </template>
 
 <script>
-import { CREATE_CONTENT, GET_NOTE } from '~/graphql'
+import { CONVERT_NOTE_CONTENT, GET_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 import GroupingIcon from '~/assets/icons/client.svg?inline'
+import TextField from '~/components/atoms/TextField.vue'
+import { isArray } from '~/storybook-static/10.1f062e8d.iframe.bundle'
 export default {
   name: 'PublishContent',
   components: {
-    GroupingIcon
+    GroupingIcon,
+    TextField
   },
   layout: 'Dashboard',
 
@@ -243,10 +312,12 @@ export default {
 
   data: () => ({
     checked: [],
+    isImageModalVisible: false,
     isConfirmModalVisible: false,
     isPluginModalVisible: false,
     isPreviewModalVisible: false,
     selectedClient: null,
+    fieldTopics: '',
     showAutoComplete: false,
     fieldTitle: '',
     fieldURL: '',
@@ -255,9 +326,11 @@ export default {
     fieldClient: '',
     fieldTags: '',
     fieldCategory: '',
+    fieldImage: '',
     tags: [],
+    topics: [],
     sending: false,
-    coverImage: null,
+    coverImage: undefined,
     apps: {}
   }),
 
@@ -271,6 +344,7 @@ export default {
       hasLetter
     },
     fieldURL: {},
+    fieldTopics: {},
     fieldClient: {},
     fieldTags: {},
     fieldCategory: {},
@@ -301,17 +375,28 @@ export default {
   created() {
     this.fieldExcerpt = `${this.generateExcerpt(this.savedNote?.content) ?? ''}`
     this.fieldTitle = this.savedNote?.title
-  },
 
-  beforeMount() {
-    const callbackPaths = ['/contents/add#upload']
-
-    if (callbackPaths.includes(this.$route.fullPath)) {
-      this.isConfirmModalVisible = true
-    }
+    // Find first image in content
+    this.coverImage = this.findFirstImage()
   },
 
   methods: {
+    findFirstImage() {
+      const regex = /<img.+?src=[\\'"]([^\\'"]+)[\\'"].*?>/i
+      const image = this.savedNote?.content?.match(regex)
+      return image && isArray(image) ? image[0] : image ?? undefined
+    },
+
+    onUploadImage() {
+      this.isImageModalVisible = true
+    },
+
+    uploadedImage(url) {
+      this.isImageModalVisible = false
+      if (url.length > 1) return
+      this.coverImage = url[0]
+    },
+
     onAddApps(app) {
       const name = app.name
       this.apps = {
@@ -322,22 +407,7 @@ export default {
     generateExcerpt(content) {
       return content.substring(0, 140).replace(/<\/p>/g, '').concat('</p>')
     },
-    async selectFile(e) {
-      const file = e.target.files[0]
 
-      /* Make sure file exists */
-      if (!file) return
-
-      const readData = (f) =>
-        new Promise((resolve) => {
-          const reader = new FileReader()
-          reader.onloadend = () => resolve(reader.result)
-          reader.readAsDataURL(f)
-        })
-
-      /* Read data */
-      this.coverImage = await readData(file)
-    },
     onUpdateClient(client) {
       this.showAutoComplete = false
       this.fieldClient = client
@@ -351,6 +421,13 @@ export default {
       this.fieldTags = tags
       this.tags.push(tags?.name)
     },
+
+    onUpdateTopics(topics) {
+      this.showAutoComplete = false
+      this.fieldTopics = topics
+      this.topics.push(topics?.name)
+    },
+
     onUpdateCategory(category) {
       this.showAutoComplete = false
       this.fieldCategory = category
@@ -367,7 +444,8 @@ export default {
         const input = {
           url: this.fieldURL,
           tags: this.tags,
-          // featuredImage: this.coverImage,
+          topics: this.topics,
+          featuredImage: this.coverImage,
           content: this.savedNote.content,
           excerpt: this.fieldExcerpt,
           title: this.savedNote.title,
@@ -375,26 +453,29 @@ export default {
           apps: this.apps,
           clientId: this.fieldClient?.id,
           category:
-            this.fieldCategory?.name ?? this.fieldCategory ?? 'Uncategorized'
+            this.fieldCategory?.name ?? this.fieldCategory ?? 'Uncategorized',
+          noteId: this.$route?.params?.slug ?? ''
         }
         if (type === 'DRAFT') {
           input.status = 'DRAFT'
         }
-
-        await this.createContent(input)
+        await this.createContent(this.noteId, input)
         this.$toast.positive('Content created successfully')
         this.sending = false
-        return await this.$router.push(`/contents`)
+        this.$store.commit('subscription/increment')
+
+        return this.$router.push(`/contents`)
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false
       }
     },
 
-    async createContent(input) {
+    async createContent(id, input) {
       return await this.$apollo.mutate({
-        mutation: CREATE_CONTENT,
+        mutation: CONVERT_NOTE_CONTENT,
         variables: {
+          id,
           input: { ...input }
         },
         update(data) {

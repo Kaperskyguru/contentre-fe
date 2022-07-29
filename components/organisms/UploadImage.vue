@@ -118,13 +118,13 @@
                   :label="item.title"
                   class="p-0"
                 >
-                  <div class="p-0 w-1/5">
+                  <div class="p-0 w-1/5 border-0" @click="selectedImage(item)">
                     <img
                       :src="item.url"
                       :alt="item.title"
                       width="150"
                       height="150"
-                      class="mx-auto"
+                      class="p-2 mx-auto w-full"
                     />
                   </div>
                 </Tooltip>
@@ -155,6 +155,7 @@
               <input
                 type="file"
                 :multiple="multiple"
+                :disabled="uploading"
                 accept=".jpeg,.jpg,.png,image/jpeg,image/png"
                 class="
                   block
@@ -169,7 +170,7 @@
                 @change="selectFile"
               />
               <div class="absolute inset-x-0 top-0 p-10 m-auto text-center">
-                <button
+                <Button
                   class="
                     py-4
                     px-10
@@ -181,10 +182,11 @@
                     form-btn
                   "
                   type="submit"
+                  :waiting="uploading"
                 >
                   <!-- <i class="fas fa-upload"></i> -->
                   Upload Image
-                </button>
+                </Button>
                 <p class="mt-4">Or drop a file</p>
               </div>
             </div>
@@ -227,16 +229,20 @@
   </div>
 </template>
 <script>
-import { GET_MEDIAS } from '~/graphql'
+import { GET_MEDIAS, CREATE_MEDIA } from '~/graphql'
+import { currentUser } from '~/components/mixins'
+import { isArray } from '~/plugins/utils'
 export default {
+  mixins: [currentUser],
   props: {
     multiple: {
       type: Boolean,
       default: false
     }
   },
-
   data: () => ({
+    filters: {},
+    uploading: false,
     media: {
       items: [],
       total: 0
@@ -254,7 +260,8 @@ export default {
       variables() {
         return {
           skip: 0,
-          size: 30
+          size: 30,
+          filters: { ...this.filters }
         }
       },
       update(data) {
@@ -267,23 +274,52 @@ export default {
   },
 
   methods: {
+    selectedImage(image) {
+      return this.$emit('image', [image.url])
+    },
+
     async selectFile(e) {
-      let image = null
-      if (!this.multiple) {
-        const file = e.target.files[0]
+      try {
+        let image = null
+        let imageURL = ''
+        if (!this.multiple) {
+          const file = e.target.files[0]
 
-        /* Make sure file exists */
-        if (!file) return
+          /* Make sure file exists */
+          if (!file) return
 
-        const readData = (f) =>
-          new Promise((resolve) => {
-            const reader = new FileReader()
-            reader.onloadend = () => resolve(reader.result)
-            reader.readAsDataURL(f)
-          })
-        image = await readData(file)
+          const readData = (f) =>
+            new Promise((resolve) => {
+              const reader = new FileReader()
+              reader.onloadend = () => resolve(reader.result)
+              reader.readAsDataURL(f)
+            })
+          image = await readData(file)
+
+          this.uploading = true
+          imageURL = await this.uploadToCloudinary(image)
+
+          // Upload to DB
+          const data = [
+            {
+              url: imageURL,
+              title: ''
+            }
+          ]
+          await this.uploadImage(data)
+        }
+
+        this.uploading = false
+        this.$toast.positive('Media created successfully')
+        this.filters = {
+          ...this.filters
+        }
+        return this.$emit('image', [imageURL])
+      } catch (error) {
+        this.$toast.negative(error.message)
+      } finally {
+        this.uploading = false
       }
-      return this.$emit('image', await this.uploadToCloudinary(image))
     },
 
     async uploadToCloudinary(image) {
@@ -296,6 +332,20 @@ export default {
         return cloudinary?.secure_url || null
       }
       return null
+    },
+
+    async uploadImage(data) {
+      if (isArray(data) && data.length > 1) return
+
+      await this.$apollo.mutate({
+        mutation: CREATE_MEDIA,
+        variables: {
+          input: {
+            url: data[0].url,
+            title: data[0].title
+          }
+        }
+      })
     },
 
     tabToggle() {

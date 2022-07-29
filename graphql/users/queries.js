@@ -9,3 +9,11 @@ export const GET_CURRENT_USER = gql`
   }
   ${userFragments.user}
 `
+
+export const GET_SUBSCRIPTION_URL = gql`
+  query getSubscriptionUrl($plan: String, $service: PaymentChannel) {
+    getSubscriptionUrl(plan: $plan, service: $service) {
+      url
+    }
+  }
+`
