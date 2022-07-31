@@ -8,147 +8,6 @@
 
     <section class="container">
       <div>
-        <!-- <div class="items-center mb-6">
-          <div class="items-center mb-6 md:mb-0">
-            <div
-              class="flex items-center mb-6 space-x-1 cursor-pointer"
-              @click.prevent="onUploadImage"
-            >
-              <span class="relative">
-                <svg
-                  class="mx-auto"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="10=4"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                  <polyline points="21 15 16 10 5 21"></polyline>
-                </svg>
-              </span>
-              <span class="mr-4 text-sm font-normal text-gray-500 md:mr-6"
-                >Add Image Cover</span
-              >
-            </div>
-          </div>
-          <div class="flex mb-6 space-x-2">
-            <div class="flex flex-wrap items-center mb-6 space-x-2 md:mb-0">
-              <span class="relative text-gray-500">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-4 h-4"
-                  style=""
-                >
-                  <g>
-                    <path
-                      d="M11.96 14.945c-.067 0-.136-.01-.203-.027-1.13-.318-2.097-.986-2.795-1.932-.832-1.125-1.176-2.508-.968-3.893s.942-2.605 2.068-3.438l3.53-2.608c2.322-1.716 5.61-1.224 7.33 1.1.83 1.127 1.175 2.51.967 3.895s-.943 2.605-2.07 3.438l-1.48 1.094c-.333.246-.804.175-1.05-.158-.246-.334-.176-.804.158-1.05l1.48-1.095c.803-.592 1.327-1.463 1.476-2.45.148-.988-.098-1.975-.69-2.778-1.225-1.656-3.572-2.01-5.23-.784l-3.53 2.608c-.802.593-1.326 1.464-1.475 2.45-.15.99.097 1.975.69 2.778.498.675 1.187 1.15 1.992 1.377.4.114.633.528.52.928-.092.33-.394.547-.722.547z"
-                    ></path>
-                    <path
-                      d="M7.27 22.054c-1.61 0-3.197-.735-4.225-2.125-.832-1.127-1.176-2.51-.968-3.894s.943-2.605 2.07-3.438l1.478-1.094c.334-.245.805-.175 1.05.158s.177.804-.157 1.05l-1.48 1.095c-.803.593-1.326 1.464-1.475 2.45-.148.99.097 1.975.69 2.778 1.225 1.657 3.57 2.01 5.23.785l3.528-2.608c1.658-1.225 2.01-3.57.785-5.23-.498-.674-1.187-1.15-1.992-1.376-.4-.113-.633-.527-.52-.927.112-.4.528-.63.926-.522 1.13.318 2.096.986 2.794 1.932 1.717 2.324 1.224 5.612-1.1 7.33l-3.53 2.608c-.933.693-2.023 1.026-3.105 1.026z"
-                    ></path>
-                  </g>
-                </svg>
-              </span>
-              <span class="mr-4 text-sm font-normal text-gray-500 md:mr-6"
-                >Tags</span
-              >
-            </div>
-            <div class="relative gap-2 text-xs">
-              <div
-                v-for="(tag, index) in tags"
-                :key="index"
-                class="
-                  inline-flex
-                  items-center
-                  px-2
-                  mx-1
-                  space-x-2
-                  bg-blue-200
-                  rounded
-                "
-              >
-                <span>{{ tag }}</span>
-              </div>
-
-              <div
-                class="
-                  inline-flex
-                  items-center
-                  px-2
-                  space-x-2
-                  text-black
-                  rounded
-                "
-                @click.prevent="onOpenTagManager"
-              >
-                <span>
-                  <IconPencil class="mr-2 h-3.5 pointer-events-none"
-                /></span>
-              </div>
-            </div>
-          </div>
-          <div class="flex mb-6 space-x-2">
-            <div class="flex flex-wrap items-center mb-6 space-x-2 md:mb-0">
-              <span class="relative text-gray-500">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-4 h-4"
-                  style=""
-                >
-                  <g>
-                    <path
-                      d="M11.96 14.945c-.067 0-.136-.01-.203-.027-1.13-.318-2.097-.986-2.795-1.932-.832-1.125-1.176-2.508-.968-3.893s.942-2.605 2.068-3.438l3.53-2.608c2.322-1.716 5.61-1.224 7.33 1.1.83 1.127 1.175 2.51.967 3.895s-.943 2.605-2.07 3.438l-1.48 1.094c-.333.246-.804.175-1.05-.158-.246-.334-.176-.804.158-1.05l1.48-1.095c.803-.592 1.327-1.463 1.476-2.45.148-.988-.098-1.975-.69-2.778-1.225-1.656-3.572-2.01-5.23-.784l-3.53 2.608c-.802.593-1.326 1.464-1.475 2.45-.15.99.097 1.975.69 2.778.498.675 1.187 1.15 1.992 1.377.4.114.633.528.52.928-.092.33-.394.547-.722.547z"
-                    ></path>
-                    <path
-                      d="M7.27 22.054c-1.61 0-3.197-.735-4.225-2.125-.832-1.127-1.176-2.51-.968-3.894s.943-2.605 2.07-3.438l1.478-1.094c.334-.245.805-.175 1.05.158s.177.804-.157 1.05l-1.48 1.095c-.803.593-1.326 1.464-1.475 2.45-.148.99.097 1.975.69 2.778 1.225 1.657 3.57 2.01 5.23.785l3.528-2.608c1.658-1.225 2.01-3.57.785-5.23-.498-.674-1.187-1.15-1.992-1.376-.4-.113-.633-.527-.52-.927.112-.4.528-.63.926-.522 1.13.318 2.096.986 2.794 1.932 1.717 2.324 1.224 5.612-1.1 7.33l-3.53 2.608c-.933.693-2.023 1.026-3.105 1.026z"
-                    ></path>
-                  </g>
-                </svg>
-              </span>
-              <span class="mr-4 text-sm font-normal text-gray-500 md:mr-6"
-                >Topics(niches)</span
-              >
-            </div>
-            <div class="relative gap-2 text-xs">
-              <div
-                class="
-                  inline-flex
-                  items-center
-                  px-2
-                  space-x-2
-                  bg-blue-200
-                  rounded
-                  text-dark
-                "
-              >
-                <span>Medium</span>
-              </div>
-
-              <div
-                class="
-                  inline-flex
-                  items-center
-                  px-2
-                  space-x-2
-                  bg-blue-100
-                  rounded
-                  text-dark
-                "
-              >
-                <span>Zikoko</span>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
         <TextField
           v-model="$v.fieldTitle.$model"
           placeholder="Title"
@@ -203,25 +62,15 @@
         </div>
       </div>
     </Dialog>
-
-    <Dialog v-model="isTagModalVisible" :is-large="true" title="Tag manager">
-      <div class="block w-full text-gray-700 bg-white">
-        <div class="justify-between w-full text-gray-700 bg-white">
-          <TagManager :tags="tags" @addTags="onTags" />
-        </div>
-      </div>
-    </Dialog>
   </section>
   <!-- end of page -->
 </template>
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-// import MeMarkdown from 'medium-editor-markdown'
 import TurndownService from 'turndown'
 import { GET_NOTE, UPDATE_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
-// import MediumEditor from 'medium-editor'
 
 export default {
   name: 'EditPage',
@@ -231,43 +80,30 @@ export default {
   },
   layout: 'Dashboard',
 
-  async asyncData(context) {
-    const getNote = await context.store.getters['content/getNote']
-    const savedNote = await getNote(context.params.slug)
-
-    if (savedNote)
-      return {
-        savedNote
-      }
-
-    const client = context.app.apolloProvider.defaultClient
-
-    try {
-      const {
-        data: { getNote: savedNote }
-      } = await client.query({
-        query: GET_NOTE,
-        variables: {
-          id: context.params.slug
-        },
-        skip: !context.params.slug
-      })
-      return {
-        savedNote
-      }
-    } catch (e) {
-      return {
-        error: true
+  apollo: {
+    savedNote: {
+      query: GET_NOTE,
+      update(data) {
+        return data.getNote
+      },
+      variables() {
+        return {
+          id: this.$route.params?.slug
+        }
+      },
+      skip() {
+        return !this.$route.params?.slug
       }
     }
   },
+
   data: () => ({
     editor: ClassicEditor,
-    content: '',
+    content: null,
     defaultValue: '',
     isImageModalVisible: false,
     isTagModalVisible: false,
-    savedNote: null,
+    savedNote: {},
     contentId: null,
     saved: false,
     tags: [],
@@ -394,31 +230,31 @@ export default {
   },
 
   mounted() {
-    // await new MediumEditor('#editor', this.options)
     this.defaultValue = `${this.getContent(this.savedNote)}`
     this.fieldTitle = this.savedNote?.title
 
-    const _this = this
-    this.$nextTick(() => {
-      // Save draft every 5 minutes
+    // const _this = this
+    // this.$nextTick(() => {
+    //   if (this.$route.query.type !== 'NOTE') return
 
-      let refreshIntervalId
-      try {
-        refreshIntervalId = setInterval(async () => {
-          if (!_this.saved) {
-            const contents = {
-              title: _this.fieldTitle,
-              content: _this.content
-            }
-            await _this.updateDraft(contents)
-            _this.saved = true
-          }
-        }, 5000)
-      } catch (error) {
-        if (refreshIntervalId) clearInterval(refreshIntervalId)
-      }
-      if (_this.saved) clearInterval(refreshIntervalId)
-    })
+    //   // Save draft every 5 minutes
+    //   let refreshIntervalId
+    //   try {
+    //     refreshIntervalId = setInterval(async () => {
+    //       if (!_this.saved) {
+    //         const contents = {
+    //           title: _this.fieldTitle,
+    //           content: _this.content
+    //         }
+    //         await _this.updateDraft(contents)
+    //         _this.saved = true
+    //       }
+    //     }, 5000)
+    //   } catch (error) {
+    //     if (refreshIntervalId) clearInterval(refreshIntervalId)
+    //   }
+    //   if (_this.saved) clearInterval(refreshIntervalId)
+    // })
   },
   methods: {
     onTags(tags) {
@@ -444,6 +280,8 @@ export default {
       /* Read data */
       this.coverImage = await readData(file)
     },
+
+    uploadCallback() {},
 
     onUploadImage() {
       this.isImageModalVisible = true
@@ -472,15 +310,17 @@ export default {
       this.saved = false
     },
 
-    uploadCallback(url) {},
-
     async saveNote() {
-      const content = {
-        title: this.fieldTitle,
-        content: this.content
+      try {
+        const content = {
+          title: this.fieldTitle,
+          content: this.content ?? undefined
+        }
+        await this.updateDraft(content)
+        this.$toast.positive('Note saved successfully')
+      } catch (error) {
+        this.$toast.negative(error.message)
       }
-      await this.updateDraft(content)
-      return await this.$router.push(`/contents`)
     },
 
     async updateDraft(input) {
@@ -510,10 +350,8 @@ export default {
         }
         await this.updateDraft(content)
         return await this.$router.push(`/contents/${this.contentId}/publish`)
-
-        // Redirect to 'add'
       } catch (error) {
-        console.log(error)
+        this.$toast.negative(error.message)
       }
     }
   }

@@ -40,6 +40,40 @@
         />
       </div>
 
+      <!-- <div class="flex "> -->
+      <div class="mb-6 w-full">
+        <TagsAutocomplete
+          key="tagAutocomplete"
+          v-model="$v.fieldTags.$model"
+          class="w-full"
+          placeholder="Add a tag..."
+          label="Tag"
+          :should-update="false"
+          :is-required="false"
+          :error="getValidationMessage($v.fieldTags)"
+          @update:value="onUpdateTags"
+          @focus="onFocusAutocomplete"
+          @blur="onBlurAutocomplete"
+        ></TagsAutocomplete>
+      </div>
+
+      <div class="mb-6 w-full">
+        <TagsAutocomplete
+          key="topicAutocomplete"
+          v-model="$v.fieldTopics.$model"
+          class="mr-1 w-full"
+          placeholder="Add a topic..."
+          label="Topic"
+          :should-update="false"
+          :is-required="false"
+          :error="getValidationMessage($v.fieldTopics)"
+          :is-input-border-enabled="false"
+          @update:value="onUpdateTopics"
+          @focus="onFocusAutocomplete"
+          @blur="onBlurAutocomplete"
+        ></TagsAutocomplete>
+      </div>
+
       <div class="flex justify-between mb-6 space-x-2 sm:flex-col md:flex-row">
         <div class="basis-1/2 mb-6 w-full">
           <DropdownField
@@ -58,7 +92,7 @@
           </DropdownField>
         </div>
 
-        <div class="basis-1/2 mb-6 w-full">
+        <div class="basis-1/2 w-full">
           <DropdownField
             v-model="$v.fieldStatus.$model"
             :items="statusTypes"
@@ -73,39 +107,6 @@
               {{ item }}
             </option>
           </DropdownField>
-        </div>
-      </div>
-
-      <div class="flex justify-between mb-6 sm:flex-col md:flex-row">
-        <div class="basis-1/2 sm:w-full">
-          <TextField
-            v-model="$v.fieldLike.$model"
-            type="number"
-            class="w-full text-sm"
-            label="Likes"
-            placeholder="Enter content likes"
-            :error="getValidationMessage($v.fieldLike)"
-          />
-        </div>
-        <div class="basis-1/2 ml-1 sm:w-full">
-          <TextField
-            v-model="$v.fieldComment.$model"
-            type="number"
-            class="w-full text-sm"
-            label="Comments"
-            placeholder="Enter content comments"
-            :error="getValidationMessage($v.fieldComment)"
-          />
-        </div>
-        <div class="basis-1/2 ml-1 sm:w-full">
-          <TextField
-            v-model="$v.fieldShare.$model"
-            type="number"
-            class="w-full text-sm"
-            label="Shares"
-            placeholder="Enter content shares"
-            :error="getValidationMessage($v.fieldShare)"
-          />
         </div>
       </div>
 
@@ -152,6 +153,7 @@
         <Button
           v-if="isEditing"
           type="link"
+          :disabled="!fullContent"
           :to="{ path: `/contents/${contentId}/` }"
           appearance="secondary"
           class="w-full"
@@ -183,16 +185,19 @@ export default {
   },
 
   data: () => ({
+    // content: {},
+    showAutoComplete: false,
     fieldComment: '',
     fieldTitle: '',
     fieldCategory: '',
     fieldVisibility: '',
     fieldStatus: '',
     fieldPaymentType: '',
-    fieldLike: '',
+    fieldTopics: '',
     fieldAmount: '',
-    fieldShare: '',
+    fieldTags: '',
     honeyPot: '',
+    fullContent: null,
     paymentTypes: ['ARTICLE', 'MONTHLY', 'ONETIME'],
     visibilityTypes: ['PUBLIC', 'PRIVATE', 'TEAM', 'UNLISTED'],
     statusTypes: ['PUBLISHED', 'DRAFT', 'DELETED'],
@@ -203,8 +208,8 @@ export default {
     fieldTitle: {},
     fieldComment: {},
     fieldVisibility: {},
-    fieldLike: {},
-    fieldShare: {},
+    fieldTopics: {},
+    fieldTags: {},
     fieldPaymentType: {},
     fieldAmount: {
       decimal
@@ -230,8 +235,9 @@ export default {
       handler(newItem) {
         if (this.content) {
           this.fieldTitle = newItem?.title
-          this.fieldLike = newItem?.likes
-          this.fieldShare = newItem?.shares
+          this.fullContent = newItem?.content
+          this.fieldTopics = newItem?.topics.map((item) => item && item.name)
+          this.fieldTags = newItem?.tags
           this.fieldAmount = newItem?.amount
           this.fieldCategory = newItem?.category?.name
           this.fieldComment = newItem?.comments
@@ -284,8 +290,7 @@ export default {
 
       const input = {
         title: this.fieldTitle,
-        likes: Number(this.fieldLike),
-        shares: Number(this.fieldShare),
+
         amount: Number(this.fieldAmount),
         category: this.fieldCategory?.name ?? this.fieldCategory,
         comments: Number(this.fieldComment),
@@ -310,6 +315,18 @@ export default {
         this.sending = false
         this.open = false
       }
+    },
+
+    onUpdateTopics() {},
+    onUpdateTags() {},
+    onFocusAutocomplete() {
+      this.showAutoComplete = true
+    },
+
+    onBlurAutocomplete() {
+      setTimeout(() => {
+        this.showAutoComplete = false
+      }, 150)
     }
   }
 }

@@ -1,9 +1,19 @@
 <template>
-  <div class="field tag-selector" :class="classes">
-    <label :for="id">{{ label }}</label>
-    <div class="tag-selector--input">
+  <div class="text-darksilver field tag-selector" :class="classes">
+    <label :for="uid" class="flex">{{ label }}</label>
+    <div
+      class="
+        bg-white
+        focus-within:bg-white
+        hover:bg-white
+        border border-silver
+        focus-within:border-btn-green
+        hover:border-btn-green
+        tag-selector--input
+      "
+    >
       <div v-for="(tag, i) in filteredTags" :key="i" class="tag-selector--item">
-        <p class="p-1 mx-2 mt-5 text-white bg-primary-teal">
+        <p class="p-1 m-2 text-white bg-gray-400">
           {{ tag && tag.name }}
 
           <i class="icon tag-selector--remove" @click="removeTag(i)">
@@ -21,25 +31,13 @@
         </p>
       </div>
 
-      <!-- <input
-        :id="name"
-        v-model="tag"
-        type="text"
-        :name="name"
-        class="tag-selector-input"
-        @keyup.enter.prevent="addTag"
-        @keyup.space="selectTagKey"
-        @keyup.188="selectTagKey"
-        @keyup.8="handleBackspace"
-      /> -->
       <AutocompleteField
-        :id="id"
+        :id="uid"
         ref="elementRef"
         v-model="tag"
-        class="w-full"
+        class="my-2"
         hide-arrow-down
         :placeholder="placeholder"
-        :label="label"
         :label-class="labelClass"
         :rows="rows"
         :chip-style="chipStyle"
@@ -81,11 +79,6 @@ export default {
   },
 
   props: {
-    hideArrowDown: {
-      type: Boolean,
-      default: true
-    },
-
     id: {
       type: String,
       default: ''
@@ -95,22 +88,14 @@ export default {
       type: String,
       default: null
     },
-    shouldShowEditingOptions: {
-      default: false,
-      type: Boolean
-    },
 
     shouldUpdate: {
       type: Boolean,
       default: true
     },
 
-    isRequired: {
-      default: true,
-      type: Boolean
-    },
     value: {
-      type: [String, Object],
+      type: [String, Object, Array],
       default: null
     },
 
@@ -182,16 +167,6 @@ export default {
       type: Boolean,
       default: true
     },
-
-    fakeInput: {
-      default: false,
-      type: Boolean
-    },
-
-    shouldShowOptions: {
-      default: true,
-      type: Boolean
-    },
     placeholder: {
       default: 'Sample placeholder',
       type: String
@@ -236,14 +211,8 @@ export default {
   }),
 
   computed: {
-    displayTag() {
-      return this.value?.name ?? this.value ?? ''
-    },
-
-    joinTags() {
-      return (
-        this.filteredTags && this.filteredTags.map((tag) => tag.name).join(',')
-      )
+    uid() {
+      return this.$utils.uidGenerator(this.id)
     },
 
     filteredTags() {
@@ -260,15 +229,16 @@ export default {
 
     value: {
       handler(va) {
+        if (Array.isArray(va)) {
+          const mapp = va.map((item) => ({ name: item }))
+          this.tags = [...mapp, ...this.tags]
+          return
+        }
         this.tags.push(va)
       },
       immediate: true,
       deep: true
     }
-  },
-
-  mounted() {
-    this.tags = []
   },
 
   methods: {
@@ -368,7 +338,8 @@ label {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  border: 1px solid #ccc;
+
+  /* 1px solid #ccc; */
 }
 .tag-selector--item {
   margin: 0;

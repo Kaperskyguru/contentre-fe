@@ -152,18 +152,18 @@ export default {
       }
     },
 
-    async createTopic(input) {
+    async createNotebook(input) {
       return await this.$apollo.mutate({
         mutation: CREATE_NOTEBOOK,
-        refetchQueries: ['getTopics'],
+        refetchQueries: ['getNotebooks'],
         variables: { input },
-        update: (cache, { data: { createTopic: notebook } }) => {
+        update: (cache, { data: { createNotebook: notebook } }) => {
           cache.modify({
             id: 'ROOT_QUERY',
             fields: {
-              getTopics: (queryRef) => {
+              getNotebooks: (queryRef) => {
                 const notebookRef = cache.identify({
-                  __typename: 'Topic',
+                  __typename: 'Notebook',
                   ...notebook
                 })
 
@@ -181,7 +181,7 @@ export default {
       })
     },
 
-    async updateTopic(input) {
+    async updateNotebook(input) {
       return await this.$apollo.mutate({
         mutation: UPDATE_NOTEBOOK,
         variables: { id: this.notebookId, input }
@@ -191,7 +191,6 @@ export default {
 
     async onSubmit() {
       const isAnyDirty = this.$v.$anyDirty
-      //   const isColorDirty = this.$v.fieldColor.$dirty
 
       if (await this.isValidationInvalid()) return
 
@@ -201,18 +200,13 @@ export default {
 
         const input = {
           name: this.fieldName
-          //   color: isColorDirty
-          //     ? this.fieldColor === this.defaultColor
-          //       ? null
-          //       : this.fieldColor.replace('#', '')
-          //     : undefined
         }
 
         if (isAnyDirty) {
           if (this.isEditing) {
-            this.$emit('updated', await this.updateTopic(input))
+            this.$emit('updated', await this.updateNotebook(input))
           } else {
-            this.$emit('created', await this.createTopic(input))
+            this.$emit('created', await this.createNotebook(input))
           }
         }
 

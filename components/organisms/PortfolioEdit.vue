@@ -67,9 +67,7 @@
             :error="getValidationMessage($v.fieldClient)"
           />
         </div>
-        <div
-          class="flex flex-col mb-6 space-y-3 w-full md:flex-row md:space-y-0"
-        >
+        <div class="mb-6 w-full">
           <CategoriesAutocomplete
             v-model="$v.fieldCategory.$model"
             label="Category"
@@ -78,21 +76,34 @@
             :fake-input="true"
             :show-border="true"
             :allow-creation="false"
-            class="mr-1 w-full md:w-1/2"
+            class="mr-1 w-full"
             placeholder="Select a category"
           />
-
+        </div>
+        <div class="mb-6 w-full">
           <TagsAutocomplete
             v-model="$v.fieldTags.$model"
             label="Tags"
-            class="mr-1 w-full md:w-1/2"
-            placeholder="Select up 5 tags"
+            class="mr-1 w-full"
+            placeholder="Select tags"
             :should-update="false"
-            :fake-input="true"
-            :show-border="true"
             :allow-creation="false"
             :error="getValidationMessage($v.fieldTags)"
             @update:value="onUpdateTags"
+          />
+        </div>
+
+        <div class="mb-6 w-full">
+          <TagsAutocomplete
+            v-model="$v.fieldTopics.$model"
+            label="Topics"
+            :disabled="true"
+            class="mr-1 w-full"
+            placeholder="Select topics"
+            :should-update="false"
+            :allow-creation="false"
+            :error="getValidationMessage($v.fieldTopics)"
+            @update:value="onUpdateTopics"
           />
         </div>
       </section>
@@ -202,14 +213,17 @@ export default {
     fieldClient: '',
     shouldCustomize: false,
     fieldDescription: '',
+    fieldTopics: '',
     fieldTemplate: '',
     honeyPot: '',
     tags: [],
+    topics: [],
     templates: []
   }),
   validations: {
     fieldURL: { hasNoSpace },
     fieldTags: {},
+    fieldTopics: {},
     fieldClient: {},
     fieldCategory: {},
     fieldTemplate: {},
@@ -295,7 +309,11 @@ export default {
       this.fieldTags = tags
       this.tags.push(tags?.name)
     },
-
+    onUpdateTopics(topics) {
+      this.showAutoComplete = false
+      this.fieldTopics = topics
+      this.topics.push(topics?.name)
+    },
     resetForm() {
       this.$v.$reset()
 
@@ -350,6 +368,7 @@ export default {
           clientId: this.fieldClient?.id ?? undefined,
           categoryId: this.fieldCategory?.id ?? undefined,
           tags: this.tags,
+          // topics: this.topics,
           shouldCustomize: this.shouldCustomize,
           description: this.fieldDescription,
           templateId:

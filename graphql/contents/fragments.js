@@ -17,7 +17,10 @@ export const contentFragments = {
       user {
         ...user
       }
-      topics
+      topics {
+        name
+        id
+      }
       type
       excerpt
       status

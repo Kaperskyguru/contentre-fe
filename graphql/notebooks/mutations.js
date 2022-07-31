@@ -5,6 +5,7 @@ export const UPDATE_NOTEBOOK = gql`
     updateNotebook(id: $id, input: $input) {
       id
       name
+      link
       totalNotes
       createdAt
     }
@@ -16,6 +17,7 @@ export const CREATE_NOTEBOOK = gql`
     createNotebook(input: $input) {
       id
       name
+      link
       totalNotes
       createdAt
     }
@@ -27,6 +29,7 @@ export const CREATE_NOTE = gql`
     createNote(input: $input) {
       id
       title
+      shareLink
       createdAt
     }
   }
@@ -37,6 +40,7 @@ export const UPDATE_NOTE = gql`
     updateNote(id: $id, input: $input) {
       id
       title
+      shareLink
       createdAt
     }
   }

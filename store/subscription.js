@@ -20,6 +20,14 @@ export const mutations = {
     state.numberOfContents = payload
   },
 
+  increment(state) {
+    state.numberOfContents += 1
+  },
+
+  incrementBy(state, payload) {
+    state.numberOfContents += payload
+  },
+
   updateTotalPortfolios(state, payload) {
     state.numberOfPortfolios = payload
   }
