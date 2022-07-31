@@ -270,7 +270,6 @@
 import { CONVERT_NOTE_CONTENT, GET_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 import GroupingIcon from '~/assets/icons/client.svg?inline'
-import { isArray } from '~/storybook-static/10.1f062e8d.iframe.bundle'
 export default {
   name: 'PublishContent',
   components: {
@@ -382,7 +381,7 @@ export default {
     findFirstImage() {
       const regex = /<img.+?src=[\\'"]([^\\'"]+)[\\'"].*?>/i
       const image = this.savedNote?.content?.match(regex)
-      return image && isArray(image) ? image[0] : image ?? undefined
+      return image && Array.isArray(image) ? image[0] : image ?? undefined
     },
 
     onUploadImage() {
