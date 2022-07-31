@@ -270,13 +270,11 @@
 import { CONVERT_NOTE_CONTENT, GET_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 import GroupingIcon from '~/assets/icons/client.svg?inline'
-import TextField from '~/components/atoms/TextField.vue'
 import { isArray } from '~/storybook-static/10.1f062e8d.iframe.bundle'
 export default {
   name: 'PublishContent',
   components: {
-    GroupingIcon,
-    TextField
+    GroupingIcon
   },
   layout: 'Dashboard',
 

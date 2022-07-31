@@ -62,14 +62,6 @@
         </div>
       </div>
     </Dialog>
-
-    <Dialog v-model="isTagModalVisible" :is-large="true" title="Tag manager">
-      <div class="block w-full text-gray-700 bg-white">
-        <div class="justify-between w-full text-gray-700 bg-white">
-          <TagManager :tags="tags" @addTags="onTags" />
-        </div>
-      </div>
-    </Dialog>
   </section>
   <!-- end of page -->
 </template>
@@ -77,7 +69,7 @@
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import TurndownService from 'turndown'
-import { UPDATE_NOTE } from '~/graphql'
+import { GET_NOTE, UPDATE_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 
 export default {
@@ -88,35 +80,30 @@ export default {
   },
   layout: 'Dashboard',
 
-  async asyncData({ params, store, query, app }) {
-    const client = app.apolloProvider.defaultClient
-    try {
-      let savedNote = null
-      const getNote = await store.getters['content/getNote']
-      savedNote = await getNote(params.slug)
-      if (!savedNote) {
-        savedNote = await store.dispatch('content/getNote', {
-          slug: params.slug,
-          client
-        })
-      }
-
-      return {
-        savedNote
-      }
-    } catch (e) {
-      return {
-        error: true
+  apollo: {
+    savedNote: {
+      query: GET_NOTE,
+      update(data) {
+        return data.getNote
+      },
+      variables() {
+        return {
+          id: this.$route.params?.slug
+        }
+      },
+      skip() {
+        return !this.$route.params?.slug
       }
     }
   },
+
   data: () => ({
     editor: ClassicEditor,
-    content: '',
+    content: null,
     defaultValue: '',
     isImageModalVisible: false,
     isTagModalVisible: false,
-    savedNote: null,
+    savedNote: {},
     contentId: null,
     saved: false,
     tags: [],
@@ -294,6 +281,8 @@ export default {
       this.coverImage = await readData(file)
     },
 
+    uploadCallback() {},
+
     onUploadImage() {
       this.isImageModalVisible = true
     },
@@ -325,7 +314,7 @@ export default {
       try {
         const content = {
           title: this.fieldTitle,
-          content: this.content
+          content: this.content ?? undefined
         }
         await this.updateDraft(content)
         this.$toast.positive('Note saved successfully')

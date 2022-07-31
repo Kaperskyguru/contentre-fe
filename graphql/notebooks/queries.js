@@ -7,6 +7,7 @@ export const GET_NOTEBOOKS = gql`
       notebooks {
         id
         name
+        link
         totalNotes
         createdAt
       }

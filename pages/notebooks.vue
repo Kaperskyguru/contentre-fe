@@ -120,21 +120,6 @@
                       </button>
                     </Hyperlink>
                   </li>
-                  <li class="font-medium hover:bg-gray-100">
-                    <button
-                      class="flex items-center transition-colors duration-200"
-                    >
-                      Convert to brief
-                    </button>
-                  </li>
-                  <li class="font-medium hover:bg-gray-100">
-                    <button
-                      href="#"
-                      class="flex items-center transition-colors duration-200"
-                    >
-                      Convert to task
-                    </button>
-                  </li>
                   <hr class="dark:border-gray-700" />
                   <li class="font-medium hover:bg-gray-100">
                     <button
@@ -150,7 +135,7 @@
           </div>
           <textarea
             id=""
-            v-model="content"
+            v-model="scratchContent"
             name=""
             cols="30"
             rows="10"
@@ -189,6 +174,57 @@
 
           <div v-click-outside="onClickOutside" class="overflow-hidden w-full">
             <div class="flex overflow-x-auto gap-1 mt-4 w-full">
+              <div
+                class="
+                  flex
+                  justify-center
+                  items-center
+                  min-w-[10.72rem]
+                  h-[16.125rem]
+                  bg-gray-100
+                  rounded-lg
+                  border-2
+                "
+              >
+                <hyperlink to="/contents/add">
+                  <div
+                    class="
+                      flex flex-col
+                      justify-center
+                      items-center
+                      w-full
+                      h-full
+                    "
+                  >
+                    <div
+                      class="
+                        flex
+                        justify-center
+                        items-center
+                        w-[3.125rem]
+                        h-[3.125rem]
+                        bg-[#286963]
+                        rounded-full
+                      "
+                    >
+                      <i class="text-2xl text-white">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          style="fill: white; transform: ; msfilter: "
+                        >
+                          <path
+                            d="M6.012 18H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1zM8 9h3V6h2v3h3v2h-3v3h-2v-3H8V9z"
+                          ></path>
+                        </svg>
+                      </i>
+                    </div>
+                    <p class="text-[14px] font-semibold">Create new note</p>
+                  </div>
+                </hyperlink>
+              </div>
+
               <div
                 v-for="(item, index) in notes.items"
                 :key="index"
@@ -257,14 +293,16 @@
                             transition-colors
                             duration-200
                           "
+                          @click.prevent="onShareNote(item.id)"
                         >
                           Share note
                         </button>
                       </li>
                       <hr class="dark:border-gray-700" />
                       <li class="font-medium hover:bg-gray-100">
-                        <!-- :to="{ path: `/contents/${item.id}/publish` }" -->
-                        <Hyperlink to="#">
+                        <Hyperlink
+                          :to="{ path: `/contents/${item.id}/publish` }"
+                        >
                           <button
                             class="
                               flex
@@ -276,31 +314,6 @@
                             Convert to content
                           </button>
                         </Hyperlink>
-                      </li>
-                      <li class="font-medium hover:bg-gray-100">
-                        <button
-                          class="
-                            flex
-                            items-center
-                            transition-colors
-                            duration-200
-                          "
-                        >
-                          Convert to brief
-                        </button>
-                      </li>
-                      <li class="font-medium hover:bg-gray-100">
-                        <button
-                          href="#"
-                          class="
-                            flex
-                            items-center
-                            transition-colors
-                            duration-200
-                          "
-                        >
-                          Convert to task
-                        </button>
                       </li>
                       <hr class="dark:border-gray-700" />
                       <li class="font-medium hover:bg-gray-100">
@@ -320,13 +333,18 @@
                     </ul>
                   </div>
                 </div>
-                <Hyperlink :to="{ path: `/contents/${item.id}?type=NOTE` }">
-                  <div class="flex flex-col justify-between w-full h-full">
-                    <div>
+                <Hyperlink
+                  :to="{ path: `/contents/${item.id}?type=NOTE` }"
+                  class="min-w-[10.72rem]"
+                >
+                  <div
+                    class="flex flex-col justify-between w-[10.72rem] h-full"
+                  >
+                    <div class="w-full">
                       <h3 class="text-lg font-bold">{{ item.title }}</h3>
                       <article
                         class="mt-3 text-sm"
-                        v-html="item.content"
+                        v-html="getExcerpt(item.content)"
                       ></article>
                     </div>
                     <div class="text-sm">
@@ -334,57 +352,6 @@
                     </div>
                   </div>
                 </Hyperlink>
-              </div>
-
-              <div
-                class="
-                  flex
-                  justify-center
-                  items-center
-                  min-w-[10.72rem]
-                  h-[16.125rem]
-                  bg-gray-100
-                  rounded-lg
-                  border-2
-                "
-              >
-                <hyperlink to="/contents/add">
-                  <div
-                    class="
-                      flex flex-col
-                      justify-center
-                      items-center
-                      w-full
-                      h-full
-                    "
-                  >
-                    <div
-                      class="
-                        flex
-                        justify-center
-                        items-center
-                        w-[3.125rem]
-                        h-[3.125rem]
-                        bg-[#286963]
-                        rounded-full
-                      "
-                    >
-                      <i class="text-2xl text-white">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          style="fill: white; transform: ; msfilter: "
-                        >
-                          <path
-                            d="M6.012 18H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1zM8 9h3V6h2v3h3v2h-3v3h-2v-3H8V9z"
-                          ></path>
-                        </svg>
-                      </i>
-                    </div>
-                    <p class="text-[14px] font-semibold">Create new note</p>
-                  </div>
-                </hyperlink>
               </div>
             </div>
           </div>
@@ -451,13 +418,52 @@
       </div>
     </Dialog>
 
+    <Dialog
+      v-model="isShareModalVisible"
+      :is-large="true"
+      title="Create shareable link"
+      @answer="deleteNote"
+    >
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <div class="mt-4 w-full">
+            <TextField
+              v-model="sharedLink"
+              class="w-full"
+              label="Shareable Link"
+              :disabled="true"
+            >
+              <template #append-inner>
+                <div class="mr-2 ml-3 text-darksilver fill-current">C</div>
+              </template>
+            </TextField>
+          </div>
+        </div>
+        <div
+          class="
+            flex flex-col
+            justify-center
+            items-center
+            px-3
+            mt-4
+            space-y-2 space-x-0
+            w-full
+            md:flex-row md:space-y-0 md:space-x-2
+          "
+        >
+          <Button @click="onCreateShareLink">Share</Button>
+        </div>
+      </div>
+    </Dialog>
+
     <NotebookEdit v-model="isConfirmModalVisible" />
-    <SwitchNotebook v-model="isSwitchModalVisible" />
+    <ViewNotebook v-model="isSwitchModalVisible" />
   </section>
 </template>
 
 <script>
 import vClickOutside from 'v-click-outside'
+import IconInformationCircle from '~/assets/icons/information-circle.svg?inline'
 import { DELETE_NOTE, GET_NOTEBOOKS, GET_NOTES, UPDATE_NOTE } from '~/graphql'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -465,21 +471,29 @@ export default {
   directives: {
     clickOutside: vClickOutside.directive
   },
+  components: {
+    IconInformationCircle
+  },
   layout: 'Dashboard',
   data: () => ({
     deleteNoteId: null,
     updatedNoteId: null,
+    sharedLink: '',
+    shareId: null,
     searchedTerm: '',
     filters: {},
+    saved: false,
     content: '',
     filteredNotebookId: null,
     fieldName: '',
+    scratchContent: null,
     activeMenu: null,
     menu: false,
     scratchMenu: false,
     isConfirmModalVisible: false,
     isDeleteModalVisible: false,
     isSwitchModalVisible: false,
+    isShareModalVisible: false,
     isAddToNotebookModalVisible: false,
     remove: ['client', 'category', 'topic', 'tag', 'amount'],
     columns: [
@@ -508,16 +522,63 @@ export default {
     }
   },
 
+  mounted() {
+    // const _this = this
+    // this.$nextTick(() => {
+    //   // Save draft every 5 minutes
+    //   let refreshIntervalId
+    //   try {
+    //     refreshIntervalId = setInterval(async () => {
+    //       if (!_this.saved) {
+    //         await _this.updateScratch(_this.scratchContent)
+    //         _this.saved = true
+    //       }
+    //     }, 5000)
+    //   } catch (error) {
+    //     if (refreshIntervalId) clearInterval(refreshIntervalId)
+    //   }
+    //   if (_this.saved) clearInterval(refreshIntervalId)
+    // })
+  },
+
   methods: {
+    updateScratch(content) {
+      console.log('hello', content)
+    },
+
+    getExcerpt(excerpt) {
+      return excerpt?.substring(0, 140) + '...' ?? ''
+    },
     onOpenScratchMenu() {
       this.scratchMenu = !this.scratchMenu
     },
+    onShareNote(id) {
+      this.shareId = id
+      this.isShareModalVisible = true
+      this.closeDropdown()
+    },
+    async onCreateShareLink() {
+      await this.$apollo.mutate({
+        mutation: UPDATE_NOTE,
+        variables: {
+          id: this.shareId,
+          input: {
+            shareable: true
+          }
+        },
+        update: (cache, { data: { updateNote } }) => {
+          this.sharedLink = updateNote.shareLink
+        }
+      })
+    },
     onAddToNotebook() {
       this.isAddToNotebookModalVisible = !this.isAddToNotebookModalVisible
+      this.closeDropdown()
     },
     onDeleteNote(id) {
       this.deleteNoteId = id
       this.isDeleteModalVisible = !this.isDeleteModalVisible
+      this.closeDropdown()
     },
     onOpenSubMenu(id) {
       this.menu = !this.menu
@@ -528,13 +589,17 @@ export default {
 
     onNotebookFilter(v) {
       this.filteredNotebookId = v
+      this.filters = {
+        ...this.filters,
+        notebookId: v
+      }
     },
 
     onFilters(v) {
       this.filters = {
-        notebookId: this.filteredNotebookId,
         ...this.filters,
-        ...v
+        ...v,
+        notebookId: this.filteredNotebookId
       }
     },
     onAddNotebook(id) {
@@ -621,6 +686,7 @@ export default {
         return { items: data.getNotes.notes, total: data.getNotes.meta.total }
       },
       variables() {
+        console.log('hahahs')
         return {
           size: 30,
           skip: 0,
