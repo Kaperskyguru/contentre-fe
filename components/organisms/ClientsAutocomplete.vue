@@ -400,7 +400,7 @@ export default {
         }
       },
       skip() {
-        return !!this.items
+        return !!this.items || this.items === null
       }
     }
   },

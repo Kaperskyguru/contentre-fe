@@ -40,7 +40,6 @@
       <div class="bg-white">
         <div class="container px-4 mx-auto">
           <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <!-- <TopicOverview :checked.sync="checked" :filters="filters" /> -->
             <DataGrid
               :columns="columns"
               :checked.sync="computedChecked"
@@ -155,19 +154,20 @@ export default {
           },
           componentOptions: this.getTotalContentsComponentOptions
         },
+
         {
-          title: 'Created',
-          key: 'createdAt',
-          component: () => 'DataGridCellIcon',
-          componentOptions: this.getCreatedAtComponentOptions
-        },
-        {
-          title: 'Amount Spent',
+          title: 'Amount',
           key: 'totalAmount',
           component: () => {
             return 'DataGridCellMoney'
           },
           componentOptions: this.getTotalAmountComponentOptions
+        },
+        {
+          title: 'Created',
+          key: 'createdAt',
+          component: () => 'DataGridCellIcon',
+          componentOptions: this.getCreatedAtComponentOptions
         }
       ]
     }

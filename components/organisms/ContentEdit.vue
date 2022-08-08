@@ -48,9 +48,11 @@
           class="w-full"
           placeholder="Add a tag..."
           label="Tag"
+          :content-id="contentId"
           :should-update="false"
           :is-required="false"
           :error="getValidationMessage($v.fieldTags)"
+          @deleted="removeTag"
           @update:value="onUpdateTags"
           @focus="onFocusAutocomplete"
           @blur="onBlurAutocomplete"
@@ -58,20 +60,22 @@
       </div>
 
       <div class="mb-6 w-full">
-        <TagsAutocomplete
+        <TopicsAutocomplete
           key="topicAutocomplete"
           v-model="$v.fieldTopics.$model"
           class="mr-1 w-full"
           placeholder="Add a topic..."
           label="Topic"
+          :content-id="contentId"
           :should-update="false"
           :is-required="false"
           :error="getValidationMessage($v.fieldTopics)"
           :is-input-border-enabled="false"
           @update:value="onUpdateTopics"
+          @deleted="removeTopic"
           @focus="onFocusAutocomplete"
           @blur="onBlurAutocomplete"
-        ></TagsAutocomplete>
+        ></TopicsAutocomplete>
       </div>
 
       <div class="flex justify-between mb-6 space-x-2 sm:flex-col md:flex-row">
@@ -185,7 +189,8 @@ export default {
   },
 
   data: () => ({
-    // content: {},
+    tags: [],
+    topics: [],
     showAutoComplete: false,
     fieldComment: '',
     fieldTitle: '',
@@ -236,7 +241,7 @@ export default {
         if (this.content) {
           this.fieldTitle = newItem?.title
           this.fullContent = newItem?.content
-          this.fieldTopics = newItem?.topics.map((item) => item && item.name)
+          this.fieldTopics = newItem?.topics
           this.fieldTags = newItem?.tags
           this.fieldAmount = newItem?.amount
           this.fieldCategory = newItem?.category?.name
@@ -290,7 +295,8 @@ export default {
 
       const input = {
         title: this.fieldTitle,
-
+        topics: this.topics.filter((item) => item),
+        tags: this.tags.filter((item) => item),
         amount: Number(this.fieldAmount),
         category: this.fieldCategory?.name ?? this.fieldCategory,
         comments: Number(this.fieldComment),
@@ -317,8 +323,18 @@ export default {
       }
     },
 
-    onUpdateTopics() {},
-    onUpdateTags() {},
+    onUpdateTopics(topic) {
+      this.topics.push(topic?.name)
+    },
+    onUpdateTags(tag) {
+      this.tags.push(tag?.name)
+    },
+    removeTopic(topics) {
+      this.topics = topics.map((item) => item.name)
+    },
+    removeTag(tags) {
+      this.tags = tags.map((item) => item.name)
+    },
     onFocusAutocomplete() {
       this.showAutoComplete = true
     },
