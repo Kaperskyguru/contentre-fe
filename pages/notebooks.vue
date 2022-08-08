@@ -32,13 +32,13 @@
         </ContentFilter>
       </div>
 
-      <!-- <div class="basis-4/5">
+      <div class="basis-4/5">
         <SearchField
           id="search"
           v-model="filters.terms"
           placeholder="Search by name..."
         />
-      </div> -->
+      </div>
 
       <div
         class="
@@ -547,7 +547,7 @@ export default {
     },
 
     getExcerpt(excerpt) {
-      return excerpt?.substring(0, 140) + '...' ?? ''
+      return (excerpt && excerpt?.substring(0, 140) + '...') ?? ''
     },
     onOpenScratchMenu() {
       this.scratchMenu = !this.scratchMenu
@@ -686,7 +686,6 @@ export default {
         return { items: data.getNotes.notes, total: data.getNotes.meta.total }
       },
       variables() {
-        console.log('hahahs')
         return {
           size: 30,
           skip: 0,

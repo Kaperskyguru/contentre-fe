@@ -1,5 +1,5 @@
 <template>
-  <div class="text-darksilver field tag-selector" :class="classes">
+  <div class="text-darksilver field topic-selector" :class="classes">
     <label :for="uid" class="flex">{{ label }}</label>
     <div
       class="
@@ -9,14 +9,18 @@
         border border-silver
         focus-within:border-btn-green
         hover:border-btn-green
-        tag-selector--input
+        topic-selector--input
       "
     >
-      <div v-for="(tag, i) in filteredTags" :key="i" class="tag-selector--item">
+      <div
+        v-for="(topic, i) in filteredTopics"
+        :key="i"
+        class="topic-selector--item"
+      >
         <p class="p-1 m-2 text-white bg-gray-400">
-          {{ tag && tag.name }}
+          {{ topic && topic.name }}
 
-          <i class="icon tag-selector--remove" @click="removeTag(i)">
+          <i class="icon topic-selector--remove" @click="removeTag(i)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -34,15 +38,15 @@
       <AutocompleteField
         :id="uid"
         ref="elementRef"
-        v-model="tag"
+        v-model="topic"
         class="my-2"
         hide-arrow-down
         :placeholder="placeholder"
         :label-class="labelClass"
         :rows="rows"
         :chip-style="chipStyle"
-        :items="items ? items : getTags.items"
-        :loading="$apollo.queries.getTags.loading"
+        :items="getTopics.items"
+        :loading="$apollo.queries.getTopics.loading"
         :allow-creation="allowCreation"
         :hide-pencil-icon="hidePencilIcon"
         :disabled="disabled"
@@ -65,10 +69,10 @@
 </template>
 
 <script>
-// import gql from 'graphql-tag'
+// import gql from 'graphql-topic'
 import { nextTick } from '@nuxtjs/composition-api'
 import vClickOutside from 'v-click-outside'
-import { GET_TAGS, UPDATE_CONTENT } from '~/graphql'
+import { GET_TOPICS, UPDATE_TOPIC } from '~/graphql'
 export default {
   directives: {
     clickOutside: vClickOutside.directive
@@ -84,12 +88,7 @@ export default {
       default: ''
     },
 
-    tagId: {
-      type: String,
-      default: null
-    },
-
-    contentId: {
+    topicId: {
       type: String,
       default: null
     },
@@ -98,6 +97,7 @@ export default {
       type: Boolean,
       default: true
     },
+
     shouldDelete: {
       type: Boolean,
       default: true
@@ -183,26 +183,26 @@ export default {
   },
 
   apollo: {
-    getTags: {
-      query: GET_TAGS,
+    getTopics: {
+      query: GET_TOPICS,
       variables() {
         return {
           skip: 0,
           size: 30,
           filters: {
-            terms: this.search,
-            all: this.all
+            terms: this.search
+            // all: this.all
           }
         }
       },
       update(data) {
-        if (this.tagId) {
-          return data.getTags.filter((tag) => tag.id !== this.tagId)
+        if (this.topicId) {
+          return data.getTopics.filter((topic) => topic.id !== this.topicId)
         }
-        return { items: data.getTags.tags }
+        return { items: data.getTopics.topics }
       },
       skip() {
-        return !!this.items || this.items === null
+        return !!this.items
       }
     }
   },
@@ -211,10 +211,10 @@ export default {
     showOptions: false,
     disableField: false,
     search: '',
-    tag: '',
+    topic: '',
     showAutoComplete: false,
-    tags: [],
-    getTags: {
+    topics: [],
+    getTopics: {
       items: []
     }
   }),
@@ -224,8 +224,8 @@ export default {
       return this.$utils.uidGenerator(this.id)
     },
 
-    filteredTags() {
-      return this.tags.filter((tag) => tag && tag.name)
+    filteredTopics() {
+      return this.topics.filter((topic) => topic && topic.name)
     }
   },
   watch: {
@@ -240,10 +240,10 @@ export default {
       handler(va) {
         if (Array.isArray(va)) {
           const mapp = va.map((item) => ({ name: item }))
-          this.tags = [...mapp, ...this.tags]
+          this.topics = [...mapp, ...this.topics]
           return
         }
-        this.tags.push(va)
+        this.topics.push(va)
       },
       immediate: true,
       deep: true
@@ -251,8 +251,8 @@ export default {
   },
 
   methods: {
-    validate(tag) {
-      return this.regex.test(tag)
+    validate(topic) {
+      return this.regex.test(topic)
     },
     onClickShowAutoComplete() {
       if (this.disabled) return
@@ -266,12 +266,12 @@ export default {
     },
 
     removeTag(index) {
-      this.tags.splice(index, 1)
-      this.$emit('deleted', this.tags)
+      this.topics.splice(index, 1)
+      this.$emit('deleted', this.topics)
     },
 
-    selectTagKey(tag) {
-      const name = tag?.name ?? tag
+    selectTagKey(topic) {
+      const name = topic?.name ?? topic
       if (!this.validate(name)) {
         this.$toast.negative(this.regexError)
       }
@@ -279,15 +279,15 @@ export default {
       this.selectTag(name.substring(0, name.length - 1))
     },
 
-    async selectTag(tag) {
+    async selectTag(topic) {
       if (this.shouldUpdate) {
         try {
           await this.$apollo.mutate({
-            mutation: UPDATE_CONTENT,
+            mutation: UPDATE_TOPIC,
             variables: {
-              id: this.contentId,
+              id: topic?.id,
               input: {
-                tags: [tag?.name ?? tag]
+                name: topic?.name ?? topic
               }
             }
           })
@@ -295,13 +295,14 @@ export default {
           this.$toast.negative(error.message)
         }
       }
-      // Change 'deleted' to 'all'
       this.$emit('deleted', this.topics)
       this.showAutoComplete = false
 
-      tag = tag?.name ? tag : { name: tag }
-      const found = this.tags.find((tag1) => tag && tag1.name === tag.name)
-      if (!found) this.$emit('update:value', tag)
+      topic = topic?.name ? topic : { name: topic }
+      const found = this.topics?.find(
+        (topic1) => topic && topic1?.name === topic?.name
+      )
+      if (!found) this.$emit('update:value', topic)
     },
 
     onClickOutside() {
@@ -344,7 +345,7 @@ label {
   margin-bottom: 8px;
   display: block;
 }
-.tag-selector--input {
+.topic-selector--input {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -352,22 +353,22 @@ label {
 
   /* 1px solid #ccc; */
 }
-.tag-selector--item {
+.topic-selector--item {
   margin: 0;
   padding: 0;
   user-select: none;
 }
-.tag-selector--remove {
+.topic-selector--remove {
   display: inline-block;
   vertical-align: text-top;
   vertical-align: middle;
   cursor: pointer;
 }
 
-.tag-selector--remove svg {
+.topic-selector--remove svg {
   fill: currentColor;
 }
-.tag-selector-input {
+.topic-selector-input {
   margin-bottom: 0;
   min-width: 60px;
   border: none;
