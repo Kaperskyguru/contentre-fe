@@ -202,7 +202,7 @@ export default {
         return { items: data.getTopics.topics }
       },
       skip() {
-        return !!this.items
+        return !!this.items || this.items !== null
       }
     }
   },
