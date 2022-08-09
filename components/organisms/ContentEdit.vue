@@ -189,8 +189,6 @@ export default {
   },
 
   data: () => ({
-    tags: [],
-    topics: [],
     showAutoComplete: false,
     fieldComment: '',
     fieldTitle: '',
@@ -206,7 +204,9 @@ export default {
     paymentTypes: ['ARTICLE', 'MONTHLY', 'ONETIME'],
     visibilityTypes: ['PUBLIC', 'PRIVATE', 'TEAM', 'UNLISTED'],
     statusTypes: ['PUBLISHED', 'DRAFT', 'DELETED'],
-    disableAmount: false
+    disableAmount: false,
+    tags: [],
+    topics: []
   }),
   validations: {
     fieldStatus: {},
@@ -295,8 +295,9 @@ export default {
 
       const input = {
         title: this.fieldTitle,
-        topics: this.topics.filter((item) => item),
-        tags: this.tags.filter((item) => item),
+        topics:
+          (this.topics && this.topics.filter((item) => item)) ?? undefined,
+        tags: (this.tags && this.tags.filter((item) => item)) ?? undefined,
         amount: Number(this.fieldAmount),
         category: this.fieldCategory?.name ?? this.fieldCategory,
         comments: Number(this.fieldComment),
@@ -324,16 +325,16 @@ export default {
     },
 
     onUpdateTopics(topic) {
-      this.topics.push(topic?.name)
+      if (this.topics) this.topics.push(topic?.name)
     },
     onUpdateTags(tag) {
-      this.tags.push(tag?.name)
+      if (this.tags) this.tags.push(tag?.name)
     },
     removeTopic(topics) {
-      this.topics = topics.map((item) => item.name)
+      this.topics = topics && topics.map((item) => item.name)
     },
     removeTag(tags) {
-      this.tags = tags.map((item) => item.name)
+      this.tags = (tags && tags.map((item) => item.name)) ?? []
     },
     onFocusAutocomplete() {
       this.showAutoComplete = true

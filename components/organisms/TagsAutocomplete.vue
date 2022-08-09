@@ -296,7 +296,7 @@ export default {
         }
       }
       // Change 'deleted' to 'all'
-      this.$emit('deleted', this.topics)
+      this.$emit('deleted', this.tags)
       this.showAutoComplete = false
 
       tag = tag?.name ? tag : { name: tag }
