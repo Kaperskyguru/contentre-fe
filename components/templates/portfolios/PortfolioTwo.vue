@@ -32,12 +32,10 @@
                   </div>
                   <div
                     class="
+                      flex flex-col
                       py-6
-                      flex
                       space-y-10
-                      lg:space-y-0
-                      flex-col
-                      lg:flex-row
+                      lg:flex-row lg:space-y-0
                     "
                   >
                     <div class="container m-auto">
@@ -48,12 +46,12 @@
                         Connect with me →</a
                       >
                     </div>
-                    <div class="flex lg:ml-1 w-full">
+                    <div class="flex w-full lg:ml-1">
                       <a
                         v-for="social in portfolio.socials"
                         :key="social.id"
                         target="_blank"
-                        class="w-9 h-9 mr-2"
+                        class="mr-2 w-9 h-9"
                         :href="social.link"
                       >
                         <Avatar
@@ -323,27 +321,23 @@
             Contact me <br />
             right Now
           </h2>
-          <div class="mb-6 container">
+          <div class="container mb-6">
             <div
               class="
-                flex
-                space-y-10
-                lg:space-y-0
-                flex-col
-                lg:space-x-10
-                space-x-0
-                lg:flex-row
+                flex flex-col
+                space-y-10 space-x-0
+                lg:flex-row lg:space-y-0 lg:space-x-10
               "
             >
-              <div class="border-b-4 text-brand border-text-brand w-60">
+              <div class="w-60 border-b-4 text-brand border-text-brand">
                 Connect with me →
               </div>
-              <div class="flex lg:ml-1 w-full">
+              <div class="flex w-full lg:ml-1">
                 <a
                   v-for="social in portfolio.socials"
                   :key="social.id"
                   target="_blank"
-                  class="w-9 h-9 mr-2"
+                  class="mr-2 w-9 h-9"
                   :href="social.link"
                 >
                   <Avatar

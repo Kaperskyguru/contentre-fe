@@ -83,10 +83,10 @@
             <p>Filter by:</p>
             <ContentFilter
               :filter-columns="columns"
-              :clients="portfolio.clients"
-              :categories="portfolio.categories"
-              :topics="portfolio.topics"
-              :tags="portfolio.tags"
+              :clients="contentData.clients"
+              :categories="contentData.categories"
+              :topics="contentData.topics"
+              :tags="contentData.tags"
               :remove="remove"
               @filters="onFilters"
             />

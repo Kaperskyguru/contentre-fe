@@ -44,6 +44,10 @@ export const GET_PORTFOLIO_CONTENT = gql`
         id
         name
       }
+      topics {
+        id
+        name
+      }
       categories {
         id
         name
