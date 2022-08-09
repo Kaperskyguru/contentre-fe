@@ -83,17 +83,8 @@
         <p class="text-xs font-light">Pull contents from profile.</p>
       </div>
 
-      <!-- :to="{ name: 'contents/add', query: { type: 'note' } }" 
-
-                focus-within:bg-white
-          hover:bg-white
-          border
-          focus-within:border-btn-green
-          hover:border-btn-green
-      
-      -->
       <Hyperlink
-        to="#"
+        :to="{ name: 'contents/add', query: { type: 'note' } }"
         disabled
         class="
           flex flex-col
@@ -101,7 +92,11 @@
           items-center
           p-2
           text-center
-          bg-gray-100
+          focus-within:bg-white
+          hover:bg-white
+          border
+          focus-within:border-btn-green
+          hover:border-btn-green
           duration-300
           cursor-pointer
         "

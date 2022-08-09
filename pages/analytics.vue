@@ -126,6 +126,7 @@
                 title: 'Topics',
                 placeholder: getTopicPlaceholder
               }"
+              @selected="selectTopic"
             />
           </div>
         </div>
@@ -495,7 +496,7 @@ export default {
         topics: name ? [name] : null
       }
 
-      this.$apollo.queries.getTagStats.refetch()
+      this.$apollo.queries.getTopicStats.refetch()
     },
 
     selectTag(name) {
