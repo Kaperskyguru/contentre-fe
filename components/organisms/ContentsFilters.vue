@@ -42,17 +42,13 @@
       </div>
 
       <div v-if="!remove.includes('topic')" class="mb-6">
-        <CategoriesAutocomplete
+        <TopicsAutocomplete
           v-model="$v.fieldTopics.$model"
           :allow-creation="false"
-          :fake-input="true"
+          :is-input-border-enabled="false"
+          class="mr-1 w-full"
           :items="topics"
           :should-update="false"
-          :options="{
-            fakeInput: true,
-            isGrid: true
-          }"
-          :show-border="true"
           :placeholder="'Topics'"
           :label="'Topics'"
           @update:value="onUpdateFilterValue"
@@ -63,14 +59,10 @@
           v-model="$v.fieldTags.$model"
           :allow-creation="false"
           :should-update="false"
+          :is-input-border-enabled="false"
+          class="mr-1 w-full"
           :all="false"
           :items="tags"
-          :fake-input="true"
-          :options="{
-            fakeInput: true,
-            isGrid: true
-          }"
-          :show-border="true"
           :placeholder="'Tags'"
           :label="'Tags'"
           @update:value="onUpdateFilterValue"

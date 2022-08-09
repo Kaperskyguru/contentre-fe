@@ -390,7 +390,7 @@ export default {
         }
       },
       skip() {
-        return !!this.items || this.items === null
+        return !!this.items || this.items !== null
       }
     }
   },
