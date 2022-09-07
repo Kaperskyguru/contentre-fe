@@ -42,6 +42,7 @@ export default {
   },
 
   mounted() {
+    console.log(process.env.NODE_ENV)
     if (['development', 'staging'].includes(process.env.NODE_ENV)) {
       // eslint-disable-next-line no-undef
       Paddle.Environment.set('sandbox')
@@ -82,6 +83,7 @@ export default {
     },
 
     async paddle(data) {
+      console.log(data.plan)
       if (!data?.plan) return
       // eslint-disable-next-line no-undef
       await Paddle.Checkout.open({

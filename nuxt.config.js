@@ -147,6 +147,7 @@ export default {
 
   env: {
     APP_NAME: process.env.APP_NAME,
+    NODE_ENV: process.env.NODE_ENV,
     PADDLE_VENDOR: process.env.PADDLE_VENDOR,
     API_URL: process.env.API_URL ?? 'https://test.contentre.io/graphql'
   }
