@@ -116,7 +116,12 @@ export default {
         this.sending = false
 
         // GO to 2FA
-        await this.$router.push('/') // '/auth/signup/verify-email')
+        await this.$router.push({
+          path: '/',
+          query: {
+            ...this.$route.query
+          }
+        }) // '/auth/signup/verify-email')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

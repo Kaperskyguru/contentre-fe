@@ -26,9 +26,10 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
-      // {
-      //   src: 'https://cdn.tailwindcss.com'
-      // }
+      {
+        src: 'https://cdn.paddle.com/paddle/paddle.js',
+        hid: 'Paddle'
+      }
     ]
   },
 
@@ -65,7 +66,8 @@ export default {
       '~/components/molecules',
       '~/components/organisms',
       '~/components/templates',
-      '~/components/templates/portfolios'
+      '~/components/templates/portfolios',
+      '~/components/organisms/Subscription'
     ]
   },
 

@@ -5,7 +5,9 @@
         <p class="font-roboto text-base text-white">Contents</p>
       </div>
       <div class="">
-        <Button appearance="secondary"> Upgrade </Button>
+        <Button appearance="secondary" to="/subscriptions?tab=Plan" type="link">
+          Upgrade
+        </Button>
       </div>
     </div>
 

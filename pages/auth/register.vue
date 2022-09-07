@@ -244,7 +244,10 @@ export default {
 
         await this.$router.push({
           path: '/auth/verify-email',
-          query: { email: this.fieldEmail.toLocaleLowerCase() }
+          query: {
+            email: this.fieldEmail.toLocaleLowerCase(),
+            ...this.$route.query
+          }
         })
       } catch (error) {
         this.$toast.negative(error.message)

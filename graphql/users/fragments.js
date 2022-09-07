@@ -10,6 +10,7 @@ export const userFragments = {
       emailConfirmed
       name
       username
+      country
       bio
       homeAddress
       portfolioURL

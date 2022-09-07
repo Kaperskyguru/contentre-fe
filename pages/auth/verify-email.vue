@@ -167,7 +167,12 @@ export default {
           }
         })
 
-        await this.$router.push(this.$route.query.redirect ?? '/#onboarding')
+        await this.$router.push({
+          path: this.$route.query.redirect ?? '/#onboarding',
+          query: {
+            ...this.$route.query
+          }
+        })
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

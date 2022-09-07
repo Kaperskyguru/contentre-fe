@@ -129,9 +129,14 @@ export default defineComponent({
     appearance: {
       type: String,
       validate: (value) =>
-        ['primary', 'secondary', 'tertiary', 'outline', 'outline-red'].includes(
-          value
-        ),
+        [
+          'primary',
+          'secondary',
+          'tertiary',
+          'outline',
+          'outline-red',
+          'none'
+        ].includes(value),
       default: 'primary'
     },
 
@@ -340,6 +345,10 @@ export default defineComponent({
 
 .button-outline-red {
   @apply border hover:bg-red-500 hover:text-white border-red-500 bg-white text-red-500;
+}
+
+.button-none {
+  @apply border bg-transparent;
 }
 
 .custom-icon:not(:only-child) {
