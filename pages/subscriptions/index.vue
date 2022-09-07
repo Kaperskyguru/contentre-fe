@@ -42,7 +42,6 @@ export default {
   },
 
   mounted() {
-    console.log(process.env.PADDLE_VENDOR)
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line no-undef
       Paddle.Environment.set('sandbox')

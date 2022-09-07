@@ -193,6 +193,8 @@ export default {
       const plan = this.plans.items.find(
         (item) => item.channel === channelName && item.plan.name === planName
       )
+
+      console.log(this.plans)
       return {
         plan: plan?.paymentPlanId,
         channel: plan?.channel,
