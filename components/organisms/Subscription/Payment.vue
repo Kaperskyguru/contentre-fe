@@ -195,7 +195,6 @@ export default {
         (item) => item.channel === channelName && item.plan.name === planName
       )
 
-      console.log(this.plan)
       return {
         plan: plan?.paymentPlanId,
         channel: plan?.channel,
