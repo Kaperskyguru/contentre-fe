@@ -185,16 +185,17 @@ export default {
   },
 
   methods: {
-    getPlanCode({ channel, name }) {
+    getPlanCode({ channel }) {
       const channelName = channel.toUpperCase()
 
-      const planName = name === 'yearly' ? 'Premium Yearly' : 'Premium Monthly'
+      const planName =
+        this.plan === 'yearly' ? 'Premium Yearly' : 'Premium Monthly'
 
       const plan = this.plans.items.find(
         (item) => item.channel === channelName && item.plan.name === planName
       )
 
-      console.log(this.plans)
+      console.log(this.plan)
       return {
         plan: plan?.paymentPlanId,
         channel: plan?.channel,
@@ -209,8 +210,7 @@ export default {
     },
     makePayment(name) {
       const plan = this.getPlanCode({
-        channel: name,
-        name: this.plan
+        channel: name
       })
 
       this.$emit('makePayment', plan)

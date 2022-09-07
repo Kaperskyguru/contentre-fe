@@ -82,6 +82,7 @@ export default {
     },
 
     async paddle(data) {
+      console.log(data.plan)
       if (!data?.plan) return
       // eslint-disable-next-line no-undef
       await Paddle.Checkout.open({
