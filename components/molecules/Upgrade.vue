@@ -5,8 +5,12 @@
         <p class="font-roboto text-base text-white">Contents</p>
       </div>
       <div class="">
-        <Button appearance="secondary" to="/subscriptions?tab=Plan" type="link">
-          Upgrade
+        <Button
+          :appearance="max ? 'secondary' : 'outline-red'"
+          to="/subscriptions?tab=Plan"
+          type="link"
+        >
+          {{ btnText }}
         </Button>
       </div>
     </div>
@@ -47,6 +51,9 @@ export default {
   },
 
   computed: {
+    btnText() {
+      return this.max ? 'Upgrade' : 'Renew'
+    },
     computeContent() {
       return this.contents * 100
     },
@@ -55,6 +62,7 @@ export default {
       return this.max
     },
     computeTotal() {
+      // if (!this.max) return 100
       return this.max * 100
     }
   }

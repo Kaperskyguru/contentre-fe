@@ -30,6 +30,7 @@ export const userFragments = {
       jobTitle
       hasFinishedOnboarding
       totalContents
+      totalPortfolios
       totalUsersReferred
       lastActivityAt
       phoneNumber
