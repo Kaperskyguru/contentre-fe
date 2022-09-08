@@ -114,6 +114,7 @@
     <LazyPortfolioEdit
       v-model="isConfirmModalVisible"
       :portfolio-id="portfolioId"
+      @created="onCreated"
       @toggle="refetch"
     />
 
@@ -213,6 +214,12 @@ export default {
     onAddPortfolio() {
       this.portfolioId = null
       this.isConfirmModalVisible = true
+    },
+
+    onCreated() {
+      this.$store.commit('subscription/incrementByFeature', {
+        type: 'portfolio'
+      })
     },
 
     onEditPortfolio(id) {
