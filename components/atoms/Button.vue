@@ -3,9 +3,9 @@
     <button
       :tabindex="isProFeature || (active && activeAutoDisables) ? -1 : 0"
       :class="classNames"
-      class="bg-btn-green opacity-50"
       :disabled="waiting"
       :aria-label="waiting ? 'Please wait…' : undefined"
+      class="w-full bg-btn-green opacity-50"
     >
       <div v-if="waiting" class="custom-icon" role="presentation">
         <SvgLoader class="-my-px" />

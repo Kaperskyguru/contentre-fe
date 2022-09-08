@@ -14,9 +14,7 @@
     >
       <!-- hero section -->
       <div class="mx-auto w-[90%] md:w-[60%] lg:w-2/5">
-        <h1 class="text-2xl font-bold text-center lg:text-start">
-          Upgrade to Pro
-        </h1>
+        <h1 class="text-2xl font-bold text-center">Upgrade to Pro</h1>
         <div
           class="flex justify-between space-x-4 w-full lg:block lg:space-x-0"
         >
@@ -54,24 +52,24 @@
         "
       >
         <div action="">
-          <div class="flex justify-between mb-3">
+          <div class="flex justify-between mb-5">
             <h4 class="text-sm font-bold">Total Due Today</h4>
             <div>
-              <h4 class="text-sm font-bold text-end">
+              <h4 class="text-sm font-bold">
                 ${{ isMonthly ? '9.99' : '7.99' }}
               </h4>
-              <p class="text-xs font-semibold">(Including tax of $0.1)</p>
             </div>
           </div>
 
           <p class="text-xs">Billing Frequency</p>
           <div
             class="
-              flex
+              flex flex-col
               justify-between
-              mt-2
-              space-x-4
+              my-5
+              space-y-2 space-x-0
               w-full
+              md:flex-row md:space-y-0 md:space-x-4
               lg:mt-0 lg:space-x-2
             "
           >
@@ -113,31 +111,31 @@
             Pay with Paddle
           </Button>
 
-          <Button
-            class="py-2 px-8 mt-2 w-full"
-            appearance="outline"
-            @click="makePayment('Paystack')"
-          >
-            Pay with Paystack
-          </Button>
+          <div class="py-2 mt-2 w-full">
+            <Button
+              :is-pro-feature="true"
+              message="Coming Soon"
+              class="w-full"
+              appearance="outline"
+              @click="makePayment('Paystack')"
+            >
+              Pay with Paystack
+            </Button>
+          </div>
         </div>
 
-        <div class="p-2 mt-4 mb-20 rounded-md border border-slate-300">
+        <div class="p-2 mt-5 mb-2 rounded-md border border-slate-300">
           <p class="text-xs">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum velit
-            est dolorum aliquid soluta. Dolores autem doloremque ratione
-            quibusdam iste sequi asperiores. Doloribus dolor in quos,
-            consequuntur voluptatum amet accusamus accusantium, veniam maxime
+            By starting a Contentre membership, you agree to our
+            <a
+              class="text-pink-600 underline decoration-1"
+              href="https://www.termsandconditionsgenerator.com/live.php?token=d7qMQzDBX2dtqge1TzZCiVEPMWanz0Pt"
+            >
+              Membership Terms of Service</a
+            >. Your payment method will be charged a recurring $9.99 USD monthly
+            fee, unless you decide to cancel. No refunds for memberships
+            canceled between billing cycles.
           </p>
-
-          <div class="text-center">
-            <a href="#" class="text-xs text-pink-600 underline decoration-1"
-              >terms/condition</a
-            >
-            <a href="#" class="text-xs text-pink-600 underline decoration-1"
-              >Privacy</a
-            >
-          </div>
         </div>
       </div>
     </section>
