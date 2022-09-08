@@ -264,6 +264,8 @@ export default {
         }
       },
       update(data) {
+        const netTotal = data.getContents.meta.netTotal
+        this.$store.commit('subscription/updateTotalContents', netTotal)
         return {
           items: data.getContents.contents,
           total: data.getContents.meta.total
@@ -289,12 +291,6 @@ export default {
       this.isAddMultipleContent = false
       this.$toast.positive('Content created successfully')
       this.$apollo.queries.contents.refetch()
-
-      if (this.contents.total)
-        this.$store.commit(
-          'subscription/updateTotalContents',
-          this.contents.total
-        )
     },
     onFilters(v) {
       this.filters = {

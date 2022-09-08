@@ -2,7 +2,6 @@ export default async ({ route, store, redirect, $getCurrentUser, $toast }) => {
   try {
     // Force load any logged in user first.
     const currentUser = await $getCurrentUser()
-    console.log(currentUser?.totalPortfolios)
     store.commit(
       'subscription/updateSubscription',
       currentUser.activeSubscription

@@ -4,7 +4,13 @@ import { portfolioFragments } from './fragments'
 export const GET_PORTFOLIOS = gql`
   query getPortfolios($size: Int, $skip: Int, $filters: PortfolioFiltersInput) {
     getPortfolios(size: $size, skip: $skip, filters: $filters) {
-      ...portfolio
+      meta {
+        total
+        netTotal
+      }
+      portfolios {
+        ...portfolio
+      }
     }
   }
   ${portfolioFragments.portfolio}
