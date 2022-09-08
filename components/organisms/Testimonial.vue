@@ -3,8 +3,11 @@
     <h2
       class="
         font-gilroy
+        text-2xl
+        font-medium
         tracking-wide
-        text-center text-white
+        leading-[62.4px]
+        text-center text-[#102A27]
         lg:text-5xl
       "
     >

@@ -33,7 +33,7 @@
             Upload
           </a>
         </li>
-        <li class="mr-2">
+        <li v-if="type === 'image'" class="mr-2">
           <a
             id="profaily-tab"
             href="#profaily"
@@ -82,6 +82,7 @@
 
     <div id="myTabContent">
       <div
+        v-if="type === 'image'"
         id="profaily"
         class="hidden w-full"
         role="tabpanel"
@@ -156,7 +157,7 @@
                 type="file"
                 :multiple="multiple"
                 :disabled="uploading"
-                accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                :accept="acceptedFiles"
                 class="
                   block
                   relative
@@ -185,7 +186,7 @@
                   :waiting="uploading"
                 >
                   <!-- <i class="fas fa-upload"></i> -->
-                  Upload Image
+                  Upload {{ type }}
                 </Button>
                 <p class="mt-4">Or drop a file</p>
               </div>
@@ -215,7 +216,7 @@
               <TextField
                 type="url"
                 class="p-4"
-                placeholder="Upload image link"
+                :placeholder="`Upload ${type} link`"
               />
             </div>
 
@@ -238,6 +239,10 @@ export default {
     multiple: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: 'image'
     }
   },
   data: () => ({
@@ -248,6 +253,13 @@ export default {
       total: 0
     }
   }),
+
+  computed: {
+    acceptedFiles() {
+      if (this.type === 'pdf') return '.pdf'
+      return '.jpeg,.jpg,.png,image/jpeg,image/png'
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       this.tabToggle()
@@ -280,45 +292,72 @@ export default {
 
     async selectFile(e) {
       try {
-        let image = null
-        let imageURL = ''
-        if (!this.multiple) {
-          const file = e.target.files[0]
+        let data = null
+        const files = e.target.files
+        this.uploading = true
 
-          /* Make sure file exists */
-          if (!file) return
+        if (this.type === 'image') data = await this.uploadImage(files)
+        if (this.type === 'pdf') data = await this.uploadPDF(files)
 
-          const readData = (f) =>
-            new Promise((resolve) => {
-              const reader = new FileReader()
-              reader.onloadend = () => resolve(reader.result)
-              reader.readAsDataURL(f)
-            })
-          image = await readData(file)
-
-          this.uploading = true
-          imageURL = await this.uploadToCloudinary(image)
-
-          // Upload to DB
-          const data = [
-            {
-              url: imageURL,
-              title: ''
-            }
-          ]
-          await this.uploadImage(data)
-        }
-
-        this.uploading = false
         this.$toast.positive('Media created successfully')
         this.filters = {
           ...this.filters
         }
-        return this.$emit('image', [imageURL])
+
+        return this.$emit('uploaded', data)
       } catch (error) {
         this.$toast.negative(error.message)
       } finally {
         this.uploading = false
+      }
+    },
+
+    uploadPDF(files) {
+      const pdfURL = ''
+      if (!this.multiple) {
+        const file = files[0]
+
+        console.log(file)
+
+        // Upload to DB
+        const data = [
+          {
+            url: pdfURL, // change here to array
+            title: file.name
+          }
+        ]
+        return data
+      }
+    },
+
+    async uploadImage(files) {
+      let image = null
+      let imageURL = ''
+
+      if (!this.multiple) {
+        const file = files[0]
+
+        /* Make sure file exists */
+        if (!file) return
+
+        const readData = (f) =>
+          new Promise((resolve) => {
+            const reader = new FileReader()
+            reader.onloadend = () => resolve(reader.result)
+            reader.readAsDataURL(f)
+          })
+        image = await readData(file)
+        imageURL = await this.uploadToCloudinary(image)
+
+        // Upload to DB
+        const data = [
+          {
+            url: imageURL,
+            title: file.name
+          }
+        ]
+        await this.uploadMedia(data)
+        return data
       }
     },
 
@@ -334,7 +373,7 @@ export default {
       return null
     },
 
-    async uploadImage(data) {
+    async uploadMedia(data) {
       if (isArray(data) && data.length > 1) return
 
       await this.$apollo.mutate({
@@ -373,7 +412,7 @@ export default {
         })
       })
 
-      document.getElementById('profaily-tab').click()
+      document.getElementById('upload-tab').click()
     }
   }
 }

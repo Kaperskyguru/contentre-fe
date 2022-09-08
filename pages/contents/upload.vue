@@ -23,28 +23,6 @@
             Save as draft
           </button>
         </div>
-
-        <div v-if="false" class="inline-flex relative justify-start ml-2">
-          <a href="#">
-            <Button
-              class="
-                inline-flex
-                py-3
-                px-5
-                mb-3
-                ml-6
-                text-white
-                bg-teal-600
-                focus:bg-teal-600
-                rounded-md
-                form-btn
-              "
-              @click.prevent="uploadContent"
-            >
-              Upload
-            </Button>
-          </a>
-        </div>
       </div>
     </section>
 
@@ -138,20 +116,19 @@
             </div>
           </section>
           <div class="mt-4 w-full">
-            <TextField
-              v-model="$v.fieldURL.$model"
-              placeholder="Paste Canonical URL"
-              label="Canonical URL"
-              :is-required="false"
-              :error="getValidationMessage($v.fieldURL)"
+            <Button
+              class="
+                py-3
+                mb-3
+                text-center text-white
+                bg-teal-600
+                focus:bg-teal-600
+                rounded-md
+              "
+              @click.prevent="onUploadPDF"
             >
-              <template #append-inner>
-                <div class="mr-2 ml-3 text-darksilver fill-current">
-                  <!-- <IconSearch /> -->
-                  M
-                </div>
-              </template>
-            </TextField>
+              Upload PDF
+            </Button>
           </div>
         </div>
       </section>
@@ -214,14 +191,13 @@
 
       <div class="flex flex-col justify-between md:flex-row">
         <div class="flex flex-col justify-start">
-          <div class="flex justify-start mt-8">
-            <!-- <div class="mr-3">Published to:</div> -->
+          <!-- <div class="flex justify-start mt-8">
             <Button appearance="outline-red" @click.prevent="onPlugins">
               <div class="text-red-600 hover:text-white">
                 <GroupingIcon />
               </div>
             </Button>
-          </div>
+          </div> -->
         </div>
         <div
           class="
@@ -256,10 +232,18 @@
       </div>
     </Dialog>
 
-    <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload Image">
+    <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload PDF">
       <div class="block w-full text-gray-700 bg-white">
         <div class="justify-between w-full text-gray-700 bg-white">
           <UploadImage @uploaded="uploadedImage" />
+        </div>
+      </div>
+    </Dialog>
+
+    <Dialog v-model="isPDFModalVisible" :is-large="true" title="Upload PDF">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="justify-between w-full text-gray-700 bg-white">
+          <UploadImage type="pdf" @uploaded="uploadedPDF" />
         </div>
       </div>
     </Dialog>
@@ -267,51 +251,22 @@
 </template>
 
 <script>
-import { CONVERT_NOTE_CONTENT, GET_NOTE } from '~/graphql'
+import { CREATE_CONTENT } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
-import GroupingIcon from '~/assets/icons/client.svg?inline'
+// import GroupingIcon from '~/assets/icons/client.svg?inline'
 export default {
   name: 'PublishContent',
   components: {
-    GroupingIcon
+    // GroupingIcon
   },
   layout: 'Dashboard',
-
-  async asyncData(context) {
-    const savedNote = await context.store.state.content.contents
-
-    if (savedNote)
-      return {
-        savedNote
-      }
-
-    const client = context.app.apolloProvider.defaultClient
-
-    try {
-      const {
-        data: { getNote: savedNote }
-      } = await client.query({
-        query: GET_NOTE,
-        variables: {
-          id: context.params.slug
-        },
-        skip: !context.params.slug
-      })
-      return {
-        savedNote
-      }
-    } catch (e) {
-      return {
-        error: true
-      }
-    }
-  },
 
   data: () => ({
     checked: [],
     isImageModalVisible: false,
     isConfirmModalVisible: false,
     isPluginModalVisible: false,
+    isPDFModalVisible: false,
     isPreviewModalVisible: false,
     selectedClient: null,
     fieldTopics: '',
@@ -350,7 +305,7 @@ export default {
   },
   head() {
     return {
-      title: 'Publish Content'
+      title: 'Upload PDF Content'
     }
   },
 
@@ -360,41 +315,23 @@ export default {
     }
   },
 
-  watch: {
-    '$route.params': {
-      immediate: true,
-      handler(params) {
-        this.noteId = params.slug
-      }
-    }
-  },
-
-  created() {
-    this.fieldExcerpt = `${this.generateExcerpt(this.savedNote?.content) ?? ''}`
-    this.fieldTitle = this.savedNote?.title
-
-    // Find first image in content
-    this.coverImage = this.findFirstImage()
-  },
-
   methods: {
-    findFirstImage() {
-      const regex = /<img.+?src=[\\'"]([^\\'"]+)[\\'"].*?>/i
-      const image = this.savedNote?.content?.match(regex)
-      return image && Array.isArray(image) ? image[0] : image ?? undefined
-    },
-
     onUploadImage() {
       this.isImageModalVisible = true
+    },
+
+    onUploadPDF() {
+      this.isPDFModalVisible = true
     },
 
     uploadedImage(data) {
       this.isImageModalVisible = false
       if (data.length > 1) return
+      this.coverImage = data[0]?.url
+    },
 
-      const image = data[0]
-      if (!image.url) return
-      this.coverImage = image.url
+    uploadedPDF() {
+      this.isPDFModalVisible = false
     },
 
     onAddApps(app) {
@@ -403,12 +340,6 @@ export default {
         [name]: app.data
       }
       this.$toast.positive(`${name} plugin added successfully`)
-    },
-    generateExcerpt(content) {
-      return (
-        content &&
-        content.substring(0, 140).replace(/<\/p>/g, '').concat('</p>')
-      )
     },
 
     onUpdateClient(client) {
@@ -449,20 +380,18 @@ export default {
           tags: this.tags,
           topics: this.topics,
           featuredImage: this.coverImage,
-          content: this.savedNote.content,
           excerpt: this.fieldExcerpt,
-          title: this.savedNote.title,
+          title: this.fieldTitle,
           status: 'PUBLISHED',
           apps: this.apps,
           clientId: this.fieldClient?.id,
           category:
-            this.fieldCategory?.name ?? this.fieldCategory ?? 'Uncategorized',
-          noteId: this.$route?.params?.slug ?? ''
+            this.fieldCategory?.name ?? this.fieldCategory ?? 'Uncategorized'
         }
         if (type === 'DRAFT') {
           input.status = 'DRAFT'
         }
-        await this.createContent(this.noteId, input)
+        await this.createContent(input)
         this.$toast.positive('Content created successfully')
         this.sending = false
         this.$store.commit('subscription/increment')
@@ -474,11 +403,10 @@ export default {
       }
     },
 
-    async createContent(id, input) {
+    async createContent(input) {
       return await this.$apollo.mutate({
-        mutation: CONVERT_NOTE_CONTENT,
+        mutation: CREATE_CONTENT,
         variables: {
-          id,
           input: { ...input }
         },
         update(data) {
@@ -488,7 +416,7 @@ export default {
     },
 
     async onBack() {
-      return await this.$router.push(`/contents/${this.noteId}`)
+      return await this.$router.push(`/contents/`)
     },
 
     onFocusAutocomplete() {

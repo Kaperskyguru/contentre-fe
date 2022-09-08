@@ -17,3 +17,15 @@ export const GET_SUBSCRIPTION_URL = gql`
     }
   }
 `
+
+export const GET_SUBSCRIPTION_PLANS = gql`
+  query getSubscriptionPlans {
+    getSubscriptionPlans {
+      paymentPlanId
+      channel
+      plan {
+        name
+      }
+    }
+  }
+`

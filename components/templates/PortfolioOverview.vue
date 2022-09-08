@@ -181,7 +181,12 @@ export default {
       query: GET_PORTFOLIOS,
       fetchPolicy: 'cache-and-network',
       update(data) {
-        return { items: data.getPortfolios, total: data.getPortfolios.length }
+        const netTotal = data.getPortfolios.meta.netTotal
+        this.$store.commit('subscription/updateTotalPortfolios', netTotal)
+        return {
+          items: data.getPortfolios.portfolios,
+          total: data.getPortfolios.meta.total
+        }
       },
       variables: {
         size: 10,
@@ -194,9 +199,8 @@ export default {
     hasExceededPortfolio() {
       const subValue = this.$utils.getFeatureValue(
         this.subscription,
-        'TOTAL_CONTENTS'
+        'TOTAL_PORTFOLIOS'
       )
-
       if (subValue === 0) return false
       return this.totalNumber >= subValue
     },
@@ -226,12 +230,8 @@ export default {
       this.isDeletePortfolioVisible = !this.isDeletePortfolioVisible
     },
 
-    refetch() {
-      this.$apollo.queries.portfolios.refetch()
-      this.$store.commit(
-        'subscription/updateTotalPortfolios',
-        this.portfolios.total
-      )
+    async refetch() {
+      await this.$apollo.queries.portfolios.refetch()
     },
 
     async deletePortfolio(answer) {
@@ -249,7 +249,7 @@ export default {
         )
         this.$toast.positive('Portfolio deleted successfully')
         this.sending = false
-        this.refetch()
+        await this.refetch()
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false

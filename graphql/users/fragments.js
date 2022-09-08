@@ -10,6 +10,7 @@ export const userFragments = {
       emailConfirmed
       name
       username
+      country
       bio
       homeAddress
       portfolioURL
@@ -29,6 +30,7 @@ export const userFragments = {
       jobTitle
       hasFinishedOnboarding
       totalContents
+      totalPortfolios
       totalUsersReferred
       lastActivityAt
       phoneNumber

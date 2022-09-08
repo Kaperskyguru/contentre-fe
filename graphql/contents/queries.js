@@ -6,6 +6,7 @@ export const GET_CONTENTS = gql`
     getContents(size: $size, skip: $skip, filters: $filters) {
       meta {
         total
+        netTotal
       }
       contents {
         ...content

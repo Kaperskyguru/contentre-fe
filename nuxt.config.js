@@ -26,9 +26,10 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
-      // {
-      //   src: 'https://cdn.tailwindcss.com'
-      // }
+      {
+        src: 'https://cdn.paddle.com/paddle/paddle.js',
+        hid: 'Paddle'
+      }
     ]
   },
 
@@ -65,7 +66,8 @@ export default {
       '~/components/molecules',
       '~/components/organisms',
       '~/components/templates',
-      '~/components/templates/portfolios'
+      '~/components/templates/portfolios',
+      '~/components/organisms/Subscription'
     ]
   },
 
@@ -145,6 +147,8 @@ export default {
 
   env: {
     APP_NAME: process.env.APP_NAME,
+    NODE_ENV: process.env.NODE_ENV,
+    PADDLE_VENDOR: process.env.PADDLE_VENDOR,
     API_URL: process.env.API_URL ?? 'https://test.contentre.io/graphql'
   }
 

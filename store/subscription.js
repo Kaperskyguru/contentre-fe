@@ -28,6 +28,13 @@ export const mutations = {
     state.numberOfContents += payload
   },
 
+  incrementByFeature(state, payload) {
+    if (payload.type === 'portfolio') {
+      state.numberOfPortfolios += 1
+    }
+    if (payload.type === 'content') state.numberOfContents += 1
+  },
+
   updateTotalPortfolios(state, payload) {
     state.numberOfPortfolios = payload
   }
