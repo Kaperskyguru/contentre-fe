@@ -285,7 +285,7 @@ export default {
 
   methods: {
     onShowChildren() {
-      // if (this.isUnderDevelopment) return
+      if (this.isUnderDevelopment) return
       this.showChildren = !this.showChildren
     }
   }
