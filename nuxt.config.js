@@ -96,7 +96,6 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
     '@nuxtjs/apollo',
     // https://i18n.nuxtjs.org
     ['@nuxtjs/i18n', nuxtI18nConfig],
@@ -111,13 +110,6 @@ export default {
     id: 'G-Q2JRSLVRYZ',
     pageTracking: true,
     pageViewEventName: 'virtualPageview'
-  },
-
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
-  pwa: {
-    manifest: {
-      lang: 'en'
-    }
   },
 
   router: {
