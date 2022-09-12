@@ -21,7 +21,7 @@
             <div class="pb-5 border-b-2 border-[#99999966]">
               <div>
                 <div>
-                  <small class="text-[18px] leading-[18px] text-gray-500"
+                  <small class="text-[18px] leading-[18px]"
                     >Premium Yearly (Save 20%)</small
                   >
                   <h4

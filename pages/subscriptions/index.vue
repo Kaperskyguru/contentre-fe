@@ -81,7 +81,9 @@ export default {
 
     redirectToSuccessPage(data) {
       const queries = data?.redirecturl?.split('?')[1]
-      let url = process.env.FE_URL + '/settings/subscription?'
+      const protocol = window.location.protocol + '//'
+      const host = window.location.host
+      let url = protocol + host + '/settings/subscription?'
       if (queries) {
         url += queries
       }
