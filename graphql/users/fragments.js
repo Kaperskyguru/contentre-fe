@@ -20,6 +20,7 @@ export const userFragments = {
         expiry
         updatedAt
         planId
+        channel
         features {
           feature
           value
