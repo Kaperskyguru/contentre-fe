@@ -1,5 +1,4 @@
 import { gql } from 'graphql-tag'
-// import { companyFragments } from '~/graphql/companies/fragments'
 
 export const userFragments = {
   user: gql`
@@ -19,6 +18,8 @@ export const userFragments = {
         id
         name
         expiry
+        updatedAt
+        planId
         features {
           feature
           value
@@ -28,6 +29,7 @@ export const userFragments = {
       paying
       isTrial
       jobTitle
+      isPremium
       hasFinishedOnboarding
       totalContents
       totalPortfolios
@@ -39,17 +41,4 @@ export const userFragments = {
       updatedAt
     }
   `
-
-  //   userRelations: gql`
-  //     fragment userRelations on User {
-  //       activeRole
-  //       activeCompany {
-  //         ...activeCompany
-  //       }
-  //       invitesReceived {
-  //         ...inviteReceived
-  //       }
-  //     }
-  //     ${companyFragments.activeCompany}
-  //   `
 }

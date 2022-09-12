@@ -30,6 +30,10 @@ export default {
         src: 'https://cdn.paddle.com/paddle/paddle.js',
         hid: 'Paddle'
       }
+      // {
+      //   src: 'https://js.paystack.co/v1/inline.js',
+      //   hid: 'Paystack'
+      // }
     ]
   },
 
@@ -96,14 +100,14 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
     '@nuxtjs/apollo',
     // https://i18n.nuxtjs.org
     ['@nuxtjs/i18n', nuxtI18nConfig],
     '@nuxtjs/cloudinary',
 
     // https://github.com/nuxt-community/gtm-module
-    '@nuxtjs/gtm'
+    '@nuxtjs/gtm',
+    'nuxt-paystack'
   ],
 
   gtm: {
@@ -111,13 +115,6 @@ export default {
     id: 'G-Q2JRSLVRYZ',
     pageTracking: true,
     pageViewEventName: 'virtualPageview'
-  },
-
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
-  pwa: {
-    manifest: {
-      lang: 'en'
-    }
   },
 
   router: {
@@ -147,6 +144,7 @@ export default {
 
   env: {
     APP_NAME: process.env.APP_NAME,
+    PAYSTACK_KEY: process.env.PAYSTACK_KEY,
     NODE_ENV: process.env.NODE_ENV,
     PADDLE_VENDOR: process.env.PADDLE_VENDOR,
     API_URL: process.env.API_URL ?? 'https://test.contentre.io/graphql'

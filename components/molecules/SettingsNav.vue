@@ -149,6 +149,63 @@
     </Hyperlink>
 
     <Hyperlink
+      :to="{ name: 'settings/subscription' }"
+      class="
+        flex
+        justify-between
+        items-center
+        py-2
+        px-4
+        text-sm
+        font-semibold
+        text-center text-gray-900
+        bg-white
+        hover:shadow-lg
+      "
+    >
+      <div class="flex items-center">
+        <div
+          class="
+            inline-flex
+            shrink-0
+            justify-center
+            items-center
+            mr-2
+            w-10
+            h-10
+            text-2xl text-black
+            bg-blue-100
+          "
+        >
+          <ShareIcon />
+        </div>
+        <div>
+          <span class="flex">Subscriptions</span>
+          <span class="block text-xs text-teal-600"
+            >View your most active subscription</span
+          >
+        </div>
+      </div>
+      <span class="text-black">
+        <svg
+          width="8"
+          height="12"
+          viewBox="0 0 8 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1.66699 1.33334L6.33366 6L1.66699 10.6667"
+            stroke="#102A27"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+    </Hyperlink>
+
+    <Hyperlink
       :to="{ name: 'settings/apps' }"
       class="
         flex
