@@ -14,7 +14,6 @@
 
 <script>
 import { currentUser } from '~/components/mixins'
-import { GET_SUBSCRIPTION_URL } from '~/graphql'
 export default {
   name: 'NewPayment',
 
@@ -28,6 +27,19 @@ export default {
   head() {
     return {
       title: 'Subscription'
+    }
+  },
+
+  computed: {
+    reference() {
+      let text = ''
+      const possible =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+      for (let i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length))
+
+      return text
     }
   },
 
@@ -72,7 +84,7 @@ export default {
         this.$toast.positive('Payment successfully')
 
         return this.$router.push({
-          path: '/',
+          path: '/settings/subscription',
           query: { ...this.$route.query }
         })
       }
@@ -98,26 +110,36 @@ export default {
       })
     },
 
-    async paystack(data) {
-      try {
-        const {
-          data: { getSubscriptionUrl: subscriptionURL }
-        } = await this.$apollo.query({
-          query: GET_SUBSCRIPTION_URL,
-          variables: {
-            plan: data.plan,
-            service: data.channel
-          },
-          skip() {
-            return !data.plan && !data.channel
-          }
-        })
-        // redirect(subscriptionURL.url)
-        return { subscriptionURL }
-      } catch (e) {
-        // console.log(e)
-        return false
-      }
+    async payWithPaystack(data) {
+      await this.$paystack({
+        key: process.env.PAYSTACK_KEY,
+        email: this.currentUser?.email ?? '',
+        ref: this.reference,
+        plan: data.plan,
+        // currency: 'USD',
+        // start_date: '2022-09-11T21:00:02.000Z',
+        channels: [
+          'card',
+          'bank',
+          'ussd',
+          'qr',
+          'mobile_money',
+          'bank_transfer'
+        ],
+        metadata: { ...data },
+        callback: (d) => {
+          this.$toast.positive('Payment processing')
+
+          const queries = d.redirecturl.split('?')[1]
+
+          this.$router.push({
+            path: '/settings/subscription?' + queries
+          })
+        },
+        onClose: () => {
+          this.$toast.negative('Payment failed, please try again')
+        }
+      })
     },
 
     async onMakePayment(data) {
@@ -125,9 +147,9 @@ export default {
         case 'PADDLE':
           await this.paddle(data)
           break
-        // case 'Paystack':
-        //   await this.paystack(data)
-        //   break
+        case 'PAYSTACK':
+          await this.payWithPaystack(data)
+          break
       }
     }
   }

@@ -30,6 +30,10 @@ export default {
         src: 'https://cdn.paddle.com/paddle/paddle.js',
         hid: 'Paddle'
       }
+      // {
+      //   src: 'https://js.paystack.co/v1/inline.js',
+      //   hid: 'Paystack'
+      // }
     ]
   },
 
@@ -102,7 +106,8 @@ export default {
     '@nuxtjs/cloudinary',
 
     // https://github.com/nuxt-community/gtm-module
-    '@nuxtjs/gtm'
+    '@nuxtjs/gtm',
+    'nuxt-paystack'
   ],
 
   gtm: {
@@ -139,6 +144,7 @@ export default {
 
   env: {
     APP_NAME: process.env.APP_NAME,
+    PAYSTACK_KEY: process.env.PAYSTACK_KEY,
     NODE_ENV: process.env.NODE_ENV,
     PADDLE_VENDOR: process.env.PADDLE_VENDOR,
     API_URL: process.env.API_URL ?? 'https://test.contentre.io/graphql'

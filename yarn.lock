@@ -12933,6 +12933,11 @@ nuxt-graphql-request@^4.3.0:
     graphql-request "^3.7.0"
     ramda "^0.27.1"
 
+nuxt-paystack@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/nuxt-paystack/-/nuxt-paystack-0.0.12.tgz#27c62c8c455d0a898f6c989e9255b08365b5a095"
+  integrity sha512-IaxC8cc1u0WQJXreS4joHgi5QMFPZWy6LIfmbUoKsO7c9M2gKhZkU1ig8Eu77h40U8J0J4Utwt3i+38R3ijqOw==
+
 nuxt@^2.15.8:
   version "2.15.8"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.15.8.tgz#946cba46bdaaf0e3918aa27fd9ea0fed8ed303b0"

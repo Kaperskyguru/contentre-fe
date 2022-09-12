@@ -113,8 +113,6 @@
 
           <div class="py-2 mt-2 w-full">
             <Button
-              :is-pro-feature="true"
-              message="Coming Soon"
               class="w-full"
               appearance="outline"
               @click="makePayment('Paystack')"
