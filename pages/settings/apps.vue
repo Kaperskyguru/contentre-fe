@@ -31,28 +31,36 @@
     <!-- connected apps -->
     <div class="py-2 px-4 bg-white rounded-sm shadow-sm">
       <div class="block w-full text-gray-700 bg-white">
-        <div v-if="apps.items.length" class="block pb-2 text-gray-500">
+        <div v-if="connectedApps.total" class="block pb-2 text-gray-500">
           <p class="mb-4 text-base">Manage and control your connected Apps</p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-2">
         <div
-          v-if="!apps.items.length"
+          v-if="!connectedApps.total"
           class="flex items-center p-3 mx-auto text-center text-gray-400"
         >
           Click "Connect Apps" to select plugins
         </div>
 
         <div
-          v-for="app in apps.items"
+          v-for="app in connectedApps.items"
           v-else
           :key="app.id"
           class="p-3 bg-white rounded-md border shadow-sm"
         >
           <div class="group flex justify-between font-medium text-black">
             <div class="flex bg-transparent" style="font-size: 20px">
-              <MediumIcon />
+              <img
+                class="mx-auto w-10 h-10"
+                :src="
+                  app.app.icon
+                    ? app.app.icon
+                    : 'https://cdn.hashnode.com/res/hashnode/image/upload/v1611902473383/CDyAuTy75.png?auto=compress'
+                "
+                :alt="app.name"
+              />
             </div>
             <div class="text-right">
               <ToggleOnIcon
@@ -89,27 +97,28 @@
 </template>
 
 <script>
-import { GET_APPS } from '~/graphql'
+import { GET_CONNECTED_APPS } from '~/graphql'
 export default {
   name: 'ConnectedApp',
   components: {
     ToggleOnIcon: () => import('~/assets/icons/toggle-on.svg?inline'),
-    ToggleOffIcon: () => import('~/assets/icons/toggle-off.svg?inline'),
-    MediumIcon: () => import('~/assets/icons/medium.svg?inline')
+    ToggleOffIcon: () => import('~/assets/icons/toggle-off.svg?inline')
   },
   data: () => ({
     isUnderDevelopment: true,
     appId: null,
     isAppModalVisible: false,
-    apps: { items: [], total: 0 }
+    connectedApps: { items: [], total: 0 }
   }),
-
   apollo: {
-    apps: {
-      query: GET_APPS,
+    connectedApps: {
+      query: GET_CONNECTED_APPS,
       fetchPolicy: 'cache-and-network',
       update(data) {
-        return { items: data.getApps.apps, total: data.getApps.meta.total }
+        return {
+          items: data.getConnectedApps.apps,
+          total: data.getConnectedApps.meta.total
+        }
       },
       variables() {
         return {
@@ -125,7 +134,6 @@ export default {
       title: 'Settings | Apps'
     }
   },
-
   methods: {
     onOpenApps() {
       this.isAppModalVisible = true
@@ -134,7 +142,7 @@ export default {
       this.appId = id
     },
     refetch() {
-      this.$apollo.queries.apps.refetch()
+      this.$apollo.queries.connectedApps.refetch()
     }
   }
 }

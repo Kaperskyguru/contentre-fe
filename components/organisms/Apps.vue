@@ -10,23 +10,6 @@
       lg:grid-cols-2
     "
   >
-    <div class="p-3 bg-white rounded-md border shadow-sm">
-      <div class="group flex justify-between font-medium text-black">
-        <div class="flex bg-transparent" style="font-size: 20px">
-          <MediumIcon />
-        </div>
-        <div class="text-right">
-          <Button :disabled="isAdded" @click.prevent="onAddApp('Medium')"
-            >Add</Button
-          >
-        </div>
-      </div>
-      <div class="py-10 leading-8">
-        <p class="text-xl font-bold text-teal-600">Medium</p>
-        <p class="text-base text-gray-500">Where good ideas find you.</p>
-      </div>
-    </div>
-
     <div
       v-for="app in apps.items"
       :key="app.id"
@@ -36,8 +19,12 @@
         <div class="flex bg-transparent" style="font-size: 20px">
           <img
             class="mx-auto w-10 h-10"
-            src="https://res.cloudinary.com/practicaldev/image/fetch/s--R9qwOwpC--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/78hs31fax49uwy6kbxyw.png"
-            alt="Dev Community Inc"
+            :src="
+              app.icon
+                ? app.icon
+                : 'https://res.cloudinary.com/practicaldev/image/fetch/s--R9qwOwpC--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/78hs31fax49uwy6kbxyw.png'
+            "
+            :alt="app.name"
           />
         </div>
         <div class="text-right">
@@ -51,16 +38,13 @@
           {{ app.name }}
         </p>
 
-        <!-- Dev Community -->
         <p class="text-base text-gray-500">
-          {{ app.app.description }}
-          <!-- We're a place where coders share, stay up-to-date and grow their
-              careers. -->
+          {{ app.description }}
         </p>
       </div>
     </div>
 
-    <div class="p-3 bg-white rounded-md border shadow-sm">
+    <!-- <div class="p-3 bg-white rounded-md border shadow-sm">
       <div class="group flex justify-between font-medium text-black">
         <div class="flex bg-transparent" style="font-size: 20px">
           <img
@@ -198,18 +182,16 @@
         <p class="text-xl font-bold text-gray-500">Google Calender</p>
         <p class="text-base text-gray-500">Make the most of everyday</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import { CREATE_APP } from '~/graphql'
+import { CREATE_CONNECTED_APP, GET_APPS } from '~/graphql'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Apps',
-  components: {
-    MediumIcon: () => import('~/assets/icons/medium.svg?inline')
-  },
+
   data: () => ({
     isAdded: false,
     apps: {
@@ -217,14 +199,29 @@ export default {
       total: 0
     }
   }),
-
+  apollo: {
+    apps: {
+      query: GET_APPS,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        console.log(data.getApps.apps)
+        return { items: data.getApps.apps, total: data.getApps.meta.total }
+      },
+      variables() {
+        return {
+          size: 30,
+          skip: 0
+          // filters: { ...this.filters }
+        }
+      }
+    }
+  },
   methods: {
     async onAddApp(name) {
       this.sending = true
-
       try {
         await this.$apollo.mutate({
-          mutation: CREATE_APP,
+          mutation: CREATE_CONNECTED_APP,
           variables: {
             input: {
               name

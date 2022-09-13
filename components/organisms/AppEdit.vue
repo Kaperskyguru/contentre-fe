@@ -128,7 +128,7 @@
 
 <script>
 import DataGridCellBlur from '../atoms/DataGridCellBlur.vue'
-import { GET_APP, UPDATE_APP } from '~/graphql'
+import { GET_CONNECTED_APP, UPDATE_CONNECTED_APP } from '~/graphql'
 export default {
   components: { DataGridCellBlur },
   model: {
@@ -185,9 +185,9 @@ export default {
   },
   apollo: {
     app: {
-      query: GET_APP,
+      query: GET_CONNECTED_APP,
       update(data) {
-        return data.getApp
+        return data.getConnectedApp
       },
       variables() {
         return {
@@ -209,7 +209,7 @@ export default {
     async deactivate() {
       try {
         await this.$apollo.mutate({
-          mutation: UPDATE_APP,
+          mutation: UPDATE_CONNECTED_APP,
           variables: {
             id: this.appId,
             input: {
@@ -230,7 +230,7 @@ export default {
       this.sending = true
       try {
         await this.$apollo.mutate({
-          mutation: UPDATE_APP,
+          mutation: UPDATE_CONNECTED_APP,
           variables: {
             id: this.appId,
             input: {

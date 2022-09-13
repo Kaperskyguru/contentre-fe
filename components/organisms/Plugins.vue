@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { GET_APPS } from '~/graphql'
+import { GET_CONNECTED_APPS } from '~/graphql'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -76,12 +76,12 @@ export default {
 
   apollo: {
     apps: {
-      query: GET_APPS,
+      query: GET_CONNECTED_APPS,
       fetchPolicy: 'cache-and-network',
       update(data) {
         return {
-          items: data.getApps.apps.filter((app) => app.isActivated),
-          total: data.getApps.meta.total
+          items: data.getConnectedApps.apps.filter((app) => app.isActivated),
+          total: data.getConnectedApps.meta.total
         }
       },
       variables() {
