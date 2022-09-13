@@ -70,14 +70,6 @@
               :disabled="true"
             />
           </div>
-          <div class="mb-6">
-            <TextField
-              :value="formatDate(subscription.expiry)"
-              class="w-full text-sm"
-              label="Renewal Date"
-              :disabled="true"
-            />
-          </div>
         </div>
 
         <div class="px-4 w-full md:w-1/2 xl:w-1/2">
@@ -87,9 +79,7 @@
                 {{ subscription.name }} Active
               </p>
               <p class="mb-7 leading-relaxed text-center text-gray-900">
-                {{
-                  formatNextPayment(subscription.planId, subscription.expiry)
-                }}
+                {{ formatNextPayment(subscription.expiry) }}
               </p>
             </div>
           </div>
@@ -100,11 +90,17 @@
 </template>
 
 <script>
-import { currentUser } from '~/components/mixins'
+import { GET_CURRENT_USER } from '~/graphql'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Subscription',
-  mixins: [currentUser],
+
+  data: () => ({
+    getUser: {
+      subscription: {},
+      isPremium: false
+    }
+  }),
   head() {
     return {
       title: 'Settings | Subscriptions'
@@ -113,22 +109,36 @@ export default {
 
   computed: {
     btnText() {
-      return this.currentUser.isPremium ? 'Renew' : 'Upgrade'
+      return this.getUser.isPremium ? 'Renew' : 'Upgrade'
     },
     subscription() {
-      return this.currentUser.activeSubscription
+      return this.getUser.subscription
     },
     isPremium() {
-      return this.currentUser.isPremium
+      return this.getUser.isPremium
+    }
+  },
+
+  apollo: {
+    getUser: {
+      query: GET_CURRENT_USER,
+      fetchPolicy: 'cache-and-network',
+      update(data) {
+        return {
+          subscription: data.getCurrentUser.activeSubscription,
+          isPremium: data.getCurrentUser.isPremium
+        }
+      }
     }
   },
 
   methods: {
     formatDate(date) {
+      if (!date) return ''
       return this.$d(new Date(date), 'dateLong')
     },
-    formatNextPayment(planId, date) {
-      return planId
+    formatNextPayment(date) {
+      return this.isPremium
         ? `Your next payment will be: ${this.formatDate(date)}`
         : "You're on the limited-free-forever plan"
     }

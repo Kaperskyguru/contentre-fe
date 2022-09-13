@@ -7,9 +7,6 @@
         <h1 class="text-2xl font-medium text-[#102A27] md:text-4xl lg:text-6xl">
           Get started now, we've got awesome price that fits your purse
         </h1>
-        <!-- <p class="mt-10 text-base leading-[24px] text-[#54605F] lg:mt-16">
-          Start for free and upgrade whenever you're ready.
-        </p> -->
       </div>
     </div>
 
@@ -24,7 +21,7 @@
             <div class="pb-5 border-b-2 border-[#99999966]">
               <div>
                 <div>
-                  <small class="text-[18px] leading-[18px] text-text-gray-500"
+                  <small class="text-[18px] leading-[18px]"
                     >Premium Yearly (Save 20%)</small
                   >
                   <h4
@@ -36,7 +33,7 @@
                       text-[#FFFFFF]
                     "
                   >
-                    $7.99
+                    $99.99
                     <sub class="text-[14px] font-extralight text-gray-300"
                       >per year</sub
                     >
@@ -106,16 +103,12 @@
                 <li class="ml-2">Add Custom domain to Portfolios</li>
               </ul>
 
-              <!-- <ul class="flex text-[14px] mb-3">
+              <ul class="flex mb-3 text-[14px]">
                 <li>
-                  <img
-                    src="~/assets/img/u_check-circle.png"
-                    alt=""
-                    srcset=""
-                  />
+                  <img src="~/assets/img/u_check-circle.png" alt="" srcset="" />
                 </li>
                 <li class="ml-2">Hiring Feature</li>
-              </ul> -->
+              </ul>
 
               <ul class="flex mb-3 text-[14px]">
                 <li>
@@ -247,16 +240,12 @@
                 <li class="ml-2">Add Custom domain to Portfolios</li>
               </ul>
 
-              <!-- <ul class="flex text-[14px] mb-3">
+              <ul class="flex mb-3 text-[14px]">
                 <li>
-                  <img
-                    src="~/assets/img/u_check-circle.png"
-                    alt=""
-                    srcset=""
-                  />
+                  <img src="~/assets/img/u_check-circle.png" alt="" srcset="" />
                 </li>
                 <li class="ml-2">Hiring Feature</li>
-              </ul> -->
+              </ul>
 
               <ul class="flex mb-3 text-[14px]">
                 <li>
@@ -300,11 +289,7 @@
           </div>
         </div>
       </div>
-      <!-- ---------------------------CARD GRID------------ -->
-
-      <!-- </div> -->
     </section>
-    <!-- -------------------------=====================================END OF==SUBSCRIPTION PLAN========================= -->
   </span>
 </template>
 <script>

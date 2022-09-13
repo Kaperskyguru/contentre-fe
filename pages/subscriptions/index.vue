@@ -79,14 +79,24 @@ export default {
       this.tab = name
     },
 
+    redirectToSuccessPage(data) {
+      const queries = data?.redirecturl?.split('?')[1]
+      const protocol = window.location.protocol + '//'
+      const host = window.location.host
+      let url = protocol + host + '/settings/subscription?'
+      if (queries) {
+        url += queries
+      }
+
+      // this.$nextTick(() => {
+      window.location.href = url
+      // })
+    },
+
     checkoutComplete(data) {
       if (data.checkout.completed) {
         this.$toast.positive('Payment successfully')
-
-        return this.$router.push({
-          path: '/settings/subscription',
-          query: { ...this.$route.query }
-        })
+        return this.redirectToSuccessPage(data)
       }
     },
     checkoutClosed(data) {
@@ -129,12 +139,7 @@ export default {
         metadata: { ...data },
         callback: (d) => {
           this.$toast.positive('Payment processing')
-
-          const queries = d.redirecturl.split('?')[1]
-
-          this.$router.push({
-            path: '/settings/subscription?' + queries
-          })
+          return this.redirectToSuccessPage(d)
         },
         onClose: () => {
           this.$toast.negative('Payment failed, please try again')
