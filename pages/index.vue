@@ -1,7 +1,20 @@
 <template>
   <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
+    <div class="flex flex-col justify-between items-center py-4 md:flex-row">
       <PageTitle>Dashboard</PageTitle>
+
+      <div>
+        <Button
+          appearance="primary"
+          :is-pro-feature="hasExceededContent"
+          :message="
+            hasExceededContent ? 'You have exceeded this plan, upgrade now' : ''
+          "
+          @click.prevent="onAddContent"
+        >
+          Add Content
+        </Button>
+      </div>
     </div>
     <section class="container mx-auto">
       <StatOverview :columns="boxColumns" :stats="metadata.stats" />
@@ -77,10 +90,30 @@
     </section>
 
     <!-- End of table -->
+
+    <Dialog v-model="isAddContent">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <LazyAddContent @created="onCreatedContent" />
+        </div>
+      </div>
+      <div class="flex justify-center pt-5 text-xs font-bold text-btn-green">
+        <div @click.prevent="onMultipleUpload">Or bulk import URLs</div>
+      </div>
+    </Dialog>
+
+    <Dialog v-model="isAddMultipleContent">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <LazyUploadMultipleContents @created="onCreatedContent" />
+        </div>
+      </div>
+    </Dialog>
   </section>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { GET_INDEX_METADATA, GET_OVERALL_STATS } from '~/graphql'
 import Rocket from '~/assets/icons/rocket.svg'
 import Show from '~/assets/icons/show.svg'
@@ -95,6 +128,8 @@ export default {
       stats: [],
       revenue: {}
     },
+    isAddContent: false,
+    isAddMultipleContent: false,
     checked: [],
     contentImpact: {
       labels: [],
@@ -178,6 +213,22 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      subscription: (state) => {
+        return state.subscription.subscription
+      },
+      totalNumber: (state) => {
+        return state.subscription.numberOfContents ?? 0
+      }
+    }),
+    hasExceededContent() {
+      const subValue = this.$utils.getFeatureValue(
+        this.subscription,
+        'TOTAL_CONTENTS'
+      )
+      if (subValue === 0) return false
+      return this.totalNumber >= subValue //! (this.totalNumber >= subValue)
+    },
     getRevenueChartData() {
       return this.metadata?.revenue ?? []
     },
@@ -186,6 +237,28 @@ export default {
     },
     getStats() {
       return this.metadata?.box ?? {}
+    }
+  },
+
+  methods: {
+    onAddContent() {
+      this.isAddContent = true
+    },
+    onMultipleUpload() {
+      this.isAddMultipleContent = true
+    },
+
+    onCreatedContent(done) {
+      if (!done) {
+        this.$toast.positive('Content failed')
+        return
+      }
+      this.isAddContent = false
+      this.isAddMultipleContent = false
+      this.$toast.positive('Content created successfully')
+      this.$router.push({
+        path: '/contents'
+      })
     }
   }
 }
