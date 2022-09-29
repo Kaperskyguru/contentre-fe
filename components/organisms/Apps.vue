@@ -28,7 +28,7 @@
           />
         </div>
         <div class="text-right">
-          <Button :disabled="isAdded" @click.prevent="onAddApp(app.name)"
+          <Button :disabled="sending" @click.prevent="onAddApp(app.name)"
             >Add</Button
           >
         </div>

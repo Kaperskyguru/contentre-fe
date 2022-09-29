@@ -1,14 +1,16 @@
 <template>
   <span class="w-full">
-    <div
-      class="text-sm font-medium text-center text-gray-500 dark:text-gray-400"
-    >
+    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
       <tabs
         :options="{ useUrlFragment: false, defaultTabHash: defaultSlug }"
         @changed="onTab"
       >
+        <p v-if="apps.total < 1">
+          Please activate a plugin
+          <nuxt-link class="text-red-600" to="/settings/apps">here</nuxt-link>
+        </p>
         <tab
-          v-for="app in apps.items"
+          v-for="app in apps.total && apps.items"
           :id="app.slug"
           :key="app.id"
           :prefix="`<img class='mx-auto w-4 h-4 mx-2' src='${app.app.icon}' />`"
@@ -26,7 +28,7 @@
       </tabs>
     </div>
 
-    <div v-if="showSubmit" class="flex justify-center mt-5">
+    <div v-if="showSubmit && apps.total > 0" class="flex justify-center mt-5">
       <Button class="mt-5" appearance="outline" @click="$emit('performAction')"
         >Submit</Button
       >
@@ -75,7 +77,7 @@ export default {
       fetchPolicy: 'cache-and-network',
       update(data) {
         const apps = data.getConnectedApps.apps.filter((app) => app.isActivated)
-        this.defaultSlug = apps[0]?.slug
+        this.slug = apps[0]?.slug
         return {
           items: apps,
           total: data.getConnectedApps.meta.total
@@ -94,7 +96,7 @@ export default {
       this.slug = this.generateName(tab.tab.id)
     },
     generateName(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1)
+      if (str) return str.charAt(0).toUpperCase() + str.slice(1)
     },
     addApp(data) {
       this.$emit('add', data)

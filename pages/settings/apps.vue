@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <lazyAppEdit v-model="appId" />
+    <lazyAppEdit v-model="appId" @close="close" />
 
     <Dialog v-model="isAppModalVisible" :is-large="true" title="Apps">
       <div class="block w-full text-gray-700 bg-white">
@@ -135,6 +135,10 @@ export default {
     }
   },
   methods: {
+    close() {
+      this.appId = null
+      this.refetch()
+    },
     onOpenApps() {
       this.isAppModalVisible = true
     },

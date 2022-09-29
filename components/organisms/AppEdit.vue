@@ -148,6 +148,7 @@ export default {
     viewToken: false,
     viewKey: false,
     // fieldActivate: '',
+    sending: false,
     honeyPot: ''
   }),
   validations: {
@@ -219,9 +220,11 @@ export default {
         })
         this.$toast.positive('App deactivated successfully')
         this.sending = false
+        this.$emit('close')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false
+        this.$emit('close')
       }
     },
     async updateApp() {
@@ -243,9 +246,11 @@ export default {
         })
         this.$toast.positive('App updated successfully')
         this.sending = false
+        this.$emit('close')
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false
+        this.$emit('close')
       }
     }
   }
