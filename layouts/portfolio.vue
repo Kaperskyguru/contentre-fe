@@ -61,7 +61,7 @@
             <span class="ml-3 text-xl text-white">Contentre</span>
           </a>
           <p class="pt-2 text-sm text-white">
-            Grow your technical writing career from one place.
+            Portfolio Builder for Tech Writers.
           </p>
         </div>
         <div class="justify-items-end text-right sm:pt-4">
