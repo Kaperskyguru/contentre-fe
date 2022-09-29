@@ -11,3 +11,15 @@ export const CREATE_SOCIAL = gql`
     }
   }
 `
+
+export const UPDATE_SOCIAL = gql`
+  mutation updateSocial($id: ID!, $input: UpdateSocialInput!) {
+    updateSocial(id: $id, input: $input) {
+      id
+      name
+      icon
+      link
+      createdAt
+    }
+  }
+`
