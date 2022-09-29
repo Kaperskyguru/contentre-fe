@@ -94,10 +94,9 @@
         </div>
 
         <div class="mb-6 w-full">
-          <TagsAutocomplete
+          <TopicsAutocomplete
             v-model="$v.fieldTopics.$model"
             label="Topics"
-            :disabled="true"
             class="mr-1 w-full"
             placeholder="Select topics"
             :should-update="false"
@@ -171,7 +170,7 @@ import {
   UPDATE_PORTFOLIO
 } from '~/graphql'
 import { currentUser } from '~/components/mixins/currentUser'
-import { required, hasNoSpace } from '~/plugins/validators'
+import { required } from '~/plugins/validators'
 
 export default {
   name: 'PortfolioEdit',
@@ -221,7 +220,7 @@ export default {
     templates: []
   }),
   validations: {
-    fieldURL: { hasNoSpace },
+    fieldURL: {},
     fieldTags: {},
     fieldTopics: {},
     fieldClient: {},
@@ -368,7 +367,7 @@ export default {
           clientId: this.fieldClient?.id ?? undefined,
           categoryId: this.fieldCategory?.id ?? undefined,
           tags: this.tags,
-          // topics: this.topics,
+          topics: this.topics,
           shouldCustomize: this.shouldCustomize,
           description: this.fieldDescription,
           templateId:

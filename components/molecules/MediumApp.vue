@@ -1,7 +1,7 @@
 <template>
   <div
     :id="app.slug"
-    class="hidden p-4 w-full bg-gray-50 dark:bg-gray-800 rounded-lg"
+    class="p-4 w-full bg-gray-50 dark:bg-gray-800 rounded-lg"
     role="tabpanel"
     :aria-labelledby="`${app.slug}-tab`"
   >
@@ -33,7 +33,7 @@
             <CheckField
               v-model="medium_content_format"
               type="radio"
-              value="html"
+              value="HTML"
               class="text-gray-100"
               >HTML</CheckField
             >
@@ -41,7 +41,7 @@
               v-model="medium_content_format"
               :disabled="true"
               type="radio"
-              value="markdown"
+              value="MARKDOWN"
               class="text-gray-100"
               >MARKDOWN</CheckField
             >
@@ -105,8 +105,8 @@ export default {
     medium_action: 'Publish',
     medium_notifyFollowers: false,
     medium_content_canonical_url: '',
-    medium_content_format: 'html',
-    medium_publish_status: ''
+    medium_content_format: 'HTML',
+    medium_publish_status: 'DRAFT'
   }),
 
   methods: {

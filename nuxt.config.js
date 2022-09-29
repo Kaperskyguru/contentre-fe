@@ -42,7 +42,8 @@ export default {
     '@/assets/css/main.css',
     'medium-editor/dist/css/medium-editor.min.css',
     'vuejs-medium-editor/src/themes/default.css',
-    'highlight.js/styles/ocean.css'
+    'highlight.js/styles/ocean.css',
+    '@/assets/css/tabs.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -52,7 +53,8 @@ export default {
     '~/plugins/toast',
     '~/plugins/currentUser',
     { src: '~/plugins/CKEditor', mode: 'client' },
-    { src: '~/plugins/medium-editor', ssr: false }
+    { src: '~/plugins/medium-editor', ssr: false },
+    { src: '~/plugins/vue-tabs', ssr: false }
   ],
 
   cloudinary: {

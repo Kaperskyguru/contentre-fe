@@ -71,6 +71,7 @@
                 v-model="$v.fieldName.$model"
                 label="Select social media"
                 placeholder="Facebook"
+                @update:value="onChangeSocial"
               >
                 <option
                   v-for="(item, itemIndex) in socials"
@@ -91,7 +92,19 @@
               />
             </div>
 
-            <div class="flex justify-center items-center mt-4 w-full">
+            <div
+              v-if="isEdit"
+              class="flex justify-center items-center mt-4 w-full"
+            >
+              <Button
+                class="w-1/2"
+                appearance="outline-red"
+                @click.prevent="onUpdate"
+              >
+                Update
+              </Button>
+            </div>
+            <div v-else class="flex justify-center items-center mt-4 w-full">
               <Button class="w-1/2" type="submit"> Add </Button>
             </div>
           </Form>
@@ -111,7 +124,12 @@
 </template>
 
 <script>
-import { CREATE_SOCIAL, GET_SOCIALS } from '~/graphql'
+import {
+  CREATE_SOCIAL,
+  GET_SOCIALS,
+  GET_SOCIAL_BY_NAME,
+  UPDATE_SOCIAL
+} from '~/graphql'
 import { isURL, hasLetter } from '~/plugins/validators'
 export default {
   data: () => ({
@@ -119,6 +137,7 @@ export default {
     fieldName: '',
     fieldIcon: '',
     fieldLink: '',
+    isEdit: false,
     socials: [
       {
         name: 'Facebook',
@@ -161,6 +180,58 @@ export default {
     }
   },
   methods: {
+    async onChangeSocial(selected) {
+      try {
+        const {
+          data: { getSocialByName: social }
+        } = await this.$apollo.query({
+          query: GET_SOCIAL_BY_NAME,
+          variables: {
+            name: selected
+          }
+        })
+
+        this.fieldLink = social.link
+        this.isEdit = true
+        this.socialId = social.id
+      } catch (error) {
+        this.isEdit = false
+        this.fieldLink = null
+        this.socialId = null
+      }
+    },
+
+    async onUpdate() {
+      if (this.honeyPot) return
+
+      if (await this.isValidationInvalid()) return
+
+      this.sending = true
+
+      const input = {
+        link: this.fieldLink || undefined
+      }
+
+      try {
+        await this.$apollo.mutate({
+          mutation: UPDATE_SOCIAL,
+          variables: {
+            id: this.socialId,
+            input
+          },
+          update: (cache, { data: { updatedSocial } }) => {
+            this.$apollo.queries.getSocials.refetch()
+          }
+        })
+
+        this.$toast.positive('Social updated successfully')
+        this.sending = false
+      } catch (error) {
+        this.$toast.negative(error.message)
+        this.sending = false
+      }
+    },
+
     async onCreateSocial() {
       if (this.honeyPot) return
 

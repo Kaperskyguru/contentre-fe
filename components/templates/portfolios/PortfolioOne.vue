@@ -243,9 +243,8 @@
                   <div class="">
                     <p class="text-3xl text-white">Get in touch with me.</p>
                     <p class="mt-10 text-[#B0C8C5]" style="font-size: 14px">
-                      Etiam lorem urna volutpat ultrices. Nisl ut aliquet
-                      viverra ipsum in placerat interdum. Scelerisque enim felis
-                      nunc facilisi. Aliquet eu morbi justo, ac aucto
+                      If you don't like forms, you can contact me directly from
+                      the details below. I respond with the speed of light :)
                     </p>
                   </div>
                   <div class="mt-44">

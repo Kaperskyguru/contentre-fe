@@ -147,6 +147,13 @@ export default {
     if (callbackPaths.includes(this.$route.fullPath)) {
       this.isOnboarding = true
     }
+
+    this.fieldName = this.currentUser?.name ?? ''
+    this.fieldEmail = this.currentUser?.email ?? ''
+    // this.fieldBio = this.currentUser?.bio ?? ''
+    this.fieldPhoneNumber = this.currentUser?.phoneNumber ?? ''
+    this.fieldJobTitle = this.currentUser?.jobTitle ?? ''
+    this.fieldHomeAddress = this.currentUser?.homeAddress ?? ''
   },
 
   methods: {

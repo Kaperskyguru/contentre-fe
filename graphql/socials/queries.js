@@ -16,3 +16,15 @@ export const GET_SOCIALS = gql`
     }
   }
 `
+
+export const GET_SOCIAL_BY_NAME = gql`
+  query getSocialByName($name: String!) {
+    getSocialByName(name: $name) {
+      id
+      name
+      icon
+      link
+      createdAt
+    }
+  }
+`

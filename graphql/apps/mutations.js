@@ -1,8 +1,8 @@
 import { gql } from 'graphql-tag'
 
-export const CREATE_APP = gql`
-  mutation createApp($input: CreateAppInput!) {
-    createApp(input: $input) {
+export const CREATE_CONNECTED_APP = gql`
+  mutation createConnectedApp($input: CreateAppInput!) {
+    createConnectedApp(input: $input) {
       id
       name
       token
@@ -12,9 +12,9 @@ export const CREATE_APP = gql`
   }
 `
 
-export const UPDATE_APP = gql`
-  mutation updateApp($id: ID!, $input: UpdateAppInput!) {
-    updateApp(id: $id, input: $input) {
+export const UPDATE_CONNECTED_APP = gql`
+  mutation updateConnectedApp($id: ID!, $input: UpdateAppInput!) {
+    updateConnectedApp(id: $id, input: $input) {
       id
       name
       token

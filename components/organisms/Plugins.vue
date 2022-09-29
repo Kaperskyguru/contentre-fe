@@ -1,61 +1,58 @@
 <template>
   <span class="w-full">
-    <div
-      class="
-        text-sm
-        font-medium
-        text-center text-gray-500
-        dark:text-gray-400
-        border-b border-gray-200
-        dark:border-gray-700
-      "
-    >
-      <ul id="tabs" class="flex flex-wrap -mb-px">
-        <li v-for="app in apps.items" :key="app.id" class="mr-2">
-          <a
-            :id="`${app.slug}-tab`"
-            :href="`#${app.slug}`"
-            class="
-              inline-block
-              p-4
-              hover:text-gray-600
-              dark:hover:text-gray-300
-              rounded-t-lg
-              border-b-2 border-transparent
-              hover:border-blue-500
-            "
-            :data-tabs-target="`#${app.slug}`"
-            type="button"
-            role="tab"
-            :aria-controls="app.slug"
-            aria-selected="false"
-          >
-            {{ app.name }}
-          </a>
-        </li>
-      </ul>
+    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
+      <tabs
+        :options="{ useUrlFragment: false, defaultTabHash: defaultSlug }"
+        @changed="onTab"
+      >
+        <p v-if="apps.total < 1">
+          Please activate a plugin
+          <nuxt-link class="text-red-600" to="/settings/apps">here</nuxt-link>
+        </p>
+        <tab
+          v-for="app in apps.total && apps.items"
+          :id="app.slug"
+          :key="app.id"
+          :prefix="`<img class='mx-auto w-4 h-4 mx-2' src='${app.app.icon}' />`"
+          :name="app.name"
+        >
+          <div>
+            <component
+              :is="$utils.checkCallback(`${slug}App`)"
+              :key="app.id"
+              :app="app"
+              @add="addApp"
+            />
+          </div>
+        </tab>
+      </tabs>
     </div>
 
-    <div id="myTabContent">
-      <component
-        :is="$utils.checkCallback(`${generateName(app.slug)}App`, [app])"
-        v-for="app in apps.items"
-        :key="app.id"
-        :app="app"
-        @add="addApp"
-      />
+    <div v-if="showSubmit && apps.total > 0" class="flex justify-center mt-5">
+      <Button class="mt-5" appearance="outline" @click="$emit('performAction')"
+        >Submit</Button
+      >
     </div>
   </span>
 </template>
 
 <script>
-import { GET_APPS } from '~/graphql'
+import { GET_CONNECTED_APPS } from '~/graphql'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Plugins',
 
+  props: {
+    showSubmit: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data: () => ({
+    slug: 'devto',
+    defaultSlug: '',
     apps: {
       items: [],
       total: 0
@@ -69,19 +66,21 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(async () => {
-      await this.tabToggle()
-    })
+    this.defaultSlug = this.getActivatedApps[0]?.slug
+    if (this.getActivatedApps.length)
+      this.slug = this.generateName(this.getActivatedApps[0]?.slug)
   },
 
   apollo: {
     apps: {
-      query: GET_APPS,
+      query: GET_CONNECTED_APPS,
       fetchPolicy: 'cache-and-network',
       update(data) {
+        const apps = data.getConnectedApps.apps.filter((app) => app.isActivated)
+        this.slug = apps[0]?.slug
         return {
-          items: data.getApps.apps.filter((app) => app.isActivated),
-          total: data.getApps.meta.total
+          items: apps,
+          total: data.getConnectedApps.meta.total
         }
       },
       variables() {
@@ -93,47 +92,18 @@ export default {
   },
 
   methods: {
+    onTab(tab) {
+      this.slug = this.generateName(tab.tab.id)
+    },
     generateName(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1)
+      if (str) return str.charAt(0).toUpperCase() + str.slice(1)
     },
     addApp(data) {
       this.$emit('add', data)
-    },
-
-    async tabToggle() {
-      await this.$nextTick()
-      const tabsContainer = document.querySelector('#tabs')
-
-      const tabTogglers = tabsContainer.querySelectorAll('a')
-
-      tabTogglers.forEach(function (toggler) {
-        toggler.addEventListener('click', function (e) {
-          e.preventDefault()
-
-          const tabName = this.getAttribute('href')
-
-          const tabContents = document.querySelector('#myTabContent')
-
-          for (let i = 0; i < tabContents.children.length; i++) {
-            tabTogglers[i].parentElement.classList.remove('active')
-            tabContents.children[i].classList.remove('hidden')
-            if ('#' + tabContents.children[i].id === tabName) {
-              continue
-            }
-            tabContents.children[i].classList.add('hidden')
-          }
-          e.target.parentElement.classList.add('active')
-        })
-      })
-
-      if (tabTogglers.length) document.getElementById(tabTogglers[0].id).click()
     }
   }
 }
 </script>
 
 <style scoped>
-.active {
-  @apply text-blue-600 dark:text-blue-500 rounded-t-lg border-b-2 border-blue-600 dark:border-blue-500;
-}
 </style>

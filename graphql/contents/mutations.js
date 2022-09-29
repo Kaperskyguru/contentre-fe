@@ -37,6 +37,15 @@ export const UPLOAD_MULTIPLE_CONTENT = gql`
   ${contentFragments.content}
 `
 
+export const PULL_MULTIPLE_CONTENT = gql`
+  mutation pullMultipleContent($input: PullContentInput!) {
+    pullMultipleContent(input: $input) {
+      ...content
+    }
+  }
+  ${contentFragments.content}
+`
+
 export const DELETE_BULK_CONTENT = gql`
   mutation deleteBulkContent($input: DeleteBulkContentInput!) {
     deleteBulkContent(input: $input)
