@@ -55,6 +55,8 @@
               id="dropdownDividerButton"
               class="dropdown"
               data-dropdown-toggle="dropdownDivider"
+              @mouseover="contentOpen = true"
+              @mouseleave="contentOpen = false"
             >
               <Hyperlink
                 to="#"
@@ -73,6 +75,32 @@
               >
                 <ContentIcon />
                 <span class="flex-1 ml-3 whitespace-nowrap">Contents</span>
+
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  :class="{
+                    'rotate-180': contentOpen,
+                    'rotate-0': !contentOpen
+                  }"
+                  class="
+                    inline
+                    mt-1
+                    ml-1
+                    w-4
+                    h-4
+                    transition-transform
+                    duration-200
+                    md:-mt-1
+                  "
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    c
+                    lip-rule="evenodd"
+                  ></path>
+                </svg>
               </Hyperlink>
 
               <div
@@ -192,6 +220,8 @@
               id="dropdownDividerButton"
               class="dropdown"
               data-dropdown-toggle="dropdownDivider"
+              @mouseover="groupingOpen = true"
+              @mouseleave="groupingOpen = false"
             >
               <Hyperlink
                 to="#"
@@ -210,6 +240,32 @@
               >
                 <GroupingIcon />
                 <span class="flex-1 ml-3 whitespace-nowrap">Groupings</span>
+
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  :class="{
+                    'rotate-180': groupingOpen,
+                    'rotate-0': !groupingOpen
+                  }"
+                  class="
+                    inline
+                    mt-1
+                    ml-1
+                    w-4
+                    h-4
+                    transition-transform
+                    duration-200
+                    md:-mt-1
+                  "
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    c
+                    lip-rule="evenodd"
+                  ></path>
+                </svg>
               </Hyperlink>
               <div
                 id="dropdownDivider"
@@ -319,7 +375,7 @@ import { currentUser } from '../mixins/currentUser'
 import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
 import ContentIcon from '~/assets/icons/content.svg?inline'
-import PortfolioIcon from '~/assets/icons/porfolio.svg?inline'
+import PortfolioIcon from '~/assets/icons/portfolio.svg?inline'
 import GroupingIcon from '~/assets/icons/client.svg?inline'
 
 export default {
@@ -336,6 +392,8 @@ export default {
   mixins: [currentUser],
 
   data: () => ({
+    groupingOpen: false,
+    contentOpen: false,
     isSidebarCollapsed: false
   }),
 

@@ -22,7 +22,7 @@
       </div>
 
       <div>
-        <FavouriteField :selected="checked" />
+        <FavouriteField :selected="checked" @deleted="onDeleteSuccess" />
       </div>
 
       <div>
@@ -326,6 +326,7 @@ export default {
 
     onDeleteSuccess() {
       this.$apollo.queries.contents.refetch()
+      this.$emit('deleted')
     },
 
     onItemClick({ id }) {

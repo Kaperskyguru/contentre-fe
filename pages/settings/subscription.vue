@@ -55,7 +55,7 @@
 
           <div class="mb-6">
             <TextField
-              v-model="subscription.channel"
+              v-model="channel"
               class="w-full text-sm"
               label="Payment Channel"
               :disabled="true"
@@ -108,6 +108,9 @@ export default {
   },
 
   computed: {
+    channel() {
+      return this.subscription?.channel ?? 'NONE'
+    },
     btnText() {
       return this.getUser.isPremium ? 'Renew' : 'Upgrade'
     },

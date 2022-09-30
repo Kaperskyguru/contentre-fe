@@ -139,7 +139,11 @@
         </div>
       </div>
       <div class="flex justify-end">
-        <Button @click.prevent="addHashnode">Add App</Button>
+        <Button
+          :disabled="isPublishDisabled && isRetrievedDisabled"
+          @click.prevent="addHashnode"
+          >Add App</Button
+        >
       </div>
     </div>
   </div>
@@ -151,6 +155,10 @@ export default {
     app: {
       type: Object,
       default: () => {}
+    },
+    options: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -169,10 +177,22 @@ export default {
   computed: {
     isPublish() {
       return this.hashnode_action === 'Publish'
+    },
+    isPublishDisabled() {
+      const plugin = this.getPlugin()
+      return plugin && plugin.publish !== undefined ? !plugin.publish : false
+    },
+
+    isRetrievedDisabled() {
+      const plugin = this.getPlugin()
+      return plugin && plugin.retrieve !== undefined ? !plugin.retrieve : false
     }
   },
 
   methods: {
+    getPlugin() {
+      return this.options.filter((item) => item.plugin === 'hashnode')[0]
+    },
     addHashnode() {
       const hashnode = {
         action: this.hashnode_action,

@@ -117,6 +117,7 @@
         <div class="flex justify-between w-full text-gray-700 bg-white">
           <Plugins
             :show-submit="true"
+            :options="options"
             @add="onAddPlugin"
             @performAction="onPerformAction"
           />
@@ -143,7 +144,12 @@ export default {
   data: () => ({
     isConfirmModalVisible: false,
     isPluginVisible: false,
-    plugins: []
+    plugins: [],
+    options: [
+      { plugin: 'medium', retrieve: false, publish: false },
+      { plugin: 'devto', retrieve: true, publish: false },
+      { plugin: 'hashnode', retrieve: true, publish: false }
+    ]
   }),
 
   methods: {
