@@ -231,7 +231,7 @@ import { mapState } from 'vuex'
 import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
 import ContentIcon from '~/assets/icons/content.svg?inline'
-import PortfolioIcon from '~/assets/icons/porfolio.svg?inline'
+import PortfolioIcon from '~/assets/icons/portfolio.svg?inline'
 import ClientIcon from '~/assets/icons/client.svg?inline'
 export default {
   components: {
