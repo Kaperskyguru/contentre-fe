@@ -18,6 +18,7 @@
           >
           <CheckField
             v-model="medium_action"
+            :disabled="isRetrievedDisabled"
             type="radio"
             value="Retrieve"
             class="text-gray-100"
@@ -86,7 +87,11 @@
       </div>
 
       <div class="flex justify-end">
-        <Button @click.prevent="addMedium">Add App</Button>
+        <Button
+          :disabled="isPublishDisabled && isRetrievedDisabled"
+          @click.prevent="addMedium"
+          >Add App</Button
+        >
       </div>
     </div>
   </div>
@@ -98,6 +103,10 @@ export default {
     app: {
       type: Object,
       default: () => {}
+    },
+    options: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -109,10 +118,25 @@ export default {
     medium_publish_status: 'DRAFT'
   }),
 
+  computed: {
+    isPublishDisabled() {
+      const plugin = this.getPlugin()
+      return plugin && plugin.publish !== undefined ? !plugin.publish : false
+    },
+
+    isRetrievedDisabled() {
+      const plugin = this.getPlugin()
+      return plugin && plugin.retrieve !== undefined ? !plugin.retrieve : false
+    }
+  },
+
   methods: {
+    getPlugin() {
+      return this.options.filter((item) => item.plugin === 'medium')[0]
+    },
     addMedium() {
       const medium = {
-        // action: this.medium_action,
+        action: this.medium_action,
         contentFormat: this.medium_content_format,
         notifyFollowers: this.medium_notifyFollowers,
         canonicalUrl: this.medium_content_canonical_url,

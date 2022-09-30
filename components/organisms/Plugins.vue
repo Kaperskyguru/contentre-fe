@@ -21,6 +21,7 @@
               :is="$utils.checkCallback(`${slug}App`)"
               :key="app.id"
               :app="app"
+              :options="options"
               @add="addApp"
             />
           </div>
@@ -47,6 +48,10 @@ export default {
     showSubmit: {
       type: Boolean,
       default: false
+    },
+    options: {
+      type: Array,
+      default: () => []
     }
   },
 

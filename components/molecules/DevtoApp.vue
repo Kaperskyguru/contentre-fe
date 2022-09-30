@@ -12,12 +12,14 @@
           <CheckField
             v-model="devto_action"
             type="radio"
+            :disabled="isPublishDisabled"
             value="Publish"
             class="text-gray-100"
             >Publish</CheckField
           >
           <CheckField
             v-model="devto_action"
+            :disabled="isRetrievedDisabled"
             type="radio"
             value="Retrieve"
             class="text-gray-100"
@@ -153,7 +155,11 @@
       </div>
 
       <div class="flex justify-end">
-        <Button @click.prevent="addDevto">Add App</Button>
+        <Button
+          :disabled="isPublishDisabled && isRetrievedDisabled"
+          @click.prevent="addDevto"
+          >Add App</Button
+        >
       </div>
     </div>
   </div>
@@ -165,6 +171,10 @@ export default {
     app: {
       type: Object,
       default: () => {}
+    },
+    options: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -184,10 +194,22 @@ export default {
   computed: {
     isPublish() {
       return this.devto_action === 'Publish'
+    },
+    isPublishDisabled() {
+      const plugin = this.getPlugin()
+      return plugin && plugin.publish !== undefined ? !plugin.publish : false
+    },
+
+    isRetrievedDisabled() {
+      const plugin = this.getPlugin()
+      return plugin && plugin.retrieve !== undefined ? !plugin.retrieve : false
     }
   },
 
   methods: {
+    getPlugin() {
+      return this.options.filter((item) => item.plugin === 'devto')[0]
+    },
     addDevto() {
       const devto = {
         action: this.devto_action,
