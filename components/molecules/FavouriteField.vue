@@ -35,7 +35,7 @@
 
       <span class="inline-block relative">
         <button
-          :disabled="isDisabled"
+          :disabled="true"
           class="
             text-2xl
             leading-10
