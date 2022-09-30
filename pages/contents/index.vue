@@ -3,7 +3,11 @@
     <div class="flex justify-between items-center py-4">
       <PageTitle>Contents</PageTitle>
     </div>
-    <ContentOverview :checked.sync="checked" :on-boarded="onBoarded" />
+    <ContentOverview
+      :checked.sync="checked"
+      :on-boarded="onBoarded"
+      @deleted="onDeleted"
+    />
 
     <Dialog v-model="isAddMultipleContent">
       <div class="block w-full text-gray-700 bg-white">
@@ -48,6 +52,9 @@ export default {
   },
 
   methods: {
+    onDeleted() {
+      this.checked = []
+    },
     onCreatedContent(done) {
       this.isAddMultipleContent = false
       this.$router.push('/')
