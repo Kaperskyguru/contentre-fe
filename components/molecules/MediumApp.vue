@@ -12,6 +12,7 @@
           <CheckField
             v-model="medium_action"
             type="radio"
+            :disabled="isPublishDisabled"
             value="Publish"
             class="text-gray-100"
             >Publish</CheckField
