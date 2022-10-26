@@ -173,7 +173,7 @@
             mr-2
             w-10
             h-10
-            text-2xl text-black
+            text-2xl text-[#286963]
             bg-blue-100
           "
         >
@@ -298,7 +298,7 @@
             mr-2
             w-10
             h-10
-            text-2xl text-black
+            text-2xl text-[#286963]
             bg-blue-100
           "
         >

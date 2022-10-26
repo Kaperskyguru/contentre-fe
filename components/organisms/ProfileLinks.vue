@@ -57,7 +57,7 @@
         "
       >
         <span>Profile Links</span>
-        <div class="flex">
+        <div class="flex text-[#286963]">
           <ShareIcon />
 
           <span class="ml-5 text-black">

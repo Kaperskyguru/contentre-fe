@@ -5,6 +5,7 @@ export const portfolioFragments = {
     fragment portfolio on Portfolio {
       id
       title
+      isPremium
       template {
         content
         id

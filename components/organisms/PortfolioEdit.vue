@@ -106,7 +106,7 @@
           />
         </div>
       </section>
-      <section v-if="!isEditing" class="p-3 mb-6 border">
+      <!-- <section v-if="!isEditing" class="p-3 mb-6 border">
         <div class="mb-6">
           <DropdownField
             v-model="$v.fieldTemplate.$model"
@@ -132,7 +132,7 @@
           @changed="onShouldCustomize"
           >Customize New Template</CheckField
         >
-      </section>
+      </section> -->
 
       <div
         class="
@@ -186,6 +186,11 @@ export default {
     portfolioId: {
       default: null,
       type: String
+    },
+
+    templateId: {
+      type: String,
+      default: null
     },
 
     isDeletePortfolioVisible: {
@@ -357,13 +362,8 @@ export default {
         this.sending = true
         this.$toast.message = ''
 
-        // const url = process.server
-        //   ? 'https://contentre.io'
-        //   : `${window.location.protocol}//${window.location.host}`
-
         const input = {
           title: this.fieldTitle,
-          // url: `${url}/${currentUser.username}?type=${this.fieldURL}`,
           clientId: this.fieldClient?.id ?? undefined,
           categoryId: this.fieldCategory?.id ?? undefined,
           tags: this.tags,
@@ -371,14 +371,16 @@ export default {
           shouldCustomize: this.shouldCustomize,
           description: this.fieldDescription,
           templateId:
-            this.fieldTemplate === 'blank' ? undefined : this.fieldTemplate
+            this.templateId.toLowerCase() === 'blank'
+              ? undefined
+              : this.templateId
         }
 
         if (isAnyDirty) {
           if (this.isEditing) {
             this.$emit('updated', await this.updatePortfolio(input))
           } else {
-            this.$emit('created', await this.createPortfolio(input))
+            return this.$emit('created', await this.createPortfolio(input))
           }
         }
 

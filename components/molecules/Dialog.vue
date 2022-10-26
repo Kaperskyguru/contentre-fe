@@ -1,5 +1,5 @@
 <template>
-  <Portal selector="#portal-dialog">
+  <Portal selector="#portal-dialog" class="">
     <transition
       enter-active-class="transition-opacity duration-200"
       leave-active-class="transition-opacity duration-300"
@@ -16,6 +16,7 @@
           left-0
           z-40
           place-items-center
+          p-3
           w-full
           h-full
           bg-gray-500

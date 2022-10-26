@@ -12,16 +12,7 @@
       </div> -->
 
       <div>
-        <Button
-          :is-pro-feature="hasExceededPortfolio"
-          :message="
-            hasExceededPortfolio
-              ? 'You have exceeded this plan, upgrade now'
-              : ''
-          "
-          @click.prevent="onAddPortfolio"
-          >Add Portfolio</Button
-        >
+        <Button @click.prevent="onAddPortfolio">Add Portfolio</Button>
       </div>
     </section>
 
@@ -46,69 +37,13 @@
       />
     </div>
 
-    <section class="container mx-auto mt-8">
-      <div class="mb-5">
-        <div class="flex justify-between items-center py-4">
-          <h2 class="font-gilroy text-2xl font-semibold leading-tight">
-            Portfolios
-          </h2>
-        </div>
-        <div class="flex flex-wrap">
-          <!-- Portfolio 1 -->
-          <div
-            v-for="(portfolio, i) in portfolios.items"
-            :key="i"
-            class="p-4 mb-4 w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3"
-          >
-            <article class="overflow-hidden p-4 bg-white rounded-lg shadow">
-              <!-- <div class="w-full">
-                <a href="#">
-                  <img
-                    alt="Placeholder"
-                    class="block w-full h-auto"
-                    src="~/assets/img/portfolio-pic2.png"
-                  />
-                </a>
-              </div> -->
-              <header class="py-4 leading-tight">
-                <span class="font-bold text-gray-900">
-                  {{ portfolio.title }}
-                </span>
-              </header>
-
-              <div class="py-4 w-full">
-                <p>{{ portfolio.description }}</p>
-              </div>
-
-              <div
-                class="
-                  flex flex-col
-                  mb-5
-                  space-y-2 space-x-0
-                  text-center
-                  md:flex-row md:space-y-0 md:space-x-2
-                "
-              >
-                <Button
-                  class="w-full"
-                  appearance="secondary"
-                  @click.prevent="onDeletePortfolio(portfolio.id)"
-                  >Delete</Button
-                >
-                <Button
-                  class="w-full"
-                  @click.prevent="onEditPortfolio(portfolio.id)"
-                  >Edit</Button
-                >
-              </div>
-              <a target="_blank" class="text-red-700" :href="portfolio.url"
-                >Preview as new page</a
-              >
-            </article>
-          </div>
-          <!-- End Portfolio 1 -->
-        </div>
-      </div>
+    <section class="z-10 mt-8 w-full">
+      <UserPortfolios
+        :portfolios="portfolios"
+        @create="onAddPortfolio"
+        @edit="onEditPortfolio"
+        @delete="onDeletePortfolio"
+      />
     </section>
 
     <LazyPortfolioEdit
@@ -116,6 +51,10 @@
       :portfolio-id="portfolioId"
       @toggle="refetch"
     />
+
+    <Dialog v-model="isUpgradeModalVisible" :is-large="true">
+      <UpgradeModal @back="back">You've hit your portfolio limit</UpgradeModal>
+    </Dialog>
 
     <Dialog
       v-model="isDeletePortfolioVisible"
@@ -149,6 +88,9 @@ export default {
     isConfirmModalVisible: false,
     isDeletePortfolioVisible: false,
     isUnderDevelopment: true,
+    isUpgradeModalVisible: false,
+    activePortfolioId: null,
+    menu: false,
     checked: [],
     columns: [],
     boxColumns: [
@@ -215,9 +157,16 @@ export default {
   },
   methods: {
     onFilters() {},
+    back() {
+      this.isUpgradeModalVisible = false
+    },
     onAddPortfolio() {
+      if (this.hasExceededPortfolio) {
+        this.isUpgradeModalVisible = true
+        return
+      }
       this.portfolioId = null
-      this.isConfirmModalVisible = true
+      this.$router.push('/portfolios/samples')
     },
 
     onEditPortfolio(id) {
@@ -228,6 +177,13 @@ export default {
     onDeletePortfolio(id) {
       this.portfolioId = id
       this.isDeletePortfolioVisible = !this.isDeletePortfolioVisible
+    },
+
+    onOpenSubMenu(id = '') {
+      this.menu = !this.menu
+
+      if (this.menu) this.activePortfolioId = id
+      else this.activePortfolioId = null
     },
 
     async refetch() {
@@ -258,6 +214,12 @@ export default {
   }
 }
 </script>
-
 <style>
+.trans-enter-active {
+  transition: all 1s ease;
+}
+
+.trans-leave-active {
+  transition: all 1s ease;
+}
 </style>
