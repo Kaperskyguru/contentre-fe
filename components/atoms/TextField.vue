@@ -66,8 +66,7 @@
           'border-red-500': (!disabled && !!error) || isOnboarding,
           'border-silver hover:bg-white hover:border-btn-green focus-within:border-btn-green focus-within:bg-white':
             !disabled && !error && !isOnboarding,
-          'border-silver bg-warngray hover:bg-warngray bg-opacity-10':
-            !!disabled,
+          'border-silver bg-warngray bg-opacity-10': !!disabled,
           border: showBorder
         }
       ]"
@@ -172,7 +171,7 @@
             'pl-3': !$slots['prepend-inner'],
             'pr-1': !!$slots['append-inner'],
             'pr-3': !$slots['append-inner'],
-            'bg-gray-100': disabled,
+            'bg-warngray': disabled,
             'w-full': $attrs.type !== 'websiteURL'
           }
         ]"

@@ -39,7 +39,6 @@
         :id="uid"
         ref="elementRef"
         v-model="topic"
-        class="my-2"
         hide-arrow-down
         :placeholder="placeholder"
         :label-class="labelClass"

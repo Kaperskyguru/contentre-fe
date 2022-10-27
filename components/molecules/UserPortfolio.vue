@@ -66,7 +66,7 @@
                   </p>
                 </div>
 
-                <a target="_blank" :href="portfolio.url">
+                <a target="_blank" :href="url">
                   <div
                     class="
                       flex
@@ -153,6 +153,11 @@ export default {
     portfolio: {
       type: Object,
       default: () => {}
+    }
+  },
+  computed: {
+    url() {
+      return this.portfolio?.domain ?? this.portfolio.url
     }
   },
   methods: {

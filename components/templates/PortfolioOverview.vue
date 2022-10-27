@@ -56,6 +56,10 @@
       <UpgradeModal @back="back">You've hit your portfolio limit</UpgradeModal>
     </Dialog>
 
+    <Dialog v-model="isCreateNewModalVisible" :is-large="true">
+      <CreateNew />
+    </Dialog>
+
     <Dialog
       v-model="isDeletePortfolioVisible"
       primary-text="Confirm"
@@ -89,6 +93,7 @@ export default {
     isDeletePortfolioVisible: false,
     isUnderDevelopment: true,
     isUpgradeModalVisible: false,
+    isCreateNewModalVisible: false,
     activePortfolioId: null,
     menu: false,
     checked: [],
@@ -166,7 +171,7 @@ export default {
         return
       }
       this.portfolioId = null
-      this.$router.push('/portfolios/samples')
+      this.isCreateNewModalVisible = true
     },
 
     onEditPortfolio(id) {

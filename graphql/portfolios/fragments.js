@@ -17,6 +17,9 @@ export const portfolioFragments = {
       url
       type
       description
+      googleAnalyticId
+      domain
+      password
       createdAt
       updatedAt
     }
