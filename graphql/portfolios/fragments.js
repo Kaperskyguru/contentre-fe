@@ -12,6 +12,7 @@ export const portfolioFragments = {
         template {
           id
           type
+          demoLink
           image
         }
       }

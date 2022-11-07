@@ -23,6 +23,7 @@ export const GET_TEMPLATES = gql`
       title
       image
       slug
+      demoLink
     }
   }
 `

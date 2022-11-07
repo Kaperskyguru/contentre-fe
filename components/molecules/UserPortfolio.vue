@@ -158,13 +158,19 @@ export default {
   },
   computed: {
     getImage() {
+      if (this.isCustomized) {
+        return 'https://res.cloudinary.com/kaperskydisk/image/upload/v1667820583/contentre/assets/customizer.png'
+      }
       return (
         this.portfolio?.userTemplate?.template?.image ??
-        require('~/assets/img/Portfolio-One.png')
+        'https://res.cloudinary.com/kaperskydisk/image/upload/v1667834666/contentre/assets/default_portfolio.png'
       )
     },
     url() {
       return this.portfolio?.domain ?? this.portfolio.url
+    },
+    isCustomized() {
+      return this.portfolio?.userTemplate?.template?.type === 'CUSTOMIZED'
     }
   },
   methods: {

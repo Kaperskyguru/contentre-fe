@@ -184,8 +184,9 @@ export default {
         }
         const newPortfolio = await this.createPortfolio(input)
 
+        // console.log(newPortfolio)
         this.$router.push(
-          `/portfolios/customizer/?id=${newPortfolio?.template?.id}`
+          `/portfolios/customizer/?id=${newPortfolio?.userTemplate?.id}`
         )
       } catch (error) {
         this.$toast.negative(error.message)
@@ -217,13 +218,16 @@ export default {
     },
 
     async createPortfolio(input) {
-      return await this.$apollo.mutate({
+      const portfolio = await this.$apollo.mutate({
         mutation: CREATE_PORTFOLIO,
         variables: { input },
         update: (cache, { data: { createPortfolio: portfolio } }) => {
-          return portfolio
+          return {
+            ...portfolio
+          }
         }
       })
+      return portfolio.data.createPortfolio
     }
   }
 }

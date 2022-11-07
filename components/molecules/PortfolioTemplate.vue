@@ -50,7 +50,8 @@
                 class="w-full"
                 appearance="outline"
                 type="link"
-                href="http://contentre.io/templates/portfolio-one"
+                target="_blank"
+                :href="template.demoLink"
               >
                 Preview Sample
               </Button>
@@ -96,7 +97,10 @@ export default {
 
   computed: {
     getImage() {
-      return this.template?.image ?? require('~/assets/img/Portfolio-One.png')
+      return (
+        this.template?.image ??
+        'https://res.cloudinary.com/kaperskydisk/image/upload/v1667834666/contentre/assets/default_portfolio.png'
+      )
     }
   },
 
