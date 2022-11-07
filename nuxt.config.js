@@ -51,6 +51,7 @@ export default {
     '~/plugins/vuelidate',
     '~/plugins/utils',
     '~/plugins/toast',
+    '~/plugins/segment',
     '~/plugins/currentUser',
     { src: '~/plugins/CKEditor', mode: 'client' },
     { src: '~/plugins/medium-editor', ssr: false },

@@ -7,8 +7,7 @@
       <div class="">
         <Button
           :appearance="max ? 'secondary' : 'outline-red'"
-          to="/subscriptions?tab=Plan"
-          type="link"
+          @click.prevent="subscribe"
         >
           {{ btnText }}
         </Button>
@@ -34,11 +33,13 @@
 
 <script>
 import ProgressBar from 'vue-simple-progress'
+import { currentUser } from '~/components/mixins'
 export default {
   name: 'UpgradE',
   components: {
     ProgressBar
   },
+  mixins: [currentUser],
   props: {
     contents: {
       type: Number,
@@ -64,6 +65,22 @@ export default {
     computeTotal() {
       // if (!this.max) return 100
       return this.max * 100
+    }
+  },
+
+  methods: {
+    async subscribe() {
+      await this.$segment({
+        operation: 'identify'
+      })
+      await this.$segment({
+        eventName: 'Viewed Subscriptions Page',
+        data: {
+          from: this.max ? 'Upgrade' : 'Renew',
+          user: this.currentUser
+        }
+      })
+      this.$router.push('/subscriptions?tab=Plan')
     }
   }
 }
