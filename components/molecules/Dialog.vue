@@ -11,6 +11,7 @@
         role="presentation"
         class="
           grid
+          overflow-y-auto
           fixed
           top-0
           left-0

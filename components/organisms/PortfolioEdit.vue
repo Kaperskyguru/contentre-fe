@@ -438,7 +438,7 @@ export default {
         this.fieldTitle = this.portfolio?.title ?? ''
         this.fieldURL = this.portfolio?.domain ?? this.portfolio?.url
         this.fieldDescription = this.portfolio?.description
-        this.fieldTemplate = this.portfolio?.template?.title
+        this.fieldTemplate = this.portfolio?.template?.id
         this.fieldGoogleAnalyticId = this.portfolio?.googleAnalyticId
         this.fieldPassword = this.portfolio?.password
       } else {
@@ -452,6 +452,7 @@ export default {
     },
 
     async createPortfolio(input) {
+      console.log(input)
       return await this.$apollo.mutate({
         mutation: CREATE_PORTFOLIO,
         variables: { input },

@@ -6,12 +6,13 @@ export const portfolioFragments = {
       id
       title
       isPremium
-      template {
+      userTemplate {
         content
         id
         template {
           id
           type
+          image
         }
       }
       url

@@ -17,9 +17,10 @@
       "
     >
       <img
-        src="~/assets/img/Portfolio.png"
+        :src="getImage"
         class="w-full h-full rounded-xl"
-        alt=""
+        style="object-fit: contain"
+        :alt="portfolio.title"
       />
       <div
         v-if="portfolio.isPremium"
@@ -156,6 +157,12 @@ export default {
     }
   },
   computed: {
+    getImage() {
+      return (
+        this.portfolio?.userTemplate?.template?.image ??
+        require('~/assets/img/Portfolio-One.png')
+      )
+    },
     url() {
       return this.portfolio?.domain ?? this.portfolio.url
     }

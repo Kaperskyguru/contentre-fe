@@ -16,12 +16,8 @@
       @click.prevent="$emit('add')"
     >
       <div>
-        <div class="flex justify-center">
-          <img
-            src="~/assets/img/add-icon.png"
-            alt=""
-            class="w-[40px] group-hover:shadow-lg"
-          />
+        <div class="flex justify-center pb-1">
+          <BigAddIcon />
         </div>
         <p class="font-semibold">Create New</p>
       </div>
@@ -30,7 +26,11 @@
 </template>
 
 <script>
-export default {}
+export default {
+  components: {
+    BigAddIcon: () => import('~/assets/icons/big-add.svg?inline')
+  }
+}
 </script>
 
 <style>

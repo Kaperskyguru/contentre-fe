@@ -57,7 +57,7 @@
     </Dialog>
 
     <Dialog v-model="isCreateNewModalVisible" :is-large="true">
-      <CreateNew />
+      <CreateNew :portfolios="portfolios" />
     </Dialog>
 
     <Dialog

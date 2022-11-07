@@ -7,6 +7,7 @@
         relative
         justify-center
         items-center
+        w-full
         h-[400px]
         rounded-xl
         transition
@@ -14,13 +15,14 @@
         card-banner
       "
     >
-      <img
-        src="~/assets/img/Portfolio-One.png"
-        class="w-full h-full rounded-xl"
-        style="object-fit: cover"
-        alt=""
-      />
-
+      <div class="w-full h-full rounded-xl">
+        <img
+          :src="getImage"
+          class="w-full h-full rounded-xl"
+          style="object-fit: cover"
+          :alt="template.title"
+        />
+      </div>
       <div
         class="
           absolute
@@ -43,8 +45,9 @@
               </h3>
             </div>
 
-            <div class="flex-col pt-3 space-y-2 card-actionList btn-dg">
+            <div class="flex-col pt-3 space-y-2 w-full card-actionList btn-dg">
               <Button
+                class="w-full"
                 appearance="outline"
                 type="link"
                 href="http://contentre.io/templates/portfolio-one"
@@ -52,7 +55,10 @@
                 Preview Sample
               </Button>
 
-              <Button @click.prevent="onAddPortfolio(template.title)">
+              <Button
+                class="w-full"
+                @click.prevent="onAddPortfolio(template.id)"
+              >
                 Use This Sample
               </Button>
             </div>
@@ -87,6 +93,12 @@ export default {
     templateId: null,
     isConfirmModalVisible: false
   }),
+
+  computed: {
+    getImage() {
+      return this.template?.image ?? require('~/assets/img/Portfolio-One.png')
+    }
+  },
 
   methods: {
     onAddPortfolio(id) {

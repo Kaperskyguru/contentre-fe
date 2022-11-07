@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="w-full">
     <PortfolioTemplates :templates="templates" title="Technical Writing" />
   </section>
 </template>
