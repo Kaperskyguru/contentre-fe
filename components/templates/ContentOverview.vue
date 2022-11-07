@@ -26,14 +26,7 @@
       </div>
 
       <div>
-        <Button
-          appearance="primary"
-          :is-pro-feature="hasExceededContent"
-          :message="
-            hasExceededContent ? 'You have exceeded this plan, upgrade now' : ''
-          "
-          @click.prevent="onAddContent"
-        >
+        <Button appearance="primary" @click.prevent="onAddContent">
           Add Content
         </Button>
       </div>
@@ -83,6 +76,10 @@
       v-model="contentId"
       @deleted="onDeleteSuccess"
     ></LazyContentEdit>
+
+    <Dialog v-model="isUpgradeModalVisible" :is-large="true">
+      <UpgradeModal @back="back">You've hit your content limit</UpgradeModal>
+    </Dialog>
   </span>
 </template>
 
@@ -112,6 +109,7 @@ export default {
   data: () => ({
     contentId: null,
     isAddMultipleContent: false,
+    isUpgradeModalVisible: false,
     searchedTerm: '',
     num: 0,
     isAddCategory: false,
@@ -275,10 +273,17 @@ export default {
   },
 
   methods: {
+    back() {
+      this.isUpgradeModalVisible = false
+    },
     onMultipleUpload() {
       this.isAddMultipleContent = true
     },
     onAddContent() {
+      if (this.hasExceededPortfolio) {
+        this.isUpgradeModalVisible = true
+        return
+      }
       this.isAddContent = true
     },
 

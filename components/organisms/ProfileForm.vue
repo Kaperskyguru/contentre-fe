@@ -149,7 +149,7 @@ export default {
     }
 
     this.fieldName = this.currentUser?.name ?? ''
-    this.fieldEmail = this.currentUser?.email ?? ''
+    // this.fieldEmail = this.currentUser?.email ?? ''
     // this.fieldBio = this.currentUser?.bio ?? ''
     this.fieldPhoneNumber = this.currentUser?.phoneNumber ?? ''
     this.fieldJobTitle = this.currentUser?.jobTitle ?? ''
@@ -190,7 +190,7 @@ export default {
       const input = {
         name: this.fieldName || undefined,
         jobTitle: this.fieldJobTitle || undefined,
-        email: this.fieldEmail || undefined,
+        // email: this.fieldEmail || undefined,
         homeAddress: this.fieldHomeAddress || undefined,
         bio: this.fieldBio || undefined,
         phoneNumber: this.fieldPhoneNumber || undefined,

@@ -127,7 +127,4 @@ export default {
 </script>
 
 <style scoped>
-.teal-300 {
-  background: #4fd1c5;
-}
 </style>

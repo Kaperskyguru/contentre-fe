@@ -41,6 +41,7 @@
             tooltipClass
           ]"
           :style="absolutePosition"
+          style="z-index: 100"
         >
           {{ label }}
         </span>

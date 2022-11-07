@@ -109,6 +109,10 @@
         </div>
       </div>
     </Dialog>
+
+    <Dialog v-model="isUpgradeModalVisible" :is-large="true">
+      <UpgradeModal @back="back">You've hit your content limit</UpgradeModal>
+    </Dialog>
   </section>
 </template>
 
@@ -130,6 +134,8 @@ export default {
     },
     isAddContent: false,
     isAddMultipleContent: false,
+
+    isUpgradeModalVisible: false,
     checked: [],
     contentImpact: {
       labels: [],
@@ -241,7 +247,14 @@ export default {
   },
 
   methods: {
+    back() {
+      this.isUpgradeModalVisible = false
+    },
     onAddContent() {
+      if (this.hasExceededPortfolio) {
+        this.isUpgradeModalVisible = true
+        return
+      }
       this.isAddContent = true
     },
     onMultipleUpload() {

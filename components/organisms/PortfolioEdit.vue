@@ -8,51 +8,38 @@
 
     <Loading v-if="$apollo.loading" class="flex flex-1 items-center h-full" />
     <form class="w-full" @submit.prevent="onSubmit">
-      <div class="mb-6">
-        <TextField
-          v-model="$v.fieldTitle.$model"
-          type="text"
-          class="w-full text-sm"
-          label="Title"
-          placeholder="Enter your portfolio title"
-          :error="getValidationMessage($v.fieldTitle)"
-        />
-      </div>
-      <input
-        v-model="$v.honeyPot.$model"
-        type="text"
-        class="absolute invisible"
-      />
-      <div v-if="portfolioId" class="mb-6 w-full">
-        <TextField
-          v-model="$v.fieldURL.$model"
-          class="w-full text-sm"
-          label="URL"
-          type="websiteURL"
-          disabled
-          enterkeyhint="next"
-          maxlength="2048"
-          autocomplete="url"
-          :error="getValidationMessage($v.fieldURL)"
-        >
-        </TextField>
-      </div>
-
-      <section class="mb-6">
-        <TextField
-          v-model="$v.fieldDescription.$model"
-          :rows="5"
-          type="text"
-          class="w-full text-sm"
-          label="Description"
-          placeholder="Enter your description"
-          :error="getValidationMessage($v.fieldDescription)"
-        />
-      </section>
-
-      <section class="p-3 mb-6 border">
+      <section class="p-3 mb-3 border">
         <div class="mb-6">
-          <div class="mb-5 text-darksilver"><p>Content rules:</p></div>
+          <TextField
+            v-model="$v.fieldTitle.$model"
+            type="text"
+            class="w-full text-sm"
+            label="Title"
+            placeholder="Enter your portfolio title"
+            :error="getValidationMessage($v.fieldTitle)"
+          />
+        </div>
+        <input
+          v-model="$v.honeyPot.$model"
+          type="text"
+          class="hidden absolute invisible"
+        />
+
+        <div class="mb-3">
+          <TextField
+            v-model="$v.fieldDescription.$model"
+            :rows="3"
+            type="text"
+            class="w-full text-sm"
+            label="Description"
+            placeholder="Enter your description"
+            :error="getValidationMessage($v.fieldDescription)"
+          />
+        </div>
+      </section>
+      <section class="p-3 mb-3 border">
+        <div class="mb-5 text-darksilver"><p>Content rules:</p></div>
+        <div class="mb-6">
           <ClientsAutocomplete
             id="1"
             key="autocomplete"
@@ -93,7 +80,7 @@
           />
         </div>
 
-        <div class="mb-6 w-full">
+        <div class="mb-3 w-full">
           <TopicsAutocomplete
             v-model="$v.fieldTopics.$model"
             label="Topics"
@@ -106,7 +93,117 @@
           />
         </div>
       </section>
-      <section v-if="!isEditing" class="p-3 mb-6 border">
+
+      <section class="p-3 mb-3 border">
+        <div class="mb-5 text-darksilver"><p>Premium features:</p></div>
+        <div class="mb-6 w-full">
+          <TextField
+            v-model="$v.fieldURL.$model"
+            class="w-full text-sm"
+            label="Custom Domain"
+            type="websiteURL"
+            disabled
+            enterkeyhint="next"
+            maxlength="2048"
+            autocomplete="url"
+            :error="
+              !isPremium
+                ? 'This is a premium feature'
+                : getValidationMessage($v.fieldURL)
+            "
+          >
+            <template #append-inner>
+              <Tooltip
+                :label="`Learn more`"
+                :trigger="['hover', 'focus']"
+                position="top"
+              >
+                <a
+                  href="#"
+                  target="_blank"
+                  tabindex="0"
+                  class="
+                    mr-1
+                    rounded-full
+                    outline-none
+                    ring-0
+                    transition-all
+                    cursor-pointer
+                  "
+                >
+                  <IconInformationCircle
+                    class="object-contain w-5 h-5 fill-current"
+                  />
+                </a>
+              </Tooltip>
+            </template>
+          </TextField>
+        </div>
+        <div class="mb-6">
+          <TextField
+            v-model="$v.fieldGoogleAnalyticId.$model"
+            :disabled="!isPremium"
+            type="text"
+            class="w-full text-sm"
+            label="Google Analytic ID"
+            placeholder="Enter your Google Analytics ID"
+            :error="
+              !isPremium
+                ? 'This is a premium feature'
+                : getValidationMessage($v.fieldGoogleAnalyticId)
+            "
+          >
+            <template #append-inner>
+              <Tooltip
+                :label="`Learn more`"
+                :trigger="['hover', 'focus']"
+                position="top"
+              >
+                <a
+                  href="#"
+                  target="_blank"
+                  tabindex="0"
+                  class="
+                    mr-1
+                    rounded-full
+                    outline-none
+                    ring-0
+                    transition-all
+                    cursor-pointer
+                  "
+                >
+                  <IconInformationCircle
+                    class="object-contain w-5 h-5 fill-current"
+                  />
+                </a>
+              </Tooltip>
+            </template>
+          </TextField>
+        </div>
+        <div class="mb-6">
+          <CheckField
+            v-model="passwordProtected"
+            class="text-gray-100"
+            @changed="onPasswordProtected"
+            >Password Protected</CheckField
+          >
+          <TextField
+            v-if="disabled"
+            v-model="$v.fieldPassword.$model"
+            type="password"
+            class="w-full text-sm"
+            label="Password"
+            placeholder="Enter your password"
+            :error="
+              !isPremium
+                ? 'This is a premium feature'
+                : getValidationMessage($v.fieldPassword)
+            "
+          />
+        </div>
+      </section>
+
+      <!-- <section v-if="!isEditing" class="p-3 mb-6 border">
         <div class="mb-6">
           <DropdownField
             v-model="$v.fieldTemplate.$model"
@@ -132,13 +229,13 @@
           @changed="onShouldCustomize"
           >Customize New Template</CheckField
         >
-      </section>
+      </section> -->
 
       <div
         class="
           flex flex-col
           pt-2
-          mb-6
+          mb-1
           space-y-4 space-x-0
           md:flex-row md:space-y-0 md:space-x-4
         "
@@ -175,6 +272,11 @@ import { required } from '~/plugins/validators'
 export default {
   name: 'PortfolioEdit',
 
+  components: {
+    IconInformationCircle: () =>
+      import('~/assets/icons/information-circle.svg?inline')
+  },
+
   mixins: [currentUser],
 
   model: {
@@ -186,6 +288,11 @@ export default {
     portfolioId: {
       default: null,
       type: String
+    },
+
+    templateId: {
+      type: String,
+      default: null
     },
 
     isDeletePortfolioVisible: {
@@ -211,7 +318,10 @@ export default {
     fieldCategory: '',
     fieldClient: '',
     shouldCustomize: false,
+    passwordProtected: false,
+    fieldGoogleAnalyticId: '',
     fieldDescription: '',
+    fieldPassword: '',
     fieldTopics: '',
     fieldTemplate: '',
     honeyPot: '',
@@ -220,12 +330,14 @@ export default {
     templates: []
   }),
   validations: {
+    fieldGoogleAnalyticId: {},
     fieldURL: {},
     fieldTags: {},
     fieldTopics: {},
     fieldClient: {},
     fieldCategory: {},
     fieldTemplate: {},
+    fieldPassword: {},
     fieldTitle: {
       required
     },
@@ -266,6 +378,9 @@ export default {
     getTemplateId() {
       return this.portfolio?.template?.id
     },
+    isPremium() {
+      return this.currentUser?.isPremium
+    },
 
     isCustomized() {
       return this.portfolio?.template?.template?.type === 'CUSTOMIZED'
@@ -303,6 +418,9 @@ export default {
     onShouldCustomize() {
       this.disabled = !this.disabled
     },
+    onPasswordProtected() {
+      this.disabled = !this.disabled
+    },
     onUpdateTags(tags) {
       this.showAutoComplete = false
       this.fieldTags = tags
@@ -318,19 +436,23 @@ export default {
 
       if (this.visible && this.portfolio) {
         this.fieldTitle = this.portfolio?.title ?? ''
-        this.fieldURL = this.portfolio?.url
+        this.fieldURL = this.portfolio?.domain ?? this.portfolio?.url
         this.fieldDescription = this.portfolio?.description
-        this.fieldTemplate = this.portfolio?.template?.title
-        // this.fieldCategory =
+        this.fieldTemplate = this.portfolio?.template?.id
+        this.fieldGoogleAnalyticId = this.portfolio?.googleAnalyticId
+        this.fieldPassword = this.portfolio?.password
       } else {
         this.fieldTitle = ''
         this.fieldURL = ''
         this.fieldDescription = ''
         this.fieldTemplate = ''
+        this.fieldGoogleAnalyticId = ''
+        this.fieldPassword = ''
       }
     },
 
     async createPortfolio(input) {
+      console.log(input)
       return await this.$apollo.mutate({
         mutation: CREATE_PORTFOLIO,
         variables: { input },
@@ -357,28 +479,28 @@ export default {
         this.sending = true
         this.$toast.message = ''
 
-        // const url = process.server
-        //   ? 'https://contentre.io'
-        //   : `${window.location.protocol}//${window.location.host}`
-
         const input = {
           title: this.fieldTitle,
-          // url: `${url}/${currentUser.username}?type=${this.fieldURL}`,
+          googleAnalyticId: this.fieldGoogleAnalyticId,
           clientId: this.fieldClient?.id ?? undefined,
           categoryId: this.fieldCategory?.id ?? undefined,
           tags: this.tags,
           topics: this.topics,
+          password: this.fieldPassword,
+          domain: this.fieldURL,
           shouldCustomize: this.shouldCustomize,
           description: this.fieldDescription,
           templateId:
-            this.fieldTemplate === 'blank' ? undefined : this.fieldTemplate
+            this.templateId.toLowerCase() === 'blank'
+              ? undefined
+              : this.templateId
         }
 
         if (isAnyDirty) {
           if (this.isEditing) {
             this.$emit('updated', await this.updatePortfolio(input))
           } else {
-            this.$emit('created', await this.createPortfolio(input))
+            return this.$emit('created', await this.createPortfolio(input))
           }
         }
 

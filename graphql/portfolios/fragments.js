@@ -5,17 +5,23 @@ export const portfolioFragments = {
     fragment portfolio on Portfolio {
       id
       title
-      template {
+      isPremium
+      userTemplate {
         content
         id
         template {
           id
           type
+          demoLink
+          image
         }
       }
       url
       type
       description
+      googleAnalyticId
+      domain
+      password
       createdAt
       updatedAt
     }

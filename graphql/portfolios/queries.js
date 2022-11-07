@@ -21,7 +21,9 @@ export const GET_TEMPLATES = gql`
     getTemplates(size: $size, skip: $skip, filters: $filters) {
       id
       title
+      image
       slug
+      demoLink
     }
   }
 `

@@ -35,7 +35,6 @@
         :id="uid"
         ref="elementRef"
         v-model="tag"
-        class="my-2"
         hide-arrow-down
         :placeholder="placeholder"
         :label-class="labelClass"
