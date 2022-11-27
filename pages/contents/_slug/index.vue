@@ -69,7 +69,7 @@
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import TurndownService from 'turndown'
-import { GET_NOTE, UPDATE_NOTE } from '~/graphql'
+import { CREATE_NOTE, GET_NOTE, UPDATE_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 
 export default {
@@ -88,15 +88,14 @@ export default {
       },
       variables() {
         return {
-          id: this.$route.params?.slug
+          id: this.noteId
         }
       },
       skip() {
-        return !this.$route.params?.slug
+        return !this.noteId
       }
     }
   },
-
   data: () => ({
     editor: ClassicEditor,
     content: null,
@@ -208,10 +207,6 @@ export default {
     fieldTitle: {
       required,
       hasLetter
-    },
-    fieldExcerpt: {
-      required,
-      hasLetter
     }
   },
   head() {
@@ -220,18 +215,12 @@ export default {
     }
   },
 
-  watch: {
-    '$route.params': {
-      immediate: true,
-      handler(params) {
-        this.contentId = params.slug
-      }
-    }
-  },
+  async mounted() {
+    // Get from LocalDB
+    const content = await this.getLocalDraft('kap')
 
-  mounted() {
-    this.defaultValue = `${this.getContent(this.savedNote)}`
-    this.fieldTitle = this.savedNote?.title
+    this.defaultValue = content?.content ?? `${this.getContent(this.savedNote)}`
+    this.fieldTitle = content?.title ?? this.savedNote?.title
 
     // const _this = this
     // this.$nextTick(() => {
@@ -300,13 +289,12 @@ export default {
         editable.textContent = turndown.turndown(s)
       }
 
-      const contents = {
+      const content = {
         title: this.fieldTitle,
-        content: this.content,
-        id: this.contentId
+        content: this.content
       }
-      // Save to state
-      await this.$store.commit('content/saveContent', contents)
+
+      await this.saveDraft('kap', content)
       this.saved = false
     },
 
@@ -314,8 +302,9 @@ export default {
       try {
         const content = {
           title: this.fieldTitle,
-          content: this.content ?? undefined
+          content: this.content ?? ''
         }
+        await this.saveDraft('kap', content)
         await this.updateDraft(content)
         this.$toast.positive('Note saved successfully')
       } catch (error) {
@@ -324,22 +313,57 @@ export default {
     },
 
     async updateDraft(input) {
-      if (!this.contentId) return
+      if (!this.$route?.query?.id) return
       await this.$store.commit('content/saveContent', {
-        id: this.contentId,
+        id: this.$route?.query?.id,
         ...input
       })
       return await this.$apollo.mutate({
         mutation: UPDATE_NOTE,
         variables: {
-          id: this.contentId,
+          id: this.$route?.query?.id,
           input: { ...input }
         },
 
         skip() {
-          return !this.contentId
+          return !this.$route?.query?.id
         }
       })
+    },
+
+    async getLocalDraft(key) {
+      return await this.$store.dispatch('content/getDraft', { key })
+    },
+
+    async saveDraft(key, input) {
+      await this.$store.dispatch('content/saveDraft', {
+        data: input,
+        key
+      })
+
+      if (!this.$route?.query?.id) this.createNote(input)
+    },
+
+    async createNote(input) {
+      if (await this.isValidationInvalid()) return
+      const {
+        data: { createNote: note }
+      } = await this.$apollo.mutate({
+        mutation: CREATE_NOTE,
+        variables: {
+          input
+        }
+      })
+
+      if (note)
+        return await this.$router.push({
+          path: `/contents/esdf`,
+          query: {
+            ...this.$route.query,
+            type: 'note',
+            id: note.id
+          }
+        })
     },
 
     async onPublish() {
@@ -349,7 +373,9 @@ export default {
           content: this.content
         }
         await this.updateDraft(content)
-        return await this.$router.push(`/contents/${this.contentId}/publish`)
+        return await this.$router.push(
+          `/contents/${this.$route?.query?.id}/publish`
+        )
       } catch (error) {
         this.$toast.negative(error.message)
       }

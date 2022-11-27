@@ -36,6 +36,7 @@
     "grapesjs-plugin-ckeditor": "^0.0.10",
     "grapesjs-preset-webpage": "^0.1.11",
     "graphql": "^16.2.0",
+    "localforage": "^1.10.0",
     "medium-editor": "^5.23.3",
     "medium-editor-markdown": "^3.2.2",
     "nuxt": "^2.15.8",

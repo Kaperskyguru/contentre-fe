@@ -1,7 +1,7 @@
 // import MeetupEvents from '~/Services/Scrappers/event-scrapper'
 
+import localDB from 'localforage'
 import { GET_CONTENT, GET_NOTE } from '~/graphql'
-
 export const state = () => ({
   numberOfContents: 0,
   numberOfPortfolios: 0,
@@ -39,6 +39,46 @@ export const getters = {
 }
 
 export const actions = {
+  async saveDraft({ commit }, { key, data }) {
+    try {
+      localDB.config({
+        name: 'gjs-contentre',
+        storeName: 'notes',
+        driver: [localDB.INDEXEDDB, localDB.LOCALSTORAGE]
+      })
+
+      await localDB.setItem(key, data)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async getDraft({ commit }, { key }) {
+    try {
+      localDB.config({
+        name: 'gjs-contentre',
+        storeName: 'notes',
+        driver: [localDB.INDEXEDDB, localDB.LOCALSTORAGE]
+      })
+      return await localDB.getItem(key)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async removeDraft({ commit }, { key }) {
+    try {
+      localDB.config({
+        name: 'gjs-contentre',
+        storeName: 'notes',
+        driver: [localDB.INDEXEDDB, localDB.LOCALSTORAGE]
+      })
+      return await localDB.removeItem(key)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
   async getNote({ commit }, { slug, client }) {
     const {
       data: { getNote: savedNote }

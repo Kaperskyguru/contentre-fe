@@ -334,7 +334,7 @@
                   </div>
                 </div>
                 <Hyperlink
-                  :to="{ path: `/contents/${item.id}?type=NOTE` }"
+                  :to="{ path: `/contents/add?type=NOTE&id=${item.id}` }"
                   class="min-w-[10.72rem]"
                 >
                   <div
