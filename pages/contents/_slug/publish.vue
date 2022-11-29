@@ -369,15 +369,21 @@ export default {
     }
   },
 
-  created() {
-    this.fieldExcerpt = `${this.generateExcerpt(this.savedNote?.content) ?? ''}`
-    this.fieldTitle = this.savedNote?.title
+  async mounted() {
+    const content = await this.getLocalDraft(this.noteId)
+    this.fieldExcerpt = this.generateExcerpt(
+      content?.content ?? this.savedNote?.content
+    )
+    this.fieldTitle = content?.title ?? this.savedNote?.title
 
     // Find first image in content
     this.coverImage = this.findFirstImage()
   },
 
   methods: {
+    async getLocalDraft(key) {
+      return await this.$store.dispatch('content/getDraft', { key })
+    },
     findFirstImage() {
       const regex = /<img.+?src=[\\'"]([^\\'"]+)[\\'"].*?>/i
       const image = this.savedNote?.content?.match(regex)
@@ -405,6 +411,7 @@ export default {
       this.$toast.positive(`${name} plugin added successfully`)
     },
     generateExcerpt(content) {
+      if (!content) return ''
       return (
         content &&
         content.substring(0, 140).replace(/<\/p>/g, '').concat('</p>')
@@ -467,6 +474,10 @@ export default {
         this.sending = false
         this.$store.commit('subscription/increment')
 
+        // Remove local draft
+        await this.$store.dispatch('content/removeDraft', {
+          key: this.noteId
+        })
         return this.$router.push(`/contents`)
       } catch (error) {
         this.$toast.negative(error.message)
@@ -488,7 +499,7 @@ export default {
     },
 
     async onBack() {
-      return await this.$router.push(`/contents/${this.noteId}`)
+      return await this.$router.push(`/contents/add?tpe=note&id=${this.noteId}`)
     },
 
     onFocusAutocomplete() {

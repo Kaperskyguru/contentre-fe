@@ -16,7 +16,7 @@
           :show-border="false"
           :autofocus="true"
           :error="getValidationMessage($v.fieldTitle)"
-          @update:value="onUpdateTitle"
+          @update:value="onChange"
         ></TextField>
 
         <section class="flex flex-row space-x-2 w-full h-full">
@@ -48,29 +48,68 @@
           md:flex-row md:space-y-0 md:space-x-4
         "
       >
-        <Button> Publish </Button>
+        <Button appearance="outline" @click.prevent="saveNote">
+          Save Note
+        </Button>
+        <Button @click.prevent="onPublish"> Publish </Button>
       </div>
     </section>
+
+    <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload Image">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="justify-between w-full text-gray-700 bg-white">
+          <UploadImage />
+        </div>
+      </div>
+    </Dialog>
   </section>
   <!-- end of page -->
 </template>
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-// import MeMarkdown from 'medium-editor-markdown'
 import TurndownService from 'turndown'
-import { CREATE_NOTE } from '~/graphql'
+import { CREATE_NOTE, GET_NOTE, UPDATE_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
-// import MediumEditor from 'medium-editor'
 
 export default {
   name: 'AddPage',
+
+  components: {
+    // IconPencil: () => import('~/assets/icons/pencil.svg?inline')
+  },
   layout: 'Dashboard',
+
+  apollo: {
+    savedNote: {
+      query: GET_NOTE,
+      update(data) {
+        const note = data.getNote
+        this.defaultValue = note.content
+        this.fieldTitle = note.title
+        return note
+      },
+      variables() {
+        return {
+          id: this.noteId
+        }
+      },
+      skip() {
+        return !this.noteId
+      }
+    }
+  },
+
   data: () => ({
     editor: ClassicEditor,
-    content: '',
+    content: null,
     defaultValue: '',
-    savedContent: null,
+    isImageModalVisible: false,
+    isTagModalVisible: false,
+    savedNote: {},
+    noteId: null,
+    saved: false,
+    tags: [],
     fieldTitle: '',
     showMarkdown: false,
     editorConfig: {
@@ -85,7 +124,7 @@ export default {
       subscribeToMeEditableInput: true,
       imgur: true,
       placeholder: {
-        text: 'Write your heart out...'
+        text: 'Write your heart out'
       },
       anchor: {
         linkValidation: true
@@ -163,7 +202,8 @@ export default {
             contentFA: '<i class="fa fa-picture-o"></i>'
           }
         ]
-      }
+      },
+      extensions: {}
     }
   }),
 
@@ -179,17 +219,79 @@ export default {
     }
   },
 
-  methods: {
-    async onUpdateTitle() {
-      if (this.honeyPot) return
-
-      if (await this.isValidationInvalid()) return
-      const content = {
-        title: this.fieldTitle,
-        content: this.content
+  watch: {
+    '$route.query': {
+      immediate: true,
+      handler(query) {
+        this.noteId = query.id
       }
+    }
+  },
 
-      await this.saveDraft(content)
+  mounted() {
+    // Get from LocalDB
+    this.$nextTick(async () => {
+      const content = await this.getLocalDraft(this.noteId)
+      this.defaultValue = content?.content ?? this.getContent(this.savedNote)
+      this.fieldTitle = content?.title ?? this.savedNote?.title
+    })
+
+    // TODO: Use Pusher
+    // const _this = this
+    // this.$nextTick(() => {
+    //   if (this.$route.query.type !== 'NOTE') return
+
+    //   // Save draft every 5 minutes
+    //   let refreshIntervalId
+    //   try {
+    //     refreshIntervalId = setInterval(async () => {
+    //       if (!_this.saved) {
+    //         const contents = {
+    //           title: _this.fieldTitle,
+    //           content: _this.content
+    //         }
+    //         await _this.updateDraft(contents)
+    //         _this.saved = true
+    //       }
+    //     }, 5000)
+    //   } catch (error) {
+    //     if (refreshIntervalId) clearInterval(refreshIntervalId)
+    //   }
+    //   if (_this.saved) clearInterval(refreshIntervalId)
+    // })
+  },
+  methods: {
+    onTags(tags) {
+      this.tags = tags
+      this.isTagModalVisible = false
+    },
+    onOpenTagManager() {
+      this.isTagModalVisible = true
+    },
+    async selectFile(e) {
+      const file = e.target.files[0]
+
+      /* Make sure file exists */
+      if (!file) return
+
+      const readData = (f) =>
+        new Promise((resolve) => {
+          const reader = new FileReader()
+          reader.onloadend = () => resolve(reader.result)
+          reader.readAsDataURL(f)
+        })
+
+      /* Read data */
+      this.coverImage = await readData(file)
+    },
+
+    uploadCallback() {},
+
+    onUploadImage() {
+      this.isImageModalVisible = true
+    },
+    getContent(content) {
+      return content?.content
     },
     async onChange(s) {
       if (this.showMarkdown) {
@@ -202,16 +304,68 @@ export default {
         editable.textContent = turndown.turndown(s)
       }
 
-      const contents = {
+      const content = {
         title: this.fieldTitle,
-        content: this.content
+        content: this.content ?? ''
       }
-      await this.$store.commit('content/appendContent', contents)
+
+      await this.saveDraft(content)
+      this.saved = false
     },
 
-    uploadCallback(url) {},
+    async saveNote() {
+      try {
+        const content = {
+          title: this.fieldTitle,
+          content: this.content ?? ''
+        }
+        await this.saveDraft(content)
+        await this.updateDraft(content)
+        this.$toast.positive('Note saved successfully')
+      } catch (error) {
+        this.$toast.negative(error.message)
+      }
+    },
+
+    async updateDraft(input) {
+      if (!this.noteId) return
+      await this.$store.commit('content/saveContent', {
+        id: this.noteId,
+        ...input
+      })
+      return await this.$apollo.mutate({
+        mutation: UPDATE_NOTE,
+        variables: {
+          id: this.noteId,
+          input: { ...input }
+        },
+
+        skip() {
+          return !this.noteId
+        }
+      })
+    },
+
+    async getLocalDraft(key) {
+      return await this.$store.dispatch('content/getDraft', { key })
+    },
 
     async saveDraft(input) {
+      let key = this.noteId
+      if (!key) {
+        const note = await this.createNote(input)
+        if (!note) return
+        key = note.id
+      }
+
+      await this.$store.dispatch('content/saveDraft', {
+        data: input,
+        key
+      })
+    },
+
+    async createNote(input) {
+      if (await this.isValidationInvalid()) return
       const {
         data: { createNote: note }
       } = await this.$apollo.mutate({
@@ -221,8 +375,36 @@ export default {
         }
       })
 
-      await this.$store.commit('content/saveContent', note)
-      return await this.$router.push(`/contents/${note.id}?type=note`)
+      if (note) {
+        await this.$router.push({
+          path: `/contents/add`,
+          query: {
+            ...this.$route.query,
+            type: 'note',
+            id: note.id
+          }
+        })
+
+        return note
+      }
+      return null
+    },
+
+    generateKey() {
+      return String(Math.floor(100000 + Math.random() * 900000))
+    },
+
+    async onPublish() {
+      try {
+        const content = {
+          title: this.fieldTitle,
+          content: this.content ?? ''
+        }
+        await this.updateDraft(content)
+        return await this.$router.push(`/contents/${this.noteId}/publish`)
+      } catch (error) {
+        this.$toast.negative(error.message)
+      }
     }
   }
 }
