@@ -499,7 +499,7 @@ export default {
     },
 
     async onBack() {
-      return await this.$router.push(`/contents/${this.noteId}`)
+      return await this.$router.push(`/contents/add?tpe=note&id=${this.noteId}`)
     },
 
     onFocusAutocomplete() {

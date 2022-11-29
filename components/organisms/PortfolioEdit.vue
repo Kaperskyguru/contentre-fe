@@ -98,18 +98,18 @@
         <div class="mb-5 text-darksilver"><p>Premium features:</p></div>
         <div class="mb-6 w-full">
           <TextField
-            v-model="$v.fieldURL.$model"
+            v-model="$v.fieldCustomDomain.$model"
             class="w-full text-sm"
             label="Custom Domain"
             type="websiteURL"
-            disabled
+            :disabled="!isPremium"
             enterkeyhint="next"
             maxlength="2048"
             autocomplete="url"
             :error="
               !isPremium
                 ? 'This is a premium feature'
-                : getValidationMessage($v.fieldURL)
+                : getValidationMessage($v.fieldCustomDomain)
             "
           >
             <template #append-inner>
@@ -138,6 +138,9 @@
               </Tooltip>
             </template>
           </TextField>
+          <p v-if="isEditing" class="shrink pt-2 text-sm text-darksilver">
+            Original URL: {{ fieldURL }}
+          </p>
         </div>
         <div class="mb-6">
           <TextField
@@ -313,6 +316,7 @@ export default {
     portfolio: {},
     sending: false,
     fieldTitle: '',
+    fieldCustomDomain: '',
     fieldURL: '',
     fieldTags: '',
     fieldCategory: '',
@@ -331,7 +335,7 @@ export default {
   }),
   validations: {
     fieldGoogleAnalyticId: {},
-    fieldURL: {},
+    fieldCustomDomain: {},
     fieldTags: {},
     fieldTopics: {},
     fieldClient: {},
@@ -436,15 +440,17 @@ export default {
 
       if (this.visible && this.portfolio) {
         this.fieldTitle = this.portfolio?.title ?? ''
-        this.fieldURL = this.portfolio?.domain ?? this.portfolio?.url
+        this.fieldURL = this.portfolio?.url
         this.fieldDescription = this.portfolio?.description
         this.fieldTemplate = this.portfolio?.template?.id
         this.fieldGoogleAnalyticId = this.portfolio?.googleAnalyticId
         this.fieldPassword = this.portfolio?.password
+        this.fieldCustomDomain = this.portfolio?.domain
       } else {
         this.fieldTitle = ''
         this.fieldURL = ''
         this.fieldDescription = ''
+        this.fieldCustomDomain = ''
         this.fieldTemplate = ''
         this.fieldGoogleAnalyticId = ''
         this.fieldPassword = ''
@@ -452,7 +458,6 @@ export default {
     },
 
     async createPortfolio(input) {
-      console.log(input)
       return await this.$apollo.mutate({
         mutation: CREATE_PORTFOLIO,
         variables: { input },
@@ -487,11 +492,14 @@ export default {
           tags: this.tags,
           topics: this.topics,
           password: this.fieldPassword,
-          domain: this.fieldURL,
           shouldCustomize: this.shouldCustomize,
           description: this.fieldDescription,
+          customDomain:
+            this.fieldCustomDomain === this.portfolio?.domain
+              ? undefined
+              : this.fieldCustomDomain,
           templateId:
-            this.templateId.toLowerCase() === 'blank'
+            this.templateId && this.templateId.toLowerCase() === 'blank'
               ? undefined
               : this.templateId
         }
