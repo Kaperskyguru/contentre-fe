@@ -56,7 +56,7 @@
             <h4 class="text-sm font-bold">Total Due Today</h4>
             <div>
               <h4 class="text-sm font-bold">
-                ${{ isMonthly ? '9.99' : '7.99' }}
+                ${{ isMonthly ? '9.99' : '99.99 (save 20%)' }}
               </h4>
             </div>
           </div>
