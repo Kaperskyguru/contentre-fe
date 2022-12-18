@@ -85,58 +85,22 @@
           >
             <span>
               <Tooltip label="Generate Outline">
-                <button
-                  :class="{
-                    'is-active': editor.isActive('heading', { level: 1 })
-                  }"
-                  @click="
-                    isPremium
-                      ? editor.chain().focus().toggleHeading({ level: 1 }).run()
-                      : (isUpgradeModalVisible = true)
-                  "
-                >
+                <button @click="generateOutline">
                   <OutlineIcon />
                 </button>
               </Tooltip>
               <Tooltip label="Generate Summary">
-                <button
-                  :class="{
-                    'is-active': editor.isActive('heading', { level: 1 })
-                  }"
-                  @click="
-                    isPremium
-                      ? editor.chain().focus().toggleHeading({ level: 1 }).run()
-                      : (isUpgradeModalVisible = true)
-                  "
-                >
+                <button @click="generateSummary">
                   <SummaryIcon />
                 </button>
               </Tooltip>
               <Tooltip label="Generate Content Brief">
-                <button
-                  :class="{
-                    'is-active': editor.isActive('heading', { level: 1 })
-                  }"
-                  @click="
-                    isPremium
-                      ? editor.chain().focus().toggleHeading({ level: 1 }).run()
-                      : (isUpgradeModalVisible = true)
-                  "
-                >
+                <button @click="generateBrief">
                   <BriefIcon />
                 </button>
               </Tooltip>
               <Tooltip label="Generate Code Snippet">
-                <button
-                  :class="{
-                    'is-active': editor.isActive('heading', { level: 1 })
-                  }"
-                  @click="
-                    isPremium
-                      ? editor.chain().focus().toggleHeading({ level: 1 }).run()
-                      : (isUpgradeModalVisible = true)
-                  "
-                >
+                <button @click="generateCodeSnippet">
                   <SnippetIcon />
                 </button>
               </Tooltip>
@@ -298,9 +262,11 @@ import { Text } from '@tiptap/extension-text'
 import { lowlight } from 'lowlight'
 import CodeBlockComponent from '../atoms/CodeBlock'
 import { currentUser } from '~/components/mixins'
+import { isArray } from '~/plugins/utils'
 
 const CustomDocument = Document.extend({
-  content: 'heading block*'
+  content: 'heading block*',
+  name: 'title'
 })
 export default {
   components: {
@@ -310,7 +276,6 @@ export default {
     BoldIcon: () => import('~/assets/icons/editor/bold.svg?inline'),
     ItalicIcon: () => import('~/assets/icons/editor/italic.svg?inline'),
     StrikeIcon: () => import('~/assets/icons/editor/strike.svg?inline'),
-
     QuoteIcon: () => import('~/assets/icons/editor/quote.svg?inline'),
     CenterIcon: () => import('~/assets/icons/editor/center.svg?inline'),
     ImageIcon: () => import('~/assets/icons/editor/ImageIcon.vue'),
@@ -329,7 +294,6 @@ export default {
     CodePreIcon: () => import('~/assets/icons/editor/codePre.svg?inline'),
     H1Icon: () => import('~/assets/icons/editor/H1.svg?inline'),
     ClearIcon: () => import('~/assets/icons/editor/clear.svg?inline'),
-
     SnippetIcon: () => import('~/assets/icons/editor/snippet.svg?inline'),
     OutlineIcon: () => import('~/assets/icons/editor/outline.svg?inline'),
     SummaryIcon: () => import('~/assets/icons/editor/summary.svg?inline'),
@@ -357,10 +321,11 @@ export default {
 
   mounted() {
     this.editor = new Editor({
-      content: '<p></p>',
+      content: '',
       extensions: [
         CustomDocument,
         ListItem,
+        Document,
         BulletList,
         StarterKit.configure({
           document: false,
@@ -412,6 +377,52 @@ export default {
   },
 
   methods: {
+    generateOutline() {
+      if (!this.isPremium) {
+        this.isUpgradeModalVisible = true
+        return
+      }
+
+      const title = this.getTitle()
+      console.log(title)
+    },
+    generateBrief() {
+      if (!this.isPremium) {
+        this.isUpgradeModalVisible = true
+        return
+      }
+
+      const title = this.getTitle()
+      console.log(title)
+    },
+    generateCodeSnippet() {
+      if (!this.isPremium) {
+        this.isUpgradeModalVisible = true
+        return
+      }
+
+      const title = this.getTitle()
+      console.log(title)
+    },
+    generateSummary() {
+      if (!this.isPremium) {
+        this.isUpgradeModalVisible = true
+        return
+      }
+
+      const title = this.getTitle()
+      console.log(title)
+    },
+    getTitle() {
+      const html = this.editor.getJSON()
+
+      if (!isArray(html.content[0]?.content)) {
+        this.$toast.negative('Add a title')
+        return
+      }
+
+      return html.content[0]?.content[0]?.text
+    },
     toggleOptions() {
       this.showOptions = !this.showOptions
     },
