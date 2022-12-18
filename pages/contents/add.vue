@@ -1,59 +1,102 @@
 <template>
-  <section class="px-3 md:px-12">
-    <section
-      class="flex flex-wrap justify-between items-center py-4 mt-4 w-full"
-    >
-      <PageTitle>Add Content</PageTitle>
-    </section>
-
-    <section class="container">
-      <div>
-        <TextField
-          v-model="$v.fieldTitle.$model"
-          placeholder="Title"
-          field-class="placeholder:text-2xl placeholder:py-3"
-          container-class="py-3 text-2xl bg-transparent hover:bg-transparent font-bold focus-within:bg-transparent"
-          :show-border="false"
-          :autofocus="true"
-          :error="getValidationMessage($v.fieldTitle)"
-          @update:value="onChange"
-        ></TextField>
-
-        <section class="flex flex-row space-x-2 w-full h-full">
-          <div id="editor" class="p-3 w-full text-sm">
-            <medium-editor
-              v-model="content"
-              :prefill="defaultValue"
-              :options="options"
-              :on-change="onChange"
-              :hide-gist="false"
-              @uploaded="uploadCallback"
-            >
-            </medium-editor>
-          </div>
-          <div v-if="showMarkdown" class="w-1/2">
-            <pre id="markdown"></pre>
-          </div>
-
-          <!-- Remove this later -->
-          <div v-else class="w-1/2"></div>
-        </section>
-      </div>
-      <div
+  <!-- <PageContent> -->
+  <section v-click-outside="onClickOutside" class="w-full">
+    <div class="overflow-hidden mx-auto w-[95%]">
+      <section
         class="
           flex flex-col
-          justify-end
-          my-8
-          space-y-4 space-x-0
-          md:flex-row md:space-y-0 md:space-x-4
+          justify-between
+          items-center
+          py-4
+          mt-0
+          w-full
+          md:flex-row md:mt-4 md:space-y-0 md:space-x-4
         "
       >
-        <Button appearance="outline" @click.prevent="saveNote">
-          Save Note
-        </Button>
-        <Button @click.prevent="onPublish"> Publish </Button>
-      </div>
-    </section>
+        <PageTitle>Add Content</PageTitle>
+        <div
+          v-click-outside="onClickOutside"
+          class="
+            flex flex-col
+            justify-end
+            my-1
+            space-y-4 space-x-0
+            md:flex-row md:my-8 md:space-y-0 md:space-x-4
+          "
+        >
+          <div>
+            <Button appearance="outline" @click.prevent="onOpenMenu">
+              Save As
+            </Button>
+            <div
+              v-if="isMenuVisible"
+              x-transition:enter="transition ease-out duration-100"
+              x-transition:enter-start="transform opacity-0 scale-95"
+              x-transition:enter-end="transform opacity-100 scale-100"
+              x-transition:leave="transition ease-in duration-75"
+              x-transition:leave-start="transform opacity-100 scale-100"
+              x-transition:leave-end="transform opacity-0 scale-95"
+              class="
+                absolute
+                top-auto
+                z-40
+                py-3
+                px-5
+                mt-2
+                w-60
+                bg-white
+                dark:bg-gray-800
+                rounded-lg
+                border
+                dark:border-transparent
+                shadow
+              "
+            >
+              <ul class="space-y-3 dark:text-white">
+                <li class="font-medium hover:bg-gray-100">
+                  <button
+                    class="flex items-center transition-colors duration-200"
+                  >
+                    Note
+                  </button>
+                </li>
+                <li class="font-medium hover:bg-gray-100">
+                  <button
+                    class="flex items-center transition-colors duration-200"
+                  >
+                    Outline
+                  </button>
+                </li>
+                <li class="font-medium hover:bg-gray-100">
+                  <button
+                    class="flex items-center transition-colors duration-200"
+                  >
+                    Brief
+                  </button>
+                </li>
+                <!-- <hr class="dark:border-gray-700" />
+                <li class="font-medium hover:bg-gray-100">
+                  <Hyperlink to="#">
+                    <button
+                      class="flex items-center transition-colors duration-200"
+                    >
+                      Snippet
+                    </button>
+                  </Hyperlink>
+                </li> -->
+              </ul>
+            </div>
+          </div>
+          <Button @click.prevent="onPublish"> Publish </Button>
+        </div>
+      </section>
+
+      <section class="w-full min-h-full text-gray-700 bg-white">
+        <div class="h-full bg-white">
+          <tiptap-editor />
+        </div>
+      </section>
+    </div>
 
     <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload Image">
       <div class="block w-full text-gray-700 bg-white">
@@ -64,16 +107,22 @@
     </Dialog>
   </section>
   <!-- end of page -->
+  <!-- </PageContent> -->
 </template>
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import TurndownService from 'turndown'
+import vClickOutside from 'v-click-outside'
 import { CREATE_NOTE, GET_NOTE, UPDATE_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
 
 export default {
   name: 'AddPage',
+
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
 
   components: {
     // IconPencil: () => import('~/assets/icons/pencil.svg?inline')
@@ -109,6 +158,7 @@ export default {
     savedNote: {},
     noteId: null,
     saved: false,
+    isMenuVisible: false,
     tags: [],
     fieldTitle: '',
     showMarkdown: false,
@@ -286,7 +336,13 @@ export default {
     },
 
     uploadCallback() {},
+    onOpenMenu() {
+      this.isMenuVisible = !this.isMenuVisible
+    },
 
+    onClickOutside() {
+      this.isMenuVisible = false
+    },
     onUploadImage() {
       this.isImageModalVisible = true
     },

@@ -61,7 +61,7 @@
         pl-5
         w-full
         rounded
-        border
+        border-0
         outline-none
         focus:outline-none
       "

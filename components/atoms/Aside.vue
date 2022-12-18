@@ -130,6 +130,99 @@
                       >
                     </Hyperlink>
                   </li>
+
+                  <li>
+                    <Hyperlink
+                      :to="{ name: 'contents/add', query: { type: 'note' } }"
+                      class="
+                        group
+                        flex
+                        items-center
+                        p-2
+                        font-roboto
+                        text-base
+                        font-normal
+                        text-gray-500
+                        hover:text-white
+                        rounded-lg
+                      "
+                    >
+                      <AddIcon />
+                      <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Write an article</span
+                      >
+                    </Hyperlink>
+                  </li>
+
+                  <li>
+                    <Hyperlink
+                      :to="{ name: 'contents/outlines' }"
+                      class="
+                        group
+                        flex
+                        items-center
+                        p-2
+                        font-roboto
+                        text-base
+                        font-normal
+                        text-gray-500
+                        hover:text-white
+                        rounded-lg
+                      "
+                    >
+                      <OutlineIcon />
+                      <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Create Outlines</span
+                      >
+                    </Hyperlink>
+                  </li>
+
+                  <li>
+                    <Hyperlink
+                      :to="{ name: 'contents/briefs' }"
+                      class="
+                        group
+                        flex
+                        items-center
+                        p-2
+                        font-roboto
+                        text-base
+                        font-normal
+                        text-gray-500
+                        hover:text-white
+                        rounded-lg
+                      "
+                    >
+                      <BriefIcon />
+                      <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Create Briefs</span
+                      >
+                    </Hyperlink>
+                  </li>
+
+                  <li>
+                    <Hyperlink
+                      :to="{ name: 'contents/snippets' }"
+                      class="
+                        group
+                        flex
+                        items-center
+                        p-2
+                        font-roboto
+                        text-base
+                        font-normal
+                        text-gray-500
+                        hover:text-white
+                        rounded-lg
+                      "
+                    >
+                      <SnippetIcon />
+                      <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Create Snippets</span
+                      >
+                    </Hyperlink>
+                  </li>
+
                   <li>
                     <Hyperlink
                       :to="{ name: 'notebooks' }"
@@ -387,7 +480,11 @@ export default {
     PortfolioIcon,
     GroupingIcon,
     NoteIcon: () => import('~/assets/icons/note.svg?inline'),
-    ProfileIcon: () => import('~/assets/icons/profile.svg?inline')
+    ProfileIcon: () => import('~/assets/icons/profile.svg?inline'),
+    SnippetIcon: () => import('~/assets/icons/editor/snippet.svg?inline'),
+    OutlineIcon: () => import('~/assets/icons/editor/outline.svg?inline'),
+    AddIcon: () => import('~/assets/icons/editor/add.svg?inline'),
+    BriefIcon: () => import('~/assets/icons/editor/brief.svg?inline')
   },
   mixins: [currentUser],
 

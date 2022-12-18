@@ -4,13 +4,12 @@
       <Aside @onCollapse="collapse" />
     </div>
 
-    <section class="grow">
+    <section class="w-full">
       <header class="fixed z-30 mb-5 bg-white navside-bs">
         <nav class="md:w-10/12">
           <Nav @logout="onLogout" @onToggleMenu="showMenu" />
         </nav>
       </header>
-
       <nav
         id="mobile"
         class="w-full md:hidden"
@@ -23,8 +22,10 @@
           />
         </div>
       </nav>
-
-      <div :class="{ 'mt-0': isMenuShown, 'mt-16': !isMenuShown }">
+      <div
+        :class="{ 'mt-0': isMenuShown, 'mt-16': !isMenuShown }"
+        class="overflow-hidden"
+      >
         <Nuxt />
       </div>
       <Toast />

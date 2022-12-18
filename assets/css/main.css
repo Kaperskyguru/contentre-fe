@@ -100,7 +100,7 @@ body {
   line-height: 1.5;
   background-color: #f8f9fa;
   color: #181819;
-  font-family: 'Roboto', sans-serif;
+  @apply font-gilroy
 }
 
 .navside-bs {
