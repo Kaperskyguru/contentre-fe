@@ -167,7 +167,9 @@ export default {
       )
     },
     url() {
-      return this.portfolio?.domain ?? this.portfolio.url
+      let domain = ''
+      if (this.portfolio?.domain) domain = `https://${this.portfolio?.domain}`
+      return this.portfolio?.domain ? domain : this.portfolio.url
     },
     isCustomized() {
       return this.portfolio?.userTemplate?.template?.type === 'CUSTOMIZED'

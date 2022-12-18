@@ -22,8 +22,7 @@
         <div class="flex justify-end items-end px-3 my-6 w-full">
           <Button
             :appearance="isPremium ? 'outline-red' : 'secondary'"
-            to="/subscriptions?tab=Plan"
-            type="link"
+            @click.prevent="subscribe"
           >
             {{ btnText }}
           </Button>
@@ -136,6 +135,19 @@ export default {
   },
 
   methods: {
+    async subscribe() {
+      await this.$segment({
+        operation: 'identify'
+      })
+      await this.$segment({
+        eventName: 'Viewed Subscriptions Page',
+        data: {
+          from: this.max ? 'Upgrade' : 'Renew',
+          user: this.currentUser
+        }
+      })
+      this.$router.push('/subscriptions?tab=Plan')
+    },
     formatDate(date) {
       if (!date) return ''
       return this.$d(new Date(date), 'dateLong')
