@@ -67,7 +67,7 @@
 // import gql from 'graphql-tag'
 import { nextTick } from '@nuxtjs/composition-api'
 import vClickOutside from 'v-click-outside'
-import { GET_TAGS, UPDATE_CONTENT } from '~/graphql'
+import { CREATE_TAG, GET_TAGS, UPDATE_CONTENT } from '~/graphql'
 export default {
   directives: {
     clickOutside: vClickOutside.directive
@@ -161,6 +161,11 @@ export default {
       default: true
     },
 
+    shouldReplace: {
+      type: Boolean,
+      default: false
+    },
+
     allowCreation: {
       type: Boolean,
       default: true
@@ -239,6 +244,10 @@ export default {
       handler(va) {
         if (Array.isArray(va)) {
           const mapp = va.map((item) => ({ name: item }))
+          if (this.shouldReplace) {
+            this.tags = [...mapp]
+            return
+          }
           this.tags = [...mapp, ...this.tags]
           return
         }
@@ -279,20 +288,12 @@ export default {
     },
 
     async selectTag(tag) {
+      // if (this.allowCreation) {
+      //   await this.createTag(tag)
+      // }
+
       if (this.shouldUpdate) {
-        try {
-          await this.$apollo.mutate({
-            mutation: UPDATE_CONTENT,
-            variables: {
-              id: this.contentId,
-              input: {
-                tags: [tag?.name ?? tag]
-              }
-            }
-          })
-        } catch (error) {
-          this.$toast.negative(error.message)
-        }
+        await this.updateTag(tag)
       }
       // Change 'deleted' to 'all'
       this.$emit('deleted', this.tags)
@@ -301,6 +302,38 @@ export default {
       tag = tag?.name ? tag : { name: tag }
       const found = this.tags.find((tag1) => tag && tag1.name === tag.name)
       if (!found) this.$emit('update:value', tag)
+    },
+
+    async updateTag(tag) {
+      try {
+        await this.$apollo.mutate({
+          mutation: UPDATE_CONTENT,
+          variables: {
+            id: this.contentId,
+            input: {
+              tags: [tag?.name ?? tag]
+            }
+          }
+        })
+      } catch (error) {
+        this.$toast.negative(error.message)
+      }
+    },
+
+    async createTag(tag) {
+      if (!tag) return
+      try {
+        await this.$apollo.mutate({
+          mutation: CREATE_TAG,
+          variables: {
+            input: {
+              name: tag?.name ?? tag
+            }
+          }
+        })
+      } catch (error) {
+        this.$toast.negative(error.message)
+      }
     },
 
     onClickOutside() {

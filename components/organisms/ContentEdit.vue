@@ -158,7 +158,7 @@
           v-if="isEditing"
           type="link"
           :disabled="!fullContent"
-          :to="{ path: `/contents/${contentId}/` }"
+          :to="{ path: `/contents/add?id=${contentId}&type=article` }"
           appearance="secondary"
           class="w-full"
         >
@@ -331,6 +331,7 @@ export default {
       if (this.tags) this.tags.push(tag?.name)
     },
     removeTopic(topics) {
+      console.log(topics)
       this.topics = topics && topics.map((item) => item.name)
     },
     removeTag(tags) {

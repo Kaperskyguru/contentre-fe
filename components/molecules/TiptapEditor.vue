@@ -60,13 +60,15 @@
               :class="{ 'is-active': editor.isActive('link') }"
               @click="toggleLink"
             >
-              <LinkIcon />
+              <LinkIcon v-if="!editor.isActive('link')" />
+              <UnLinkIcon v-else />
             </button>
+
             <button
-              :disabled="!editor.isActive('link')"
-              @click="editor.chain().focus().unsetLink().run()"
+              :class="{ 'is-active': editor.isActive('code') }"
+              @click="editor.chain().focus().toggleCode().run()"
             >
-              <UnLinkIcon />
+              <CodeIcon />
             </button>
           </span>
         </div>
@@ -185,14 +187,6 @@
             </span>
 
             <span>
-              <button
-                :class="{ 'is-active': editor.isActive('code') }"
-                @click="editor.chain().focus().toggleCode().run()"
-              >
-                <CodeIcon />
-              </button>
-            </span>
-            <span>
               <button @click="editor.chain().focus().undo().run()">
                 <UndoIcon />
               </button>
@@ -301,6 +295,13 @@ export default {
   },
   mixins: [currentUser],
 
+  props: {
+    content: {
+      type: String,
+      default: ''
+    }
+  },
+
   data() {
     return {
       selected: '2',
@@ -319,7 +320,21 @@ export default {
     }
   },
 
+  watch: {
+    content: {
+      handler(value) {
+        if (!value) return
+        const isSame = this.editor.getHTML() === value
+
+        if (isSame) return
+
+        this.editor.commands.setContent(value, false)
+      }
+    }
+  },
+
   mounted() {
+    const _self = this
     this.editor = new Editor({
       content: '',
       extensions: [
@@ -336,9 +351,7 @@ export default {
         Code,
         Image,
         Text,
-        Link.configure({
-          openOnClick: false
-        }),
+        Link,
         Placeholder.configure({
           showOnlyWhenEditable: false,
           placeholder: ({ node }) => {
@@ -369,6 +382,13 @@ export default {
           class:
             'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl py-5 focus:outline-none w-full min-h-full font-gilroy font-light text-zinc-700 text-xl'
         }
+      },
+
+      onUpdate({ editor }) {
+        _self.$emit('update:content', {
+          title: _self.getTitle(),
+          content: editor.getHTML()
+        })
       }
     })
   },
@@ -581,10 +601,17 @@ export default {
   }
 
   pre {
-    background: #0d0d0d;
-    color: #fff;
     font-family: 'JetBrainsMono', monospace;
-    padding: 0.75rem 1rem;
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    margin-left: 10px;
+    background-color: #0d0d0d;
+    border-radius: 3px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    color: #fff;
 
     code {
       color: inherit;

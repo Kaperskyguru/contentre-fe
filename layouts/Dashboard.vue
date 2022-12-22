@@ -22,10 +22,7 @@
           />
         </div>
       </nav>
-      <div
-        :class="{ 'mt-0': isMenuShown, 'mt-16': !isMenuShown }"
-        class="overflow-hidden"
-      >
+      <div :class="{ 'mt-0': isMenuShown, 'mt-16': !isMenuShown }">
         <Nuxt />
       </div>
       <Toast />

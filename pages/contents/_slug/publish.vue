@@ -163,7 +163,9 @@
           :should-update="false"
           :is-required="false"
           :hide-pencil-icon="false"
+          :is-input-border-enabled="false"
           class="mr-1 w-full"
+          :should-show-options="false"
           placeholder="Select a category"
           @update:value="onUpdateCategory"
           @focus="onFocusAutocomplete"
@@ -178,7 +180,9 @@
           :should-update="false"
           :allow-creation="false"
           :is-required="false"
+          :is-input-border-enabled="false"
           class="mr-1 w-full"
+          :should-show-options="false"
           :hide-pencil-icon="false"
           :placeholder="defaultClient"
           :error="getValidationMessage($v.fieldClient)"
@@ -197,18 +201,17 @@
       <!-- card tags -->
 
       <section>
-        <ContentField
+        <TextField
           v-model="$v.fieldExcerpt.$model"
           :rows="8"
           :editor="true"
           :is-required="true"
           :show-border="false"
           placeholder="+ Type your content excerpt here"
-          :spellcheck="false"
           :error="getValidationMessage($v.fieldExcerpt)"
         >
           <span slot="title">Excerpt</span>
-        </ContentField>
+        </TextField>
       </section>
       <!-- end of card tags -->
 
@@ -216,10 +219,8 @@
         <div class="flex flex-col justify-start">
           <div class="flex justify-start mt-8">
             <!-- <div class="mr-3">Published to:</div> -->
-            <Button appearance="outline-red" @click.prevent="onPlugins">
-              <div class="text-red-600 hover:text-white">
-                <GroupingIcon />
-              </div>
+            <Button @click.prevent="onPlugins">
+              <PluginIcon />
             </Button>
           </div>
         </div>
@@ -269,11 +270,11 @@
 <script>
 import { CONVERT_NOTE_CONTENT, GET_NOTE } from '~/graphql'
 import { required, hasLetter } from '~/plugins/validators'
-import GroupingIcon from '~/assets/icons/client.svg?inline'
+import PluginIcon from '~/assets/icons/plugin.svg?inline'
 export default {
   name: 'PublishContent',
   components: {
-    GroupingIcon
+    PluginIcon
   },
   layout: 'Dashboard',
 

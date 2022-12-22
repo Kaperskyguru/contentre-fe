@@ -24,6 +24,9 @@
             md:flex-row md:my-8 md:space-y-0 md:space-x-4
           "
         >
+          <button @click.prevent="onOpenSettings">
+            <SettingIcon />
+          </button>
           <div>
             <Button appearance="outline" @click.prevent="onOpenMenu">
               Save As
@@ -56,6 +59,7 @@
                 <li class="font-medium hover:bg-gray-100">
                   <button
                     class="flex items-center transition-colors duration-200"
+                    @click="updateDraft"
                   >
                     Note
                   </button>
@@ -93,15 +97,36 @@
 
       <section class="w-full min-h-full text-gray-700 bg-white">
         <div class="h-full bg-white">
-          <tiptap-editor />
+          <TiptapEditor :content="defaultContent" @update:content="onContent" />
         </div>
       </section>
     </div>
 
+    <LazyContentSettings
+      v-model="isContentSettingVisible"
+      :note-id="noteId"
+      :cover-image="coverImage"
+      @openImage="onOpenImage"
+      @openPlugin="onOpenPlugin"
+      @settings="onSettings"
+    ></LazyContentSettings>
+
+    <Dialog
+      v-model="isPluginModalVisible"
+      :is-large="true"
+      title="Connected Apps"
+    >
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <Plugins @add="onAddApps" />
+        </div>
+      </div>
+    </Dialog>
+
     <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload Image">
       <div class="block w-full text-gray-700 bg-white">
         <div class="justify-between w-full text-gray-700 bg-white">
-          <UploadImage />
+          <UploadImage @uploaded="uploadedImage" />
         </div>
       </div>
     </Dialog>
@@ -111,32 +136,32 @@
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import TurndownService from 'turndown'
 import vClickOutside from 'v-click-outside'
-import { CREATE_NOTE, GET_NOTE, UPDATE_NOTE } from '~/graphql'
-import { required, hasLetter } from '~/plugins/validators'
+import {
+  CONVERT_NOTE_CONTENT,
+  CREATE_NOTE,
+  GET_CONTENT,
+  UPDATE_NOTE
+} from '~/graphql'
+import SettingIcon from '~/assets/icons/setting.svg?inline'
 
 export default {
-  name: 'AddPage',
+  name: 'AddContent',
 
   directives: {
     clickOutside: vClickOutside.directive
   },
 
   components: {
-    // IconPencil: () => import('~/assets/icons/pencil.svg?inline')
+    SettingIcon
   },
   layout: 'Dashboard',
 
   apollo: {
     savedNote: {
-      query: GET_NOTE,
+      query: GET_CONTENT,
       update(data) {
-        const note = data.getNote
-        this.defaultValue = note.content
-        this.fieldTitle = note.title
-        return note
+        return data.getContent
       },
       variables() {
         return {
@@ -150,119 +175,22 @@ export default {
   },
 
   data: () => ({
-    editor: ClassicEditor,
     content: null,
-    defaultValue: '',
+    apps: {},
+    defaultContent: null,
     isImageModalVisible: false,
+    isContentSettingVisible: false,
+    isPluginModalVisible: false,
     isTagModalVisible: false,
     savedNote: {},
     noteId: null,
     saved: false,
     isMenuVisible: false,
     tags: [],
-    fieldTitle: '',
-    showMarkdown: false,
-    editorConfig: {
-      ref: 'field'
-    },
-
-    options: {
-      uploadUrl: 'https://api.imgur.com/3/image',
-      uploadUrlHeader: { Authorization: 'Client-ID db856b43cc7f441' },
-      file_input_name: 'image',
-      file_size: 1024 * 1024 * 10,
-      subscribeToMeEditableInput: true,
-      imgur: true,
-      placeholder: {
-        text: 'Write your heart out'
-      },
-      anchor: {
-        linkValidation: true
-      },
-      keyboardCommands: {
-        commands: [
-          {
-            command: 'bold',
-            key: 'B',
-            meta: true,
-            shift: false,
-            alt: false
-          },
-          {
-            command: 'italic',
-            key: 'I',
-            meta: true,
-            shift: false,
-            alt: false
-          },
-          {
-            command: 'underline',
-            key: 'U',
-            meta: true,
-            shift: false,
-            alt: false
-          }
-        ]
-      },
-      anchorPreview: true,
-      toolbar: {
-        buttons: [
-          'bold',
-          'italic',
-          'unorderedlist',
-          'orderedlist',
-          'underline',
-          'quote',
-          'h1',
-          'h2',
-          'h3',
-          'h4',
-          'justifyLeft',
-          'justifyCenter',
-          'justifyRight',
-          'justifyFull',
-          'outdent',
-          'indent',
-          'superscript',
-          'subscript',
-          'removeFormat',
-          'html',
-          {
-            name: 'anchor',
-            action: 'createLink',
-            aria: 'link',
-            tagNames: ['a'],
-            contentDefault: '<b>🔗</b>',
-            contentFA: '<i class="fa fa-link"></i>'
-          },
-          {
-            name: 'pre',
-            action: 'append-pre',
-            aria: 'code highlight',
-            tagNames: ['pre'],
-            contentDefault: '<b><\\></b>',
-            contentFA: '<i class="fa fa-code fa-lg"></i>'
-          },
-          {
-            name: 'image',
-            action: 'image',
-            aria: 'insert image from url',
-            tagNames: ['img'],
-            contentDefault: '<b>image</b>',
-            contentFA: '<i class="fa fa-picture-o"></i>'
-          }
-        ]
-      },
-      extensions: {}
-    }
+    coverImage: undefined,
+    settings: {}
   }),
 
-  validations: {
-    fieldTitle: {
-      required,
-      hasLetter
-    }
-  },
   head() {
     return {
       title: 'Add Content'
@@ -278,117 +206,74 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
     // Get from LocalDB
-    this.$nextTick(async () => {
-      const content = await this.getLocalDraft(this.noteId)
-      this.defaultValue = content?.content ?? this.getContent(this.savedNote)
-      this.fieldTitle = content?.title ?? this.savedNote?.title
-    })
-
-    // TODO: Use Pusher
-    // const _this = this
-    // this.$nextTick(() => {
-    //   if (this.$route.query.type !== 'NOTE') return
-
-    //   // Save draft every 5 minutes
-    //   let refreshIntervalId
-    //   try {
-    //     refreshIntervalId = setInterval(async () => {
-    //       if (!_this.saved) {
-    //         const contents = {
-    //           title: _this.fieldTitle,
-    //           content: _this.content
-    //         }
-    //         await _this.updateDraft(contents)
-    //         _this.saved = true
-    //       }
-    //     }, 5000)
-    //   } catch (error) {
-    //     if (refreshIntervalId) clearInterval(refreshIntervalId)
-    //   }
-    //   if (_this.saved) clearInterval(refreshIntervalId)
-    // })
+    const content = await this.getDraft(this.noteId)
+    this.defaultContent = content?.content
   },
   methods: {
-    onTags(tags) {
-      this.tags = tags
-      this.isTagModalVisible = false
-    },
-    onOpenTagManager() {
-      this.isTagModalVisible = true
-    },
-    async selectFile(e) {
-      const file = e.target.files[0]
+    async onContent(data) {
+      const draft = await this.getDraft(this.noteId)
 
-      /* Make sure file exists */
-      if (!file) return
+      this.settings = {
+        ...this.settings,
+        title: data.title,
+        content: data.content,
+        tags: [...(draft.tags ?? []), ...(data?.tags ?? [])],
+        topics: [...(draft.topics ?? []), ...(data?.topics ?? [])]
+      }
 
-      const readData = (f) =>
-        new Promise((resolve) => {
-          const reader = new FileReader()
-          reader.onloadend = () => resolve(reader.result)
-          reader.readAsDataURL(f)
-        })
-
-      /* Read data */
-      this.coverImage = await readData(file)
+      this.saveDraft({
+        ...this.settings
+      })
     },
 
-    uploadCallback() {},
+    onAddApps(app) {
+      const name = app.name
+      this.apps = {
+        [name]: app.data
+      }
+      this.$toast.positive(`${name} plugin added successfully`)
+    },
+
+    uploadedImage(data) {
+      this.isImageModalVisible = false
+      if (data.length > 1) return
+
+      const image = data[0]
+      if (!image.url) return
+      this.coverImage = image.url
+    },
+    onOpenPlugin() {
+      this.isPluginModalVisible = true
+    },
+    onOpenImage() {
+      this.isImageModalVisible = true
+    },
     onOpenMenu() {
       this.isMenuVisible = !this.isMenuVisible
     },
-
+    onOpenSettings() {
+      this.isContentSettingVisible = true
+    },
     onClickOutside() {
       this.isMenuVisible = false
     },
-    onUploadImage() {
-      this.isImageModalVisible = true
-    },
-    getContent(content) {
-      return content?.content
-    },
-    async onChange(s) {
-      if (this.showMarkdown) {
-        const editable = document.querySelector('#markdown')
-        const turndown = new TurndownService({
-          emDelimiter: '_',
-          linkStyle: 'inlined',
-          headingStyle: 'atx'
-        })
-        editable.textContent = turndown.turndown(s)
-      }
 
-      const content = {
-        title: this.fieldTitle,
-        content: this.content ?? ''
-      }
-
-      await this.saveDraft(content)
-      this.saved = false
-    },
-
-    async saveNote() {
-      try {
-        const content = {
-          title: this.fieldTitle,
-          content: this.content ?? ''
-        }
-        await this.saveDraft(content)
-        await this.updateDraft(content)
-        this.$toast.positive('Note saved successfully')
-      } catch (error) {
-        this.$toast.negative(error.message)
-      }
-    },
-
-    async updateDraft(input) {
+    async updateDraft() {
       if (!this.noteId) return
+
+      const draft = await this.getDraft(this.noteId)
+      const input = {
+        content: this.settings?.content ?? draft?.content,
+        title: this.settings?.title ?? draft.title ?? this.savedNote.title
+      }
+
       await this.$store.commit('content/saveContent', {
         id: this.noteId,
         ...input
       })
+
       return await this.$apollo.mutate({
         mutation: UPDATE_NOTE,
         variables: {
@@ -400,6 +285,47 @@ export default {
           return !this.noteId
         }
       })
+    },
+
+    findFirstImage(content) {
+      const regex = /<img.+?src=[\\'"]([^\\'"]+)[\\'"].*?>/i
+      const image = content?.match(regex)
+
+      let result
+      if (image && Array.isArray(image)) {
+        result = this.parseHTML(image[0], 'img', 'src')
+      }
+
+      if (image && !Array.isArray(image)) {
+        result = this.parseHTML(image, 'img', 'src')
+      }
+
+      return result
+    },
+
+    async getDraft(id) {
+      let draft = await this.getLocalDraft(id)
+
+      if (!draft && this.$route.query.type === 'article') {
+        draft = this.savedNote
+      }
+
+      if (!draft) draft = this.savedNote
+
+      return draft
+    },
+
+    parseHTML(content, query = 'p:first-of-type', attr = 'textContent') {
+      const doc = new DOMParser().parseFromString(content, 'text/html')
+      const errorNode = doc.querySelector('parsererror')
+
+      if (errorNode) return content
+
+      const firstParam = doc.querySelector(query)
+
+      if (!firstParam) return content
+
+      return firstParam[attr]
     },
 
     async getLocalDraft(key) {
@@ -421,13 +347,12 @@ export default {
     },
 
     async createNote(input) {
-      if (await this.isValidationInvalid()) return
       const {
         data: { createNote: note }
       } = await this.$apollo.mutate({
         mutation: CREATE_NOTE,
         variables: {
-          input
+          input: { title: input.title, content: input.content }
         }
       })
 
@@ -436,7 +361,6 @@ export default {
           path: `/contents/add`,
           query: {
             ...this.$route.query,
-            type: 'note',
             id: note.id
           }
         })
@@ -446,21 +370,82 @@ export default {
       return null
     },
 
-    generateKey() {
-      return String(Math.floor(100000 + Math.random() * 900000))
-    },
-
     async onPublish() {
+      if (!this.noteId) return // Create new
+      const draft = await this.getDraft(this.noteId)
+      const input = {
+        ...this.settings,
+        status: 'PUBLISHED',
+        noteId: this.noteId,
+        content: this.settings?.content ?? draft?.content,
+        title: this.settings?.title ?? draft.title
+      }
+
+      if (!this.settings?.excerpt) {
+        this.settings.excerpt = this.parseHTML(this.settings.content)
+      }
+
+      if (!this.settings?.featuredImage) {
+        this.settings.featuredImage = this.findFirstImage(this.settings.content)
+      }
       try {
-        const content = {
-          title: this.fieldTitle,
-          content: this.content ?? ''
-        }
-        await this.updateDraft(content)
-        return await this.$router.push(`/contents/${this.noteId}/publish`)
+        await this.addContent(input)
+        this.$store.commit('subscription/increment')
+        // Remove local draft
+        await this.$store.dispatch('content/removeDraft', {
+          key: this.noteId
+        })
+        return this.$router.push(`/contents`)
       } catch (error) {
+        await this.updateDraft(input)
         this.$toast.negative(error.message)
       }
+    },
+
+    async onSettings(data) {
+      const draft = await this.getDraft(this.noteId)
+      this.settings = {
+        apps: {
+          ...this.apps
+        },
+        featuredImage: this.coverImage,
+        ...this.settings,
+        ...data,
+        content: this.settings?.content ?? draft?.content,
+        title: this.settings?.title ?? draft.title ?? this.savedNote.title,
+        tags: [...(draft.tags ?? []), ...(data.tags ?? [])],
+        topics: [...(draft.topics ?? []), ...(data.topics ?? [])]
+      }
+
+      this.saveDraft({
+        ...this.settings
+      })
+    },
+
+    async addContent(input) {
+      try {
+        this.sending = true
+
+        await this.convertNoteToContent(this.noteId, input)
+        this.$toast.positive('Content created successfully')
+        this.sending = false
+      } catch (error) {
+        this.sending = false
+        throw error
+      }
+    },
+
+    async convertNoteToContent(id, input) {
+      return await this.$apollo.mutate({
+        mutation: CONVERT_NOTE_CONTENT,
+        variables: {
+          id,
+          input: { ...input }
+        },
+        update(data) {
+          return data.content
+        }
+      })
     }
   }
 }
@@ -489,12 +474,5 @@ blockquote {
   border-left: 6px solid #2ecc71;
   padding-left: 9px;
   margin-left: -15px;
-}
-
-#markdown,
-#editor {
-  font-family: 'Lora', serif;
-  outline: none;
-  font-size: 19px;
 }
 </style>

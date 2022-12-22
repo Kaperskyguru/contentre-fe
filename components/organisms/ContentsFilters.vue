@@ -171,11 +171,6 @@ export default {
   },
 
   props: {
-    consents: {
-      default: () => [],
-      type: Array
-    },
-
     currencies: {
       default: () => [],
       type: Array
@@ -189,11 +184,6 @@ export default {
     value: {
       type: Boolean,
       default: false
-    },
-
-    bank: {
-      type: Boolean,
-      default: true
     },
 
     clients: {
