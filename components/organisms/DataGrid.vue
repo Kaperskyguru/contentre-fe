@@ -3,7 +3,7 @@
   <div
     ref="infiniteScrollContainer"
     v-infinite-scroll="onLoadMoreData"
-    class="overflow-auto w-full h-screen max-h-full text-sm"
+    class="overflow-auto w-full max-h-full text-sm"
     infinite-scroll-distance="300"
     :infinite-scroll-disabled="disableInfiniteScroll"
   >
@@ -151,6 +151,7 @@
             :key="item[primaryKey] || itemIndex"
             :tabindex="!item.disabled && isItemClickable(item) ? 0 : undefined"
             :class="bodyRowClasses(item)"
+            class="block mb-3 shadow md:table-row md:shadow-none"
             @keypress.enter="onItemClick(item, itemIndex)"
             @click="onItemClick(item, itemIndex)"
           >
@@ -587,7 +588,7 @@ export default {
 
     bodyRowClasses(item) {
       return [
-        'border-b border-silver transition-all',
+        'border px-3 md:px-0 md:border-b border-silver transition-all',
         {
           'lg:border-none': this.isMobileLayout,
           'border-none': !this.isMobileLayout,
