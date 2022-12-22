@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-end items-center p-2">
+  <div class="flex justify-between items-center p-2">
     <div class="hidden justify-center items-center mx-auto w-3/4 lg:block">
       <Warning
         v-if="!isProfileCompleted"
