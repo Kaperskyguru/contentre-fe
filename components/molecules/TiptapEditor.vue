@@ -83,7 +83,7 @@
           <div
             v-if="editor"
             id="d-wysisyg-controls"
-            class="flex overflow-x-auto justify-center w-full"
+            class="flex overflow-x-auto px-2 w-full md:justify-center"
           >
             <span>
               <Tooltip label="Generate Outline">
