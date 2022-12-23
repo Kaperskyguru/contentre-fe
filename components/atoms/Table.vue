@@ -12,7 +12,6 @@
             class="
               py-3
               px-5
-              font-roboto
               text-xs
               font-semibold
               tracking-wider
@@ -30,7 +29,6 @@
             class="
               py-3
               px-5
-              font-roboto
               text-xs
               font-semibold
               tracking-wider
@@ -58,7 +56,7 @@
           "
         >
           <td class="py-2 px-5 text-sm whitespace-nowrap">
-            <div class="font-roboto text-gray-900 whitespace-no-wrap">
+            <div class="text-gray-900 whitespace-no-wrap">
               <CheckField
                 :id="uid"
                 v-model="checkModel"
@@ -74,7 +72,7 @@
             :key="index"
             class="py-2 px-5 text-sm whitespace-nowrap"
           >
-            <p class="font-roboto text-gray-900 whitespace-no-wrap">
+            <p class="text-gray-900 whitespace-no-wrap">
               {{ body }}
             </p>
           </td>
@@ -82,7 +80,7 @@
       </tbody>
     </table>
     <div class="flex justify-between items-center py-2 px-5 bg-white border-t">
-      <span class="text-sm xs:text-sm text-gray-900"> 15 to 29 out of 96 </span>
+      <span class="text-sm text-gray-900 xs:text-sm"> 15 to 29 out of 96 </span>
       <div class="flex flex-col items-center">
         <div class="flex text-gray-700">
           <div

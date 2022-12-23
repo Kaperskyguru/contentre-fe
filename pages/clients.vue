@@ -42,36 +42,31 @@
     </Card>
 
     <Card class="min-h-96">
-      <ClientOverview
-        :checked.sync="checked"
-        :filters="filters"
-        class="h-96 md:h-full"
-      />
-
-      <Dialog v-model="isConfirmModalVisible">
-        <div class="block w-full text-gray-700 bg-white">
-          <div class="flex justify-between w-full text-gray-700 bg-white">
-            <AddClient @create:success="onAddClient" />
-          </div>
-        </div>
-      </Dialog>
-
-      <Dialog
-        v-model="isBulkDeleteClientVisible"
-        primary-text="Confirm"
-        secondary-text="Cancel"
-        @answer="deleteBulkClient"
-      >
-        <template #icon>
-          <IconInformationCircle class="w-20 h-20" />
-        </template>
-        <p>
-          Are you sure you want to delete {{ checked.length }} client{{
-            checked.length > 1 ? 's' : ''
-          }}?
-        </p>
-      </Dialog>
+      <ClientOverview :checked.sync="checked" :filters="filters" />
     </Card>
+    <Dialog v-model="isConfirmModalVisible">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <AddClient @create:success="onAddClient" />
+        </div>
+      </div>
+    </Dialog>
+
+    <Dialog
+      v-model="isBulkDeleteClientVisible"
+      primary-text="Confirm"
+      secondary-text="Cancel"
+      @answer="deleteBulkClient"
+    >
+      <template #icon>
+        <IconInformationCircle class="w-20 h-20" />
+      </template>
+      <p>
+        Are you sure you want to delete {{ checked.length }} client{{
+          checked.length > 1 ? 's' : ''
+        }}?
+      </p>
+    </Dialog>
   </PageContent>
 </template>
 

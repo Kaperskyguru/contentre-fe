@@ -10,7 +10,6 @@
               flex
               items-center
               p-2
-              font-roboto
               text-base
               font-normal
               text-gray-500
@@ -40,7 +39,6 @@
               flex
               items-center
               p-2
-              font-roboto
               text-base
               font-normal
               text-gray-500
@@ -99,7 +97,6 @@
                       flex
                       items-center
                       p-2
-                      font-roboto
                       text-base
                       font-normal
                       text-gray-500
@@ -122,7 +119,6 @@
                       flex
                       items-center
                       p-2
-                      font-roboto
                       text-base
                       font-normal
                       text-gray-500
@@ -145,7 +141,6 @@
                       flex
                       items-center
                       p-2
-                      font-roboto
                       text-base
                       font-normal
                       text-gray-500
@@ -168,7 +163,6 @@
                       flex
                       items-center
                       p-2
-                      font-roboto
                       text-base
                       font-normal
                       text-gray-500
@@ -191,7 +185,6 @@
                       flex
                       items-center
                       p-2
-                      font-roboto
                       text-base
                       font-normal
                       text-gray-500
@@ -214,7 +207,6 @@
                       flex
                       items-center
                       p-2
-                      font-roboto
                       text-base
                       font-normal
                       text-gray-500
@@ -238,7 +230,6 @@
               flex
               items-center
               p-2
-              font-roboto
               text-base
               font-normal
               text-gray-500
@@ -259,7 +250,6 @@
               flex
               items-center
               p-2
-              font-roboto
               text-base
               font-normal
               text-gray-500
@@ -280,7 +270,6 @@
               flex
               items-center
               p-2
-              font-roboto
               text-base
               font-normal
               text-gray-500
@@ -308,7 +297,6 @@
               flex
               items-center
               p-2
-              font-roboto
               text-base
               font-normal
               text-gray-500
@@ -367,7 +355,6 @@
                       flex
                       items-center
                       p-2
-                      font-roboto
                       text-base
                       font-normal
                       text-gray-500
@@ -389,7 +376,6 @@
                       flex
                       items-center
                       p-2
-                      font-roboto
                       text-base
                       font-normal
                       text-gray-500
@@ -409,7 +395,6 @@
                       flex
                       items-center
                       p-2
-                      font-roboto
                       text-base
                       font-normal
                       text-gray-500

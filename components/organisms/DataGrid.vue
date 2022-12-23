@@ -158,7 +158,7 @@
               :class="dataCellClasses({})"
               @click.stop
             >
-              <strong class="text-black lg:hidden">
+              <strong class="text-black mdCustom:hidden">
                 {{ 'Select' }}
               </strong>
               <CheckField
@@ -204,7 +204,7 @@
                     </span>
                   </Button>
 
-                  <strong class="text-black lg:hidden">
+                  <strong class="text-black mdCustom:hidden">
                     <slot
                       :column="column"
                       :title="column[columnTitleKey]"
@@ -239,7 +239,10 @@
                     />
                   </template>
 
-                  <span v-else-if="isMobileLayout" class="block lg:hidden">
+                  <span
+                    v-else-if="isMobileLayout"
+                    class="block mdCustom:hidden"
+                  >
                     {{ displayCellValue(item, column) }}
                   </span>
 
@@ -267,7 +270,7 @@
           :class="bodyRowClasses({})"
         >
           <td v-if="checked" :class="dataCellClasses({})">
-            <strong class="lg:hidden">
+            <strong class="mdCustom:hidden">
               {{ 'Select Content' }}
             </strong>
 
@@ -279,7 +282,7 @@
             :class="dataCellClasses({ column, columnIndex, item: {} })"
             :style="$utils.checkCallback(column.dataStyle, [{}])"
           >
-            <strong class="lg:hidden">
+            <strong class="mdCustom:hidden">
               {{ column[columnTitleKey] }}
             </strong>
 

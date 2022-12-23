@@ -33,13 +33,12 @@
         <ContentFilter :filter-columns="sortColumns" @filters="onFilters" />
       </div>
 
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </div>
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        class="flex-1 w-full h-10"
+        placeholder="Search by name..."
+      />
 
       <div>
         <FavouriteField :selected="checked" @deleted="onDeleteSuccess" />
@@ -47,7 +46,7 @@
     </Card>
 
     <!-- table -->
-    <Card class="min-h-[45rem]">
+    <Card>
       <DataGrid
         :columns="columns"
         :checked.sync="computedChecked"
@@ -289,7 +288,7 @@ export default {
       this.isAddMultipleContent = true
     },
     onAddContent() {
-      if (this.hasExceededPortfolio) {
+      if (this.hasExceededContent) {
         this.isUpgradeModalVisible = true
         return
       }

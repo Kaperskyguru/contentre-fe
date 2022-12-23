@@ -1,84 +1,83 @@
 <template>
-  <!-- <PageContent> -->
-  <section v-click-outside="onClickOutside" class="w-full">
-    <div class="overflow-hidden mx-auto w-[95%]">
-      <section
+  <PageContent>
+    <Card
+      v-click-outside="onClickOutside"
+      class="
+        flex flex-col
+        justify-between
+        items-center
+        py-4
+        mt-0
+        w-full
+        md:flex-row md:mt-4 md:space-y-0 md:space-x-4
+      "
+    >
+      <PageTitle>Add Content</PageTitle>
+      <div
+        v-click-outside="onClickOutside"
         class="
           flex flex-col
-          justify-between
-          items-center
-          py-4
-          mt-0
-          w-full
-          md:flex-row md:mt-4 md:space-y-0 md:space-x-4
+          justify-end
+          my-1
+          space-y-4 space-x-0
+          md:flex-row md:my-8 md:space-y-0 md:space-x-4
         "
       >
-        <PageTitle>Add Content</PageTitle>
-        <div
-          v-click-outside="onClickOutside"
-          class="
-            flex flex-col
-            justify-end
-            my-1
-            space-y-4 space-x-0
-            md:flex-row md:my-8 md:space-y-0 md:space-x-4
-          "
-        >
-          <button @click.prevent="onOpenSettings">
-            <SettingIcon />
-          </button>
-          <div>
-            <Button appearance="outline" @click.prevent="onOpenMenu">
-              Save As
-            </Button>
-            <div
-              v-if="isMenuVisible"
-              x-transition:enter="transition ease-out duration-100"
-              x-transition:enter-start="transform opacity-0 scale-95"
-              x-transition:enter-end="transform opacity-100 scale-100"
-              x-transition:leave="transition ease-in duration-75"
-              x-transition:leave-start="transform opacity-100 scale-100"
-              x-transition:leave-end="transform opacity-0 scale-95"
-              class="
-                absolute
-                top-auto
-                z-40
-                py-3
-                px-5
-                mt-2
-                w-60
-                bg-white
-                dark:bg-gray-800
-                rounded-lg
-                border
-                dark:border-transparent
-                shadow
-              "
-            >
-              <ul class="space-y-3 dark:text-white">
-                <li class="font-medium hover:bg-gray-100">
-                  <button
-                    class="flex items-center transition-colors duration-200"
-                    @click="updateDraft"
-                  >
-                    Note
-                  </button>
-                </li>
-                <li class="font-medium hover:bg-gray-100">
-                  <button
-                    class="flex items-center transition-colors duration-200"
-                  >
-                    Outline
-                  </button>
-                </li>
-                <li class="font-medium hover:bg-gray-100">
-                  <button
-                    class="flex items-center transition-colors duration-200"
-                  >
-                    Brief
-                  </button>
-                </li>
-                <!-- <hr class="dark:border-gray-700" />
+        <button @click.prevent="onOpenSettings">
+          <SettingIcon />
+        </button>
+        <div>
+          <Button appearance="outline" @click.prevent="onOpenMenu">
+            Save As
+          </Button>
+          <div
+            v-if="isMenuVisible"
+            x-transition:enter="transition ease-out duration-100"
+            x-transition:enter-start="transform opacity-0 scale-95"
+            x-transition:enter-end="transform opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-75"
+            x-transition:leave-start="transform opacity-100 scale-100"
+            x-transition:leave-end="transform opacity-0 scale-95"
+            class="
+              absolute
+              top-auto
+              z-40
+              py-3
+              px-5
+              mt-2
+              w-60
+              bg-white
+              dark:bg-gray-800
+              rounded-lg
+              border
+              dark:border-transparent
+              shadow
+            "
+          >
+            <ul class="space-y-3 dark:text-white">
+              <li class="font-medium hover:bg-gray-100">
+                <button
+                  class="flex items-center transition-colors duration-200"
+                  @click="updateDraft"
+                >
+                  Note
+                </button>
+              </li>
+              <li class="font-medium hover:bg-gray-100">
+                <button
+                  class="flex items-center transition-colors duration-200"
+                >
+                  Outline
+                </button>
+              </li>
+              <li class="font-medium hover:bg-gray-100">
+                <button
+                  class="flex items-center transition-colors duration-200"
+                >
+                  Brief
+                </button>
+              </li>
+              <!-- <hr class="dark:border-gray-700" />
                 <li class="font-medium hover:bg-gray-100">
                   <Hyperlink to="#">
                     <button
@@ -88,19 +87,18 @@
                     </button>
                   </Hyperlink>
                 </li> -->
-              </ul>
-            </div>
+            </ul>
           </div>
-          <Button @click.prevent="onPublish"> Publish </Button>
         </div>
-      </section>
+        <Button @click.prevent="onPublish"> Publish </Button>
+      </div>
+    </Card>
 
-      <section class="w-full min-h-full text-gray-700 bg-white">
-        <div class="h-full bg-white">
-          <TiptapEditor :content="defaultContent" @update:content="onContent" />
-        </div>
-      </section>
-    </div>
+    <Card>
+      <div class="overflow-hidden mx-auto w-[95%]">
+        <TiptapEditor :content="defaultContent" @update:content="onContent" />
+      </div>
+    </Card>
 
     <LazyContentSettings
       v-model="isContentSettingVisible"
@@ -130,9 +128,7 @@
         </div>
       </div>
     </Dialog>
-  </section>
-  <!-- end of page -->
-  <!-- </PageContent> -->
+  </PageContent>
 </template>
 
 <script>

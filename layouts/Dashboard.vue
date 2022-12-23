@@ -1,14 +1,18 @@
 <template>
   <div class="flex overflow-hidden flex-col">
-    <div class="justify-center items-center w-full">
-      <Warning link="/profile#onboarding" button-text="Complete Profile"
-        >Check your profile page to complete your profile. It is required for
-        your Writing Portfolios</Warning
-      >
-    </div>
-    <MyHeader :user="currentUser" @logout="onLogout" />
-
-    <Nuxt class="flex-1" />
+    <section class="fixed top-0 left-0 z-20 w-full">
+      <div v-if="isProfileCompleted" class="justify-center items-center w-full">
+        <Warning link="/profile#onboarding" button-text="Complete Profile"
+          >Check your profile page to complete your profile. It is required for
+          your Writing Portfolios</Warning
+        >
+      </div>
+      <MyHeader :user="currentUser" class="w-full" @logout="onLogout" />
+    </section>
+    <Nuxt
+      class="flex-1 mt-16"
+      :class="{ 'md:mt-32 mt-56': isProfileCompleted }"
+    />
     <Toast />
   </div>
 </template>
@@ -50,6 +54,14 @@ export default {
 
     locales() {
       return this.$i18n.locales
+    },
+
+    isProfileCompleted() {
+      return (
+        this.currentUser?.bio &&
+        this.currentUser?.jobTitle &&
+        this.currentUser?.avatarURL
+      )
     }
   },
 

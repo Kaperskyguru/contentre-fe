@@ -7,6 +7,7 @@
       :total="tags.total"
       :loading="$apollo.queries.tags.loading"
       :item-clickable="true"
+      class="h-96 md:h-full"
       @load-more-data="fetchMore"
       @item-click="onItemClick"
     />

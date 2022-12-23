@@ -6,21 +6,13 @@
         gap-2
         justify-between
         items-center
-        py-4
-        md:flex-row md:p-5
+        md:flex-row md:py-2 md:px-5
       "
     >
       <PageTitle>Dashboard</PageTitle>
 
       <div>
-        <Button
-          appearance="primary"
-          :is-pro-feature="hasExceededContent"
-          :message="
-            hasExceededContent ? 'You have exceeded this plan, upgrade now' : ''
-          "
-          @click.prevent="onAddContent"
-        >
+        <Button appearance="primary" @click.prevent="onAddContent">
           Add Content
         </Button>
       </div>
@@ -254,7 +246,7 @@ export default {
       this.isUpgradeModalVisible = false
     },
     onAddContent() {
-      if (this.hasExceededPortfolio) {
+      if (this.hasExceededContent) {
         this.isUpgradeModalVisible = true
         return
       }

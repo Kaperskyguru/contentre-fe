@@ -1,166 +1,166 @@
 <template>
-  <!-- <PageContent> -->
-  <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
+  <PageContent>
+    <Card
+      class="
+        flex flex-col
+        gap-2
+        justify-between
+        items-center
+        md:flex-row md:py-2 md:px-5
+      "
+    >
       <PageTitle>Analytics</PageTitle>
-    </div>
 
-    <!-- calender -->
-    <section class="mb-6">
       <ContentFilter :show-sort-by="false" @filters="onFilters" />
-    </section>
-    <!-- end of calender -->
-
-    <section class="container mx-auto">
+    </Card>
+    <Card>
       <StatOverview :columns="boxColumns" :stats="getBoxStats" />
-    </section>
+    </Card>
 
     <!-- Charts -->
-    <div class="pt-6">
+    <Card
+      class="
+        grid grid-cols-1
+        2xl:grid-cols-3
+        gap-4
+        w-full
+        md:grid-cols-2
+        lg:grid-cols-2
+        xl:grid-cols-3
+      "
+    >
+      <div
+        class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
+      >
+        <Loading
+          v-if="$apollo.queries.contentStats.loading"
+          class="flex flex-1 items-center"
+        />
+        <ChartOverview
+          :hide-percent="true"
+          :data="contentStats.revenue"
+          :title="chartTitle"
+        />
+      </div>
+
       <div
         class="
-          grid grid-cols-1
-          2xl:grid-cols-3
-          gap-4
+          pt-4
           w-full
-          md:grid-cols-2
-          lg:grid-cols-2
-          xl:grid-cols-3
+          bg-white
+          rounded-lg
+          shadow-lg
+          sm:col-span-2
+          md:col-span-1
+          lg:px-2
         "
       >
-        <div
-          class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
-        >
-          <Loading
-            v-if="$apollo.queries.contentStats.loading"
-            class="flex flex-1 items-center"
-          />
-          <ChartOverview
-            :hide-percent="true"
-            :data="contentStats.revenue"
-            :title="chartTitle"
-          />
-        </div>
-
-        <div
-          class="
-            pt-4
-            w-full
-            bg-white
-            rounded-lg
-            shadow-lg
-            sm:col-span-2
-            md:col-span-1
-            lg:px-2
-          "
-        >
-          <!-- Card -->
-          <div class="overflow-hidden">
-            <header class="px-2 leading-tight">
-              <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
-                >Client Overview</span
-              >
-              <!-- <h3 class="pb-4 font-normal text-gray-500 text-normal">
+        <!-- Card -->
+        <div class="overflow-hidden">
+          <header class="px-2 leading-tight">
+            <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
+              >Client Overview</span
+            >
+            <!-- <h3 class="pb-4 font-normal text-gray-500 text-normal">
                   Weekly Content Impact
                 </h3> -->
-            </header>
+          </header>
 
-            <div class="">
-              <Loading
-                v-if="$apollo.queries.metadata.loading"
-                class="flex flex-1 items-center"
-              />
-              <Column
-                v-else
-                type="doughnut"
-                :show-header="false"
-                :chart-data="metadata.performance"
-              />
-            </div>
+          <div class="">
+            <Loading
+              v-if="$apollo.queries.metadata.loading"
+              class="flex flex-1 items-center"
+            />
+            <Column
+              v-else
+              type="doughnut"
+              :show-header="false"
+              :chart-data="metadata.performance"
+            />
           </div>
-          <!-- END Card -->
         </div>
+        <!-- END Card -->
       </div>
-    </div>
+    </Card>
 
     <!-- End of Charts -->
 
     <!-- footer Articles -->
-    <section class="container mx-auto">
-      <div class="flex justify-between items-center py-4">
-        <h1 class="pt-4 text-3xl font-bold text-gray-900">Top Groupings</h1>
-      </div>
-      <div class="flex flex-wrap space-y-3">
-        <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
-          <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
-            <Loading
-              v-if="$apollo.queries.getCategoryStats.loading"
-              class="flex flex-1 items-center"
-            />
-            <Column
-              v-else
-              :chart-data="getCategoryStats"
-              type="bar"
-              :show-selector="true"
-              :selector-data="{
-                data: getCategories,
-                title: 'Categories',
-                placeholder: getCategoryPlaceholder
-              }"
-              @selected="selectCategory"
-            />
+    <Card>
+      <section class="container mx-auto">
+        <div class="flex justify-between items-center py-4">
+          <h1 class="pt-4 text-3xl font-bold text-gray-900">Top Groupings</h1>
+        </div>
+        <div class="flex flex-wrap space-y-3">
+          <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
+            <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
+              <Loading
+                v-if="$apollo.queries.getCategoryStats.loading"
+                class="flex flex-1 items-center"
+              />
+              <Column
+                v-else
+                :chart-data="getCategoryStats"
+                type="bar"
+                :show-selector="true"
+                :selector-data="{
+                  data: getCategories,
+                  title: 'Categories',
+                  placeholder: getCategoryPlaceholder
+                }"
+                @selected="selectCategory"
+              />
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
+            <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
+              <Loading
+                v-if="$apollo.queries.getTopicStats.loading"
+                class="flex flex-1 items-center"
+              />
+              <Column
+                v-else
+                :show-selector="true"
+                :chart-data="getTopicStats"
+                :selector-data="{
+                  data: getTopics,
+                  title: 'Topics',
+                  placeholder: getTopicPlaceholder
+                }"
+                @selected="selectTopic"
+              />
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
+            <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
+              <Loading
+                v-if="$apollo.queries.getTagStats.loading"
+                class="flex flex-1 items-center"
+              />
+              <Column
+                v-else
+                type="bar"
+                :chart-data="getTagStats"
+                :show-selector="true"
+                :selector-data="{
+                  data: getTags,
+                  title: 'Tags',
+                  placeholder: getTagPlaceholder
+                }"
+                @selected="selectTag"
+              />
+            </div>
           </div>
         </div>
-        <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
-          <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
-            <Loading
-              v-if="$apollo.queries.getTopicStats.loading"
-              class="flex flex-1 items-center"
-            />
-            <Column
-              v-else
-              :show-selector="true"
-              :chart-data="getTopicStats"
-              :selector-data="{
-                data: getTopics,
-                title: 'Topics',
-                placeholder: getTopicPlaceholder
-              }"
-              @selected="selectTopic"
-            />
-          </div>
-        </div>
-        <div class="w-full md:w-1/2 lg:px-2 lg:my-2 lg:w-1/3">
-          <div class="p-2 bg-white rounded-lg sm:p-3 xl:p-5">
-            <Loading
-              v-if="$apollo.queries.getTagStats.loading"
-              class="flex flex-1 items-center"
-            />
-            <Column
-              v-else
-              type="bar"
-              :chart-data="getTagStats"
-              :show-selector="true"
-              :selector-data="{
-                data: getTags,
-                title: 'Tags',
-                placeholder: getTagPlaceholder
-              }"
-              @selected="selectTag"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-
+      </section>
+    </Card>
     <!-- end of footer Articles -->
 
-    <section class="container mx-auto mt-4">
+    <Card>
       <OverallStatTable :checked.sync="checked" />
-    </section>
+    </Card>
     <!-- end of table -->
-  </section>
-  <!-- </PageContent> -->
+  </PageContent>
 </template>
 
 <script>

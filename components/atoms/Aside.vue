@@ -1,400 +1,381 @@
 <template>
-  <Card
-    class="flex flex-col flex-1 space-y-3"
-    :class="{ '!py-3 !px-1 space-y-1.5': isSidebarCollapsed }"
-    :rounded="isSidebarCollapsed ? 'right' : true"
-  >
-    <CollapseSidebarButton />
-    <Hyperlink
-      :to="{ name: 'index' }"
-      class="
-        group
-        flex
-        items-center
-        p-2
-        font-roboto
-        text-base
-        font-normal
-        text-gray-500
-        rounded-lg
-      "
+  <span>
+    <Card
+      class="flex flex-col flex-1 mb-6 space-y-3"
+      :class="{ '!py-3 !px-1 space-y-1.5': isSidebarCollapsed }"
+      :rounded="isSidebarCollapsed ? 'right' : true"
     >
-      <span class="text-white">
-        <DashboardIcon />
-      </span>
-      <span class="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
-    </Hyperlink>
-
-    <div
-      id="dropdownDividerButton"
-      class="dropdown"
-      data-dropdown-toggle="dropdownDivider"
-      @mouseover="contentOpen = true"
-      @mouseleave="contentOpen = false"
-    >
+      <!-- <CollapseSidebarButton /> -->
       <Hyperlink
-        to="#"
+        :to="{ name: 'index' }"
         class="
           group
           flex
           items-center
           p-2
-          font-roboto
           text-base
           font-normal
           text-gray-500
           rounded-lg
         "
       >
-        <ContentIcon />
-        <span class="flex-1 ml-3 whitespace-nowrap">Contents</span>
-
-        <svg
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          :class="{
-            'rotate-180': contentOpen,
-            'rotate-0': !contentOpen
-          }"
-          class="
-            inline
-            mt-1
-            ml-1
-            w-4
-            h-4
-            transition-transform
-            duration-200
-            md:-mt-1
-          "
-        >
-          <path
-            fill-rule="evenodd"
-            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-            c
-            lip-rule="evenodd"
-          ></path>
-        </svg>
+        <span class="text-white">
+          <DashboardIcon />
+        </span>
+        <span class="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
       </Hyperlink>
 
       <div
-        id="dropdownDivider"
-        class="hidden divide-y divide-gray-100 dropdown-menu"
+        id="dropdownDividerButton"
+        class="dropdown"
+        data-dropdown-toggle="dropdownDivider"
+        @mouseover="contentOpen = true"
+        @mouseleave="contentOpen = false"
       >
-        <ul aria-labelledby="dropdownDividerButton">
-          <li>
-            <Hyperlink
-              :to="{ name: 'contents' }"
-              class="
-                group
-                flex
-                items-center
-                p-2
-                font-roboto
-                text-base
-                font-normal
-                text-gray-500
-                rounded-lg
-              "
-            >
-              <ContentIcon />
-              <span class="flex-1 ml-3 whitespace-nowrap">All Contents</span>
-            </Hyperlink>
-          </li>
+        <Hyperlink
+          to="#"
+          class="
+            group
+            flex
+            items-center
+            p-2
+            text-base
+            font-normal
+            text-gray-500
+            rounded-lg
+          "
+        >
+          <ContentIcon />
+          <span class="flex-1 ml-3 whitespace-nowrap">Contents</span>
 
-          <li>
-            <Hyperlink
-              :to="{ name: 'contents/add', query: { type: 'note' } }"
-              class="
-                group
-                flex
-                items-center
-                p-2
-                font-roboto
-                text-base
-                font-normal
-                text-gray-500
-                rounded-lg
-              "
-            >
-              <AddIcon />
-              <span class="flex-1 ml-3 whitespace-nowrap"
-                >Write an article</span
+          <svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            :class="{
+              'rotate-180': contentOpen,
+              'rotate-0': !contentOpen
+            }"
+            class="
+              inline
+              mt-1
+              ml-1
+              w-4
+              h-4
+              transition-transform
+              duration-200
+              md:-mt-1
+            "
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              c
+              lip-rule="evenodd"
+            ></path>
+          </svg>
+        </Hyperlink>
+
+        <div
+          id="dropdownDivider"
+          class="hidden divide-y divide-gray-100 dropdown-menu"
+        >
+          <ul aria-labelledby="dropdownDividerButton">
+            <li>
+              <Hyperlink
+                :to="{ name: 'contents' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  text-base
+                  font-normal
+                  text-gray-500
+                  rounded-lg
+                "
               >
-            </Hyperlink>
-          </li>
+                <ContentIcon />
+                <span class="flex-1 ml-3 whitespace-nowrap">All Contents</span>
+              </Hyperlink>
+            </li>
 
-          <li>
-            <Hyperlink
-              :to="{ name: 'contents/outlines' }"
-              class="
-                group
-                flex
-                items-center
-                p-2
-                font-roboto
-                text-base
-                font-normal
-                text-gray-500
-                rounded-lg
-              "
-            >
-              <OutlineIcon />
-              <span class="flex-1 ml-3 whitespace-nowrap">Create Outlines</span>
-            </Hyperlink>
-          </li>
+            <li>
+              <Hyperlink
+                :to="{ name: 'contents/add', query: { type: 'note' } }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  text-base
+                  font-normal
+                  text-gray-500
+                  rounded-lg
+                "
+              >
+                <AddIcon />
+                <span class="flex-1 ml-3 whitespace-nowrap"
+                  >Write an article</span
+                >
+              </Hyperlink>
+            </li>
 
-          <li>
-            <Hyperlink
-              :to="{ name: 'contents/briefs' }"
-              class="
-                group
-                flex
-                items-center
-                p-2
-                font-roboto
-                text-base
-                font-normal
-                text-gray-500
-                rounded-lg
-              "
-            >
-              <BriefIcon />
-              <span class="flex-1 ml-3 whitespace-nowrap">Create Briefs</span>
-            </Hyperlink>
-          </li>
+            <li>
+              <Hyperlink
+                :to="{ name: 'contents/outlines' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  text-base
+                  font-normal
+                  text-gray-500
+                  rounded-lg
+                "
+              >
+                <OutlineIcon />
+                <span class="flex-1 ml-3 whitespace-nowrap"
+                  >Create Outlines</span
+                >
+              </Hyperlink>
+            </li>
 
-          <li>
-            <Hyperlink
-              :to="{ name: 'contents/snippets' }"
-              class="
-                group
-                flex
-                items-center
-                p-2
-                font-roboto
-                text-base
-                font-normal
-                text-gray-500
-                rounded-lg
-              "
-            >
-              <SnippetIcon />
-              <span class="flex-1 ml-3 whitespace-nowrap">Create Snippets</span>
-            </Hyperlink>
-          </li>
+            <li>
+              <Hyperlink
+                :to="{ name: 'contents/briefs' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  text-base
+                  font-normal
+                  text-gray-500
+                  rounded-lg
+                "
+              >
+                <BriefIcon />
+                <span class="flex-1 ml-3 whitespace-nowrap">Create Briefs</span>
+              </Hyperlink>
+            </li>
 
-          <li>
-            <Hyperlink
-              :to="{ name: 'notebooks' }"
-              class="
-                group
-                flex
-                items-center
-                p-2
-                font-roboto
-                text-base
-                font-normal
-                text-gray-500
-                rounded-lg
-              "
-            >
-              <NoteIcon />
-              <span class="flex-1 ml-3 whitespace-nowrap">Notes</span>
-            </Hyperlink>
-          </li>
-        </ul>
+            <li>
+              <Hyperlink
+                :to="{ name: 'contents/snippets' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  text-base
+                  font-normal
+                  text-gray-500
+                  rounded-lg
+                "
+              >
+                <SnippetIcon />
+                <span class="flex-1 ml-3 whitespace-nowrap"
+                  >Create Snippets</span
+                >
+              </Hyperlink>
+            </li>
+
+            <li>
+              <Hyperlink
+                :to="{ name: 'notebooks' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  text-base
+                  font-normal
+                  text-gray-500
+                  rounded-lg
+                "
+              >
+                <NoteIcon />
+                <span class="flex-1 ml-3 whitespace-nowrap">Notes</span>
+              </Hyperlink>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <Hyperlink
-      :to="{ name: 'analytics' }"
-      class="
-        group
-        flex
-        items-center
-        p-2
-        font-roboto
-        text-base
-        font-normal
-        text-gray-500
-        rounded-lg
-      "
-    >
-      <AnalyticIcon />
-      <span class="flex-1 ml-3 whitespace-nowrap">Analytics</span>
-    </Hyperlink>
-
-    <Hyperlink
-      :to="{ name: 'portfolios' }"
-      class="
-        group
-        flex
-        items-center
-        p-2
-        font-roboto
-        text-base
-        font-normal
-        text-gray-500
-        rounded-lg
-      "
-    >
-      <PortfolioIcon />
-      <span class="flex-1 ml-3 whitespace-nowrap">Portfolios</span>
-    </Hyperlink>
-
-    <Hyperlink
-      :to="{ name: 'clients' }"
-      class="
-        group
-        flex
-        items-center
-        p-2
-        font-roboto
-        text-base
-        font-normal
-        text-gray-500
-        rounded-lg
-      "
-    >
-      <ProfileIcon />
-      <span class="flex-1 ml-3 whitespace-nowrap">Clients</span>
-    </Hyperlink>
-
-    <div
-      id="dropdownDividerButton"
-      class="dropdown"
-      data-dropdown-toggle="dropdownDivider"
-      @mouseover="groupingOpen = true"
-      @mouseleave="groupingOpen = false"
-    >
       <Hyperlink
-        to="#"
+        :to="{ name: 'analytics' }"
         class="
           group
           flex
           items-center
           p-2
-          font-roboto
           text-base
           font-normal
           text-gray-500
           rounded-lg
         "
       >
-        <GroupingIcon />
-        <span class="flex-1 ml-3 whitespace-nowrap">Groupings</span>
-
-        <svg
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          :class="{
-            'rotate-180': groupingOpen,
-            'rotate-0': !groupingOpen
-          }"
-          class="
-            inline
-            mt-1
-            ml-1
-            w-4
-            h-4
-            transition-transform
-            duration-200
-            md:-mt-1
-          "
-        >
-          <path
-            fill-rule="evenodd"
-            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-            c
-            lip-rule="evenodd"
-          ></path>
-        </svg>
+        <AnalyticIcon />
+        <span class="flex-1 ml-3 whitespace-nowrap">Analytics</span>
       </Hyperlink>
-      <div
-        id="dropdownDivider"
-        class="hidden absolute z-10 divide-y divide-gray-100 dropdown-menu"
-      >
-        <ul aria-labelledby="dropdownDividerButton">
-          <li>
-            <Hyperlink
-              :to="{ name: 'categories' }"
-              class="
-                group
-                flex
-                items-center
-                p-2
-                font-roboto
-                text-base
-                font-normal
-                text-gray-500
-                rounded-lg
-              "
-            >
-              <span class="flex-1 ml-3 whitespace-nowrap">Categories</span>
-            </Hyperlink>
-          </li>
 
-          <li>
-            <Hyperlink
-              :to="{ name: 'topics' }"
-              class="
-                group
-                flex
-                items-center
-                p-2
-                font-roboto
-                text-base
-                font-normal
-                text-gray-500
-                rounded-lg
-              "
-            >
-              <span class="flex-1 ml-3 whitespace-nowrap">Topics</span>
-            </Hyperlink>
-          </li>
-
-          <li>
-            <Hyperlink
-              :to="{ name: 'tags' }"
-              class="
-                group
-                flex
-                items-center
-                p-2
-                font-roboto
-                text-base
-                font-normal
-                text-gray-500
-                rounded-lg
-              "
-            >
-              <span class="flex-1 ml-3 whitespace-nowrap">Tags</span>
-            </Hyperlink>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- <div
+      <Hyperlink
+        :to="{ name: 'portfolios' }"
         class="
-          overflow-hidden
-          absolute
-          right-4
-          bottom-10
-          left-5
+          group
+          flex
+          items-center
           p-2
+          text-base
+          font-normal
+          text-gray-500
           rounded-lg
-          shadow-lg
-          aside-footer
         "
       >
+        <PortfolioIcon />
+        <span class="flex-1 ml-3 whitespace-nowrap">Portfolios</span>
+      </Hyperlink>
+
+      <Hyperlink
+        :to="{ name: 'clients' }"
+        class="
+          group
+          flex
+          items-center
+          p-2
+          text-base
+          font-normal
+          text-gray-500
+          rounded-lg
+        "
+      >
+        <ProfileIcon />
+        <span class="flex-1 ml-3 whitespace-nowrap">Clients</span>
+      </Hyperlink>
+
+      <div
+        id="dropdownDividerButton"
+        class="dropdown"
+        data-dropdown-toggle="dropdownDivider"
+        @mouseover="groupingOpen = true"
+        @mouseleave="groupingOpen = false"
+      >
+        <Hyperlink
+          to="#"
+          class="
+            group
+            flex
+            items-center
+            p-2
+            text-base
+            font-normal
+            text-gray-500
+            rounded-lg
+          "
+        >
+          <GroupingIcon />
+          <span class="flex-1 ml-3 whitespace-nowrap">Groupings</span>
+
+          <svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            :class="{
+              'rotate-180': groupingOpen,
+              'rotate-0': !groupingOpen
+            }"
+            class="
+              inline
+              mt-1
+              ml-1
+              w-4
+              h-4
+              transition-transform
+              duration-200
+              md:-mt-1
+            "
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              c
+              lip-rule="evenodd"
+            ></path>
+          </svg>
+        </Hyperlink>
+        <div
+          id="dropdownDivider"
+          class="hidden divide-y divide-gray-100 dropdown-menu"
+        >
+          <ul aria-labelledby="dropdownDividerButton">
+            <li>
+              <Hyperlink
+                :to="{ name: 'categories' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  text-base
+                  font-normal
+                  text-gray-500
+                  rounded-lg
+                "
+              >
+                <span class="flex-1 ml-3 whitespace-nowrap">Categories</span>
+              </Hyperlink>
+            </li>
+
+            <li>
+              <Hyperlink
+                :to="{ name: 'topics' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  text-base
+                  font-normal
+                  text-gray-500
+                  rounded-lg
+                "
+              >
+                <span class="flex-1 ml-3 whitespace-nowrap">Topics</span>
+              </Hyperlink>
+            </li>
+
+            <li>
+              <Hyperlink
+                :to="{ name: 'tags' }"
+                class="
+                  group
+                  flex
+                  items-center
+                  p-2
+                  text-base
+                  font-normal
+                  text-gray-500
+                  rounded-lg
+                "
+              >
+                <span class="flex-1 ml-3 whitespace-nowrap">Tags</span>
+              </Hyperlink>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Card>
+    <Card class="relative">
+      <div class="overflow-hidden p-2 rounded-lg shadow-lg aside-footer">
         <Upgrade
           :contents="totalNumber ? totalNumber : 0"
           :max="$utils.getFeatureValue(subscription, 'TOTAL_CONTENTS')"
         />
-      </div> -->
-    <!-- End -->
-  </Card>
+      </div>
+
+      <!-- End -->
+    </Card>
+  </span>
 </template>
 
 <script>
