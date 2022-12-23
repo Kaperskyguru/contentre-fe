@@ -5,17 +5,15 @@
       overflow-y-auto
       flex-col flex-1
       p-4
-      mb-5
       space-y-6
-      w-full
       min-h-full
       md:flex-row md:p-6 md:space-y-0 md:space-x-6 md:min-h-0
     "
-  >
-    <!-- :class="{
+    :class="{
       'md:pl-0': allowCollapseSidebar && isSidebarCollapsed
-    }" -->
-    <!-- <aside
+    }"
+  >
+    <aside
       class="flex flex-col space-y-6 drop-shadow transition-all"
       :class="{
         'md:w-60 lg:w-64 xl:w-68': allowCollapseSidebar && !isSidebarCollapsed,
@@ -23,7 +21,7 @@
       }"
     >
       <slot name="sidebar" />
-    </aside> -->
+    </aside>
 
     <div
       class="flex flex-col flex-1 space-y-6 drop-shadow"
@@ -39,7 +37,7 @@
 
 <script>
 import Loading from '~/components/molecules/Loading.vue'
-// import { uiState } from '~/components/mixins'
+import { uiState } from '~/components/mixins'
 
 export default {
   name: 'PageContent',
@@ -48,7 +46,7 @@ export default {
     Loading
   },
 
-  // mixins: [uiState],
+  mixins: [uiState],
 
   props: {
     waiting: {

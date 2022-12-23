@@ -95,6 +95,19 @@
   }
 }
 
+.page-frame {
+  height: calc(100% - 3rem - 60px);
+}
+
+
+html,
+body,
+#__nuxt,
+#__layout,
+#__app {
+  @apply h-screen overflow-hidden;
+}
+
 body {
   font-weight: 400;
   line-height: 1.5;
@@ -110,12 +123,7 @@ body {
   box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
 }
 
-aside {
-  background: #083430;
-  position: fixed;
-  z-index: 10032;
-  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
-}
+
 
 nav#mobile {
   background: #083430;
@@ -154,13 +162,7 @@ nav#mobile {
   top: 5px;
 }
 
-@media (max-width: 640px) {
 
-  body>aside,
-  body>main {
-    grid-area: stack;
-  }
-}
 
 #sidenav-open {
   --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1);

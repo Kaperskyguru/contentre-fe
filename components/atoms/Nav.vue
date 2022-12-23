@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between items-center p-2">
-    <div class="hidden justify-center items-center mx-auto w-3/4 lg:block">
+    <!-- <div class="hidden justify-center items-center mx-auto w-3/4 lg:block">
       <Warning
         v-if="!isProfileCompleted"
         link="/profile#onboarding"
@@ -8,14 +8,14 @@
         >Check your profile page to complete your profile. It is required for
         your Writing Portfolios</Warning
       >
-    </div>
+    </div> -->
 
-    <div class="p-0 sm:p-2 md:hidden lg:hidden aside-header">
+    <!-- <div class="p-0 sm:p-2 md:hidden lg:hidden aside-header">
       <Hyperlink to="/" class="flex items-center font-bold">
         <img src="/logo.png" class="mt-2 img-fluid" alt="contentre logo" />
       </Hyperlink>
-    </div>
-    <div class="flex justify-center items-center">
+    </div> -->
+    <!-- <div class="flex justify-center items-center">
       <button
         id="toggleSidebarMobile"
         aria-expanded="true"
@@ -60,11 +60,11 @@
           ></path>
         </svg>
       </button>
-    </div>
+    </div> -->
 
-    <div class="justify-items-start">
-      <UserDropdown :user="currentUser" @logout="$emit('logout')" />
-    </div>
+    <!-- <div class="justify-items-start"> -->
+    <UserDropdown :user="currentUser" @logout="$emit('logout')" />
+    <!-- </div> -->
   </div>
 </template>
 
