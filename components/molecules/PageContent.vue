@@ -20,7 +20,16 @@
         'w-12': allowCollapseSidebar && isSidebarCollapsed
       }"
     >
+      <Aside />
       <slot name="sidebar" />
+      <Card class="">
+        <div class="overflow-hidden p-2 rounded-lg shadow-lg aside-footer">
+          <Upgrade
+            :contents="totalNumber ? totalNumber : 0"
+            :max="$utils.getFeatureValue(subscription, 'TOTAL_CONTENTS')"
+          />
+        </div>
+      </Card>
     </aside>
 
     <div

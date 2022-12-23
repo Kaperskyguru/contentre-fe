@@ -1,30 +1,16 @@
 <template>
-  <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
-      <PageTitle>Clients</PageTitle>
-    </div>
-
-    <section
+  <PageContent>
+    <Card
       class="
-        flex flex-col
+        flex flex-col flex-wrap
+        gap-2
         justify-between
-        mb-6
-        space-y-6 space-x-0
-        md:flex-row md:space-y-0 md:space-x-6
+        items-center
+        py-4
+        md:flex-row md:p-5
       "
     >
-      <div>
-        <ContentFilter :filter-columns="columns" @filters="onFilters" />
-      </div>
-
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </div>
-
+      <PageTitle>Clients</PageTitle>
       <div class="flex space-x-0 md:space-x-3">
         <Button @click.prevent="onAddClient">Add Client</Button>
         <Button
@@ -34,42 +20,59 @@
           >Delete Client{{ checked.length > 1 ? 's' : '' }}</Button
         >
       </div>
-    </section>
+    </Card>
 
-    <section class="mt-5 h-screen bg-white">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <ClientOverview :checked.sync="checked" :filters="filters" />
+    <Card
+      class="
+        flex flex-col flex-wrap
+        gap-2
+        justify-between
+        items-center
+        py-4
+        md:flex-row md:p-5
+      "
+    >
+      <ContentFilter :filter-columns="columns" @filters="onFilters" />
+
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by name..."
+      />
+    </Card>
+
+    <Card class="min-h-96">
+      <ClientOverview
+        :checked.sync="checked"
+        :filters="filters"
+        class="h-96 md:h-full"
+      />
+
+      <Dialog v-model="isConfirmModalVisible">
+        <div class="block w-full text-gray-700 bg-white">
+          <div class="flex justify-between w-full text-gray-700 bg-white">
+            <AddClient @create:success="onAddClient" />
           </div>
         </div>
-      </div>
-    </section>
+      </Dialog>
 
-    <Dialog v-model="isConfirmModalVisible">
-      <div class="block w-full text-gray-700 bg-white">
-        <div class="flex justify-between w-full text-gray-700 bg-white">
-          <AddClient @create:success="onAddClient" />
-        </div>
-      </div>
-    </Dialog>
-
-    <Dialog
-      v-model="isBulkDeleteClientVisible"
-      primary-text="Confirm"
-      secondary-text="Cancel"
-      @answer="deleteBulkClient"
-    >
-      <template #icon>
-        <IconInformationCircle class="w-20 h-20" />
-      </template>
-      <p>
-        Are you sure you want to delete {{ checked.length }} client{{
-          checked.length > 1 ? 's' : ''
-        }}?
-      </p>
-    </Dialog>
-  </section>
+      <Dialog
+        v-model="isBulkDeleteClientVisible"
+        primary-text="Confirm"
+        secondary-text="Cancel"
+        @answer="deleteBulkClient"
+      >
+        <template #icon>
+          <IconInformationCircle class="w-20 h-20" />
+        </template>
+        <p>
+          Are you sure you want to delete {{ checked.length }} client{{
+            checked.length > 1 ? 's' : ''
+          }}?
+        </p>
+      </Dialog>
+    </Card>
+  </PageContent>
 </template>
 
 <script>

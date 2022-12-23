@@ -3,14 +3,11 @@
   <div
     ref="infiniteScrollContainer"
     v-infinite-scroll="onLoadMoreData"
-    class="overflow-auto w-full max-h-full text-sm"
+    class="overflow-auto w-full h-full max-h-full text-sm"
     infinite-scroll-distance="300"
     :infinite-scroll-disabled="disableInfiniteScroll"
   >
-    <table
-      class="w-full min-w-full table-fixed"
-      :class="{ hidden: noDataToShow }"
-    >
+    <table class="w-full table-fixed" :class="{ hidden: noDataToShow }">
       <thead
         v-if="checked && isMobileLayout && showHeader"
         class="text-left bg-white"

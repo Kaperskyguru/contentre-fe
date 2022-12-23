@@ -95,39 +95,12 @@
   }
 }
 
-.page-frame {
-  height: calc(100% - 3rem - 60px);
-}
-
-
-html,
-body,
-#__nuxt,
-#__layout,
-#__app {
-  @apply h-screen overflow-hidden;
-}
-
 body {
   font-weight: 400;
   line-height: 1.5;
   background-color: #f8f9fa;
   color: #181819;
   @apply font-gilroy
-}
-
-.navside-bs {
-  background: #ffffff;
-  min-height: 60px;
-  width: 100%;
-  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
-}
-
-
-
-nav#mobile {
-  background: #083430;
-  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
 }
 
 .aside-header {
@@ -164,44 +137,9 @@ nav#mobile {
 
 
 
-#sidenav-open {
-  --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration: 0.6s;
-  display: grid;
-  grid-template-columns: [nav] 1fr [escape] 2fr;
-}
-
-@media (max-width: 640px) {
-  #sidenav-open {
-    position: sticky;
-    top: 0;
-    max-height: 100vh;
-    overflow: hidden auto;
-    overscroll-behavior: contain;
-    visibility: hidden;
-    transform: translateX(-110vw);
-    will-change: transform;
-    transition: transform var(--duration) var(--easeOutExpo),
-      visibility 0s linear var(--duration);
-  }
-}
-
-@media only screen and (max-width: 640px) {
-  #sidenav-open:target {
-    visibility: visible;
-    transform: translateX(0);
-    transition: transform var(--duration) var(--easeOutExpo);
-  }
-
-  #sidenav-open:target~main {
-    filter: blur(0.5em);
-    z-index: -1;
-  }
-}
-
-.grid-cols-auto-1fr-auto {
+/* .grid-cols-auto-1fr-auto {
   grid-template-columns: auto 1fr auto;
-}
+} */
 
 #profile-progress {
   border: 1em solid white;

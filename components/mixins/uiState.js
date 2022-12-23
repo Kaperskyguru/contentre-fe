@@ -1,13 +1,11 @@
 export const uiState = {
-  computed: {
-    isSidebarCollapsed() {
-      return false
-    }
-  },
+  data: () => ({
+    isSidebarCollapsed: false
+  }),
 
   methods: {
     toggleSidebarCollapsed() {
-      this.sidebarCollapsed = !this.isSidebarCollapsed
+      this.isSidebarCollapsed = !this.isSidebarCollapsed
     }
   }
 }

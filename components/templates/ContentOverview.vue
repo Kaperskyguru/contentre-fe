@@ -1,12 +1,32 @@
 <template>
-  <span v-fragment>
-    <section
+  <span>
+    <Card
+      class="
+        flex flex-col flex-wrap
+        gap-2
+        justify-between
+        items-center
+        py-4
+        mb-6
+        md:flex-row md:p-5
+      "
+    >
+      <PageTitle>Contents</PageTitle>
+
+      <Button appearance="primary" @click.prevent="onAddContent">
+        Add Content
+      </Button>
+    </Card>
+
+    <Card
       class="
         flex flex-col
         justify-between
+        items-center
+        py-4
         mb-6
         space-y-6 space-x-0
-        md:flex-row md:space-y-0 md:space-x-5
+        md:flex-row md:p-5 md:space-y-0 md:space-x-5
       "
     >
       <div>
@@ -24,33 +44,22 @@
       <div>
         <FavouriteField :selected="checked" @deleted="onDeleteSuccess" />
       </div>
-
-      <div>
-        <Button appearance="primary" @click.prevent="onAddContent">
-          Add Content
-        </Button>
-      </div>
-    </section>
+    </Card>
 
     <!-- table -->
-    <section class="mt-5">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <DataGrid
-              :columns="columns"
-              :checked.sync="computedChecked"
-              :items="contents.items"
-              :total="contents.total"
-              :loading="$apollo.queries.contents.loading"
-              :item-clickable="true"
-              @load-more-data="fetchMore"
-              @item-click="onItemClick"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+    <Card class="min-h-[45rem]">
+      <DataGrid
+        :columns="columns"
+        :checked.sync="computedChecked"
+        :items="contents.items"
+        :total="contents.total"
+        class="h-96 md:h-full"
+        :loading="$apollo.queries.contents.loading"
+        :item-clickable="true"
+        @load-more-data="fetchMore"
+        @item-click="onItemClick"
+      />
+    </Card>
     <!-- end of table -->
 
     <Dialog v-model="isAddContent">

@@ -1,12 +1,8 @@
 <template>
   <PageContent>
-    <template #sidebar>
-      <Aside class="flex-1" />
-    </template>
-
     <Card
       class="
-        flex flex-col flex-wrap
+        flex flex-col
         gap-2
         justify-between
         items-center
@@ -36,67 +32,59 @@
     </Card>
 
     <!-- Chart -->
-    <Card>
-      <section class="pt-6">
-        <div
-          class="
-            grid grid-cols-1
-            2xl:grid-cols-3
-            gap-4
-            w-full
-            md:grid-cols-2
-            lg:grid-cols-2
-            xl:grid-cols-3
-          "
-        >
-          <!-- Chart 1 -->
-          <div
-            class="p-4 bg-white rounded-lg shadow sm:p-6 md:col-span-2 xl:p-8"
-          >
+    <Card
+      class="
+        grid grid-cols-1
+        2xl:grid-cols-3
+        gap-4
+        w-full
+        md:grid-cols-2
+        lg:grid-cols-2
+        xl:grid-cols-3
+      "
+    >
+      <div class="p-4 bg-white rounded-lg shadow sm:p-6 md:col-span-2 xl:p-8">
+        <Loading
+          v-if="$apollo.queries.metadata.loading"
+          class="flex flex-1 items-center"
+        />
+        <ChartOverview
+          v-else
+          :data="metadata.revenue"
+          :percent="getPercentAmount"
+        />
+      </div>
+
+      <div class="p-2 bg-white rounded-lg shadow sm:p-3 xl:p-5">
+        <div class="overflow-hidden">
+          <header class="px-2 leading-tight">
+            <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
+              >Client Overview</span
+            >
+
+            <h3 class="pb-4 font-normal text-gray-500">
+              Yearly Account Overview
+            </h3>
+          </header>
+
+          <div class="">
             <Loading
-              v-if="$apollo.queries.metadata.loading"
+              v-if="$apollo.queries.contentImpact.loading"
               class="flex flex-1 items-center"
             />
-            <ChartOverview
+            <Column
               v-else
-              :data="metadata.revenue"
-              :percent="getPercentAmount"
+              type="doughnut"
+              :show-header="false"
+              :chart-data="contentImpact"
             />
           </div>
-          <!-- Chart 2-->
-          <div class="p-2 bg-white rounded-lg shadow sm:p-3 xl:p-5">
-            <div class="overflow-hidden">
-              <header class="px-2 leading-tight">
-                <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
-                  >Client Overview</span
-                >
-                <!-- Total Overview -->
-                <h3 class="pb-4 font-normal text-gray-500">
-                  Yearly Account Overview
-                </h3>
-              </header>
-
-              <div class="">
-                <Loading
-                  v-if="$apollo.queries.contentImpact.loading"
-                  class="flex flex-1 items-center"
-                />
-                <Column
-                  v-else
-                  type="doughnut"
-                  :show-header="false"
-                  :chart-data="contentImpact"
-                />
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
     </Card>
-    <!-- Chart End -->
 
     <!-- table -->
-    <Card>
+    <!-- <Card class="min-h-96">
       <section class="container px-4 my-8 mx-auto bg-white">
         <div class="flex justify-between items-center py-4">
           <h2 class="font-gilroy text-2xl font-semibold leading-tight">
@@ -105,7 +93,7 @@
         </div>
         <ClientOverview :checked.sync="checked" placement="dashboard" />
       </section>
-    </Card>
+    </Card> -->
     <Dialog v-model="isAddContent">
       <div class="block w-full text-gray-700 bg-white">
         <div class="flex justify-between w-full text-gray-700 bg-white">
