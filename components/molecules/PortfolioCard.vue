@@ -68,13 +68,13 @@
 
       <div
         class="
+          flex flex-col
           justify-between
           items-center
           px-4
           space-y-6
           bg-gray-500
-          md:space-y-0 md:flex-row
-          flex flex-col
+          md:flex-row md:space-y-0
         "
         style="background: #102a27"
       >
@@ -103,17 +103,18 @@
           mt-4
           w-full
           text-gray-700
+          dark-mode:text-gray-200
           bg-white
-          dark-mode:text-gray-200 dark-mode:bg-gray-800
+          dark-mode:bg-gray-800
         "
         style="background: #102a27"
       >
         <div
           class="
+            flex flex-col
             mx-auto
             max-w-screen-xl
-            md:items-center md:flex-row
-            flex flex-col
+            md:flex-row md:items-center
           "
         >
           <div class="flex flex-row justify-between items-center">
@@ -123,7 +124,7 @@
                 flex-col
                 grow
                 pb-4
-                md:flex md:justify-end md:flex-row md:pb-0
+                md:flex md:flex-row md:justify-end md:pb-0
               "
             >
               <div
@@ -133,16 +134,16 @@
               >
                 <div
                   class="
+                    flex flex-row
                     items-center
                     p-2
                     mt-2
                     w-full
                     font-bold
+                    text-left text-white
                     bg-teal-900
                     cursor-pointer
-                    md:w-auto md:inline md:mt-0 md:ml-4
-                    text-left text-white
-                    flex flex-row
+                    md:inline md:mt-0 md:ml-4 md:w-auto
                   "
                 >
                   <span>Opacity</span>
@@ -163,7 +164,6 @@
                       bg-teal-600
                       transition-transform
                       duration-200
-                      transform
                       md:-mt-1
                     "
                   >
@@ -183,16 +183,16 @@
               >
                 <div
                   class="
+                    flex flex-row
                     items-center
                     p-2
                     mt-2
                     w-full
                     font-bold
+                    text-left text-white
                     bg-teal-900
                     cursor-pointer
-                    md:w-auto md:inline md:mt-0 md:ml-4
-                    flex flex-row
-                    text-white text-left
+                    md:inline md:mt-0 md:ml-4 md:w-auto
                   "
                 >
                   <span>Tools</span>
@@ -213,7 +213,6 @@
                       bg-teal-600
                       transition-transform
                       duration-200
-                      transform
                       md:-mt-1
                     "
                   >
@@ -233,16 +232,16 @@
               >
                 <div
                   class="
+                    flex flex-row
                     items-center
                     p-2
                     mt-2
                     w-full
                     font-bold
+                    text-left text-white
                     bg-teal-900
                     cursor-pointer
-                    md:w-auto md:inline md:mt-0 md:ml-4
-                    flex flex-row
-                    text-white text-left
+                    md:inline md:mt-0 md:ml-4 md:w-auto
                   "
                 >
                   <span>Rulers</span>
@@ -256,16 +255,16 @@
               >
                 <div
                   class="
+                    flex flex-row
                     items-center
                     p-2
                     mt-2
                     w-full
                     font-bold
+                    text-left text-white
                     bg-teal-900
                     cursor-pointer
-                    md:w-auto md:inline md:mt-0 md:ml-4
-                    flex flex-row
-                    text-white text-left
+                    md:inline md:mt-0 md:ml-4 md:w-auto
                   "
                 >
                   <span>Grids</span>

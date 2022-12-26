@@ -257,11 +257,17 @@ import { lowlight } from 'lowlight'
 import CodeBlockComponent from '../atoms/CodeBlock'
 import { currentUser } from '~/components/mixins'
 import { isArray } from '~/plugins/utils'
+import { CREATE_OUTLINE } from '~/graphql'
 
 const CustomDocument = Document.extend({
   content: 'heading block*',
   name: 'title'
 })
+
+// const OutlineDocument = Document.extend({
+//   content: 'content block+',
+//   name: 'outline'
+// })
 export default {
   components: {
     EditorContent,
@@ -339,6 +345,7 @@ export default {
       content: '',
       extensions: [
         CustomDocument,
+        // OutlineDocument,
         ListItem,
         Document,
         BulletList,
@@ -392,19 +399,67 @@ export default {
       }
     })
   },
+
   beforeDestroy() {
     this.editor.destroy()
   },
 
   methods: {
-    generateOutline() {
-      if (!this.isPremium) {
-        this.isUpgradeModalVisible = true
-        return
-      }
+    parseHTML(content, query = 'p:first-of-type', attr = 'textContent') {
+      const doc = new DOMParser().parseFromString(content, 'text/html')
+      const errorNode = doc.querySelector('parsererror')
+
+      console.log(doc)
+
+      if (errorNode) return content
+      return doc
+    },
+
+    async generateOutline() {
+
+      // if (!this.isPremium) {
+      //   this.isUpgradeModalVisible = true
+      //   return
+      // }
 
       const title = this.getTitle()
-      console.log(title)
+      try {
+        const res = await this.$apollo.mutate({
+          mutation: CREATE_OUTLINE,
+          update: (cache, { data: { createOutline: outline } }) => {
+            return {
+              ...outline
+            }
+          },
+          variables: {
+            input: {
+              title
+            }
+          }
+        })
+
+        const outline = res.data.createOutline
+
+        this.editor.commands.setContent(`
+        <h1>${title}</h1>
+        <h2 class="outline">Outline</h2>
+        <ul>${outline.content
+          .replaceAll('\n\n', '<li>')
+          .replaceAll('\n', '<p>')
+          .replaceAll('\n<p>[a-zA-Z].', '<ul><li>')}</ul>
+          ${this.editor
+            .getHTML()
+            .replace(/^<h1.+?h1>/, '')
+            .replace(/^<h2.+?Outline.*?<\/ul>/, '')}
+        `)
+
+        this.$toast.positive('Outline created successfully')
+        // this.sending = false
+        this.$emit('create:success', true)
+      } catch (error) {
+        this.$toast.negative(error.message)
+        // this.sending = false
+      }
     },
     generateBrief() {
       if (!this.isPremium) {
@@ -525,23 +580,23 @@ export default {
 }
 
 #editor h2.heading {
-  @apply text-4xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-4;
+  @apply text-4xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 #editor h3.heading {
-  @apply text-3xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-3;
+  @apply text-3xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 #editor h4.heading {
-  @apply text-2xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-2;
+  @apply text-2xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 #editor h5.heading {
-  @apply text-xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-1;
+  @apply text-xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 #editor h6.heading {
-  @apply text-lg bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-0.5;
+  @apply text-lg bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 // #editor p.is-empty::before {
@@ -587,6 +642,16 @@ export default {
 
   li {
     padding: 0;
+    margin: 0;
+  }
+
+  li > p {
+    padding: 0.5rem;
+    margin: 0;
+  }
+
+  li > p::first-child {
+    padding: 0rem;
     margin: 0;
   }
 
