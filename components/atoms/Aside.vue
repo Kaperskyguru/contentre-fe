@@ -464,7 +464,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { currentUser } from '../mixins/currentUser'
+import { currentUser } from '~/components/mixins'
 import DashboardIcon from '~/assets/icons/dashboard.svg?inline'
 import AnalyticIcon from '~/assets/icons/analytic.svg?inline'
 import ContentIcon from '~/assets/icons/content.svg?inline'

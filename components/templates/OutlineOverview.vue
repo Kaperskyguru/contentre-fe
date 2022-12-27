@@ -63,7 +63,7 @@
 import fragment from 'vue-frag'
 import { mapState } from 'vuex'
 import { currentUser } from '~/components/mixins'
-import { GET_CONTENTS } from '~/graphql'
+import { GET_OUTLINES } from '~/graphql'
 export default {
   name: 'ContentOverview',
   directives: {
@@ -169,7 +169,7 @@ export default {
 
   apollo: {
     contents: {
-      query: GET_CONTENTS,
+      query: GET_OUTLINES,
       fetchPolicy: 'cache-and-network',
       variables() {
         return {
@@ -182,11 +182,11 @@ export default {
         }
       },
       update(data) {
-        const netTotal = data.getContents.meta.netTotal
+        const netTotal = data.getOutlines.meta.netTotal
         this.$store.commit('subscription/updateTotalContents', netTotal)
         return {
-          items: data.getContents.contents,
-          total: data.getContents.meta.total
+          items: data.getOutlines.outlines,
+          total: data.getOutlines.meta.total
         }
       }
     }

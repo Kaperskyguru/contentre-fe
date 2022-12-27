@@ -105,7 +105,7 @@
 
 <script>
 import { GET_CLIENTS } from '~/graphql'
-import { currentUser } from '~/plugins/currentUser'
+import { currentUser } from '~/components/mixins'
 export default {
   components: {
     ShareIcon: () => import('~/assets/icons/share.svg?inline'),
