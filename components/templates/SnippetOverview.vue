@@ -29,9 +29,9 @@
         <Button
           appearance="primary"
           type="link"
-          :to="{ name: 'contents/add', query: { type: 'brief' } }"
+          :to="{ name: 'contents/add', query: { type: 'snippet' } }"
         >
-          Create Brief
+          Create Snippet
         </Button>
       </div>
     </section>
@@ -44,9 +44,9 @@
             <DataGrid
               :columns="columns"
               :checked.sync="computedChecked"
-              :items="briefs.items"
-              :total="briefs.total"
-              :loading="$apollo.queries.briefs.loading"
+              :items="snippets.items"
+              :total="snippets.total"
+              :loading="$apollo.queries.snippets.loading"
               :item-clickable="true"
               @load-more-data="fetchMore"
               @item-click="onItemClick"
@@ -62,12 +62,12 @@
     </Dialog>
   </span>
 </template>
-    
-    <script>
+      
+      <script>
 import fragment from 'vue-frag'
 import { mapState } from 'vuex'
 import { currentUser } from '~/components/mixins'
-import { GET_BRIEFS } from '~/graphql'
+import { GET_SNIPPETS } from '~/graphql'
 export default {
   name: 'BriefOverview',
   directives: {
@@ -96,7 +96,7 @@ export default {
       { name: 'Title', key: 'title' },
       { name: 'Updated', key: 'lastUpdated' }
     ],
-    briefs: {
+    snippets: {
       items: [],
       total: 0
     }
@@ -148,8 +148,8 @@ export default {
   },
 
   apollo: {
-    briefs: {
-      query: GET_BRIEFS,
+    snippets: {
+      query: GET_SNIPPETS,
       fetchPolicy: 'cache-and-network',
       variables() {
         return {
@@ -163,8 +163,8 @@ export default {
       },
       update(data) {
         return {
-          items: data.getBriefs.briefs,
-          total: data.getBriefs.meta.total
+          items: data.getSnippets.snippets,
+          total: data.getSnippets.meta.total
         }
       }
     }
@@ -178,9 +178,9 @@ export default {
       }
     },
     fetchMore(sizeAndSkip) {
-      const itemsKey = 'briefs'
-      const queryName = 'getBriefs'
-      this.$apollo.queries.briefs.fetchMore({
+      const itemsKey = 'snippets'
+      const queryName = 'getSnippets'
+      this.$apollo.queries.snippets.fetchMore({
         // New variables
         variables: {
           ...sizeAndSkip,
@@ -233,6 +233,6 @@ export default {
   }
 }
 </script>
-    
-    <style>
+      
+      <style>
 </style>

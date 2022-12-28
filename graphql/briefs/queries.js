@@ -1,9 +1,9 @@
 import { gql } from 'graphql-tag'
 
 export const GET_BRIEFS = gql`
-  query getBriefs($size: Int, $skip: Int, $filters: OutlineFiltersInput) {
+  query getBriefs($size: Int, $skip: Int, $filters: BriefFiltersInput) {
     getBriefs(size: $size, skip: $skip, filters: $filters) {
-      notes {
+      briefs {
         id
         title
         content
@@ -18,8 +18,8 @@ export const GET_BRIEFS = gql`
 `
 
 export const GET_BRIEF = gql`
-  query getOutline($id: ID!) {
-    getOutline(id: $id) {
+  query getBrief($id: ID!) {
+    getBrief(id: $id) {
       id
       title
       content

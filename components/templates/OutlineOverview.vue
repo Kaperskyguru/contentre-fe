@@ -10,14 +10,18 @@
       "
     >
       <div>
-        <ContentFilter :filter-columns="sortColumns" @filters="onFilters" />
+        <ContentFilter
+          :remove="removeFilters"
+          :filter-columns="sortColumns"
+          @filters="onFilters"
+        />
       </div>
 
       <div class="basis-4/5">
         <SearchField
           id="search"
           v-model="filters.terms"
-          placeholder="Search by name..."
+          placeholder="Search by title..."
         />
       </div>
 
@@ -40,9 +44,9 @@
             <DataGrid
               :columns="columns"
               :checked.sync="computedChecked"
-              :items="contents.items"
-              :total="contents.total"
-              :loading="$apollo.queries.contents.loading"
+              :items="outlines.items"
+              :total="outlines.total"
+              :loading="$apollo.queries.outlines.loading"
               :item-clickable="true"
               @load-more-data="fetchMore"
               @item-click="onItemClick"
@@ -87,11 +91,12 @@ export default {
     searchedTerm: '',
     num: 0,
     filters: {},
+    removeFilters: ['client', 'category', 'amount'],
     sortColumns: [
       { name: 'Title', key: 'title' },
       { name: 'Updated', key: 'lastUpdated' }
     ],
-    contents: {
+    outlines: {
       items: [],
       total: 0
     }
@@ -131,44 +136,19 @@ export default {
           componentOptions: this.getTitleComponentOptions
         },
 
-        // {
-        //   title: 'Category',
-        //   key: 'category.name',
-        //   isGrid: true,
-        //   dataClass: ({ category }) =>
-        //     `${category ? 'xs:py-2' : 'xs:py-2'} lg:py-0`,
-        //   component: () => {
-        //     return 'DataGridCellCategory'
-        //   },
-        //   componentOptions: this.getCategoryComponentOptions
-        // },
-
         {
           title: 'Updated',
           key: 'lastUpdated',
           titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellIcon',
           componentOptions: this.getLastUpdatedComponentOptions
-        },
-
-        {
-          title: 'Status',
-          key: 'status',
-          titleClass: 'lg:w-36 xl:w-50 2xl:w-70',
-          dataClass: ({ status }) => {
-            return `${status ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
-          },
-          component: () => {
-            return 'DataGridCellStatus'
-          },
-          componentOptions: this.getStatusComponentOptions
         }
       ]
     }
   },
 
   apollo: {
-    contents: {
+    outlines: {
       query: GET_OUTLINES,
       fetchPolicy: 'cache-and-network',
       variables() {
@@ -182,8 +162,6 @@ export default {
         }
       },
       update(data) {
-        const netTotal = data.getOutlines.meta.netTotal
-        this.$store.commit('subscription/updateTotalContents', netTotal)
         return {
           items: data.getOutlines.outlines,
           total: data.getOutlines.meta.total
@@ -193,6 +171,18 @@ export default {
   },
 
   methods: {
+    back() {
+      this.isUpgradeModalVisible = false
+    },
+    onItemClick({ id }) {
+      return this.$router.push({
+        path: `/contents/add`,
+        query: {
+          id,
+          type: 'outline'
+        }
+      })
+    },
     onFilters(v) {
       this.filters = {
         ...this.filters,
@@ -200,9 +190,9 @@ export default {
       }
     },
     fetchMore(sizeAndSkip) {
-      const itemsKey = 'contents'
-      const queryName = 'getContents'
-      this.$apollo.queries.contents.fetchMore({
+      const itemsKey = 'outlines'
+      const queryName = 'getOutlines'
+      this.$apollo.queries.outlines.fetchMore({
         // New variables
         variables: {
           ...sizeAndSkip,
@@ -237,47 +227,21 @@ export default {
         : {}
     },
 
-    getLastUpdatedComponentOptions({ lastUpdated }) {
-      return !lastUpdated
+    getLastUpdatedComponentOptions({ updatedAt }) {
+      return !updatedAt
         ? {
             style: 'secondary',
             value: 'No date provided'
           }
-        : new Date(lastUpdated) > new Date()
+        : new Date(updatedAt) > new Date()
         ? {
             name: 'Scheduled',
-            value: this.$d(new Date(lastUpdated), 'dateShorter')
+            value: this.$d(new Date(updatedAt), 'dateShorter')
           }
         : {
-            value: this.$d(new Date(lastUpdated), 'dateShorter')
+            value: this.$d(new Date(updatedAt), 'dateShorter')
           }
-    },
-
-    getStatusComponentOptions({ status }) {
-      return status
-        ? {
-            style: !status ? 'secondary' : undefined,
-            value: status || 'No status provided'
-          }
-        : {}
     }
-    // getCategoryComponentOptions({ category }) {
-    //   return category
-    //     ? {
-    //         style: !category ? 'secondary' : undefined,
-    //         class: 'capitalize',
-
-    //         isGrid: true,
-    //         value: category.name || 'No category provided'
-    //       }
-    //     : {
-    //         style: 'secondary',
-
-    //         isGrid: true,
-    //         class: 'capitalize',
-    //         value: 'No category provided'
-    //       }
-    // }
   }
 }
 </script>
