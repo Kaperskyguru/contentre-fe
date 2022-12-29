@@ -416,7 +416,6 @@ export default {
     },
 
     async generateOutline() {
-
       // if (!this.isPremium) {
       //   this.isUpgradeModalVisible = true
       //   return
@@ -439,6 +438,12 @@ export default {
         })
 
         const outline = res.data.createOutline
+
+        if (!outline.content) {
+          this.$toast.negative('Outline not created')
+          this.$emit('create:success', false)
+          return
+        }
 
         this.editor.commands.setContent(`
         <h1>${title}</h1>

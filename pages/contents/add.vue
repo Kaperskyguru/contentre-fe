@@ -43,8 +43,7 @@
                 absolute
                 top-auto
                 z-40
-                py-3
-                px-5
+                p-3
                 mt-2
                 w-60
                 bg-white
@@ -56,7 +55,7 @@
               "
             >
               <ul class="space-y-3 dark:text-white">
-                <li class="font-medium hover:bg-gray-100">
+                <li class="p-2 font-medium hover:bg-gray-100">
                   <button
                     class="flex items-center transition-colors duration-200"
                     @click="updateDraft"
@@ -64,16 +63,18 @@
                     Note
                   </button>
                 </li>
-                <li class="font-medium hover:bg-gray-100">
+                <li class="p-2 font-medium hover:bg-gray-100">
                   <button
                     class="flex items-center transition-colors duration-200"
+                    @click="updateOutline"
                   >
                     Outline
                   </button>
                 </li>
-                <li class="font-medium hover:bg-gray-100">
+                <li class="p-2 font-medium hover:bg-gray-100">
                   <button
                     class="flex items-center transition-colors duration-200"
+                    @click="updateBrief"
                   >
                     Brief
                   </button>
@@ -138,7 +139,9 @@
 <script>
 import vClickOutside from 'v-click-outside'
 import {
+  CONVERT_NOTE_BRIEF,
   CONVERT_NOTE_CONTENT,
+  CONVERT_NOTE_OUTLINE,
   CREATE_NOTE,
   GET_CONTENT,
   UPDATE_NOTE
@@ -260,6 +263,53 @@ export default {
       this.isMenuVisible = false
     },
 
+    async removeDraft() {
+      await this.$store.dispatch('content/removeDraft', {
+        key: this.noteId
+      })
+    },
+
+    async updateOutline() {
+      if (!this.noteId) return
+
+      const input = await this.generateInput()
+
+      await this.$apollo.mutate({
+        mutation: CONVERT_NOTE_OUTLINE,
+        variables: {
+          id: this.noteId,
+          input: { ...input }
+        },
+
+        skip() {
+          return !this.noteId
+        }
+      })
+
+      await this.removeDraft()
+      return this.$router.push(`/contents/outlines`)
+    },
+    async updateBrief() {
+      if (!this.noteId) return
+
+      const input = await this.generateInput()
+
+      await this.$apollo.mutate({
+        mutation: CONVERT_NOTE_BRIEF,
+        variables: {
+          id: this.noteId,
+          input: { ...input }
+        },
+
+        skip() {
+          return !this.noteId
+        }
+      })
+
+      await this.removeDraft()
+      return this.$router.push(`/contents/briefs`)
+    },
+
     async updateDraft() {
       if (!this.noteId) return
 
@@ -370,16 +420,8 @@ export default {
       return null
     },
 
-    async onPublish() {
-      if (!this.noteId) return // Create new
+    async generateInput() {
       const draft = await this.getDraft(this.noteId)
-      const input = {
-        ...this.settings,
-        status: 'PUBLISHED',
-        noteId: this.noteId,
-        content: this.settings?.content ?? draft?.content,
-        title: this.settings?.title ?? draft.title
-      }
 
       if (!this.settings?.excerpt) {
         this.settings.excerpt = this.parseHTML(this.settings.content)
@@ -388,13 +430,25 @@ export default {
       if (!this.settings?.featuredImage) {
         this.settings.featuredImage = this.findFirstImage(this.settings.content)
       }
+
+      return {
+        ...this.settings,
+        status: 'PUBLISHED',
+        noteId: this.noteId,
+        content: this.settings?.content ?? draft?.content,
+        title: this.settings?.title ?? draft.title
+      }
+    },
+
+    async onPublish() {
+      if (!this.noteId) return // Create new
+      const input = await this.generateInput()
+
       try {
         await this.addContent(input)
         this.$store.commit('subscription/increment')
-        // Remove local draft
-        await this.$store.dispatch('content/removeDraft', {
-          key: this.noteId
-        })
+
+        await this.removeDraft()
         return this.$router.push(`/contents`)
       } catch (error) {
         await this.updateDraft(input)

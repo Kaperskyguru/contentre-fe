@@ -11,6 +11,17 @@ export const CREATE_OUTLINE = gql`
   }
 `
 
+export const CONVERT_NOTE_OUTLINE = gql`
+  mutation convertNoteOutline($id: ID!, $input: ConvertOutlineInput!) {
+    convertNoteOutline(id: $id, input: $input) {
+      id
+      title
+      content
+      createdAt
+    }
+  }
+`
+
 export const UPDATE_OUTLINE = gql`
   mutation updateOutline($id: ID!, $input: UpdateOutlineInput!) {
     updateOutline(id: $id, input: $input) {
