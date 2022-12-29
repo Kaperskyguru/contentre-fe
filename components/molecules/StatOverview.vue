@@ -1,8 +1,8 @@
 <template>
   <div
-    class="grid grid-cols-1 gap-5 sm:grid-cols-2"
+    class="grid grid-cols-1 gap-5 sm:grid-cols-3"
     :class="{
-      'lg:grid-cols-4': columns.length === 4,
+      'lg:grid-cols-3': columns.length === 4,
       'lg:grid-cols-3': columns.length === 3
     }"
   >
@@ -42,14 +42,6 @@ export default {
             ...item,
             value: parseInt(this.stats.totalClients),
             increment: parseFloat(this.stats.clientPercent).toFixed(2)
-          })
-        }
-
-        if (item.key === 'interactions') {
-          stats.push({
-            ...item,
-            value: parseInt(this.stats.currentInteractions),
-            increment: parseFloat(this.stats.interactionPercent).toFixed(2)
           })
         }
 
