@@ -22,6 +22,12 @@ export const CONVERT_NOTE_OUTLINE = gql`
   }
 `
 
+export const CAN_ADD_OUTLINE = gql`
+  mutation canAddOutline {
+    canAddOutline
+  }
+`
+
 export const UPDATE_OUTLINE = gql`
   mutation updateOutline($id: ID!, $input: UpdateOutlineInput!) {
     updateOutline(id: $id, input: $input) {

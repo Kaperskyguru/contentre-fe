@@ -87,7 +87,7 @@
           >
             <span>
               <Tooltip label="Generate Outline">
-                <button @click="generateOutline">
+                <button @click="createOutline">
                   <OutlineIcon />
                 </button>
               </Tooltip>
@@ -264,10 +264,6 @@ const CustomDocument = Document.extend({
   name: 'title'
 })
 
-// const OutlineDocument = Document.extend({
-//   content: 'content block+',
-//   name: 'outline'
-// })
 export default {
   components: {
     EditorContent,
@@ -303,8 +299,8 @@ export default {
 
   props: {
     content: {
-      type: String,
-      default: ''
+      type: Object,
+      default: () => {}
     }
   },
 
@@ -330,11 +326,11 @@ export default {
     content: {
       handler(value) {
         if (!value) return
-        const isSame = this.editor.getHTML() === value
+        const isSame = this.editor.getHTML() === value.content
 
         if (isSame) return
 
-        this.editor.commands.setContent(value, false)
+        this.generateContent(value.content, value.title)
       }
     }
   },
@@ -345,7 +341,6 @@ export default {
       content: '',
       extensions: [
         CustomDocument,
-        // OutlineDocument,
         ListItem,
         Document,
         BulletList,
@@ -394,7 +389,7 @@ export default {
       onUpdate({ editor }) {
         _self.$emit('update:content', {
           title: _self.getTitle(),
-          content: editor.getHTML()
+          content: editor.getHTML().replace(/^<h1.+?h1>/, '')
         })
       }
     })
@@ -405,22 +400,24 @@ export default {
   },
 
   methods: {
+    generateContent(content, title) {
+      this.editor.commands.setContent(
+        `${title}
+      ${content}
+      `,
+        false
+      )
+    },
+
     parseHTML(content, query = 'p:first-of-type', attr = 'textContent') {
       const doc = new DOMParser().parseFromString(content, 'text/html')
       const errorNode = doc.querySelector('parsererror')
-
-      console.log(doc)
 
       if (errorNode) return content
       return doc
     },
 
-    async generateOutline() {
-      // if (!this.isPremium) {
-      //   this.isUpgradeModalVisible = true
-      //   return
-      // }
-
+    async createOutline() {
       const title = this.getTitle()
       try {
         const res = await this.$apollo.mutate({
@@ -445,25 +442,25 @@ export default {
           return
         }
 
-        this.editor.commands.setContent(`
-        <h1>${title}</h1>
-        <h2 class="outline">Outline</h2>
-        <ul>${outline.content
-          .replaceAll('\n\n', '<li>')
-          .replaceAll('\n', '<p>')
-          .replaceAll('\n<p>[a-zA-Z].', '<ul><li>')}</ul>
-          ${this.editor
-            .getHTML()
-            .replace(/^<h1.+?h1>/, '')
-            .replace(/^<h2.+?Outline.*?<\/ul>/, '')}
-        `)
+        this.editor.commands.setContent(
+          `<h1>${title}</h1>
+         ${outline.content}
+         ${this.editor
+           .getHTML()
+           .replace(/^<h1.+?h1>/, '')
+           .replace(/^<h2.+?Outline.*?<\/ul>/, '')}`
+        )
 
         this.$toast.positive('Outline created successfully')
-        // this.sending = false
+
         this.$emit('create:success', true)
       } catch (error) {
+        if (error.message.includes('You have exceeded your outline limit.')) {
+          this.isUpgradeModalVisible = true
+          return
+        }
+
         this.$toast.negative(error.message)
-        // this.sending = false
       }
     },
     generateBrief() {

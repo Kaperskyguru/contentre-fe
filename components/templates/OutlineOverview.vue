@@ -26,11 +26,7 @@
       </div>
 
       <div>
-        <Button
-          appearance="primary"
-          type="link"
-          :to="{ name: 'contents/add', query: { type: 'outline' } }"
-        >
+        <Button appearance="primary" @click="addOutline">
           Create Outline
         </Button>
       </div>
@@ -58,22 +54,19 @@
     <!-- end of table -->
 
     <Dialog v-model="isUpgradeModalVisible" :is-large="true">
-      <UpgradeModal @back="back">You've hit your content limit</UpgradeModal>
+      <UpgradeModal @back="back">You've hit your outline limit</UpgradeModal>
     </Dialog>
   </span>
 </template>
   
   <script>
 import fragment from 'vue-frag'
-import { mapState } from 'vuex'
-import { currentUser } from '~/components/mixins'
-import { GET_OUTLINES } from '~/graphql'
+import { CAN_ADD_OUTLINE, GET_OUTLINES } from '~/graphql'
 export default {
   name: 'ContentOverview',
   directives: {
     fragment
   },
-  mixins: [currentUser],
   props: {
     onBoarded: {
       type: Boolean,
@@ -94,7 +87,7 @@ export default {
     removeFilters: ['client', 'category', 'amount'],
     sortColumns: [
       { name: 'Title', key: 'title' },
-      { name: 'Updated', key: 'lastUpdated' }
+      { name: 'Updated', key: 'updatedAt' }
     ],
     outlines: {
       items: [],
@@ -103,22 +96,6 @@ export default {
   }),
 
   computed: {
-    ...mapState({
-      subscription: (state) => {
-        return state.subscription.subscription
-      },
-      totalNumber: (state) => {
-        return state.subscription.numberOfContents ?? 0
-      }
-    }),
-    hasExceededContent() {
-      const subValue = this.$utils.getFeatureValue(
-        this.subscription,
-        'TOTAL_CONTENTS'
-      )
-      if (subValue === 0) return false
-      return this.totalNumber >= subValue
-    },
     computedChecked: {
       get() {
         return this.checked
@@ -173,6 +150,28 @@ export default {
   methods: {
     back() {
       this.isUpgradeModalVisible = false
+    },
+
+    async addOutline() {
+      try {
+        const {
+          data: { canAddOutline }
+        } = await this.$apollo.mutate({
+          mutation: CAN_ADD_OUTLINE
+        })
+
+        if (!canAddOutline) {
+          this.isUpgradeModalVisible = true
+          return
+        }
+
+        return this.$router.push({
+          name: 'contents/add',
+          query: { type: 'outline' }
+        })
+      } catch (error) {
+        this.$toast.negative(error.message)
+      }
     },
     onItemClick({ id }) {
       return this.$router.push({

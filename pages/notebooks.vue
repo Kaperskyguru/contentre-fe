@@ -104,15 +104,11 @@
               >
                 <ul class="space-y-3 dark:text-white">
                   <li class="font-medium hover:bg-gray-100">
-                    <button
-                      href="#"
-                      class="flex items-center transition-colors duration-200"
+                    <Hyperlink
+                      :to="{
+                        path: `/contents/add?type=note`
+                      }"
                     >
-                      Convert to note
-                    </button>
-                  </li>
-                  <li class="font-medium hover:bg-gray-100">
-                    <Hyperlink to="#">
                       <button
                         class="flex items-center transition-colors duration-200"
                       >
@@ -186,7 +182,7 @@
                   border-2
                 "
               >
-                <hyperlink to="/contents/add">
+                <hyperlink to="/contents/add?type=note">
                   <div
                     class="
                       flex flex-col
@@ -301,7 +297,9 @@
                       <hr class="dark:border-gray-700" />
                       <li class="font-medium hover:bg-gray-100">
                         <Hyperlink
-                          :to="{ path: `/contents/${item.id}/publish` }"
+                          :to="{
+                            path: `/contents/add?type=note&id=${item.id}`
+                          }"
                         >
                           <button
                             class="
@@ -334,7 +332,7 @@
                   </div>
                 </div>
                 <Hyperlink
-                  :to="{ path: `/contents/add?type=NOTE&id=${item.id}` }"
+                  :to="{ path: `/contents/add?type=note&id=${item.id}` }"
                   class="min-w-[10.72rem]"
                 >
                   <div

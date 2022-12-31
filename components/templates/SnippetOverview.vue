@@ -94,7 +94,7 @@ export default {
     removeFilters: ['client', 'category', 'amount'],
     sortColumns: [
       { name: 'Title', key: 'title' },
-      { name: 'Updated', key: 'lastUpdated' }
+      { name: 'Updated', key: 'updatedAt' }
     ],
     snippets: {
       items: [],
