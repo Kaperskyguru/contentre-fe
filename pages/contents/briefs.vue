@@ -1,10 +1,5 @@
 <template>
-  <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
-      <PageTitle>Briefs</PageTitle>
-    </div>
-    <BriefOverview :checked.sync="checked" @deleted="onDeleted" />
-  </section>
+  <BriefOverview :checked.sync="checked" @deleted="onDeleted" />
 </template>
   
   <script>

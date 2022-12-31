@@ -76,16 +76,16 @@
     </Card>
 
     <!-- table -->
-    <!-- <Card class="min-h-96">
-      <section class="container px-4 my-8 mx-auto bg-white">
+    <Card class="pb-6 min-h-96">
+      <!-- <section class="container px-4 my-8 mx-auto bg-white">
         <div class="flex justify-between items-center py-4">
           <h2 class="font-gilroy text-2xl font-semibold leading-tight">
             Clients
           </h2>
-        </div>
-        <ClientOverview :checked.sync="checked" placement="dashboard" />
-      </section>
-    </Card> -->
+        </div> -->
+      <ClientOverview :checked.sync="checked" placement="dashboard" />
+      <!-- </section> -->
+    </Card>
     <Dialog v-model="isAddContent">
       <div class="block w-full text-gray-700 bg-white">
         <div class="flex justify-between w-full text-gray-700 bg-white">

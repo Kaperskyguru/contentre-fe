@@ -1,6 +1,9 @@
 <template>
-  <div class="flex overflow-hidden flex-col">
-    <section class="fixed top-0 left-0 z-20 w-full">
+  <div class="relative w-full h-[100vh]">
+    <section
+      class="top-0 left-0 z-20 w-full md:sticky"
+      :class="{ 'h-[10vh]': isProfileCompleted }"
+    >
       <div v-if="isProfileCompleted" class="justify-center items-center w-full">
         <Warning link="/profile#onboarding" button-text="Complete Profile"
           >Check your profile page to complete your profile. It is required for
@@ -9,9 +12,10 @@
       </div>
       <MyHeader :user="currentUser" class="w-full" @logout="onLogout" />
     </section>
+    <!-- mt-16   -->
     <Nuxt
-      class="flex-1 mt-16"
-      :class="{ 'md:mt-32 mt-56': isProfileCompleted }"
+      class="z-10 pb-20 mt-6 h-[90vh] md:pb-28"
+      :class="{ 'md:mt-12 md:pb-44 pb-20': isProfileCompleted }"
     />
     <Toast />
   </div>

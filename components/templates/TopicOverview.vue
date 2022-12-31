@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <PageContent>
     <Card
       class="
         flex flex-col flex-wrap
@@ -7,13 +7,10 @@
         justify-between
         items-center
         py-4
-        mb-6
         md:flex-row md:p-5
       "
     >
-      <div class="flex justify-between items-center py-4">
-        <PageTitle>Topics & Niches</PageTitle>
-      </div>
+      <PageTitle>Topics & Niches</PageTitle>
 
       <div class="flex space-x-0 md:space-x-3">
         <Button @click.prevent="onAddTopic">Add Topic</Button>
@@ -32,32 +29,23 @@
         justify-between
         items-center
         py-4
-        mb-6
         space-y-6 space-x-0
         md:flex-row md:p-5 md:space-y-0 md:space-x-5
       "
     >
-      <div>
-        <ContentFilter
-          :remove="remove"
-          :filter-columns="sortColumns"
-          @filters="onFilters"
-        />
-      </div>
+      <ContentFilter
+        :remove="remove"
+        :filter-columns="sortColumns"
+        @filters="onFilters"
+      />
 
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </div>
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by name..."
+      />
     </Card>
 
-    <!-- <section class="mt-5 h-screen bg-white">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8"> -->
     <Card class="min-h-96">
       <DataGrid
         :columns="columns"
@@ -89,7 +77,7 @@
         }}?
       </p>
     </Dialog>
-  </span>
+  </PageContent>
 </template>
 
 <script>

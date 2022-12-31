@@ -1,12 +1,27 @@
 <template>
   <span v-fragment>
-    <section
+    <Card
       class="
         flex flex-col
         justify-between
-        mb-6
         space-y-6 space-x-0
         md:flex-row md:space-y-0 md:space-x-5
+      "
+    >
+      <PageTitle>Outlines</PageTitle>
+
+      <Button appearance="primary" @click="addOutline"> Create Outline </Button>
+    </Card>
+
+    <Card
+      class="
+        flex flex-col
+        justify-between
+        items-center
+        py-4
+        mb-6
+        space-y-6 space-x-0
+        md:flex-row md:p-5 md:space-y-0 md:space-x-5
       "
     >
       <div>
@@ -17,41 +32,26 @@
         />
       </div>
 
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by title..."
-        />
-      </div>
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by title..."
+      />
+    </Card>
 
-      <div>
-        <Button appearance="primary" @click="addOutline">
-          Create Outline
-        </Button>
-      </div>
-    </section>
-
-    <!-- table -->
-    <section class="mt-5">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <DataGrid
-              :columns="columns"
-              :checked.sync="computedChecked"
-              :items="outlines.items"
-              :total="outlines.total"
-              :loading="$apollo.queries.outlines.loading"
-              :item-clickable="true"
-              @load-more-data="fetchMore"
-              @item-click="onItemClick"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- end of table -->
+    <Card class="min-h-96">
+      <DataGrid
+        :columns="columns"
+        :checked.sync="computedChecked"
+        :items="outlines.items"
+        :total="outlines.total"
+        class="h-96 md:h-full"
+        :loading="$apollo.queries.outlines.loading"
+        :item-clickable="true"
+        @load-more-data="fetchMore"
+        @item-click="onItemClick"
+      />
+    </Card>
 
     <Dialog v-model="isUpgradeModalVisible" :is-large="true">
       <UpgradeModal @back="back">You've hit your outline limit</UpgradeModal>

@@ -1,7 +1,5 @@
 <template>
-  <PageContent>
-    <TopicOverview :checked.sync="checked" />
-  </PageContent>
+  <TopicOverview :checked.sync="checked" />
 </template>
 
 <script>

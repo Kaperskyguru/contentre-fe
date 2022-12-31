@@ -1,66 +1,66 @@
 <template>
-  <span v-fragment>
-    <section
+  <PageContent>
+    <Card
+      class="
+        flex flex-col flex-wrap
+        gap-2
+        justify-between
+        items-center
+        py-4
+        md:flex-row md:p-5
+      "
+    >
+      <PageTitle>Snippets</PageTitle>
+
+      <Button
+        appearance="primary"
+        type="link"
+        :to="{ name: 'contents/add', query: { type: 'snippet' } }"
+      >
+        Create Snippet
+      </Button>
+    </Card>
+    <Card
       class="
         flex flex-col
         justify-between
-        mb-6
+        items-center
+        py-4
         space-y-6 space-x-0
-        md:flex-row md:space-y-0 md:space-x-5
+        md:flex-row md:p-5 md:space-y-0 md:space-x-5
       "
     >
-      <div>
-        <ContentFilter
-          :remove="removeFilters"
-          :filter-columns="sortColumns"
-          @filters="onFilters"
-        />
-      </div>
+      <ContentFilter
+        :remove="removeFilters"
+        :filter-columns="sortColumns"
+        @filters="onFilters"
+      />
 
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by title..."
-        />
-      </div>
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by title..."
+      />
+    </Card>
 
-      <div>
-        <Button
-          appearance="primary"
-          type="link"
-          :to="{ name: 'contents/add', query: { type: 'snippet' } }"
-        >
-          Create Snippet
-        </Button>
-      </div>
-    </section>
-
-    <!-- table -->
-    <section class="mt-5">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <DataGrid
-              :columns="columns"
-              :checked.sync="computedChecked"
-              :items="snippets.items"
-              :total="snippets.total"
-              :loading="$apollo.queries.snippets.loading"
-              :item-clickable="true"
-              @load-more-data="fetchMore"
-              @item-click="onItemClick"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- end of table -->
+    <Card class="min-h-96">
+      <DataGrid
+        :columns="columns"
+        :checked.sync="computedChecked"
+        :items="snippets.items"
+        :total="snippets.total"
+        class="h-96 md:h-full"
+        :loading="$apollo.queries.snippets.loading"
+        :item-clickable="true"
+        @load-more-data="fetchMore"
+        @item-click="onItemClick"
+      />
+    </Card>
 
     <Dialog v-model="isUpgradeModalVisible" :is-large="true">
       <UpgradeModal @back="back">You've hit your content limit</UpgradeModal>
     </Dialog>
-  </span>
+  </PageContent>
 </template>
       
       <script>

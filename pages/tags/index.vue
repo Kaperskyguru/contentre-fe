@@ -1,82 +1,78 @@
 <template>
   <PageContent>
-    <section class="px-3 h-full md:px-12">
-      <Card
-        class="
-          flex flex-col flex-wrap
-          gap-2
-          justify-between
-          items-center
-          py-4
-          mb-6
-          md:flex-row md:p-5
-        "
-      >
-        <PageTitle>Tags</PageTitle>
+    <Card
+      class="
+        flex flex-col flex-wrap
+        gap-2
+        justify-between
+        items-center
+        py-4
+        md:flex-row md:p-5
+      "
+    >
+      <PageTitle>Tags</PageTitle>
 
-        <div class="flex space-x-0 md:space-x-3">
-          <Button @click.prevent="onAddTag">Add Tag</Button>
-          <Button
-            v-if="checked.length"
-            appearance="secondary"
-            @click.prevent="onDeleteBulkTag"
-            >Delete Tag{{ checked.length > 1 ? 's' : '' }}</Button
-          >
+      <div class="flex space-x-0 md:space-x-3">
+        <Button @click.prevent="onAddTag">Add Tag</Button>
+        <Button
+          v-if="checked.length"
+          appearance="secondary"
+          @click.prevent="onDeleteBulkTag"
+          >Delete Tag{{ checked.length > 1 ? 's' : '' }}</Button
+        >
+      </div>
+    </Card>
+
+    <Card
+      class="
+        flex flex-col
+        justify-between
+        items-center
+        py-4
+        space-y-6 space-x-0
+        md:flex-row md:p-5 md:space-y-0 md:space-x-5
+      "
+    >
+      <ContentFilter
+        :remove="remove"
+        :filter-columns="columns"
+        @filters="onFilters"
+      />
+
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by name..."
+      />
+    </Card>
+
+    <Card class="min-h-96">
+      <TagOverview :checked.sync="checked" :filters="filters" />
+    </Card>
+
+    <Dialog v-model="isConfirmModalVisible">
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <AddTag @create:success="onAddTag" />
         </div>
-      </Card>
+      </div>
+    </Dialog>
 
-      <Card
-        class="
-          flex flex-col
-          justify-between
-          items-center
-          py-4
-          mb-6
-          space-y-6 space-x-0
-          md:flex-row md:p-5 md:space-y-0 md:space-x-5
-        "
-      >
-        <ContentFilter
-          :remove="remove"
-          :filter-columns="columns"
-          @filters="onFilters"
-        />
-
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </Card>
-
-      <Card class="min-h-96">
-        <TagOverview :checked.sync="checked" :filters="filters" />
-      </Card>
-
-      <Dialog v-model="isConfirmModalVisible">
-        <div class="block w-full text-gray-700 bg-white">
-          <div class="flex justify-between w-full text-gray-700 bg-white">
-            <AddTag @create:success="onAddTag" />
-          </div>
-        </div>
-      </Dialog>
-
-      <Dialog
-        v-model="isBulkDeleteTagVisible"
-        primary-text="Confirm"
-        secondary-text="Cancel"
-        @answer="deleteBulkTag"
-      >
-        <template #icon>
-          <IconInformationCircle class="w-20 h-20" />
-        </template>
-        <p>
-          Are you sure you want to delete {{ checked.length }} tag{{
-            checked.length > 1 ? 's' : ''
-          }}?
-        </p>
-      </Dialog>
-    </section>
+    <Dialog
+      v-model="isBulkDeleteTagVisible"
+      primary-text="Confirm"
+      secondary-text="Cancel"
+      @answer="deleteBulkTag"
+    >
+      <template #icon>
+        <IconInformationCircle class="w-20 h-20" />
+      </template>
+      <p>
+        Are you sure you want to delete {{ checked.length }} tag{{
+          checked.length > 1 ? 's' : ''
+        }}?
+      </p>
+    </Dialog>
   </PageContent>
 </template>
 

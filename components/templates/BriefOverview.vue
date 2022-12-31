@@ -1,66 +1,63 @@
 <template>
-  <span v-fragment>
-    <section
+  <PageContent>
+    <Card
       class="
         flex flex-col
         justify-between
-        mb-6
         space-y-6 space-x-0
         md:flex-row md:space-y-0 md:space-x-5
       "
     >
-      <div>
-        <ContentFilter
-          :remove="removeFilters"
-          :filter-columns="sortColumns"
-          @filters="onFilters"
-        />
-      </div>
+      <PageTitle>Briefs</PageTitle>
 
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by title..."
-        />
-      </div>
+      <Button
+        appearance="primary"
+        type="link"
+        :to="{ name: 'contents/add', query: { type: 'brief' } }"
+      >
+        Create Brief
+      </Button>
+    </Card>
 
-      <div>
-        <Button
-          appearance="primary"
-          type="link"
-          :to="{ name: 'contents/add', query: { type: 'brief' } }"
-        >
-          Create Brief
-        </Button>
-      </div>
-    </section>
+    <Card
+      class="
+        flex flex-col
+        justify-between
+        space-y-6 space-x-0
+        md:flex-row md:space-y-0 md:space-x-5
+      "
+    >
+      <ContentFilter
+        :remove="removeFilters"
+        :filter-columns="sortColumns"
+        @filters="onFilters"
+      />
 
-    <!-- table -->
-    <section class="mt-5">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <DataGrid
-              :columns="columns"
-              :checked.sync="computedChecked"
-              :items="briefs.items"
-              :total="briefs.total"
-              :loading="$apollo.queries.briefs.loading"
-              :item-clickable="true"
-              @load-more-data="fetchMore"
-              @item-click="onItemClick"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- end of table -->
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by title..."
+      />
+    </Card>
+
+    <Card class="min-h-96">
+      <DataGrid
+        :columns="columns"
+        :checked.sync="computedChecked"
+        :items="briefs.items"
+        :total="briefs.total"
+        class="h-96 md:h-full"
+        :loading="$apollo.queries.briefs.loading"
+        :item-clickable="true"
+        @load-more-data="fetchMore"
+        @item-click="onItemClick"
+      />
+    </Card>
 
     <Dialog v-model="isUpgradeModalVisible" :is-large="true">
       <UpgradeModal @back="back">You've hit your content limit</UpgradeModal>
     </Dialog>
-  </span>
+  </PageContent>
 </template>
     
     <script>

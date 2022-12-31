@@ -7,48 +7,10 @@
         gap-2
         justify-between
         items-center
-        py-4
-        mb-6
-        md:flex-row md:p-5
+        md:flex-row
       "
     >
       <PageTitle>Notebooks</PageTitle>
-    </Card>
-
-    <Card
-      class="
-        flex flex-col
-        justify-between
-        mb-6
-        space-y-6 space-x-0
-        w-full
-        md:flex-row md:space-y-0 md:space-x-6
-      "
-    >
-      <div>
-        <ContentFilter
-          :remove="remove"
-          :filter-columns="columns"
-          @filters="onFilters"
-        >
-          <div class="mb-6">
-            <DropdownField
-              placeholder="Select a notebook"
-              :items="notebooks.items"
-              label="Notebooks"
-              @update:value="onNotebookFilter"
-            />
-          </div>
-        </ContentFilter>
-      </div>
-
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </div>
 
       <div
         class="
@@ -65,29 +27,52 @@
     </Card>
 
     <Card
-      class="grid grid-cols-1 gap-4 px-5 w-full h-60 md:grid-cols-12 lg:px-0"
+      class="
+        flex flex-col
+        justify-between
+        space-y-6 space-x-0
+        w-full
+        md:flex-row md:space-y-0 md:space-x-6
+      "
     >
-      <div
-        class="
-          col-span-12
-          p-4
-          mb-5
-          bg-[#286963]
-          rounded-lg
-          lg:col-span-4 lg:mr-6
-        "
+      <ContentFilter
+        :remove="remove"
+        :filter-columns="columns"
+        @filters="onFilters"
       >
-        <div class="flex justify-between items-center w-full">
-          <p class="text-sm font-semibold text-white">SCRATCH PAD</p>
-          <div>
-            <button @click.prevent="onOpenScratchMenu">
-              <img
-                src="https://raw.githubusercontent.com/Succyvibe/example_portfolio/main/img/dots.png"
-                alt=""
-                class="w-[20px]"
-              />
-            </button>
-            <!-- <div
+        <div class="mb-6">
+          <DropdownField
+            placeholder="Select a notebook"
+            :items="notebooks.items"
+            label="Notebooks"
+            @update:value="onNotebookFilter"
+          />
+        </div>
+      </ContentFilter>
+
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by name..."
+      />
+    </Card>
+
+    <Card>
+      <div class="grid grid-cols-1 gap-4 px-5 w-full md:grid-cols-12 lg:px-0">
+        <div
+          class="col-span-12 p-4 bg-[#286963] rounded-lg lg:col-span-4 lg:mr-6"
+        >
+          <div class="flex justify-between items-center w-full">
+            <p class="text-sm font-semibold text-white">SCRATCH PAD</p>
+            <div>
+              <button @click.prevent="onOpenScratchMenu">
+                <img
+                  src="https://raw.githubusercontent.com/Succyvibe/example_portfolio/main/img/dots.png"
+                  alt=""
+                  class="w-[20px]"
+                />
+              </button>
+              <!-- <div
                 v-if="scratchMenu"
                 x-transition:enter="transition ease-out duration-100"
                 x-transition:enter-start="transform opacity-0 scale-95"
@@ -136,36 +121,30 @@
                   </li>
                 </ul>
               </div> -->
+            </div>
           </div>
+          <textarea
+            id=""
+            v-model="scratchContent"
+            name=""
+            cols="30"
+            rows="10"
+            class="
+              mt-2
+              w-full
+              font-gilroy
+              text-lg text-white
+              bg-transparent
+              outline-none
+            "
+            placeholder="Start writing"
+          ></textarea>
         </div>
-        <textarea
-          id=""
-          v-model="scratchContent"
-          name=""
-          cols="30"
-          rows="10"
-          class="
-            mt-2
-            w-full
-            font-gilroy
-            text-lg text-white
-            bg-transparent
-            outline-none
-          "
-          placeholder="Start writing"
-        ></textarea>
       </div>
-      <div
-        class="
-          col-span-12
-          p-4
-          w-full
-          bg-white
-          rounded-lg
-          shadow-lg
-          lg:col-span-12
-        "
-      >
+    </Card>
+
+    <Card>
+      <div class="col-span-12 w-full bg-white rounded-lg lg:col-span-12">
         <div class="flex justify-between">
           <div>
             <div class="mb-5">
@@ -174,24 +153,26 @@
               </a>
             </div>
           </div>
-          <div></div>
         </div>
-
-        <div v-click-outside="onClickOutside" class="overflow-hidden w-full">
-          <div class="flex overflow-x-auto gap-1 mt-4 w-full">
-            <div
-              class="
-                flex
-                justify-center
-                items-center
-                min-w-[10.72rem]
-                h-[16.125rem]
-                bg-gray-100
-                rounded-lg
-                border-2
-              "
-            >
-              <hyperlink to="/contents/add?type=note">
+      </div>
+      <div v-click-outside="onClickOutside" class="overflow-hidden w-full">
+        <div class="flex overflow-x-auto gap-1 mt-4 w-full">
+          <div
+            class="
+              flex
+              justify-center
+              items-center
+              min-w-[10.72rem]
+              h-[16.125rem]
+              bg-gray-100
+              rounded-lg
+              border-2
+            "
+          >
+            <hyperlink to="/contents/add?type=note">
+              <div
+                class="flex flex-col justify-center items-center w-full h-full"
+              >
                 <div
                   class="
                     flex
@@ -217,8 +198,8 @@
                   </i>
                 </div>
                 <p class="text-[14px] font-semibold">Create new note</p>
-              </hyperlink>
-            </div>
+              </div>
+            </hyperlink>
           </div>
 
           <div
@@ -299,8 +280,6 @@
                     </Hyperlink>
                   </li>
                   <hr class="dark:border-gray-700" />
-
-                  <hr class="dark:border-gray-700" />
                   <li class="font-medium hover:bg-gray-100">
                     <button
                       href="#"
@@ -312,26 +291,9 @@
                   </li>
                 </ul>
               </div>
-              <Hyperlink
-                :to="{ path: `/contents/add?type=note&id=${item.id}` }"
-                class="min-w-[10.72rem]"
-              >
-                <div class="flex flex-col justify-between w-[10.72rem] h-full">
-                  <div class="w-full">
-                    <h3 class="text-lg font-bold">{{ item.title }}</h3>
-                    <article
-                      class="mt-3 text-sm"
-                      v-html="getExcerpt(item.content)"
-                    ></article>
-                  </div>
-                  <div class="text-sm">
-                    {{ $d(new Date(item.updatedAt), 'monthDayShortLong') }}
-                  </div>
-                </div>
-              </Hyperlink>
             </div>
             <Hyperlink
-              :to="{ path: `/contents/add?type=NOTE&id=${item.id}` }"
+              :to="{ path: `/contents/add?type=note&id=${item.id}` }"
               class="min-w-[10.72rem]"
             >
               <div class="flex flex-col justify-between w-[10.72rem] h-full">

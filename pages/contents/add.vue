@@ -6,56 +6,42 @@
         flex flex-col
         justify-between
         items-center
-        py-4
-        mt-0
         w-full
-        md:flex-row md:mt-4 md:space-y-0 md:space-x-4
+        md:flex-row md:mt-4 md:space-y-0 md:space-x-0
       "
     >
       <PageTitle>Add Content</PageTitle>
       <div
         v-click-outside="onClickOutside"
         class="
-          flex flex-col
-          justify-end
+          flex flex-col flex-1
+          justify-center
+          items-center
           my-1
-          space-y-4 space-x-0
-          md:flex-row md:my-8 md:space-y-0 md:space-x-4
+          space-y-4 space-x-4
+          md:flex-row md:justify-end md:my-8 md:space-y-0 md:space-x-4
         "
       >
-        <PageTitle>Add Content</PageTitle>
-        <div
-          v-click-outside="onClickOutside"
-          class="
-            flex flex-col
-            justify-end
-            my-1
-            space-y-4 space-x-0
-            md:flex-row md:my-8 md:space-y-0 md:space-x-4
-          "
+        <button @click.prevent="onOpenSettings">
+          <SettingIcon />
+        </button>
+
+        <Button
+          :disabled="!hasTitle"
+          appearance="outline"
+          @click.prevent="updateDraft"
         >
-          <button @click.prevent="onOpenSettings">
-            <SettingIcon />
-          </button>
-          <div>
-            <Button
-              :disabled="!hasTitle"
-              appearance="outline"
-              @click.prevent="updateDraft"
-            >
-              Save Note
-            </Button>
-          </div>
-          <Button :disabled="!hasTitle" @click.prevent="onPublish">
-            Publish
-          </Button>
-        </div>
-        <Button @click.prevent="onPublish"> Publish </Button>
+          Save
+        </Button>
+
+        <Button :disabled="!hasTitle" @click.prevent="onPublish">
+          Publish
+        </Button>
       </div>
     </Card>
 
     <Card>
-      <div class="overflow-hidden mx-auto w-[95%]">
+      <div class="overflow-hidden">
         <TiptapEditor :content="defaultContent" @update:content="onContent" />
       </div>
     </Card>

@@ -1,14 +1,9 @@
 <template>
-  <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
-      <PageTitle>Snippets</PageTitle>
-    </div>
-    <SnippetOverview
-      :checked.sync="checked"
-      :on-boarded="onBoarded"
-      @deleted="onDeleted"
-    />
-  </section>
+  <SnippetOverview
+    :checked.sync="checked"
+    :on-boarded="onBoarded"
+    @deleted="onDeleted"
+  />
 </template>
   
   <script>
@@ -34,8 +29,7 @@ export default {
   methods: {
     onDeleted() {
       this.checked = []
-    },
-
+    }
   }
 }
 </script>

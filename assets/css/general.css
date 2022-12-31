@@ -10,7 +10,7 @@ body,
 #__nuxt,
 #__layout,
 #__app {
-  /* @apply h-screen overflow-hidden; */
+  @apply h-screen md:overflow-hidden;
 }
 
 .hyperlink {
@@ -18,5 +18,5 @@ body,
 }
 
 .page-frame {
-  height: calc(100% - 3rem - 60px);
+  /* height: calc(100% - 3rem - 60px); */
 }
