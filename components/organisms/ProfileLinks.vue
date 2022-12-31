@@ -58,8 +58,12 @@
       >
         <span>Profile Links</span>
         <div class="flex text-[#286963]">
-          <ShareIcon />
-
+          <a
+            :href="`${process.env.FE_URL}/l/${currentUser.username}`"
+            target="_blank"
+          >
+            <ShareIcon />
+          </a>
           <span class="ml-5 text-black">
             <Hyperlink :to="{ name: 'clients' }">
               <span class="text-black hover:text-btn-green">
@@ -101,11 +105,13 @@
 
 <script>
 import { GET_CLIENTS } from '~/graphql'
+import { currentUser } from '~/components/mixins'
 export default {
   components: {
     ShareIcon: () => import('~/assets/icons/share.svg?inline'),
     PencilIcon: () => import('~/assets/icons/pencil.svg?inline')
   },
+  mixins: [currentUser],
   props: {
     user: {
       type: [Array, Object],

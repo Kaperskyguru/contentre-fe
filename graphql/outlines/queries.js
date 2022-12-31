@@ -3,7 +3,7 @@ import { gql } from 'graphql-tag'
 export const GET_OUTLINES = gql`
   query getOutlines($size: Int, $skip: Int, $filters: OutlineFiltersInput) {
     getOutlines(size: $size, skip: $skip, filters: $filters) {
-      notes {
+      outlines {
         id
         title
         content

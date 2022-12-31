@@ -87,7 +87,7 @@
           >
             <span>
               <Tooltip label="Generate Outline">
-                <button @click="generateOutline">
+                <button @click="createOutline">
                   <OutlineIcon />
                 </button>
               </Tooltip>
@@ -257,11 +257,13 @@ import { lowlight } from 'lowlight'
 import CodeBlockComponent from '../atoms/CodeBlock'
 import { currentUser } from '~/components/mixins'
 import { isArray } from '~/plugins/utils'
+import { CREATE_OUTLINE } from '~/graphql'
 
 const CustomDocument = Document.extend({
   content: 'heading block*',
   name: 'title'
 })
+
 export default {
   components: {
     EditorContent,
@@ -297,8 +299,8 @@ export default {
 
   props: {
     content: {
-      type: String,
-      default: ''
+      type: Object,
+      default: () => {}
     }
   },
 
@@ -324,11 +326,11 @@ export default {
     content: {
       handler(value) {
         if (!value) return
-        const isSame = this.editor.getHTML() === value
+        const isSame = this.editor.getHTML() === value.content
 
         if (isSame) return
 
-        this.editor.commands.setContent(value, false)
+        this.generateContent(value.content, value.title)
       }
     }
   },
@@ -387,24 +389,79 @@ export default {
       onUpdate({ editor }) {
         _self.$emit('update:content', {
           title: _self.getTitle(),
-          content: editor.getHTML()
+          content: editor.getHTML().replace(/^<h1.+?h1>/, '')
         })
       }
     })
   },
+
   beforeDestroy() {
     this.editor.destroy()
   },
 
   methods: {
-    generateOutline() {
-      if (!this.isPremium) {
-        this.isUpgradeModalVisible = true
-        return
-      }
+    generateContent(content, title) {
+      this.editor.commands.setContent(
+        `${title}
+      ${content}
+      `,
+        false
+      )
+    },
 
+    parseHTML(content, query = 'p:first-of-type', attr = 'textContent') {
+      const doc = new DOMParser().parseFromString(content, 'text/html')
+      const errorNode = doc.querySelector('parsererror')
+
+      if (errorNode) return content
+      return doc
+    },
+
+    async createOutline() {
       const title = this.getTitle()
-      console.log(title)
+      try {
+        const res = await this.$apollo.mutate({
+          mutation: CREATE_OUTLINE,
+          update: (cache, { data: { createOutline: outline } }) => {
+            return {
+              ...outline
+            }
+          },
+          variables: {
+            input: {
+              title
+            }
+          }
+        })
+
+        const outline = res.data.createOutline
+
+        if (!outline.content) {
+          this.$toast.negative('Outline not created')
+          this.$emit('create:success', false)
+          return
+        }
+
+        this.editor.commands.setContent(
+          `<h1>${title}</h1>
+         ${outline.content}
+         ${this.editor
+           .getHTML()
+           .replace(/^<h1.+?h1>/, '')
+           .replace(/^<h2.+?Outline.*?<\/ul>/, '')}`
+        )
+
+        this.$toast.positive('Outline created successfully')
+
+        this.$emit('create:success', true)
+      } catch (error) {
+        if (error.message.includes('You have exceeded your outline limit.')) {
+          this.isUpgradeModalVisible = true
+          return
+        }
+
+        this.$toast.negative(error.message)
+      }
     },
     generateBrief() {
       if (!this.isPremium) {
@@ -525,23 +582,23 @@ export default {
 }
 
 #editor h2.heading {
-  @apply text-4xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-4;
+  @apply text-4xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 #editor h3.heading {
-  @apply text-3xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-3;
+  @apply text-3xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 #editor h4.heading {
-  @apply text-2xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-2;
+  @apply text-2xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 #editor h5.heading {
-  @apply text-xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-1;
+  @apply text-xl bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 #editor h6.heading {
-  @apply text-lg bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent py-0.5;
+  @apply text-lg bg-transparent text-black hover:bg-transparent font-bold focus-within:bg-transparent;
 }
 
 // #editor p.is-empty::before {
@@ -587,6 +644,16 @@ export default {
 
   li {
     padding: 0;
+    margin: 0;
+  }
+
+  li > p {
+    padding: 0.5rem;
+    margin: 0;
+  }
+
+  li > p::first-child {
+    padding: 0rem;
     margin: 0;
   }
 

@@ -23,72 +23,32 @@
           md:flex-row md:my-8 md:space-y-0 md:space-x-4
         "
       >
-        <button @click.prevent="onOpenSettings">
-          <SettingIcon />
-        </button>
-        <div>
-          <Button appearance="outline" @click.prevent="onOpenMenu">
-            Save As
-          </Button>
-          <div
-            v-if="isMenuVisible"
-            x-transition:enter="transition ease-out duration-100"
-            x-transition:enter-start="transform opacity-0 scale-95"
-            x-transition:enter-end="transform opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-75"
-            x-transition:leave-start="transform opacity-100 scale-100"
-            x-transition:leave-end="transform opacity-0 scale-95"
-            class="
-              absolute
-              top-auto
-              z-40
-              py-3
-              px-5
-              mt-2
-              w-60
-              bg-white
-              dark:bg-gray-800
-              rounded-lg
-              border
-              dark:border-transparent
-              shadow
-            "
-          >
-            <ul class="space-y-3 dark:text-white">
-              <li class="font-medium hover:bg-gray-100">
-                <button
-                  class="flex items-center transition-colors duration-200"
-                  @click="updateDraft"
-                >
-                  Note
-                </button>
-              </li>
-              <li class="font-medium hover:bg-gray-100">
-                <button
-                  class="flex items-center transition-colors duration-200"
-                >
-                  Outline
-                </button>
-              </li>
-              <li class="font-medium hover:bg-gray-100">
-                <button
-                  class="flex items-center transition-colors duration-200"
-                >
-                  Brief
-                </button>
-              </li>
-              <!-- <hr class="dark:border-gray-700" />
-                <li class="font-medium hover:bg-gray-100">
-                  <Hyperlink to="#">
-                    <button
-                      class="flex items-center transition-colors duration-200"
-                    >
-                      Snippet
-                    </button>
-                  </Hyperlink>
-                </li> -->
-            </ul>
+        <PageTitle>Add Content</PageTitle>
+        <div
+          v-click-outside="onClickOutside"
+          class="
+            flex flex-col
+            justify-end
+            my-1
+            space-y-4 space-x-0
+            md:flex-row md:my-8 md:space-y-0 md:space-x-4
+          "
+        >
+          <button @click.prevent="onOpenSettings">
+            <SettingIcon />
+          </button>
+          <div>
+            <Button
+              :disabled="!hasTitle"
+              appearance="outline"
+              @click.prevent="updateDraft"
+            >
+              Save Note
+            </Button>
           </div>
+          <Button :disabled="!hasTitle" @click.prevent="onPublish">
+            Publish
+          </Button>
         </div>
         <Button @click.prevent="onPublish"> Publish </Button>
       </div>
@@ -134,7 +94,9 @@
 <script>
 import vClickOutside from 'v-click-outside'
 import {
+  CONVERT_NOTE_BRIEF,
   CONVERT_NOTE_CONTENT,
+  CONVERT_NOTE_OUTLINE,
   CREATE_NOTE,
   GET_CONTENT,
   UPDATE_NOTE
@@ -153,21 +115,29 @@ export default {
   },
   layout: 'Dashboard',
 
-  apollo: {
-    savedNote: {
-      query: GET_CONTENT,
-      update(data) {
-        return data.getContent
-      },
-      variables() {
-        return {
-          id: this.noteId
+  async asyncData(context) {
+    if (!context.query?.id) return
+    const client = context.app.apolloProvider.defaultClient
+
+    try {
+      const {
+        data: { getContent: savedNote }
+      } = await client.query({
+        query: GET_CONTENT,
+        variables: {
+          id: context.query?.id
+        },
+        skip() {
+          return !context.query?.id
         }
-      },
-      skip() {
-        return !this.noteId
+      })
+
+      return {
+        savedNote: {
+          ...savedNote
+        }
       }
-    }
+    } catch (e) {}
   },
 
   data: () => ({
@@ -179,6 +149,8 @@ export default {
     isPluginModalVisible: false,
     isTagModalVisible: false,
     savedNote: {},
+    hasTitle: false,
+    title: null,
     noteId: null,
     saved: false,
     isMenuVisible: false,
@@ -199,24 +171,40 @@ export default {
       handler(query) {
         this.noteId = query.id
       }
+    },
+
+    title: {
+      immediate: true,
+      handler(value) {
+        this.hasTitle = !!value
+      }
     }
   },
 
-  async mounted() {
+  mounted() {
     // Get from LocalDB
-    const content = await this.getDraft(this.noteId)
-    this.defaultContent = content?.content
+    this.$nextTick(async () => {
+      const content = await this.getDraft(this.noteId)
+      if (!content) return
+      this.title = content.title
+      this.defaultContent = {
+        content: content?.content ?? '',
+        title: content?.title ?? ''
+      }
+    })
   },
   methods: {
     async onContent(data) {
       const draft = await this.getDraft(this.noteId)
 
+      this.title = data.title
+
       this.settings = {
         ...this.settings,
         title: data.title,
         content: data.content,
-        tags: [...(draft.tags ?? []), ...(data?.tags ?? [])],
-        topics: [...(draft.topics ?? []), ...(data?.topics ?? [])]
+        tags: [...(draft?.tags ?? []), ...(data?.tags ?? [])],
+        topics: [...(draft?.topics ?? []), ...(data?.topics ?? [])]
       }
 
       this.saveDraft({
@@ -256,13 +244,69 @@ export default {
       this.isMenuVisible = false
     },
 
+    async removeDraft() {
+      await this.$store.dispatch('content/removeDraft', {
+        key: this.noteId
+      })
+    },
+
+    async updateOutline() {
+      if (!this.noteId) return
+
+      const input = await this.generateInput()
+
+      try {
+        await this.$apollo.mutate({
+          mutation: CONVERT_NOTE_OUTLINE,
+          variables: {
+            id: this.noteId,
+            input: { ...input }
+          },
+
+          skip() {
+            return !this.noteId
+          }
+        })
+
+        await this.removeDraft()
+        return this.$router.push(`/contents/outlines`)
+      } catch (error) {
+        await this.updateDraft(input)
+        if (error.message.includes('You have exceeded your outline limit.')) {
+          this.isUpgradeModalVisible = true
+          return
+        }
+        this.$toast.negative(error.message)
+      }
+    },
+    async updateBrief() {
+      if (!this.noteId) return
+
+      const input = await this.generateInput()
+
+      await this.$apollo.mutate({
+        mutation: CONVERT_NOTE_BRIEF,
+        variables: {
+          id: this.noteId,
+          input: { ...input }
+        },
+
+        skip() {
+          return !this.noteId
+        }
+      })
+
+      await this.removeDraft()
+      return this.$router.push(`/contents/briefs`)
+    },
+
     async updateDraft() {
       if (!this.noteId) return
 
       const draft = await this.getDraft(this.noteId)
       const input = {
         content: this.settings?.content ?? draft?.content,
-        title: this.settings?.title ?? draft.title ?? this.savedNote.title
+        title: this.settings?.title ?? draft?.title ?? this.savedNote?.title
       }
 
       await this.$store.commit('content/saveContent', {
@@ -302,11 +346,11 @@ export default {
     async getDraft(id) {
       let draft = await this.getLocalDraft(id)
 
-      if (!draft && this.$route.query.type === 'article') {
+      if (this.$route.query.type !== 'note') {
         draft = this.savedNote
       }
 
-      if (!draft) draft = this.savedNote
+      if (!this.$utils.isEmpty(draft)) draft = await this.getContent(id)
 
       return draft
     },
@@ -343,6 +387,7 @@ export default {
     },
 
     async createNote(input) {
+      if (!input?.title && !input?.content) return
       const {
         data: { createNote: note }
       } = await this.$apollo.mutate({
@@ -366,31 +411,37 @@ export default {
       return null
     },
 
-    async onPublish() {
-      if (!this.noteId) return // Create new
+    async generateInput() {
       const draft = await this.getDraft(this.noteId)
-      const input = {
+
+      if (!this.settings?.excerpt) {
+        this.settings.excerpt = this.parseHTML(this.settings?.content)
+      }
+
+      if (!this.settings?.featuredImage) {
+        this.settings.featuredImage = this.findFirstImage(
+          this.settings?.content
+        )
+      }
+
+      return {
         ...this.settings,
         status: 'PUBLISHED',
         noteId: this.noteId,
         content: this.settings?.content ?? draft?.content,
-        title: this.settings?.title ?? draft.title
+        title: this.settings?.title ?? draft?.title
       }
+    },
 
-      if (!this.settings?.excerpt) {
-        this.settings.excerpt = this.parseHTML(this.settings.content)
-      }
+    async onPublish() {
+      if (!this.noteId) return // Create new
+      const input = await this.generateInput()
 
-      if (!this.settings?.featuredImage) {
-        this.settings.featuredImage = this.findFirstImage(this.settings.content)
-      }
       try {
         await this.addContent(input)
         this.$store.commit('subscription/increment')
-        // Remove local draft
-        await this.$store.dispatch('content/removeDraft', {
-          key: this.noteId
-        })
+
+        await this.removeDraft()
         return this.$router.push(`/contents`)
       } catch (error) {
         await this.updateDraft(input)
@@ -408,9 +459,10 @@ export default {
         ...this.settings,
         ...data,
         content: this.settings?.content ?? draft?.content,
-        title: this.settings?.title ?? draft.title ?? this.savedNote.title,
-        tags: [...(draft.tags ?? []), ...(data.tags ?? [])],
-        topics: [...(draft.topics ?? []), ...(data.topics ?? [])]
+        title: this.settings?.title ?? draft?.title ?? this.savedNote?.title,
+        tags: [...(draft?.tags ?? []), ...(data?.tags ?? [])],
+        topics: [...(draft?.topics ?? []), ...(data?.topics ?? [])],
+        category: this.settings?.category ?? undefined
       }
 
       this.saveDraft({
@@ -431,6 +483,26 @@ export default {
       }
     },
 
+    async getContent(id) {
+      if (!id) return
+      try {
+        const {
+          data: { getContent: content }
+        } = await this.$apollo.query({
+          query: GET_CONTENT,
+          variables: {
+            id
+          },
+          skip() {
+            return !!id
+          }
+        })
+
+        return content
+      } catch (error) {
+        return null
+      }
+    },
     async convertNoteToContent(id, input) {
       return await this.$apollo.mutate({
         mutation: CONVERT_NOTE_CONTENT,

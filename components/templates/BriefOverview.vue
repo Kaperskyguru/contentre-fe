@@ -10,14 +10,18 @@
       "
     >
       <div>
-        <ContentFilter :filter-columns="sortColumns" @filters="onFilters" />
+        <ContentFilter
+          :remove="removeFilters"
+          :filter-columns="sortColumns"
+          @filters="onFilters"
+        />
       </div>
 
       <div class="basis-4/5">
         <SearchField
           id="search"
           v-model="filters.terms"
-          placeholder="Search by name..."
+          placeholder="Search by title..."
         />
       </div>
 
@@ -27,7 +31,7 @@
           type="link"
           :to="{ name: 'contents/add', query: { type: 'brief' } }"
         >
-          Create Outline
+          Create Brief
         </Button>
       </div>
     </section>
@@ -40,9 +44,9 @@
             <DataGrid
               :columns="columns"
               :checked.sync="computedChecked"
-              :items="contents.items"
-              :total="contents.total"
-              :loading="$apollo.queries.contents.loading"
+              :items="briefs.items"
+              :total="briefs.total"
+              :loading="$apollo.queries.briefs.loading"
               :item-clickable="true"
               @load-more-data="fetchMore"
               @item-click="onItemClick"
@@ -63,9 +67,9 @@
 import fragment from 'vue-frag'
 import { mapState } from 'vuex'
 import { currentUser } from '~/components/mixins'
-import { GET_CONTENTS } from '~/graphql'
+import { GET_BRIEFS } from '~/graphql'
 export default {
-  name: 'ContentOverview',
+  name: 'BriefOverview',
   directives: {
     fragment
   },
@@ -87,11 +91,12 @@ export default {
     searchedTerm: '',
     num: 0,
     filters: {},
+    removeFilters: ['client', 'category', 'amount'],
     sortColumns: [
       { name: 'Title', key: 'title' },
-      { name: 'Updated', key: 'lastUpdated' }
+      { name: 'Updated', key: 'updatedAt' }
     ],
-    contents: {
+    briefs: {
       items: [],
       total: 0
     }
@@ -131,45 +136,20 @@ export default {
           componentOptions: this.getTitleComponentOptions
         },
 
-        // {
-        //   title: 'Category',
-        //   key: 'category.name',
-        //   isGrid: true,
-        //   dataClass: ({ category }) =>
-        //     `${category ? 'xs:py-2' : 'xs:py-2'} lg:py-0`,
-        //   component: () => {
-        //     return 'DataGridCellCategory'
-        //   },
-        //   componentOptions: this.getCategoryComponentOptions
-        // },
-
         {
           title: 'Updated',
           key: 'lastUpdated',
           titleClass: 'lg:w-20 xl:w-28 2xl:w-36',
           component: () => 'DataGridCellIcon',
           componentOptions: this.getLastUpdatedComponentOptions
-        },
-
-        {
-          title: 'Status',
-          key: 'status',
-          titleClass: 'lg:w-36 xl:w-50 2xl:w-70',
-          dataClass: ({ status }) => {
-            return `${status ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
-          },
-          component: () => {
-            return 'DataGridCellStatus'
-          },
-          componentOptions: this.getStatusComponentOptions
         }
       ]
     }
   },
 
   apollo: {
-    contents: {
-      query: GET_CONTENTS,
+    briefs: {
+      query: GET_BRIEFS,
       fetchPolicy: 'cache-and-network',
       variables() {
         return {
@@ -182,11 +162,9 @@ export default {
         }
       },
       update(data) {
-        const netTotal = data.getContents.meta.netTotal
-        this.$store.commit('subscription/updateTotalContents', netTotal)
         return {
-          items: data.getContents.contents,
-          total: data.getContents.meta.total
+          items: data.getBriefs.briefs,
+          total: data.getBriefs.meta.total
         }
       }
     }
@@ -200,9 +178,9 @@ export default {
       }
     },
     fetchMore(sizeAndSkip) {
-      const itemsKey = 'contents'
-      const queryName = 'getContents'
-      this.$apollo.queries.contents.fetchMore({
+      const itemsKey = 'briefs'
+      const queryName = 'getBriefs'
+      this.$apollo.queries.briefs.fetchMore({
         // New variables
         variables: {
           ...sizeAndSkip,
@@ -251,33 +229,7 @@ export default {
         : {
             value: this.$d(new Date(lastUpdated), 'dateShorter')
           }
-    },
-
-    getStatusComponentOptions({ status }) {
-      return status
-        ? {
-            style: !status ? 'secondary' : undefined,
-            value: status || 'No status provided'
-          }
-        : {}
     }
-    // getCategoryComponentOptions({ category }) {
-    //   return category
-    //     ? {
-    //         style: !category ? 'secondary' : undefined,
-    //         class: 'capitalize',
-
-    //         isGrid: true,
-    //         value: category.name || 'No category provided'
-    //       }
-    //     : {
-    //         style: 'secondary',
-
-    //         isGrid: true,
-    //         class: 'capitalize',
-    //         value: 'No category provided'
-    //       }
-    // }
   }
 }
 </script>

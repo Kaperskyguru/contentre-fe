@@ -113,15 +113,11 @@
               >
                 <ul class="space-y-3 dark:text-white">
                   <li class="font-medium hover:bg-gray-100">
-                    <button
-                      href="#"
-                      class="flex items-center transition-colors duration-200"
+                    <Hyperlink
+                      :to="{
+                        path: `/contents/add?type=note`
+                      }"
                     >
-                      Convert to note
-                    </button>
-                  </li>
-                  <li class="font-medium hover:bg-gray-100">
-                    <Hyperlink to="#">
                       <button
                         class="flex items-center transition-colors duration-200"
                       >
@@ -195,138 +191,129 @@
                 border-2
               "
             >
-              <hyperlink to="/contents/add">
+              <hyperlink to="/contents/add?type=note">
                 <div
                   class="
-                    flex flex-col
+                    flex
                     justify-center
                     items-center
-                    w-full
-                    h-full
+                    w-[3.125rem]
+                    h-[3.125rem]
+                    bg-[#286963]
+                    rounded-full
                   "
                 >
-                  <div
-                    class="
-                      flex
-                      justify-center
-                      items-center
-                      w-[3.125rem]
-                      h-[3.125rem]
-                      bg-[#286963]
-                      rounded-full
-                    "
-                  >
-                    <i class="text-2xl text-white">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        style="fill: white; transform: ; msfilter: "
-                      >
-                        <path
-                          d="M6.012 18H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1zM8 9h3V6h2v3h3v2h-3v3h-2v-3H8V9z"
-                        ></path>
-                      </svg>
-                    </i>
-                  </div>
-                  <p class="text-[14px] font-semibold">Create new note</p>
+                  <i class="text-2xl text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      style="fill: white; transform: ; msfilter: "
+                    >
+                      <path
+                        d="M6.012 18H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1zM8 9h3V6h2v3h3v2h-3v3h-2v-3H8V9z"
+                      ></path>
+                    </svg>
+                  </i>
                 </div>
+                <p class="text-[14px] font-semibold">Create new note</p>
               </hyperlink>
             </div>
+          </div>
 
-            <div
-              v-for="(item, index) in notes.items"
-              :key="index"
-              class="
-                p-3
-                min-w-[10.72rem]
-                h-[16.125rem]
-                bg-white
-                hover:bg-gray-100
-                rounded-lg
-                border-2
-                cursor-pointer
-              "
-            >
-              <div class="flex relative justify-end">
-                <img
-                  src="https://raw.githubusercontent.com/Succyvibe/example_portfolio/main/img/dots.png"
-                  alt=""
-                  class="w-[20px]"
-                  @click="onOpenSubMenu(item.id)"
-                />
-                <div
-                  v-if="menu && activeMenu === item.id"
-                  x-transition:enter="transition ease-out duration-100"
-                  x-transition:enter-start="transform opacity-0 scale-95"
-                  x-transition:enter-end="transform opacity-100 scale-100"
-                  x-transition:leave="transition ease-in duration-75"
-                  x-transition:leave-start="transform opacity-100 scale-100"
-                  x-transition:leave-end="transform opacity-0 scale-95"
-                  class="
-                    absolute
-                    top-auto
-                    right-0
-                    z-[100]
-                    py-3
-                    px-5
-                    mt-2
-                    w-60
-                    bg-white
-                    dark:bg-gray-800
-                    rounded-lg
-                    border
-                    dark:border-transparent
-                    shadow
-                  "
-                >
-                  <ul class="space-y-3 dark:text-white">
-                    <li class="font-medium hover:bg-gray-100">
+          <div
+            v-for="(item, index) in notes.items"
+            :key="index"
+            class="
+              p-3
+              min-w-[10.72rem]
+              h-[16.125rem]
+              bg-white
+              hover:bg-gray-100
+              rounded-lg
+              border-2
+              cursor-pointer
+            "
+          >
+            <div class="flex relative justify-end">
+              <img
+                src="https://raw.githubusercontent.com/Succyvibe/example_portfolio/main/img/dots.png"
+                alt=""
+                class="w-[20px]"
+                @click="onOpenSubMenu(item.id)"
+              />
+              <div
+                v-if="menu && activeMenu === item.id"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95"
+                class="
+                  absolute
+                  top-auto
+                  right-0
+                  z-[100]
+                  py-3
+                  px-5
+                  mt-2
+                  w-60
+                  bg-white
+                  dark:bg-gray-800
+                  rounded-lg
+                  border
+                  dark:border-transparent
+                  shadow
+                "
+              >
+                <ul class="space-y-3 dark:text-white">
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      class="flex items-center transition-colors duration-200"
+                      @click.prevent="onAddToNotebook(item.id)"
+                    >
+                      Add to Notebook
+                    </button>
+                  </li>
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      class="flex items-center transition-colors duration-200"
+                      @click.prevent="onShareNote(item.id)"
+                    >
+                      Share note
+                    </button>
+                  </li>
+                  <hr class="dark:border-gray-700" />
+                  <li class="font-medium hover:bg-gray-100">
+                    <Hyperlink
+                      :to="{
+                        path: `/contents/add?type=note&id=${item.id}`
+                      }"
+                    >
                       <button
                         class="flex items-center transition-colors duration-200"
-                        @click.prevent="onAddToNotebook(item.id)"
                       >
-                        Add to Notebook
+                        Convert to content
                       </button>
-                    </li>
-                    <li class="font-medium hover:bg-gray-100">
-                      <button
-                        class="flex items-center transition-colors duration-200"
-                        @click.prevent="onShareNote(item.id)"
-                      >
-                        Share note
-                      </button>
-                    </li>
-                    <hr class="dark:border-gray-700" />
-                    <li class="font-medium hover:bg-gray-100">
-                      <Hyperlink :to="{ path: `/contents/${item.id}/publish` }">
-                        <button
-                          class="
-                            flex
-                            items-center
-                            transition-colors
-                            duration-200
-                          "
-                        >
-                          Convert to content
-                        </button>
-                      </Hyperlink>
-                    </li>
-                    <hr class="dark:border-gray-700" />
-                    <li class="font-medium hover:bg-gray-100">
-                      <button
-                        href="#"
-                        class="flex items-center transition-colors duration-200"
-                        @click.prevent="onDeleteNote(item.id)"
-                      >
-                        Delete note
-                      </button>
-                    </li>
-                  </ul>
-                </div>
+                    </Hyperlink>
+                  </li>
+                  <hr class="dark:border-gray-700" />
+
+                  <hr class="dark:border-gray-700" />
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      href="#"
+                      class="flex items-center transition-colors duration-200"
+                      @click.prevent="onDeleteNote(item.id)"
+                    >
+                      Delete note
+                    </button>
+                  </li>
+                </ul>
               </div>
               <Hyperlink
-                :to="{ path: `/contents/add?type=NOTE&id=${item.id}` }"
+                :to="{ path: `/contents/add?type=note&id=${item.id}` }"
                 class="min-w-[10.72rem]"
               >
                 <div class="flex flex-col justify-between w-[10.72rem] h-full">
@@ -343,6 +330,23 @@
                 </div>
               </Hyperlink>
             </div>
+            <Hyperlink
+              :to="{ path: `/contents/add?type=NOTE&id=${item.id}` }"
+              class="min-w-[10.72rem]"
+            >
+              <div class="flex flex-col justify-between w-[10.72rem] h-full">
+                <div class="w-full">
+                  <h3 class="text-lg font-bold">{{ item.title }}</h3>
+                  <article
+                    class="mt-3 text-sm"
+                    v-html="getExcerpt(item.content)"
+                  ></article>
+                </div>
+                <div class="text-sm">
+                  {{ $d(new Date(item.updatedAt), 'monthDayShortLong') }}
+                </div>
+              </div>
+            </Hyperlink>
           </div>
         </div>
       </div>

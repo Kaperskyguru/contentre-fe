@@ -6,6 +6,15 @@
 export const isObject = (value) => value && value.constructor === Object
 
 /**
+ * Check if object is empty.
+ * @param mixed value
+ * @returns boolean
+ */
+export const isEmpty = (obj) => {
+  return obj && Object.keys(obj).length === 0 && obj.constructor === Object
+}
+
+/**
  * Check if value is an array.
  * @param mixed value
  * @returns boolean
@@ -245,6 +254,21 @@ export const uidGenerator = (id) => {
 }
 
 /**
+ * Generates outline.
+ *
+ * @param content outline to generate.
+ * @returns string
+ */
+export const generateOutline = (content) => {
+  return `
+        <h2 class="outline">Outline</h2>
+        <ul>${content
+          .replaceAll('\n\n', '<li>')
+          .replaceAll('\n', '<p>')
+          .replaceAll('\n<p>[a-zA-Z].', '<ul><li>')}</ul>`
+}
+
+/**
  * Debounce calling a callback.
  *
  * @param function fn.
@@ -330,6 +354,8 @@ export default function (_context, inject) {
     numberGenerateBetween,
     uidGenerator,
     debounce,
+    isEmpty,
+    generateOutline,
     getWindowWidth,
     getWindowHeight,
     getVisibleItems,

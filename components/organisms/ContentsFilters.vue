@@ -71,11 +71,12 @@
 
       <slot />
 
-      <div v-if="showSortBy" class="mb-6">
+      <div v-if="showSortBy" class="flex mb-6 space-x-4">
         <DropdownField
+          v-model="sortBy"
           placeholder="Sort by"
+          class="flex-1"
           label="Sort by"
-          @update:value="onFilterChange"
         >
           <option
             v-for="(column, i) in filterColumns"
@@ -84,6 +85,11 @@
           >
             {{ column.name }}
           </option>
+        </DropdownField>
+
+        <DropdownField v-model="desc" label="Order By" class="flex-1">
+          <option :value="true" selected>Desc</option>
+          <option :value="false">Asc</option>
         </DropdownField>
       </div>
 
@@ -230,6 +236,7 @@ export default {
 
   data: () => ({
     sortBy: '',
+    desc: true,
     fieldTopics: null,
     fieldCategories: null,
     fieldTags: null,
@@ -345,7 +352,8 @@ export default {
             : Number(data.fieldToAmount),
         fromDate: data.fieldFromDate,
         toDate: data.fieldToDate,
-        sortBy: this.sortBy ?? undefined
+        sortBy: this.sortBy ?? undefined,
+        desc: Boolean(this.desc) ?? true
       }
 
       if (this.remove.includes('category')) delete filter.categories
@@ -384,10 +392,6 @@ export default {
       this.saveTransactionFilters()
 
       this.showFloatingPanel = false
-    },
-
-    onFilterChange(e) {
-      this.sortBy = e
     },
 
     onClickResetButton() {

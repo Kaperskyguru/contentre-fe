@@ -26,8 +26,12 @@
       </div>
 
       <div>
-        <Button appearance="primary" @click="addOutline">
-          Create Outline
+        <Button
+          appearance="primary"
+          type="link"
+          :to="{ name: 'contents/add', query: { type: 'snippet' } }"
+        >
+          Create Snippet
         </Button>
       </div>
     </section>
@@ -40,9 +44,9 @@
             <DataGrid
               :columns="columns"
               :checked.sync="computedChecked"
-              :items="outlines.items"
-              :total="outlines.total"
-              :loading="$apollo.queries.outlines.loading"
+              :items="snippets.items"
+              :total="snippets.total"
+              :loading="$apollo.queries.snippets.loading"
               :item-clickable="true"
               @load-more-data="fetchMore"
               @item-click="onItemClick"
@@ -54,19 +58,22 @@
     <!-- end of table -->
 
     <Dialog v-model="isUpgradeModalVisible" :is-large="true">
-      <UpgradeModal @back="back">You've hit your outline limit</UpgradeModal>
+      <UpgradeModal @back="back">You've hit your content limit</UpgradeModal>
     </Dialog>
   </span>
 </template>
-  
-  <script>
+      
+      <script>
 import fragment from 'vue-frag'
-import { CAN_ADD_OUTLINE, GET_OUTLINES } from '~/graphql'
+import { mapState } from 'vuex'
+import { currentUser } from '~/components/mixins'
+import { GET_SNIPPETS } from '~/graphql'
 export default {
-  name: 'ContentOverview',
+  name: 'BriefOverview',
   directives: {
     fragment
   },
+  mixins: [currentUser],
   props: {
     onBoarded: {
       type: Boolean,
@@ -89,13 +96,29 @@ export default {
       { name: 'Title', key: 'title' },
       { name: 'Updated', key: 'updatedAt' }
     ],
-    outlines: {
+    snippets: {
       items: [],
       total: 0
     }
   }),
 
   computed: {
+    ...mapState({
+      subscription: (state) => {
+        return state.subscription.subscription
+      },
+      totalNumber: (state) => {
+        return state.subscription.numberOfContents ?? 0
+      }
+    }),
+    hasExceededContent() {
+      const subValue = this.$utils.getFeatureValue(
+        this.subscription,
+        'TOTAL_CONTENTS'
+      )
+      if (subValue === 0) return false
+      return this.totalNumber >= subValue
+    },
     computedChecked: {
       get() {
         return this.checked
@@ -125,8 +148,8 @@ export default {
   },
 
   apollo: {
-    outlines: {
-      query: GET_OUTLINES,
+    snippets: {
+      query: GET_SNIPPETS,
       fetchPolicy: 'cache-and-network',
       variables() {
         return {
@@ -140,48 +163,14 @@ export default {
       },
       update(data) {
         return {
-          items: data.getOutlines.outlines,
-          total: data.getOutlines.meta.total
+          items: data.getSnippets.snippets,
+          total: data.getSnippets.meta.total
         }
       }
     }
   },
 
   methods: {
-    back() {
-      this.isUpgradeModalVisible = false
-    },
-
-    async addOutline() {
-      try {
-        const {
-          data: { canAddOutline }
-        } = await this.$apollo.mutate({
-          mutation: CAN_ADD_OUTLINE
-        })
-
-        if (!canAddOutline) {
-          this.isUpgradeModalVisible = true
-          return
-        }
-
-        return this.$router.push({
-          name: 'contents/add',
-          query: { type: 'outline' }
-        })
-      } catch (error) {
-        this.$toast.negative(error.message)
-      }
-    },
-    onItemClick({ id }) {
-      return this.$router.push({
-        path: `/contents/add`,
-        query: {
-          id,
-          type: 'outline'
-        }
-      })
-    },
     onFilters(v) {
       this.filters = {
         ...this.filters,
@@ -189,9 +178,9 @@ export default {
       }
     },
     fetchMore(sizeAndSkip) {
-      const itemsKey = 'outlines'
-      const queryName = 'getOutlines'
-      this.$apollo.queries.outlines.fetchMore({
+      const itemsKey = 'snippets'
+      const queryName = 'getSnippets'
+      this.$apollo.queries.snippets.fetchMore({
         // New variables
         variables: {
           ...sizeAndSkip,
@@ -226,24 +215,24 @@ export default {
         : {}
     },
 
-    getLastUpdatedComponentOptions({ updatedAt }) {
-      return !updatedAt
+    getLastUpdatedComponentOptions({ lastUpdated }) {
+      return !lastUpdated
         ? {
             style: 'secondary',
             value: 'No date provided'
           }
-        : new Date(updatedAt) > new Date()
+        : new Date(lastUpdated) > new Date()
         ? {
             name: 'Scheduled',
-            value: this.$d(new Date(updatedAt), 'dateShorter')
+            value: this.$d(new Date(lastUpdated), 'dateShorter')
           }
         : {
-            value: this.$d(new Date(updatedAt), 'dateShorter')
+            value: this.$d(new Date(lastUpdated), 'dateShorter')
           }
     }
   }
 }
 </script>
-  
-  <style>
+      
+      <style>
 </style>
