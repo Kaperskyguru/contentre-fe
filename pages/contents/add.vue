@@ -177,10 +177,10 @@ export default {
     this.$nextTick(async () => {
       const content = await this.getDraft(this.noteId)
       if (!content) return
-
+      this.title = content.title
       this.defaultContent = {
-        content: content?.content,
-        title: content?.title
+        content: content?.content ?? '',
+        title: content?.title ?? ''
       }
     })
   },
