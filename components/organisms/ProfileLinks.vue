@@ -58,10 +58,7 @@
       >
         <span>Profile Links</span>
         <div class="flex text-[#286963]">
-          <a
-            :href="`${process.env.FE_URL}/l/${currentUser.username}`"
-            target="_blank"
-          >
+          <a :href="profileLink" target="_blank">
             <ShareIcon />
           </a>
           <span class="ml-5 text-black">
@@ -121,6 +118,12 @@ export default {
   data() {
     return {
       clients: []
+    }
+  },
+
+  computed: {
+    profileLink() {
+      return `${process?.env?.FE_URL}/l/${this.currentUser.username}`
     }
   },
   apollo: {

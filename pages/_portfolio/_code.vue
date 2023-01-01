@@ -149,7 +149,7 @@ export default {
       query: GET_PORTFOLIO_CONTENT,
       fetchPolicy: 'cache-and-network',
       variables() {
-        const url = `${process.env.FE_URL ?? 'https://contentre.io'}`
+        const url = `${process?.env?.FE_URL ?? 'https://contentre.io'}`
         return {
           size: 9,
           skip: 0,
