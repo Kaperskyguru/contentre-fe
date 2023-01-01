@@ -6,8 +6,7 @@
         flex
         justify-between
         items-center
-        py-1
-        px-2
+        p-1
         space-x-6
         bg-white
         rounded-lg

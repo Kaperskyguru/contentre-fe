@@ -18,10 +18,10 @@
         items-center
         p-4
         w-1/2
-        min-h-80vh
         bg-center bg-no-repeat bg-cover bg-auth-background
         md:flex
         lg:flex-1 lg:items-start lg:pt-20 lg:pl-10 lg:min-h-screen
+        min-h-80vh
       "
     >
       <div class="flex flex-col w-full">

@@ -1,56 +1,56 @@
 <template>
-  <span v-fragment>
-    <section
+  <span>
+    <Card
+      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
+    >
+      <PageTitle>Contents</PageTitle>
+
+      <Button appearance="primary" @click.prevent="onAddContent">
+        Add Content
+      </Button>
+    </Card>
+
+    <Card
       class="
         flex flex-col
         justify-between
+        items-center
+        py-4
         mb-6
         space-y-6 space-x-0
-        md:flex-row md:space-y-0 md:space-x-5
+        md:flex-row md:p-5 md:space-y-0 md:space-x-5
       "
     >
       <div>
         <ContentFilter :filter-columns="sortColumns" @filters="onFilters" />
       </div>
 
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </div>
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        class="flex-1 w-full h-10"
+        placeholder="Search by name..."
+      />
 
       <div>
         <FavouriteField :selected="checked" @deleted="onDeleteSuccess" />
       </div>
-
-      <div>
-        <Button appearance="primary" @click.prevent="onAddContent">
-          Add Content
-        </Button>
-      </div>
-    </section>
+    </Card>
 
     <!-- table -->
-    <section class="mt-5">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <DataGrid
-              :columns="columns"
-              :checked.sync="computedChecked"
-              :items="contents.items"
-              :total="contents.total"
-              :loading="$apollo.queries.contents.loading"
-              :item-clickable="true"
-              @load-more-data="fetchMore"
-              @item-click="onItemClick"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+    <Card>
+      <DataGrid
+        :columns="columns"
+        :checked.sync="computedChecked"
+        :items="contents.items"
+        :total="contents.total"
+        class="h-96 md:h-full"
+        :loading="$apollo.queries.contents.loading"
+        :item-clickable="true"
+        @load-more-data="fetchMore"
+        @item-click="onItemClick"
+      />
+    </Card>
     <!-- end of table -->
 
     <Dialog v-model="isAddContent">
@@ -280,7 +280,7 @@ export default {
       this.isAddMultipleContent = true
     },
     onAddContent() {
-      if (this.hasExceededPortfolio) {
+      if (this.hasExceededContent) {
         this.isUpgradeModalVisible = true
         return
       }

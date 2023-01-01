@@ -130,7 +130,10 @@
               href="https://www.termsandconditionsgenerator.com/live.php?token=d7qMQzDBX2dtqge1TzZCiVEPMWanz0Pt"
             >
               Membership Terms of Service</a
-            >. Your payment method will be charged a recurring $9.99 USD monthly
+            >. Your payment method will be charged a recurring ${{
+              isMonthly ? '9.99' : '99.99 (save 20%)'
+            }}
+            USD {{ isMonthly ? 'monthly' : 'yearly' }}
             fee, unless you decide to cancel. No refunds for memberships
             canceled between billing cycles.
           </p>

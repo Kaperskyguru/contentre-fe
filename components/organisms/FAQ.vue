@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-32 pb-20">
+  <div class="py-20">
     <h3
       class="
         text-2xl
@@ -11,7 +11,7 @@
     >
       Frequently Asked Questions
     </h3>
-    <div class="mx-auto mt-10 md:w-[70%] lg:w-[65%]">
+    <div class="mx-auto md:mt-10 md:w-[70%] lg:w-[65%]">
       <div class="py-4 px-8 rounded-md">
         <div>
           <div class="flex justify-between items-center pb-3 mt-10">
@@ -29,11 +29,11 @@
           <p
             class="
               mt-5
-              w-[50%]
               text-base
               font-medium
               leading-[24px]
               text-[#54605F]
+              md:w-[50%]
             "
           >
             Yes, you can cancel anytime yourself under "Setting". Or if you
@@ -56,11 +56,11 @@
           <p
             class="
               mt-5
-              w-[50%]
               text-base
               font-medium
               leading-[24px]
               text-[#54605F]
+              md:w-[50%]
             "
           >
             Yes you can upgrade or downgrade between Pro and Team at any time,
@@ -82,11 +82,11 @@
           <p
             class="
               mt-5
-              w-[50%]
               text-base
               font-medium
               leading-[24px]
               text-[#54605F]
+              md:w-[50%]
             "
           >
             No, you can create an account and use the free plan without entering
@@ -108,11 +108,11 @@
           <p
             class="
               mt-5
-              w-[50%]
               text-base
               font-medium
               leading-[24px]
               text-[#54605F]
+              md:w-[50%]
             "
           >
             When you sign up you will have access to all the features on the Pro
@@ -135,11 +135,11 @@
           <p
             class="
               mt-5
-              w-[50%]
               text-base
               font-medium
               leading-[24px]
               text-[#54605F]
+              md:w-[50%]
             "
           >
             We process all payments securely with Stripe, Paypal, Paystack or
@@ -162,11 +162,11 @@
           <p
             class="
               mt-5
-              w-[50%]
               text-base
               font-medium
               leading-[24px]
               text-[#54605F]
+              md:w-[50%]
             "
           >
             If you cancel your subscription within 14 days of upgrading, or

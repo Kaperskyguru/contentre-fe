@@ -100,26 +100,7 @@ body {
   line-height: 1.5;
   background-color: #f8f9fa;
   color: #181819;
-  font-family: 'Roboto', sans-serif;
-}
-
-.navside-bs {
-  background: #ffffff;
-  min-height: 60px;
-  width: 100%;
-  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
-}
-
-aside {
-  background: #083430;
-  position: fixed;
-  z-index: 10032;
-  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
-}
-
-nav#mobile {
-  background: #083430;
-  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.1);
+  @apply font-gilroy
 }
 
 .aside-header {
@@ -154,52 +135,11 @@ nav#mobile {
   top: 5px;
 }
 
-@media (max-width: 640px) {
 
-  body>aside,
-  body>main {
-    grid-area: stack;
-  }
-}
 
-#sidenav-open {
-  --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration: 0.6s;
-  display: grid;
-  grid-template-columns: [nav] 1fr [escape] 2fr;
-}
-
-@media (max-width: 640px) {
-  #sidenav-open {
-    position: sticky;
-    top: 0;
-    max-height: 100vh;
-    overflow: hidden auto;
-    overscroll-behavior: contain;
-    visibility: hidden;
-    transform: translateX(-110vw);
-    will-change: transform;
-    transition: transform var(--duration) var(--easeOutExpo),
-      visibility 0s linear var(--duration);
-  }
-}
-
-@media only screen and (max-width: 640px) {
-  #sidenav-open:target {
-    visibility: visible;
-    transform: translateX(0);
-    transition: transform var(--duration) var(--easeOutExpo);
-  }
-
-  #sidenav-open:target~main {
-    filter: blur(0.5em);
-    z-index: -1;
-  }
-}
-
-.grid-cols-auto-1fr-auto {
+/* .grid-cols-auto-1fr-auto {
   grid-template-columns: auto 1fr auto;
-}
+} */
 
 #profile-progress {
   border: 1em solid white;
@@ -314,7 +254,7 @@ nav#mobile {
   min-height: 260px;
 
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 15%); */
   scroll-snap-align: start;
   transition: all 0.2s;
   overflow: hidden;

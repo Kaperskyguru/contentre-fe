@@ -1,6 +1,6 @@
 <template>
   <!-- Right Side -->
-  <div class="mx-2 w-full h-64 bg-white rounded-xl shadow md:w-10/12">
+  <div class="w-full bg-white rounded-xl shadow md:w-10/12 md:h-64">
     <!-- Profile tab -->
     <!-- About Section -->
     <div class="bg-white rounded-xl shadow-sm">

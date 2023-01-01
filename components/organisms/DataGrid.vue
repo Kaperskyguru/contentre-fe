@@ -3,14 +3,11 @@
   <div
     ref="infiniteScrollContainer"
     v-infinite-scroll="onLoadMoreData"
-    class="overflow-auto w-full h-screen max-h-full text-sm"
+    class="overflow-auto w-full h-full max-h-full text-sm"
     infinite-scroll-distance="300"
     :infinite-scroll-disabled="disableInfiniteScroll"
   >
-    <table
-      class="w-full min-w-full table-fixed"
-      :class="{ hidden: noDataToShow }"
-    >
+    <table class="w-full table-fixed" :class="{ hidden: noDataToShow }">
       <thead
         v-if="checked && isMobileLayout && showHeader"
         class="text-left bg-white"
@@ -151,6 +148,7 @@
             :key="item[primaryKey] || itemIndex"
             :tabindex="!item.disabled && isItemClickable(item) ? 0 : undefined"
             :class="bodyRowClasses(item)"
+            class="block mb-3 shadow md:table-row md:shadow-none"
             @keypress.enter="onItemClick(item, itemIndex)"
             @click="onItemClick(item, itemIndex)"
           >
@@ -160,7 +158,7 @@
               :class="dataCellClasses({})"
               @click.stop
             >
-              <strong class="text-black lg:hidden">
+              <strong class="text-black mdCustom:hidden">
                 {{ 'Select' }}
               </strong>
               <CheckField
@@ -206,7 +204,7 @@
                     </span>
                   </Button>
 
-                  <strong class="text-black lg:hidden">
+                  <strong class="text-black mdCustom:hidden">
                     <slot
                       :column="column"
                       :title="column[columnTitleKey]"
@@ -241,7 +239,10 @@
                     />
                   </template>
 
-                  <span v-else-if="isMobileLayout" class="block lg:hidden">
+                  <span
+                    v-else-if="isMobileLayout"
+                    class="block mdCustom:hidden"
+                  >
                     {{ displayCellValue(item, column) }}
                   </span>
 
@@ -269,7 +270,7 @@
           :class="bodyRowClasses({})"
         >
           <td v-if="checked" :class="dataCellClasses({})">
-            <strong class="lg:hidden">
+            <strong class="mdCustom:hidden">
               {{ 'Select Content' }}
             </strong>
 
@@ -281,7 +282,7 @@
             :class="dataCellClasses({ column, columnIndex, item: {} })"
             :style="$utils.checkCallback(column.dataStyle, [{}])"
           >
-            <strong class="lg:hidden">
+            <strong class="mdCustom:hidden">
               {{ column[columnTitleKey] }}
             </strong>
 
@@ -587,7 +588,7 @@ export default {
 
     bodyRowClasses(item) {
       return [
-        'border-b border-silver transition-all',
+        'border px-3 md:px-0 md:border-b border-silver transition-all',
         {
           'lg:border-none': this.isMobileLayout,
           'border-none': !this.isMobileLayout,

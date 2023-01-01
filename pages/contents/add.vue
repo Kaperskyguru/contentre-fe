@@ -1,218 +1,152 @@
 <template>
-  <section class="px-3 md:px-12">
-    <section
-      class="flex flex-wrap justify-between items-center py-4 mt-4 w-full"
+  <PageContent>
+    <Card
+      v-click-outside="onClickOutside"
+      class="flex flex-col gap-2 md:flex-row md:justify-between md:items-center"
     >
-      <PageTitle>Add Content</PageTitle>
-    </section>
-
-    <section class="container">
-      <div>
-        <TextField
-          v-model="$v.fieldTitle.$model"
-          placeholder="Title"
-          field-class="placeholder:text-2xl placeholder:py-3"
-          container-class="py-3 text-2xl bg-transparent hover:bg-transparent font-bold focus-within:bg-transparent"
-          :show-border="false"
-          :autofocus="true"
-          :error="getValidationMessage($v.fieldTitle)"
-          @update:value="onChange"
-        ></TextField>
-
-        <section class="flex flex-row space-x-2 w-full h-full">
-          <div id="editor" class="p-3 w-full text-sm">
-            <medium-editor
-              v-model="content"
-              :prefill="defaultValue"
-              :options="options"
-              :on-change="onChange"
-              :hide-gist="false"
-              @uploaded="uploadCallback"
-            >
-            </medium-editor>
-          </div>
-          <div v-if="showMarkdown" class="w-1/2">
-            <pre id="markdown"></pre>
-          </div>
-
-          <!-- Remove this later -->
-          <div v-else class="w-1/2"></div>
-        </section>
+      <div class="w-full">
+        <PageTitle>Add Content</PageTitle>
       </div>
-      <div
-        class="
-          flex flex-col
-          justify-end
-          my-8
-          space-y-4 space-x-0
-          md:flex-row md:space-y-0 md:space-x-4
-        "
-      >
-        <Button appearance="outline" @click.prevent="saveNote">
-          Save Note
-        </Button>
-        <Button @click.prevent="onPublish"> Publish </Button>
+      <div class="flex-1">
+        <div
+          v-click-outside="onClickOutside"
+          class="
+            flex flex-col
+            items-center
+            space-y-4 space-x-0
+            w-full
+            md:flex-row md:space-y-0 md:space-x-4
+          "
+        >
+          <button @click.prevent="onOpenSettings">
+            <SettingIcon />
+          </button>
+
+          <Button
+            class="w-full"
+            :disabled="!hasTitle"
+            appearance="outline"
+            @click.prevent="updateDraft"
+          >
+            Save
+          </Button>
+
+          <Button
+            class="w-full"
+            :disabled="!hasTitle"
+            @click.prevent="onPublish"
+          >
+            Publish
+          </Button>
+        </div>
       </div>
-    </section>
+    </Card>
+
+    <Card>
+      <div class="overflow-hidden">
+        <TiptapEditor :content="defaultContent" @update:content="onContent" />
+      </div>
+    </Card>
+
+    <LazyContentSettings
+      v-model="isContentSettingVisible"
+      :note-id="noteId"
+      :cover-image="coverImage"
+      @openImage="onOpenImage"
+      @openPlugin="onOpenPlugin"
+      @settings="onSettings"
+    ></LazyContentSettings>
+
+    <Dialog
+      v-model="isPluginModalVisible"
+      :is-large="true"
+      title="Connected Apps"
+    >
+      <div class="block w-full text-gray-700 bg-white">
+        <div class="flex justify-between w-full text-gray-700 bg-white">
+          <Plugins @add="onAddApps" />
+        </div>
+      </div>
+    </Dialog>
 
     <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload Image">
       <div class="block w-full text-gray-700 bg-white">
         <div class="justify-between w-full text-gray-700 bg-white">
-          <UploadImage />
+          <UploadImage @uploaded="uploadedImage" />
         </div>
       </div>
     </Dialog>
-  </section>
-  <!-- end of page -->
+  </PageContent>
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import TurndownService from 'turndown'
-import { CREATE_NOTE, GET_NOTE, UPDATE_NOTE } from '~/graphql'
-import { required, hasLetter } from '~/plugins/validators'
+import vClickOutside from 'v-click-outside'
+import {
+  CONVERT_NOTE_BRIEF,
+  CONVERT_NOTE_CONTENT,
+  CONVERT_NOTE_OUTLINE,
+  CREATE_NOTE,
+  GET_CONTENT,
+  UPDATE_NOTE
+} from '~/graphql'
+import SettingIcon from '~/assets/icons/setting.svg?inline'
 
 export default {
-  name: 'AddPage',
+  name: 'AddContent',
+
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
 
   components: {
-    // IconPencil: () => import('~/assets/icons/pencil.svg?inline')
+    SettingIcon
   },
   layout: 'Dashboard',
 
-  apollo: {
-    savedNote: {
-      query: GET_NOTE,
-      update(data) {
-        const note = data.getNote
-        this.defaultValue = note.content
-        this.fieldTitle = note.title
-        return note
-      },
-      variables() {
-        return {
-          id: this.noteId
+  async asyncData(context) {
+    if (!context.query?.id) return
+    const client = context.app.apolloProvider.defaultClient
+
+    try {
+      const {
+        data: { getContent: savedNote }
+      } = await client.query({
+        query: GET_CONTENT,
+        variables: {
+          id: context.query?.id
+        },
+        skip() {
+          return !context.query?.id
         }
-      },
-      skip() {
-        return !this.noteId
+      })
+
+      return {
+        savedNote: {
+          ...savedNote
+        }
       }
-    }
+    } catch (e) {}
   },
 
   data: () => ({
-    editor: ClassicEditor,
     content: null,
-    defaultValue: '',
+    apps: {},
+    defaultContent: null,
     isImageModalVisible: false,
+    isContentSettingVisible: false,
+    isPluginModalVisible: false,
     isTagModalVisible: false,
     savedNote: {},
+    hasTitle: false,
+    title: null,
     noteId: null,
     saved: false,
+    isMenuVisible: false,
     tags: [],
-    fieldTitle: '',
-    showMarkdown: false,
-    editorConfig: {
-      ref: 'field'
-    },
-
-    options: {
-      uploadUrl: 'https://api.imgur.com/3/image',
-      uploadUrlHeader: { Authorization: 'Client-ID db856b43cc7f441' },
-      file_input_name: 'image',
-      file_size: 1024 * 1024 * 10,
-      subscribeToMeEditableInput: true,
-      imgur: true,
-      placeholder: {
-        text: 'Write your heart out'
-      },
-      anchor: {
-        linkValidation: true
-      },
-      keyboardCommands: {
-        commands: [
-          {
-            command: 'bold',
-            key: 'B',
-            meta: true,
-            shift: false,
-            alt: false
-          },
-          {
-            command: 'italic',
-            key: 'I',
-            meta: true,
-            shift: false,
-            alt: false
-          },
-          {
-            command: 'underline',
-            key: 'U',
-            meta: true,
-            shift: false,
-            alt: false
-          }
-        ]
-      },
-      anchorPreview: true,
-      toolbar: {
-        buttons: [
-          'bold',
-          'italic',
-          'unorderedlist',
-          'orderedlist',
-          'underline',
-          'quote',
-          'h1',
-          'h2',
-          'h3',
-          'h4',
-          'justifyLeft',
-          'justifyCenter',
-          'justifyRight',
-          'justifyFull',
-          'outdent',
-          'indent',
-          'superscript',
-          'subscript',
-          'removeFormat',
-          'html',
-          {
-            name: 'anchor',
-            action: 'createLink',
-            aria: 'link',
-            tagNames: ['a'],
-            contentDefault: '<b>🔗</b>',
-            contentFA: '<i class="fa fa-link"></i>'
-          },
-          {
-            name: 'pre',
-            action: 'append-pre',
-            aria: 'code highlight',
-            tagNames: ['pre'],
-            contentDefault: '<b><\\></b>',
-            contentFA: '<i class="fa fa-code fa-lg"></i>'
-          },
-          {
-            name: 'image',
-            action: 'image',
-            aria: 'insert image from url',
-            tagNames: ['img'],
-            contentDefault: '<b>image</b>',
-            contentFA: '<i class="fa fa-picture-o"></i>'
-          }
-        ]
-      },
-      extensions: {}
-    }
+    coverImage: undefined,
+    settings: {}
   }),
 
-  validations: {
-    fieldTitle: {
-      required,
-      hasLetter
-    }
-  },
   head() {
     return {
       title: 'Add Content'
@@ -225,114 +159,149 @@ export default {
       handler(query) {
         this.noteId = query.id
       }
+    },
+
+    title: {
+      immediate: true,
+      handler(value) {
+        this.hasTitle = !!value
+      }
     }
   },
 
   mounted() {
     // Get from LocalDB
     this.$nextTick(async () => {
-      const content = await this.getLocalDraft(this.noteId)
-      this.defaultValue = content?.content ?? this.getContent(this.savedNote)
-      this.fieldTitle = content?.title ?? this.savedNote?.title
+      const content = await this.getDraft(this.noteId)
+      if (!content) return
+      this.title = content.title
+      this.defaultContent = {
+        content: content?.content ?? '',
+        title: content?.title ?? ''
+      }
     })
-
-    // TODO: Use Pusher
-    // const _this = this
-    // this.$nextTick(() => {
-    //   if (this.$route.query.type !== 'NOTE') return
-
-    //   // Save draft every 5 minutes
-    //   let refreshIntervalId
-    //   try {
-    //     refreshIntervalId = setInterval(async () => {
-    //       if (!_this.saved) {
-    //         const contents = {
-    //           title: _this.fieldTitle,
-    //           content: _this.content
-    //         }
-    //         await _this.updateDraft(contents)
-    //         _this.saved = true
-    //       }
-    //     }, 5000)
-    //   } catch (error) {
-    //     if (refreshIntervalId) clearInterval(refreshIntervalId)
-    //   }
-    //   if (_this.saved) clearInterval(refreshIntervalId)
-    // })
   },
   methods: {
-    onTags(tags) {
-      this.tags = tags
-      this.isTagModalVisible = false
-    },
-    onOpenTagManager() {
-      this.isTagModalVisible = true
-    },
-    async selectFile(e) {
-      const file = e.target.files[0]
+    async onContent(data) {
+      const draft = await this.getDraft(this.noteId)
 
-      /* Make sure file exists */
-      if (!file) return
+      this.title = data.title
 
-      const readData = (f) =>
-        new Promise((resolve) => {
-          const reader = new FileReader()
-          reader.onloadend = () => resolve(reader.result)
-          reader.readAsDataURL(f)
-        })
+      this.settings = {
+        ...this.settings,
+        title: data.title,
+        content: data.content,
+        tags: [...(draft?.tags ?? []), ...(data?.tags ?? [])],
+        topics: [...(draft?.topics ?? []), ...(data?.topics ?? [])]
+      }
 
-      /* Read data */
-      this.coverImage = await readData(file)
+      this.saveDraft({
+        ...this.settings
+      })
     },
 
-    uploadCallback() {},
+    onAddApps(app) {
+      const name = app.name
+      this.apps = {
+        [name]: app.data
+      }
+      this.$toast.positive(`${name} plugin added successfully`)
+    },
 
-    onUploadImage() {
+    uploadedImage(data) {
+      this.isImageModalVisible = false
+      if (data.length > 1) return
+
+      const image = data[0]
+      if (!image.url) return
+      this.coverImage = image.url
+    },
+    onOpenPlugin() {
+      this.isPluginModalVisible = true
+    },
+    onOpenImage() {
       this.isImageModalVisible = true
     },
-    getContent(content) {
-      return content?.content
+    onOpenMenu() {
+      this.isMenuVisible = !this.isMenuVisible
     },
-    async onChange(s) {
-      if (this.showMarkdown) {
-        const editable = document.querySelector('#markdown')
-        const turndown = new TurndownService({
-          emDelimiter: '_',
-          linkStyle: 'inlined',
-          headingStyle: 'atx'
-        })
-        editable.textContent = turndown.turndown(s)
-      }
-
-      const content = {
-        title: this.fieldTitle,
-        content: this.content ?? ''
-      }
-
-      await this.saveDraft(content)
-      this.saved = false
+    onOpenSettings() {
+      this.isContentSettingVisible = true
+    },
+    onClickOutside() {
+      this.isMenuVisible = false
     },
 
-    async saveNote() {
+    async removeDraft() {
+      await this.$store.dispatch('content/removeDraft', {
+        key: this.noteId
+      })
+    },
+
+    async updateOutline() {
+      if (!this.noteId) return
+
+      const input = await this.generateInput()
+
       try {
-        const content = {
-          title: this.fieldTitle,
-          content: this.content ?? ''
-        }
-        await this.saveDraft(content)
-        await this.updateDraft(content)
-        this.$toast.positive('Note saved successfully')
+        await this.$apollo.mutate({
+          mutation: CONVERT_NOTE_OUTLINE,
+          variables: {
+            id: this.noteId,
+            input: { ...input }
+          },
+
+          skip() {
+            return !this.noteId
+          }
+        })
+
+        await this.removeDraft()
+        return this.$router.push(`/contents/outlines`)
       } catch (error) {
+        await this.updateDraft(input)
+        if (error.message.includes('You have exceeded your outline limit.')) {
+          this.isUpgradeModalVisible = true
+          return
+        }
         this.$toast.negative(error.message)
       }
     },
-
-    async updateDraft(input) {
+    async updateBrief() {
       if (!this.noteId) return
+
+      const input = await this.generateInput()
+
+      await this.$apollo.mutate({
+        mutation: CONVERT_NOTE_BRIEF,
+        variables: {
+          id: this.noteId,
+          input: { ...input }
+        },
+
+        skip() {
+          return !this.noteId
+        }
+      })
+
+      await this.removeDraft()
+      return this.$router.push(`/contents/briefs`)
+    },
+
+    async updateDraft() {
+      if (!this.noteId) return
+
+      const draft = await this.getDraft(this.noteId)
+      const input = {
+        content: this.settings?.content ?? draft?.content,
+        title: this.settings?.title ?? draft?.title ?? this.savedNote?.title
+      }
+
       await this.$store.commit('content/saveContent', {
         id: this.noteId,
         ...input
       })
+
       return await this.$apollo.mutate({
         mutation: UPDATE_NOTE,
         variables: {
@@ -344,6 +313,47 @@ export default {
           return !this.noteId
         }
       })
+    },
+
+    findFirstImage(content) {
+      const regex = /<img.+?src=[\\'"]([^\\'"]+)[\\'"].*?>/i
+      const image = content?.match(regex)
+
+      let result
+      if (image && Array.isArray(image)) {
+        result = this.parseHTML(image[0], 'img', 'src')
+      }
+
+      if (image && !Array.isArray(image)) {
+        result = this.parseHTML(image, 'img', 'src')
+      }
+
+      return result
+    },
+
+    async getDraft(id) {
+      let draft = await this.getLocalDraft(id)
+
+      if (this.$route.query.type !== 'note') {
+        draft = this.savedNote
+      }
+
+      if (!this.$utils.isEmpty(draft)) draft = await this.getContent(id)
+
+      return draft
+    },
+
+    parseHTML(content, query = 'p:first-of-type', attr = 'textContent') {
+      const doc = new DOMParser().parseFromString(content, 'text/html')
+      const errorNode = doc.querySelector('parsererror')
+
+      if (errorNode) return content
+
+      const firstParam = doc.querySelector(query)
+
+      if (!firstParam) return content
+
+      return firstParam[attr]
     },
 
     async getLocalDraft(key) {
@@ -365,13 +375,13 @@ export default {
     },
 
     async createNote(input) {
-      if (await this.isValidationInvalid()) return
+      if (!input?.title && !input?.content) return
       const {
         data: { createNote: note }
       } = await this.$apollo.mutate({
         mutation: CREATE_NOTE,
         variables: {
-          input
+          input: { title: input.title, content: input.content }
         }
       })
 
@@ -380,7 +390,6 @@ export default {
           path: `/contents/add`,
           query: {
             ...this.$route.query,
-            type: 'note',
             id: note.id
           }
         })
@@ -390,21 +399,109 @@ export default {
       return null
     },
 
-    generateKey() {
-      return String(Math.floor(100000 + Math.random() * 900000))
+    async generateInput() {
+      const draft = await this.getDraft(this.noteId)
+
+      if (!this.settings?.excerpt) {
+        this.settings.excerpt = this.parseHTML(this.settings?.content)
+      }
+
+      if (!this.settings?.featuredImage) {
+        this.settings.featuredImage = this.findFirstImage(
+          this.settings?.content
+        )
+      }
+
+      return {
+        ...this.settings,
+        status: 'PUBLISHED',
+        noteId: this.noteId,
+        content: this.settings?.content ?? draft?.content,
+        title: this.settings?.title ?? draft?.title
+      }
     },
 
     async onPublish() {
+      if (!this.noteId) return // Create new
+      const input = await this.generateInput()
+
       try {
-        const content = {
-          title: this.fieldTitle,
-          content: this.content ?? ''
-        }
-        await this.updateDraft(content)
-        return await this.$router.push(`/contents/${this.noteId}/publish`)
+        await this.addContent(input)
+        this.$store.commit('subscription/increment')
+
+        await this.removeDraft()
+        return this.$router.push(`/contents`)
       } catch (error) {
+        await this.updateDraft(input)
         this.$toast.negative(error.message)
       }
+    },
+
+    async onSettings(data) {
+      const draft = await this.getDraft(this.noteId)
+      this.settings = {
+        apps: {
+          ...this.apps
+        },
+        featuredImage: this.coverImage,
+        ...this.settings,
+        ...data,
+        content: this.settings?.content ?? draft?.content,
+        title: this.settings?.title ?? draft?.title ?? this.savedNote?.title,
+        tags: [...(draft?.tags ?? []), ...(data?.tags ?? [])],
+        topics: [...(draft?.topics ?? []), ...(data?.topics ?? [])],
+        category: this.settings?.category ?? undefined
+      }
+
+      this.saveDraft({
+        ...this.settings
+      })
+    },
+
+    async addContent(input) {
+      try {
+        this.sending = true
+
+        await this.convertNoteToContent(this.noteId, input)
+        this.$toast.positive('Content created successfully')
+        this.sending = false
+      } catch (error) {
+        this.sending = false
+        throw error
+      }
+    },
+
+    async getContent(id) {
+      if (!id) return
+      try {
+        const {
+          data: { getContent: content }
+        } = await this.$apollo.query({
+          query: GET_CONTENT,
+          variables: {
+            id
+          },
+          skip() {
+            return !!id
+          }
+        })
+
+        return content
+      } catch (error) {
+        return null
+      }
+    },
+    async convertNoteToContent(id, input) {
+      return await this.$apollo.mutate({
+        mutation: CONVERT_NOTE_CONTENT,
+        variables: {
+          id,
+          input: { ...input }
+        },
+        update(data) {
+          return data.content
+        }
+      })
     }
   }
 }
@@ -433,12 +530,5 @@ blockquote {
   border-left: 6px solid #2ecc71;
   padding-left: 9px;
   margin-left: -15px;
-}
-
-#markdown,
-#editor {
-  font-family: 'Lora', serif;
-  outline: none;
-  font-size: 19px;
 }
 </style>

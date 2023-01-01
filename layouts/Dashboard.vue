@@ -1,41 +1,30 @@
 <template>
-  <main class="flex">
-    <div class="hidden flex-none sm:w-0 md:block md:w-64">
-      <Aside @onCollapse="collapse" />
-    </div>
-
-    <section class="grow">
-      <header class="fixed z-30 mb-5 bg-white navside-bs">
-        <nav class="md:w-10/12">
-          <Nav @logout="onLogout" @onToggleMenu="showMenu" />
-        </nav>
-      </header>
-
-      <nav
-        id="mobile"
-        class="w-full md:hidden"
-        :class="{ 'mt-16': isMenuShown }"
-      >
-        <div v-if="isMenuShown" class="pt-5">
-          <MobileMenu
-            v-click-outside="onClickOutside"
-            @onMenuClick="onClickOutside"
-          />
-        </div>
-      </nav>
-
-      <div :class="{ 'mt-0': isMenuShown, 'mt-16': !isMenuShown }">
-        <Nuxt />
+  <div class="relative w-full h-[100vh]">
+    <section
+      class="absolute top-0 left-0 z-20 w-full md:sticky"
+      :class="{ 'h-[10vh]': isProfileCompleted }"
+    >
+      <div v-if="isProfileCompleted" class="justify-center items-center w-full">
+        <Warning link="/profile#onboarding" button-text="Complete Profile"
+          >Check your profile page to complete your profile. It is required for
+          your Writing Portfolios</Warning
+        >
       </div>
-      <Toast />
+      <MyHeader :user="currentUser" class="z-20 w-full" @logout="onLogout" />
     </section>
-  </main>
+    <!-- mt-16   -->
+    <Nuxt
+      class="py-20 h-[90vh] md:pt-6 md:pb-28"
+      :class="{ 'md:mt-12 md:pb-44 pb-20': isProfileCompleted }"
+    />
+    <Toast />
+  </div>
 </template>
 
 <script>
 import vClickOutside from 'v-click-outside'
 import base from './base.vue'
-import { currentUser } from '~/components/mixins'
+import { currentUser, uiState } from '~/components/mixins'
 export default {
   name: 'DashboardNav',
 
@@ -45,7 +34,7 @@ export default {
 
   extends: base,
 
-  mixins: [currentUser],
+  mixins: [currentUser, uiState],
 
   middleware: [
     'isAuthenticated',
@@ -55,7 +44,6 @@ export default {
     // 'hasActiveCompany'
   ],
   data: () => ({
-    isSidebarCollapsed: false,
     isMenuShown: false
   }),
 
@@ -70,6 +58,14 @@ export default {
 
     locales() {
       return this.$i18n.locales
+    },
+
+    isProfileCompleted() {
+      return (
+        this.currentUser?.bio &&
+        this.currentUser?.jobTitle &&
+        this.currentUser?.avatarURL
+      )
     }
   },
 

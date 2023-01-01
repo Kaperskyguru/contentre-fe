@@ -1,6 +1,8 @@
 <template>
-  <section class="px-3 h-full md:px-12">
-    <div class="flex flex-col justify-between items-center py-4 md:flex-row">
+  <PageContent>
+    <Card
+      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
+    >
       <PageTitle>Dashboard</PageTitle>
 
       <div>
@@ -8,82 +10,76 @@
           Add Content
         </Button>
       </div>
-    </div>
-    <section class="container mx-auto">
+      <!-- </div> -->
+    </Card>
+
+    <Card>
       <StatOverview :columns="boxColumns" :stats="metadata.stats" />
-    </section>
+    </Card>
 
     <!-- Chart -->
+    <Card
+      class="
+        grid grid-cols-1
+        2xl:grid-cols-3
+        gap-4
+        w-full
+        md:grid-cols-2
+        lg:grid-cols-2
+        xl:grid-cols-3
+      "
+    >
+      <div class="p-4 bg-white rounded-lg shadow sm:p-6 md:col-span-2 xl:p-8">
+        <Loading
+          v-if="$apollo.queries.metadata.loading"
+          class="flex flex-1 items-center"
+        />
+        <ChartOverview
+          v-else
+          :data="metadata.revenue"
+          :percent="getPercentAmount"
+        />
+      </div>
 
-    <section class="pt-6">
-      <div
-        class="
-          grid grid-cols-1
-          2xl:grid-cols-3
-          gap-4
-          w-full
-          md:grid-cols-2
-          lg:grid-cols-2
-          xl:grid-cols-3
-        "
-      >
-        <!-- Chart 1 -->
-        <div class="p-4 bg-white rounded-lg shadow sm:p-6 md:col-span-2 xl:p-8">
-          <Loading
-            v-if="$apollo.queries.metadata.loading"
-            class="flex flex-1 items-center"
-          />
-          <ChartOverview
-            v-else
-            :data="metadata.revenue"
-            :percent="getPercentAmount"
-          />
-        </div>
-        <!-- Chart 2-->
-        <div class="p-2 bg-white rounded-lg shadow sm:p-3 xl:p-5">
-          <div class="overflow-hidden">
-            <header class="px-2 leading-tight">
-              <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
-                >Client Overview</span
-              >
-              <!-- Total Overview -->
-              <h3 class="pb-4 font-normal text-gray-500">
-                Yearly Account Overview
-              </h3>
-            </header>
+      <div class="p-2 bg-white rounded-lg shadow sm:p-3 xl:p-5">
+        <div class="overflow-hidden">
+          <header class="px-2 leading-tight">
+            <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
+              >Client Overview</span
+            >
 
-            <div class="">
-              <Loading
-                v-if="$apollo.queries.contentImpact.loading"
-                class="flex flex-1 items-center"
-              />
-              <Column
-                v-else
-                type="doughnut"
-                :show-header="false"
-                :chart-data="contentImpact"
-              />
-            </div>
+            <h3 class="pb-4 font-normal text-gray-500">
+              Yearly Account Overview
+            </h3>
+          </header>
+
+          <div class="">
+            <Loading
+              v-if="$apollo.queries.contentImpact.loading"
+              class="flex flex-1 items-center"
+            />
+            <Column
+              v-else
+              type="doughnut"
+              :show-header="false"
+              :chart-data="contentImpact"
+            />
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Chart End -->
+    </Card>
 
     <!-- table -->
-
-    <section class="container px-4 my-8 mx-auto bg-white">
-      <div class="flex justify-between items-center py-4">
-        <h2 class="font-gilroy text-2xl font-semibold leading-tight">
-          Clients
-        </h2>
-      </div>
+    <Card class="pb-6 min-h-96">
+      <!-- <section class="container px-4 my-8 mx-auto bg-white">
+        <div class="flex justify-between items-center py-4">
+          <h2 class="font-gilroy text-2xl font-semibold leading-tight">
+            Clients
+          </h2>
+        </div> -->
       <ClientOverview :checked.sync="checked" placement="dashboard" />
-    </section>
-
-    <!-- End of table -->
-
+      <!-- </section> -->
+    </Card>
     <Dialog v-model="isAddContent">
       <div class="block w-full text-gray-700 bg-white">
         <div class="flex justify-between w-full text-gray-700 bg-white">
@@ -106,7 +102,7 @@
     <Dialog v-model="isUpgradeModalVisible" :is-large="true">
       <UpgradeModal @back="back">You've hit your content limit</UpgradeModal>
     </Dialog>
-  </section>
+  </PageContent>
 </template>
 
 <script>

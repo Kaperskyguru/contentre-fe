@@ -1,13 +1,25 @@
 <template>
-  <h1 class="font-gilroy mt-5 text-lg font-bold text-header-text-color text-center tracking-wide mb-7 sm:text-2xl"><slot></slot></h1>
+  <h1
+    class="
+      py-3
+      font-gilroy
+      text-lg
+      font-bold
+      tracking-wide
+      text-center text-header-text-color
+      sm:text-2xl
+      md:text-left
+    "
+  >
+    <slot></slot>
+  </h1>
 </template>
 
 <script>
 export default {
-  name: "PageTitleTW"
+  name: 'PageTitleTW'
 }
 </script>
 
 <style scoped>
-
 </style>

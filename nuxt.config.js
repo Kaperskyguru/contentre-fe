@@ -39,11 +39,16 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/main.css',
+    '@/assets/css/index.css',
     'medium-editor/dist/css/medium-editor.min.css',
     'vuejs-medium-editor/src/themes/default.css',
     'highlight.js/styles/ocean.css',
-    '@/assets/css/tabs.css'
+    '@/assets/css/tabs.css',
+    'quill/dist/quill.core.css',
+    // for snow theme
+    'quill/dist/quill.snow.css',
+    // for bubble theme
+    'quill/dist/quill.bubble.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -55,7 +60,8 @@ export default {
     '~/plugins/currentUser',
     { src: '~/plugins/CKEditor', mode: 'client' },
     { src: '~/plugins/medium-editor', ssr: false },
-    { src: '~/plugins/vue-tabs', ssr: false }
+    { src: '~/plugins/vue-tabs', ssr: false },
+    { src: '~/plugins/quill', ssr: false }
   ],
 
   cloudinary: {

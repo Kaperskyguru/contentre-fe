@@ -1,51 +1,49 @@
 <template>
-  <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
-      <PageTitle>Clients</PageTitle>
-    </div>
-
-    <section
-      class="
-        flex flex-col
-        justify-between
-        mb-6
-        space-y-6 space-x-0
-        md:flex-row md:space-y-0 md:space-x-6
-      "
+  <PageContent>
+    <Card
+      class="flex flex-col gap-2 md:flex-row md:justify-between md:items-center"
     >
-      <div>
-        <ContentFilter :filter-columns="columns" @filters="onFilters" />
+      <div class="w-full">
+        <PageTitle>Clients</PageTitle>
       </div>
-
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </div>
-
-      <div class="flex space-x-0 md:space-x-3">
-        <Button @click.prevent="onAddClient">Add Client</Button>
-        <Button
-          v-if="checked.length"
-          appearance="secondary"
-          @click.prevent="onDeleteBulkClient"
-          >Delete Client{{ checked.length > 1 ? 's' : '' }}</Button
+      <div class="flex-1">
+        <div
+          v-click-outside="onClickOutside"
+          class="
+            flex flex-col
+            items-center
+            space-y-4 space-x-0
+            w-full
+            md:flex-row md:space-y-0 md:space-x-4
+          "
         >
-      </div>
-    </section>
-
-    <section class="mt-5 h-screen bg-white">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <ClientOverview :checked.sync="checked" :filters="filters" />
-          </div>
+          <Button class="w-full" @click.prevent="onAddClient"
+            >Add Client</Button
+          >
+          <Button
+            v-if="checked.length"
+            class="w-full"
+            appearance="secondary"
+            @click.prevent="onDeleteBulkClient"
+            >Delete Client{{ checked.length > 1 ? 's' : '' }}</Button
+          >
         </div>
       </div>
-    </section>
+    </Card>
 
+    <Card class="flex flex-row gap-2 justify-between items-center">
+      <ContentFilter :filter-columns="columns" @filters="onFilters" />
+
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by name..."
+      />
+    </Card>
+
+    <Card class="min-h-96">
+      <ClientOverview :checked.sync="checked" :filters="filters" />
+    </Card>
     <Dialog v-model="isConfirmModalVisible">
       <div class="block w-full text-gray-700 bg-white">
         <div class="flex justify-between w-full text-gray-700 bg-white">
@@ -69,7 +67,7 @@
         }}?
       </p>
     </Dialog>
-  </section>
+  </PageContent>
 </template>
 
 <script>

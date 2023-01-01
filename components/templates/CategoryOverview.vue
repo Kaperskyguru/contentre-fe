@@ -1,72 +1,75 @@
 <template>
-  <span>
-    <section
-      class="
-        flex flex-col
-        justify-between
-        mb-6
-        space-y-6 space-x-0
-        md:flex-row md:space-y-0 md:space-x-6
-      "
+  <PageContent>
+    <Card
+      class="flex flex-col gap-2 md:flex-row md:justify-between md:items-center"
     >
-      <div>
-        <ContentFilter
-          :remove="remove"
-          :filter-columns="sortColumns"
-          @filters="onFilters"
-        />
+      <div class="w-full">
+        <PageTitle>Categories</PageTitle>
       </div>
-
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </div>
-
-      <div class="flex space-x-0 md:space-x-3">
-        <Button @click.prevent="onAddCategory">Add Category</Button>
-        <Button
-          v-if="checked.length"
-          appearance="secondary"
-          @click.prevent="onDeleteBulkCategory"
-          >Delete Categor{{ checked.length > 1 ? 'ies' : 'y' }}</Button
+      <div class="flex-1">
+        <div
+          class="
+            flex flex-col
+            items-center
+            space-y-4 space-x-0
+            w-full
+            md:flex-row md:space-y-0 md:space-x-4
+          "
         >
-      </div>
-    </section>
-
-    <section class="mt-5 h-screen bg-white">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <!--  -->
-
-            <DataGrid
-              :columns="columns"
-              :checked.sync="computedChecked"
-              :items="categories.items"
-              :total="categories.total"
-              :loading="$apollo.queries.categories.loading"
-              :item-clickable="true"
-              @load-more-data="fetchMore"
-              @item-click="onItemClick"
-            >
-              <template slot="data-name" slot-scope="{ item }">
-                <Chip
-                  class="-my-2"
-                  :appearance="item.name ? 'primary' : 'secondary'"
-                  :value="item.name || $t('cashFlow.categories.uncategorized')"
-                  :style="{
-                    background: item.color ? `#${item.color}80` : undefined
-                  }"
-                />
-              </template>
-            </DataGrid>
-          </div>
+          <Button class="w-full" @click.prevent="onAddCategory"
+            >Add Category</Button
+          >
+          <Button
+            v-if="checked.length"
+            class="w-full"
+            appearance="secondary"
+            @click.prevent="onDeleteBulkCategory"
+            >Delete Categor{{ checked.length > 1 ? 'ies' : 'y' }}</Button
+          >
         </div>
       </div>
-    </section>
+    </Card>
+
+    <Card class="flex flex-row gap-2 justify-between items-center">
+      <ContentFilter
+        :remove="remove"
+        :filter-columns="sortColumns"
+        @filters="onFilters"
+      />
+
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by name..."
+      />
+    </Card>
+
+    <Card class="min-h-96">
+      <!--  -->
+
+      <DataGrid
+        :columns="columns"
+        :checked.sync="computedChecked"
+        :items="categories.items"
+        :total="categories.total"
+        class="h-96 md:h-full"
+        :loading="$apollo.queries.categories.loading"
+        :item-clickable="true"
+        @load-more-data="fetchMore"
+        @item-click="onItemClick"
+      >
+        <template slot="data-name" slot-scope="{ item }">
+          <Chip
+            class="-my-2"
+            :appearance="item.name ? 'primary' : 'secondary'"
+            :value="item.name || $t('cashFlow.categories.uncategorized')"
+            :style="{
+              background: item.color ? `#${item.color}80` : undefined
+            }"
+          />
+        </template>
+      </DataGrid>
+    </Card>
 
     <LazyCategoryEdit
       v-model="isEditPanelVisible"
@@ -91,7 +94,7 @@
         }}?
       </p>
     </Dialog>
-  </span>
+  </PageContent>
 </template>
 
 <script>

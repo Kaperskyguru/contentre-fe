@@ -102,6 +102,11 @@ export default {
       default: true
     },
 
+    shouldReplace: {
+      type: Boolean,
+      default: false
+    },
+
     value: {
       type: [String, Object, Array],
       default: null
@@ -239,6 +244,10 @@ export default {
       handler(va) {
         if (Array.isArray(va)) {
           const mapp = va.map((item) => ({ name: item }))
+          if (this.shouldReplace) {
+            this.topics = [...mapp]
+            return
+          }
           this.topics = [...mapp, ...this.topics]
           return
         }
@@ -280,19 +289,7 @@ export default {
 
     async selectTag(topic) {
       if (this.shouldUpdate) {
-        try {
-          await this.$apollo.mutate({
-            mutation: UPDATE_TOPIC,
-            variables: {
-              id: topic?.id,
-              input: {
-                name: topic?.name ?? topic
-              }
-            }
-          })
-        } catch (error) {
-          this.$toast.negative(error.message)
-        }
+        await this.updateTopic(topic)
       }
       this.$emit('deleted', this.topics)
       this.showAutoComplete = false
@@ -302,6 +299,22 @@ export default {
         (topic1) => topic && topic1?.name === topic?.name
       )
       if (!found) this.$emit('update:value', topic)
+    },
+
+    async updateTopic(topic) {
+      try {
+        await this.$apollo.mutate({
+          mutation: UPDATE_TOPIC,
+          variables: {
+            id: topic?.id,
+            input: {
+              name: topic?.name ?? topic
+            }
+          }
+        })
+      } catch (error) {
+        this.$toast.negative(error.message)
+      }
     },
 
     onClickOutside() {

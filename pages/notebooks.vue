@@ -1,44 +1,10 @@
 <!-- eslint-disable vue/no-v-html  -->
 <template>
-  <section class="px-3 w-full h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
-      <PageTitle>Notebooks</PageTitle>
-    </div>
-
-    <section
-      class="
-        flex flex-col
-        justify-between
-        mb-6
-        space-y-6 space-x-0
-        w-full
-        md:flex-row md:space-y-0 md:space-x-6
-      "
+  <PageContent>
+    <Card
+      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
     >
-      <div>
-        <ContentFilter
-          :remove="remove"
-          :filter-columns="columns"
-          @filters="onFilters"
-        >
-          <div class="mb-6">
-            <DropdownField
-              placeholder="Select a notebook"
-              :items="notebooks.items"
-              label="Notebooks"
-              @update:value="onNotebookFilter"
-            />
-          </div>
-        </ContentFilter>
-      </div>
-
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </div>
+      <PageTitle>Notebooks</PageTitle>
 
       <div
         class="
@@ -52,21 +18,37 @@
         >
         <Button @click.prevent="onAddNotebook">Create Notebook</Button>
       </div>
-    </section>
+    </Card>
 
-    <section class="mt-5 w-full">
-      <div
-        class="grid grid-cols-1 gap-4 px-5 w-full h-60 md:grid-cols-12 lg:px-0"
+    <Card
+      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
+    >
+      <ContentFilter
+        :remove="remove"
+        :filter-columns="columns"
+        @filters="onFilters"
       >
+        <div class="mb-6">
+          <DropdownField
+            placeholder="Select a notebook"
+            :items="notebooks.items"
+            label="Notebooks"
+            @update:value="onNotebookFilter"
+          />
+        </div>
+      </ContentFilter>
+
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by name..."
+      />
+    </Card>
+
+    <Card>
+      <div class="grid grid-cols-1 gap-4 px-5 w-full md:grid-cols-12 lg:px-0">
         <div
-          class="
-            col-span-12
-            p-4
-            mb-5
-            bg-[#286963]
-            rounded-lg
-            lg:col-span-4 lg:mr-6
-          "
+          class="col-span-12 p-4 bg-[#286963] rounded-lg lg:col-span-4 lg:mr-6"
         >
           <div class="flex justify-between items-center w-full">
             <p class="text-sm font-semibold text-white">SCRATCH PAD</p>
@@ -78,7 +60,7 @@
                   class="w-[20px]"
                 />
               </button>
-              <div
+              <!-- <div
                 v-if="scratchMenu"
                 x-transition:enter="transition ease-out duration-100"
                 x-transition:enter-start="transform opacity-0 scale-95"
@@ -104,15 +86,11 @@
               >
                 <ul class="space-y-3 dark:text-white">
                   <li class="font-medium hover:bg-gray-100">
-                    <button
-                      href="#"
-                      class="flex items-center transition-colors duration-200"
+                    <Hyperlink
+                      :to="{
+                        path: `/contents/add?type=note`
+                      }"
                     >
-                      Convert to note
-                    </button>
-                  </li>
-                  <li class="font-medium hover:bg-gray-100">
-                    <Hyperlink to="#">
                       <button
                         class="flex items-center transition-colors duration-200"
                       >
@@ -130,7 +108,7 @@
                     </button>
                   </li>
                 </ul>
-              </div>
+              </div> -->
             </div>
           </div>
           <textarea
@@ -150,214 +128,179 @@
             placeholder="Start writing"
           ></textarea>
         </div>
-        <div
-          class="
-            col-span-12
-            p-4
-            w-full
-            bg-white
-            rounded-lg
-            shadow-lg
-            lg:col-span-12
-          "
-        >
-          <div class="flex justify-between">
-            <div>
-              <div class="mb-5">
-                <a href="#">
-                  <p class="text-[14px] font-semibold">NOTES</p>
-                </a>
-              </div>
-            </div>
-            <div></div>
-          </div>
+      </div>
+    </Card>
 
-          <div v-click-outside="onClickOutside" class="overflow-hidden w-full">
-            <div class="flex overflow-x-auto gap-1 mt-4 w-full">
-              <div
-                class="
-                  flex
-                  justify-center
-                  items-center
-                  min-w-[10.72rem]
-                  h-[16.125rem]
-                  bg-gray-100
-                  rounded-lg
-                  border-2
-                "
-              >
-                <hyperlink to="/contents/add">
-                  <div
-                    class="
-                      flex flex-col
-                      justify-center
-                      items-center
-                      w-full
-                      h-full
-                    "
-                  >
-                    <div
-                      class="
-                        flex
-                        justify-center
-                        items-center
-                        w-[3.125rem]
-                        h-[3.125rem]
-                        bg-[#286963]
-                        rounded-full
-                      "
-                    >
-                      <i class="text-2xl text-white">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          style="fill: white; transform: ; msfilter: "
-                        >
-                          <path
-                            d="M6.012 18H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1zM8 9h3V6h2v3h3v2h-3v3h-2v-3H8V9z"
-                          ></path>
-                        </svg>
-                      </i>
-                    </div>
-                    <p class="text-[14px] font-semibold">Create new note</p>
-                  </div>
-                </hyperlink>
-              </div>
-
-              <div
-                v-for="(item, index) in notes.items"
-                :key="index"
-                class="
-                  p-3
-                  min-w-[10.72rem]
-                  h-[16.125rem]
-                  bg-white
-                  hover:bg-gray-100
-                  rounded-lg
-                  border-2
-                  cursor-pointer
-                "
-              >
-                <div class="flex relative justify-end">
-                  <img
-                    src="https://raw.githubusercontent.com/Succyvibe/example_portfolio/main/img/dots.png"
-                    alt=""
-                    class="w-[20px]"
-                    @click="onOpenSubMenu(item.id)"
-                  />
-                  <div
-                    v-if="menu && activeMenu === item.id"
-                    x-transition:enter="transition ease-out duration-100"
-                    x-transition:enter-start="transform opacity-0 scale-95"
-                    x-transition:enter-end="transform opacity-100 scale-100"
-                    x-transition:leave="transition ease-in duration-75"
-                    x-transition:leave-start="transform opacity-100 scale-100"
-                    x-transition:leave-end="transform opacity-0 scale-95"
-                    class="
-                      absolute
-                      top-auto
-                      right-0
-                      z-[100]
-                      py-3
-                      px-5
-                      mt-2
-                      w-60
-                      bg-white
-                      dark:bg-gray-800
-                      rounded-lg
-                      border
-                      dark:border-transparent
-                      shadow
-                    "
-                  >
-                    <ul class="space-y-3 dark:text-white">
-                      <li class="font-medium hover:bg-gray-100">
-                        <button
-                          class="
-                            flex
-                            items-center
-                            transition-colors
-                            duration-200
-                          "
-                          @click.prevent="onAddToNotebook(item.id)"
-                        >
-                          Add to Notebook
-                        </button>
-                      </li>
-                      <li class="font-medium hover:bg-gray-100">
-                        <button
-                          class="
-                            flex
-                            items-center
-                            transition-colors
-                            duration-200
-                          "
-                          @click.prevent="onShareNote(item.id)"
-                        >
-                          Share note
-                        </button>
-                      </li>
-                      <hr class="dark:border-gray-700" />
-                      <li class="font-medium hover:bg-gray-100">
-                        <Hyperlink
-                          :to="{ path: `/contents/${item.id}/publish` }"
-                        >
-                          <button
-                            class="
-                              flex
-                              items-center
-                              transition-colors
-                              duration-200
-                            "
-                          >
-                            Convert to content
-                          </button>
-                        </Hyperlink>
-                      </li>
-                      <hr class="dark:border-gray-700" />
-                      <li class="font-medium hover:bg-gray-100">
-                        <button
-                          href="#"
-                          class="
-                            flex
-                            items-center
-                            transition-colors
-                            duration-200
-                          "
-                          @click.prevent="onDeleteNote(item.id)"
-                        >
-                          Delete note
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <Hyperlink
-                  :to="{ path: `/contents/add?type=NOTE&id=${item.id}` }"
-                  class="min-w-[10.72rem]"
-                >
-                  <div
-                    class="flex flex-col justify-between w-[10.72rem] h-full"
-                  >
-                    <div class="w-full">
-                      <h3 class="text-lg font-bold">{{ item.title }}</h3>
-                      <article
-                        class="mt-3 text-sm"
-                        v-html="getExcerpt(item.content)"
-                      ></article>
-                    </div>
-                    <div class="text-sm">
-                      {{ $d(new Date(item.updatedAt), 'monthDayShortLong') }}
-                    </div>
-                  </div>
-                </Hyperlink>
-              </div>
+    <Card>
+      <div class="col-span-12 w-full bg-white rounded-lg lg:col-span-12">
+        <div class="flex justify-between">
+          <div>
+            <div class="mb-5">
+              <a href="#">
+                <p class="text-[14px] font-semibold">NOTES</p>
+              </a>
             </div>
           </div>
         </div>
       </div>
-    </section>
+      <div v-click-outside="onClickOutside" class="overflow-hidden w-full">
+        <div class="flex overflow-x-auto gap-1 mt-4 w-full">
+          <div
+            class="
+              flex
+              justify-center
+              items-center
+              min-w-[10.72rem]
+              h-[16.125rem]
+              bg-gray-100
+              rounded-lg
+              border-2
+            "
+          >
+            <hyperlink to="/contents/add?type=note">
+              <div
+                class="flex flex-col justify-center items-center w-full h-full"
+              >
+                <div
+                  class="
+                    flex
+                    justify-center
+                    items-center
+                    w-[3.125rem]
+                    h-[3.125rem]
+                    bg-[#286963]
+                    rounded-full
+                  "
+                >
+                  <i class="text-2xl text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      style="fill: white; transform: ; msfilter: "
+                    >
+                      <path
+                        d="M6.012 18H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1zM8 9h3V6h2v3h3v2h-3v3h-2v-3H8V9z"
+                      ></path>
+                    </svg>
+                  </i>
+                </div>
+                <p class="text-[14px] font-semibold">Create new note</p>
+              </div>
+            </hyperlink>
+          </div>
+
+          <div
+            v-for="(item, index) in notes.items"
+            :key="index"
+            class="
+              p-3
+              min-w-[10.72rem]
+              h-[16.125rem]
+              bg-white
+              hover:bg-gray-100
+              rounded-lg
+              border-2
+              cursor-pointer
+            "
+          >
+            <div class="flex relative justify-end">
+              <img
+                src="https://raw.githubusercontent.com/Succyvibe/example_portfolio/main/img/dots.png"
+                alt=""
+                class="w-[20px]"
+                @click="onOpenSubMenu(item.id)"
+              />
+              <div
+                v-if="menu && activeMenu === item.id"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95"
+                class="
+                  absolute
+                  top-auto
+                  right-0
+                  z-[100]
+                  py-3
+                  px-5
+                  mt-2
+                  w-60
+                  bg-white
+                  dark:bg-gray-800
+                  rounded-lg
+                  border
+                  dark:border-transparent
+                  shadow
+                "
+              >
+                <ul class="space-y-3 dark:text-white">
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      class="flex items-center transition-colors duration-200"
+                      @click.prevent="onAddToNotebook(item.id)"
+                    >
+                      Add to Notebook
+                    </button>
+                  </li>
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      class="flex items-center transition-colors duration-200"
+                      @click.prevent="onShareNote(item.id)"
+                    >
+                      Share note
+                    </button>
+                  </li>
+                  <hr class="dark:border-gray-700" />
+                  <li class="font-medium hover:bg-gray-100">
+                    <Hyperlink
+                      :to="{
+                        path: `/contents/add?type=note&id=${item.id}`
+                      }"
+                    >
+                      <button
+                        class="flex items-center transition-colors duration-200"
+                      >
+                        Convert to content
+                      </button>
+                    </Hyperlink>
+                  </li>
+                  <hr class="dark:border-gray-700" />
+                  <li class="font-medium hover:bg-gray-100">
+                    <button
+                      href="#"
+                      class="flex items-center transition-colors duration-200"
+                      @click.prevent="onDeleteNote(item.id)"
+                    >
+                      Delete note
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <Hyperlink
+              :to="{ path: `/contents/add?type=note&id=${item.id}` }"
+              class="min-w-[10.72rem]"
+            >
+              <div class="flex flex-col justify-between w-[10.72rem] h-full">
+                <div class="w-full">
+                  <h3 class="text-lg font-bold">{{ item.title }}</h3>
+                  <article
+                    class="mt-3 text-sm"
+                    v-html="getExcerpt(item.content)"
+                  ></article>
+                </div>
+                <div class="text-sm">
+                  {{ $d(new Date(item.updatedAt), 'monthDayShortLong') }}
+                </div>
+              </div>
+            </Hyperlink>
+          </div>
+        </div>
+      </div>
+    </Card>
 
     <Dialog
       v-model="isDeleteModalVisible"
@@ -458,7 +401,8 @@
 
     <NotebookEdit v-model="isConfirmModalVisible" />
     <ViewNotebook v-model="isSwitchModalVisible" />
-  </section>
+    <!-- </section> -->
+  </PageContent>
 </template>
 
 <script>

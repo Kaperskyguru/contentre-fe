@@ -1,21 +1,21 @@
 <template>
   <div>
-    <div class="flex justify-between items-center p-2">
-      <div class="mr-2">
-        <p class="font-roboto text-base text-white">Contents</p>
-      </div>
-      <div class="">
-        <Button
-          :appearance="max ? 'secondary' : 'outline-red'"
-          @click.prevent="subscribe"
-        >
-          {{ btnText }}
-        </Button>
-      </div>
+    <div
+      class="flex flex-col gap-3 justify-between items-center p-2 md:flex-row"
+    >
+      <p class="text-base text-white">Contents</p>
+
+      <Button
+        :appearance="max ? 'secondary' : 'outline'"
+        class="w-full"
+        @click.prevent="subscribe"
+      >
+        {{ btnText }}
+      </Button>
     </div>
 
     <div class="px-2 pb-2 aside-footer-footer">
-      <p class="pb-4 font-roboto text-white">
+      <p class="pb-4 text-white">
         {{ contents }}<span class="text-white"> of {{ maxText }}</span>
       </p>
 

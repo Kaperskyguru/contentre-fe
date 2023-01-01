@@ -1,50 +1,52 @@
 <template>
-  <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
+  <span>
+    <Card
+      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
+    >
       <PageTitle>Portfolios</PageTitle>
-    </div>
+      <ContentFilter :filter-columns="columns" @filters="onFilters" />
+    </Card>
 
-    <section
+    <!-- <Card
       class="flex flex-col justify-end mb-6 space-y-6 md:flex-row md:space-y-0"
     >
-      <!-- <div>
-        <ContentFilter :filter-columns="columns" @filters="onFilters" />
-      </div> -->
+      <div></div>
 
       <div>
         <Button @click.prevent="onAddPortfolio">Add Portfolio</Button>
       </div>
-    </section>
+    </Card> -->
 
-    <section class="container mx-auto">
+    <Card class="mb-6">
       <StatOverview
         :columns="boxColumns"
         :stats="getBoxStats"
         :is-under-development="true"
       />
-    </section>
+      <!-- </Card> -->
 
-    <div
-      class="p-4 mt-6 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
-      :class="{
-        'bg-gray-100': isUnderDevelopment
-      }"
-    >
-      <ChartOverview
-        :is-under-development="isUnderDevelopment"
-        title="Traffic Overview"
-        :data="{}"
-      />
-    </div>
+      <div
+        class="p-4 mt-6 bg-white rounded-lg sm:p-6 md:col-span-2 xl:p-8"
+        :class="{
+          'bg-gray-100': isUnderDevelopment
+        }"
+      >
+        <ChartOverview
+          :is-under-development="isUnderDevelopment"
+          title="Traffic Overview"
+          :data="{}"
+        />
+      </div>
+    </Card>
 
-    <section class="z-10 mt-8 w-full">
+    <Card>
       <UserPortfolios
         :portfolios="portfolios"
         @create="onAddPortfolio"
         @edit="onEditPortfolio"
         @delete="onDeletePortfolio"
       />
-    </section>
+    </Card>
 
     <LazyPortfolioEdit
       v-model="isConfirmModalVisible"
@@ -71,7 +73,7 @@
       </template>
       <p>Are you sure you want to delete your portfolio?</p>
     </Dialog>
-  </section>
+  </span>
 </template>
 
 <script>

@@ -1,59 +1,62 @@
 <template>
-  <span>
-    <section
-      class="
-        flex flex-col
-        justify-between
-        mb-6
-        space-y-6 space-x-0
-        md:flex-row md:space-y-0 md:space-x-6
-      "
+  <PageContent>
+    <Card
+      class="flex flex-col gap-2 md:flex-row md:justify-between md:items-center"
     >
-      <div>
-        <ContentFilter
-          :remove="remove"
-          :filter-columns="sortColumns"
-          @filters="onFilters"
-        />
+      <div class="w-full">
+        <PageTitle>Topics & Niches</PageTitle>
       </div>
-
-      <div class="basis-4/5">
-        <SearchField
-          id="search"
-          v-model="filters.terms"
-          placeholder="Search by name..."
-        />
-      </div>
-
-      <div class="flex space-x-0 md:space-x-3">
-        <Button @click.prevent="onAddTopic">Add Topic</Button>
-        <Button
-          v-if="checked.length"
-          appearance="secondary"
-          @click.prevent="onDeleteBulkTopic"
-          >Delete Topic{{ checked.length > 1 ? 's' : '' }}</Button
+      <div class="flex-1">
+        <div
+          v-click-outside="onClickOutside"
+          class="
+            flex flex-col
+            items-center
+            space-y-4 space-x-0
+            w-full
+            md:flex-row md:space-y-0 md:space-x-4
+          "
         >
-      </div>
-    </section>
-
-    <section class="mt-5 h-screen bg-white">
-      <div class="bg-white">
-        <div class="container px-4 mx-auto">
-          <div class="overflow-x-auto px-4 -mx-4 h-screen sm:-mx-8">
-            <DataGrid
-              :columns="columns"
-              :checked.sync="computedChecked"
-              :items="topics.items"
-              :total="topics.total"
-              :loading="$apollo.queries.topics.loading"
-              :item-clickable="true"
-              @load-more-data="fetchMore"
-              @item-click="onItemClick"
-            />
-          </div>
+          <Button class="w-full" @click.prevent="onAddClient"
+            >Add Client</Button
+          >
+          <Button
+            v-if="checked.length"
+            class="w-full"
+            appearance="secondary"
+            @click.prevent="onDeleteBulkClient"
+            >Delete Client{{ checked.length > 1 ? 's' : '' }}</Button
+          >
         </div>
       </div>
-    </section>
+    </Card>
+    <Card class="flex flex-row gap-2 justify-between items-center">
+      <ContentFilter
+        :remove="remove"
+        :filter-columns="sortColumns"
+        @filters="onFilters"
+      />
+
+      <SearchField
+        id="search"
+        v-model="filters.terms"
+        placeholder="Search by name..."
+      />
+    </Card>
+
+    <Card class="min-h-96">
+      <DataGrid
+        :columns="columns"
+        :checked.sync="computedChecked"
+        :items="topics.items"
+        :total="topics.total"
+        class="h-96 md:h-full"
+        :loading="$apollo.queries.topics.loading"
+        :item-clickable="true"
+        @load-more-data="fetchMore"
+        @item-click="onItemClick"
+      />
+    </Card>
 
     <TopicEdit v-model="isConfirmModalVisible" :topic-id="topicId" />
 
@@ -72,7 +75,7 @@
         }}?
       </p>
     </Dialog>
-  </span>
+  </PageContent>
 </template>
 
 <script>

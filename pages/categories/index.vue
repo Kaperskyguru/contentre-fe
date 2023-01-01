@@ -1,11 +1,5 @@
 <template>
-  <section class="px-3 h-full md:px-12">
-    <div class="flex justify-between items-center py-4">
-      <PageTitle>Categories</PageTitle>
-    </div>
-
-    <CategoryOverview :checked.sync="checked" />
-  </section>
+  <CategoryOverview :checked.sync="checked" />
 </template>
 
 <script>

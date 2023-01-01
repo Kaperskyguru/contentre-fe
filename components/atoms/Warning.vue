@@ -5,7 +5,6 @@
       before:w-10 before:h-full before:content-[''] before:bg-red-200
       bg-red-100
       rounded
-      opacity-70
     "
   >
     <div class="border-2 border-red-300"></div>

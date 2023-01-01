@@ -111,7 +111,9 @@
                     Setting
                   </Hyperlink>
                 </li>
+
                 <hr class="dark:border-gray-700" />
+
                 <li class="font-medium">
                   <button
                     href="#"
@@ -143,6 +145,17 @@
                     </div>
                     Logout
                   </button>
+                </li>
+
+                <hr class="dark:border-gray-700" />
+                <li class="font-medium">
+                  <Button
+                    appearance="outline"
+                    class="w-full"
+                    @click="subscribe"
+                  >
+                    Upgrade
+                  </Button>
                 </li>
               </ul>
             </div>
@@ -187,6 +200,20 @@ export default {
     onLogout() {
       this.$emit('logout')
       this.closeDropdown()
+    },
+
+    async subscribe() {
+      await this.$segment({
+        operation: 'identify'
+      })
+      await this.$segment({
+        eventName: 'Viewed Subscriptions Page',
+        data: {
+          from: this.max ? 'Upgrade' : 'Renew',
+          user: this.currentUser
+        }
+      })
+      this.$router.push('/subscriptions?tab=Plan')
     },
 
     closeDropdown() {

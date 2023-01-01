@@ -19,8 +19,8 @@
 </template>
 
 <script>
+import { uiState } from '../mixins/uiState'
 import IconCollapseMenu from '~/assets/icons/collapse-menu.svg?inline'
-
 export default {
   name: 'CollapseSidebarButton',
 
@@ -28,9 +28,8 @@ export default {
     IconCollapseMenu
   },
 
-  data: () => ({
-    isSidebarCollapsed: false
-  }),
+  mixins: [uiState],
+
   created() {
     this.isMobile()
   },
@@ -40,10 +39,6 @@ export default {
         this.isSidebarCollapsed = true
         this.$emit('onCollapse', this.isSidebarCollapsed)
       }
-    },
-    toggleSidebarCollapsed() {
-      this.isSidebarCollapsed = !this.isSidebarCollapsed
-      this.$emit('onCollapse', this.isSidebarCollapsed)
     }
   }
 }

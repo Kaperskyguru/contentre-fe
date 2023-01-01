@@ -4,6 +4,7 @@
       :columns="columns"
       :checked.sync="computedChecked"
       :items="clients.items"
+      class="h-96 md:h-full"
       :total="clients.total"
       :loading="$apollo.queries.clients.loading"
       :item-clickable="true"
