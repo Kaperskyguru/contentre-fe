@@ -1,13 +1,7 @@
 <template>
   <PageContent>
     <Card
-      class="
-        flex flex-col
-        gap-2
-        justify-between
-        items-center
-        md:flex-row md:py-2 md:px-5
-      "
+      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
     >
       <PageTitle>Dashboard</PageTitle>
 

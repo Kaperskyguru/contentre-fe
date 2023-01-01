@@ -2,41 +2,43 @@
   <PageContent>
     <Card
       v-click-outside="onClickOutside"
-      class="
-        flex flex-col
-        justify-between
-        items-center
-        w-full
-        md:flex-row md:mt-4 md:space-y-0 md:space-x-0
-      "
+      class="flex flex-col gap-2 md:flex-row md:justify-between md:items-center"
     >
-      <PageTitle>Add Content</PageTitle>
-      <div
-        v-click-outside="onClickOutside"
-        class="
-          flex flex-col flex-1
-          justify-center
-          items-center
-          my-1
-          space-y-4 space-x-4
-          md:flex-row md:justify-end md:my-8 md:space-y-0 md:space-x-4
-        "
-      >
-        <button @click.prevent="onOpenSettings">
-          <SettingIcon />
-        </button>
-
-        <Button
-          :disabled="!hasTitle"
-          appearance="outline"
-          @click.prevent="updateDraft"
+      <div class="w-full">
+        <PageTitle>Add Content</PageTitle>
+      </div>
+      <div class="flex-1">
+        <div
+          v-click-outside="onClickOutside"
+          class="
+            flex flex-col
+            items-center
+            space-y-4 space-x-0
+            w-full
+            md:flex-row md:space-y-0 md:space-x-4
+          "
         >
-          Save
-        </Button>
+          <button @click.prevent="onOpenSettings">
+            <SettingIcon />
+          </button>
 
-        <Button :disabled="!hasTitle" @click.prevent="onPublish">
-          Publish
-        </Button>
+          <Button
+            class="w-full"
+            :disabled="!hasTitle"
+            appearance="outline"
+            @click.prevent="updateDraft"
+          >
+            Save
+          </Button>
+
+          <Button
+            class="w-full"
+            :disabled="!hasTitle"
+            @click.prevent="onPublish"
+          >
+            Publish
+          </Button>
+        </div>
       </div>
     </Card>
 

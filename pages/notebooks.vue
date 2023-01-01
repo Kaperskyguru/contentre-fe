@@ -2,13 +2,7 @@
 <template>
   <PageContent>
     <Card
-      class="
-        flex flex-col flex-wrap
-        gap-2
-        justify-between
-        items-center
-        md:flex-row
-      "
+      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
     >
       <PageTitle>Notebooks</PageTitle>
 
@@ -27,13 +21,7 @@
     </Card>
 
     <Card
-      class="
-        flex flex-col
-        justify-between
-        space-y-6 space-x-0
-        w-full
-        md:flex-row md:space-y-0 md:space-x-6
-      "
+      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
     >
       <ContentFilter
         :remove="remove"

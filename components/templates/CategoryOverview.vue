@@ -1,40 +1,36 @@
 <template>
-  <span>
+  <PageContent>
     <Card
-      class="
-        flex flex-col flex-wrap
-        gap-2
-        justify-between
-        items-center
-        py-4
-        mb-6
-        md:flex-row md:p-5
-      "
+      class="flex flex-col gap-2 md:flex-row md:justify-between md:items-center"
     >
-      <PageTitle>Categories</PageTitle>
-
-      <div class="flex space-x-0 md:space-x-3">
-        <Button @click.prevent="onAddCategory">Add Category</Button>
-        <Button
-          v-if="checked.length"
-          appearance="secondary"
-          @click.prevent="onDeleteBulkCategory"
-          >Delete Categor{{ checked.length > 1 ? 'ies' : 'y' }}</Button
+      <div class="w-full">
+        <PageTitle>Categories</PageTitle>
+      </div>
+      <div class="flex-1">
+        <div
+          class="
+            flex flex-col
+            items-center
+            space-y-4 space-x-0
+            w-full
+            md:flex-row md:space-y-0 md:space-x-4
+          "
         >
+          <Button class="w-full" @click.prevent="onAddCategory"
+            >Add Category</Button
+          >
+          <Button
+            v-if="checked.length"
+            class="w-full"
+            appearance="secondary"
+            @click.prevent="onDeleteBulkCategory"
+            >Delete Categor{{ checked.length > 1 ? 'ies' : 'y' }}</Button
+          >
+        </div>
       </div>
     </Card>
 
-    <Card
-      class="
-        flex flex-col
-        justify-between
-        items-center
-        py-4
-        mb-6
-        space-y-6 space-x-0
-        md:flex-row md:p-5 md:space-y-0 md:space-x-5
-      "
-    >
+    <Card class="flex flex-row gap-2 justify-between items-center">
       <ContentFilter
         :remove="remove"
         :filter-columns="sortColumns"
@@ -98,7 +94,7 @@
         }}?
       </p>
     </Dialog>
-  </span>
+  </PageContent>
 </template>
 
 <script>

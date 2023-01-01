@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full h-[100vh]">
     <section
-      class="top-0 left-0 z-20 w-full md:sticky"
+      class="absolute top-0 left-0 z-20 w-full md:sticky"
       :class="{ 'h-[10vh]': isProfileCompleted }"
     >
       <div v-if="isProfileCompleted" class="justify-center items-center w-full">
@@ -10,11 +10,11 @@
           your Writing Portfolios</Warning
         >
       </div>
-      <MyHeader :user="currentUser" class="w-full" @logout="onLogout" />
+      <MyHeader :user="currentUser" class="z-20 w-full" @logout="onLogout" />
     </section>
     <!-- mt-16   -->
     <Nuxt
-      class="z-10 pb-20 mt-6 h-[90vh] md:pb-28"
+      class="py-20 h-[90vh] md:pt-6 md:pb-28"
       :class="{ 'md:mt-12 md:pb-44 pb-20': isProfileCompleted }"
     />
     <Toast />

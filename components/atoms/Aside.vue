@@ -1,7 +1,7 @@
 <template>
   <span>
     <Card
-      class="flex flex-col flex-1 mb-6 space-y-3"
+      class="flex flex-col flex-1 space-y-3"
       :class="{ '!py-3 !px-1 space-y-1.5': isSidebarCollapsed }"
       :rounded="isSidebarCollapsed ? 'right' : true"
     >
@@ -365,8 +365,8 @@
         </div>
       </div>
     </Card>
-    <Card class="relative">
-      <div class="overflow-hidden p-2 rounded-lg shadow-lg aside-footer">
+    <Card class="hidden mt-6 md:block">
+      <div class="overflow-hidden rounded-lg shadow-lg aside-footer">
         <Upgrade
           :contents="totalNumber ? totalNumber : 0"
           :max="$utils.getFeatureValue(subscription, 'TOTAL_CONTENTS')"

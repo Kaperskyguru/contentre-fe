@@ -1,7 +1,5 @@
 <template>
-  <PageContent>
-    <CategoryOverview :checked.sync="checked" />
-  </PageContent>
+  <CategoryOverview :checked.sync="checked" />
 </template>
 
 <script>

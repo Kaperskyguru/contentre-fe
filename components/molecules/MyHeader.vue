@@ -1,5 +1,5 @@
 <template>
-  <header class="flex items-center py-1 px-4 bg-white md:px-6">
+  <header class="flex justify-between items-center py-1 px-4 bg-white md:px-6">
     <div
       class="
         inline-flex
@@ -23,18 +23,8 @@
         <span class="self-center whitespace-nowrap">Contentre</span>
       </Hyperlink>
     </div>
-    <template v-if="user">
-      <nav
-        class="
-          hidden
-          flex-1
-          items-center
-          md:flex md:mx-6 md:space-x-1
-          lg:mx-16 lg:space-x-4
-          xl:space-x-6
-        "
-      ></nav>
 
+    <template v-if="user">
       <div class="flex-auto pl-3 md:hidden" />
 
       <!-- <NotificationDropdown

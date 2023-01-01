@@ -173,11 +173,10 @@ export default defineComponent({
         'disabled:cursor-not-allowed',
         'disabled:opacity-75',
         'font-gilroy',
-        // 'mx-auto',
         'font-bold',
         'text-white',
         'py-4',
-        'px-24',
+
         'text-sm',
         'leading-5',
         'bg-teal-300',
