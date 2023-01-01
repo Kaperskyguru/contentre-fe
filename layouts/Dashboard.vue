@@ -4,7 +4,10 @@
       class="absolute top-0 left-0 z-20 w-full md:sticky"
       :class="{ 'h-[10vh]': isProfileCompleted }"
     >
-      <div v-if="isProfileCompleted" class="justify-center items-center w-full">
+      <div
+        v-if="!isProfileCompleted"
+        class="justify-center items-center w-full"
+      >
         <Warning link="/profile#onboarding" button-text="Complete Profile"
           >Check your profile page to complete your profile. It is required for
           your Writing Portfolios</Warning
