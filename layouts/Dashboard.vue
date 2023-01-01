@@ -18,7 +18,10 @@
     <!-- mt-16   -->
     <Nuxt
       class="h-[90vh] md:py-4"
-      :class="{ 'md:mt-8 pt-64 ': !isProfileCompleted }"
+      :class="[
+        { 'md:mt-8 pt-64 ': !isProfileCompleted },
+        { 'pt-24': isProfileCompleted }
+      ]"
     />
     <Toast />
   </div>
