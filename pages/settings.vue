@@ -1,6 +1,6 @@
 <template>
   <PageContent>
-    <Card class="flex justify-between items-center py-4">
+    <Card>
       <PageTitle>Settings</PageTitle>
     </Card>
     <section class="gap-2 md:flex">
