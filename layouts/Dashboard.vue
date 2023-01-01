@@ -2,7 +2,7 @@
   <div class="relative w-full h-[100vh]">
     <section
       class="absolute top-0 left-0 z-20 w-full md:sticky"
-      :class="{ 'h-[10vh]': isProfileCompleted }"
+      :class="{ 'h-[10vh]': !isProfileCompleted }"
     >
       <div
         v-if="!isProfileCompleted"
@@ -17,8 +17,8 @@
     </section>
     <!-- mt-16   -->
     <Nuxt
-      class="py-20 h-[90vh] md:pt-6 md:pb-28"
-      :class="{ 'md:mt-12 md:pb-44 pb-20': isProfileCompleted }"
+      class="h-[90vh] md:py-4"
+      :class="{ 'md:mt-8 pt-64 ': !isProfileCompleted }"
     />
     <Toast />
   </div>

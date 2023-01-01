@@ -1,7 +1,7 @@
 <template>
   <PageContent>
     <Card
-      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
+      class="flex flex-row gap-2 justify-between items-center"
     >
       <PageTitle>Analytics</PageTitle>
 
