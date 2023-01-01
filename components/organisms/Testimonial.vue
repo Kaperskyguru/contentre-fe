@@ -1,19 +1,18 @@
 <template>
-  <div class="py-20 w-full">
+  <div class="pt-20 w-full h-full">
     <h2
       class="
         font-gilroy
         text-2xl
         font-medium
         tracking-wide
-        leading-[62.4px]
         text-center text-[#102A27]
         lg:text-5xl
       "
     >
       Awesome feedback from technical writers
     </h2>
-    <div class="mx-auto mt-10 md:w-full lg:w-full">
+    <div class="mx-auto mt-10 h-full md:w-full lg:w-full">
       <div class="items-center px-2 space-x-3 w-full md:px-0 md:space-x-8">
         <ssr-carousel
           show-arrows
@@ -31,7 +30,9 @@
             class="slide"
             :index="i"
           >
-            <div class="px-10 pt-6 pb-16 bg-white rounded-md border">
+            <div
+              class="px-10 pt-6 pb-16 w-full h-full bg-white rounded-md border"
+            >
               <div
                 class="
                   pb-3

@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="overflow-auto">
     <nuxt />
     <Toast />
     <!-- ------------------------------------------TESTIMONIAL------------------------ -->
@@ -103,6 +103,13 @@ nav {
 
 .show-links {
   height: 10rem;
+}
+html,
+body,
+#__nuxt,
+#__layout,
+#__app {
+  @apply h-auto overflow-auto;
 }
 
 /* ============End======Navbar====================== */
