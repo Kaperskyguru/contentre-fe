@@ -417,7 +417,10 @@ export default {
         status: 'PUBLISHED',
         noteId: this.noteId,
         content: this.settings?.content ?? draft?.content,
-        title: this.settings?.title ?? draft?.title
+        title: this.settings?.title ?? draft?.title,
+        apps: {
+          ...this.apps
+        }
       }
     },
 

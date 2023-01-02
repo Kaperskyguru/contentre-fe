@@ -18,6 +18,17 @@
       </div>
 
       <div class="mb-6">
+        <TextField
+          v-model="$v.fieldUsername.$model"
+          type="text"
+          class="w-full text-sm"
+          label="Username"
+          placeholder="Enter your username"
+          :error="getValidationMessage($v.fieldUsername)"
+        />
+      </div>
+
+      <div class="mb-6">
         <div v-if="!viewToken">
           <div class="mb-1 text-darksilver">
             <label class="shrink text-sm">App Token</label>
@@ -145,9 +156,9 @@ export default {
     fieldName: '',
     fieldToken: '',
     fieldKey: '',
+    fieldUsername: '',
     viewToken: false,
     viewKey: false,
-    // fieldActivate: '',
     sending: false,
     honeyPot: ''
   }),
@@ -155,7 +166,7 @@ export default {
     fieldName: {},
     fieldToken: {},
     fieldKey: {},
-    // fieldActivate: {},
+    fieldUsername: {},
     honeyPot: {}
   },
   computed: {
@@ -238,6 +249,7 @@ export default {
             id: this.appId,
             input: {
               name: this.fieldName ?? undefined,
+              username: this.fieldUsername ?? undefined,
               token: this.fieldToken ?? undefined,
               key: this.fieldKey ?? undefined,
               isActivated: true
