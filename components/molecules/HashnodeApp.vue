@@ -84,8 +84,8 @@
           <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
             <div class="flex flex-col space-y-3">
               <TextField
-                id="devto_by_slug"
-                v-model="devto_by_slug"
+                id="hashnode_by_slug"
+                v-model="hashnode_by_slug"
                 class="text-gray-100"
                 label="Content Slug"
               />
@@ -95,8 +95,8 @@
           <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
             <div class="flex flex-col space-y-3">
               <TextField
-                id="devto_by_hostname"
-                v-model="devto_by_hostname"
+                id="hashnode_by_hostname"
+                v-model="hashnode_by_hostname"
                 class="text-gray-100"
                 label="Content Hostname"
               />
@@ -133,11 +133,9 @@ export default {
     hashnode_hideFromFeed: false,
     hashnode_content_canonical_url: '',
     hashnode_publication_id: '',
-    hashnode_publish_status: 'DRAFT',
-    hashnode_username: '',
     hashnode_page_number: 0,
-    devto_by_hostname: '',
-    devto_by_slug: ''
+    hashnode_by_hostname: '',
+    hashnode_by_slug: ''
   }),
 
   computed: {
@@ -162,14 +160,12 @@ export default {
     addHashnode() {
       const hashnode = {
         action: this.hashnode_action,
-        publishedId: this.hashnode_publication_id,
-        notifyFollowers: this.hashnode_notifyFollowers,
+        publicationId: this.hashnode_publication_id,
         canonicalUrl: this.hashnode_content_canonical_url,
-        publishedStatus: this.hashnode_publish_status,
         page: this.hashnode_page_number,
-        // username: this.hashnode_username,
-        hostname: this.devto_by_hostname,
-        slug: this.devto_by_slug
+        hideFromHashnodeFeed: this.hashnode_hideFromFeed,
+        hostname: this.hashnode_by_hostname,
+        slug: this.hashnode_by_slug
       }
       this.$emit('add', { name: this.app.slug, data: hashnode })
     }
