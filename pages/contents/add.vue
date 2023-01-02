@@ -433,7 +433,7 @@ export default {
         await this.addContent(input)
         this.$store.commit('subscription/increment')
 
-        // await this.removeDraft()
+        await this.removeDraft()
         // return this.$router.push(`/contents`)
       } catch (error) {
         await this.updateDraft(input)
