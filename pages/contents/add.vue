@@ -203,6 +203,7 @@ export default {
     onAddApps(app) {
       const name = app.name
       this.apps = {
+        ...this.apps,
         [name]: app.data
       }
       this.$toast.positive(`${name} plugin added successfully`)
@@ -417,7 +418,10 @@ export default {
         status: 'PUBLISHED',
         noteId: this.noteId,
         content: this.settings?.content ?? draft?.content,
-        title: this.settings?.title ?? draft?.title
+        title: this.settings?.title ?? draft?.title,
+        apps: {
+          ...this.apps
+        }
       }
     },
 
@@ -430,7 +434,7 @@ export default {
         this.$store.commit('subscription/increment')
 
         await this.removeDraft()
-        return this.$router.push(`/contents`)
+        // return this.$router.push(`/contents`)
       } catch (error) {
         await this.updateDraft(input)
         this.$toast.negative(error.message)

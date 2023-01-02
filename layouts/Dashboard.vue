@@ -19,7 +19,7 @@
     <Nuxt
       class="h-[90vh] md:py-4"
       :class="[
-        { 'md:mt-8 pt-64 ': !isProfileCompleted },
+        { 'md:mt-14 pt-64 ': !isProfileCompleted },
         { 'pt-24': isProfileCompleted }
       ]"
     />
