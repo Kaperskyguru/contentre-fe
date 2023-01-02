@@ -5,11 +5,7 @@
     >
       <p class="text-base text-white">Contents</p>
 
-      <Button
-        :appearance="max ? 'secondary' : 'outline'"
-        class="w-full"
-        @click.prevent="subscribe"
-      >
+      <Button appearance="outline" class="w-full" @click.prevent="subscribe">
         {{ btnText }}
       </Button>
     </div>

@@ -126,6 +126,7 @@ export default {
         this.$emit('deleted')
         this.sending = false
         this.$toast.positive('Tags deleted successfully')
+        this.checked = []
       } catch (error) {
         this.$toast.negative(error.message)
         this.sending = false
