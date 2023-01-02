@@ -117,6 +117,7 @@
         <div class="flex justify-between w-full text-gray-700 bg-white">
           <Plugins
             :show-submit="true"
+            :waiting="sending"
             :options="options"
             @add="onAddPlugin"
             @performAction="onPerformAction"
@@ -145,6 +146,7 @@ export default {
     isConfirmModalVisible: false,
     isPluginVisible: false,
     plugins: [],
+    sending: false,
     options: [
       { plugin: 'medium', retrieve: true, publish: false },
       { plugin: 'devto', retrieve: true, publish: false },
@@ -161,15 +163,20 @@ export default {
     },
 
     onAddPlugin(data) {
-      if (!this.plugins.find((item) => item.name === data.name))
+      const index = this.plugins.findIndex((item) => item.name === data.name)
+      if (index < 0) {
         this.plugins.push(data)
+      } else {
+        this.plugins.splice(index, 1)
+        this.plugins.push(data)
+      }
 
-      // TODO:: try replacing incase of new changes
-      this.$toast.negative('Plugin already added')
+      this.$toast.positive('Plugin added')
     },
 
     async onPerformAction() {
       // TODO:: Use Pusher to perform this action in the background
+      this.sending = true
       try {
         await this.$apollo.mutate({
           mutation: PULL_MULTIPLE_CONTENT,

@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="p-5 my-5 bg-white border border-btn-green">
+      <div v-if="isPublish" class="p-5 my-5 bg-white border border-btn-green">
         <div class="flex flex-col justify-start pb-5 mb-3 space-x-2">
           <div class="mr-3">Content Format</div>
           <div class="flex flex-col mt-2 space-y-3">
@@ -87,6 +87,26 @@
         </div>
       </div>
 
+      <div v-else>
+        <div class="p-5 my-5 bg-white border border-btn-green">
+          <div class="mb-3">Medium allows only a Maximum of 10 articles</div>
+        </div>
+
+        <div class="p-5 my-5 bg-white border border-btn-green">
+          <div class="mb-3">Retrieve a single content</div>
+          <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
+            <div class="flex flex-col space-y-3">
+              <TextField
+                id="medium_by_id"
+                v-model="medium_by_id"
+                class="text-gray-100"
+                label="Content ID"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="flex justify-end">
         <Button
           :disabled="isPublishDisabled && isRetrievedDisabled"
@@ -116,10 +136,14 @@ export default {
     medium_notifyFollowers: false,
     medium_content_canonical_url: '',
     medium_content_format: 'HTML',
-    medium_publish_status: 'DRAFT'
+    medium_publish_status: 'DRAFT',
+    medium_by_id: null
   }),
 
   computed: {
+    isPublish() {
+      return this.medium_action === 'Publish'
+    },
     isPublishDisabled() {
       const plugin = this.getPlugin()
       return plugin && plugin.publish !== undefined ? !plugin.publish : false
@@ -141,7 +165,8 @@ export default {
         contentFormat: this.medium_content_format,
         notifyFollowers: this.medium_notifyFollowers,
         canonicalUrl: this.medium_content_canonical_url,
-        publishedStatus: this.medium_publish_status
+        publishedStatus: this.medium_publish_status,
+        contentId: this.medium_by_id ?? undefined
       }
       this.$emit('add', { name: this.app.slug, data: medium })
     }

@@ -30,7 +30,11 @@
     </div>
 
     <div v-if="showSubmit && apps.total > 0" class="flex justify-center mt-5">
-      <Button class="mt-5" appearance="outline" @click="$emit('performAction')"
+      <Button
+        :waiting="sending"
+        class="mt-5"
+        appearance="outline"
+        @click="$emit('performAction')"
         >Submit</Button
       >
     </div>
@@ -46,6 +50,10 @@ export default {
 
   props: {
     showSubmit: {
+      type: Boolean,
+      default: false
+    },
+    sending: {
       type: Boolean,
       default: false
     },

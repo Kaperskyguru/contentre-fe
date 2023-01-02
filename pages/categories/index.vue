@@ -1,5 +1,5 @@
 <template>
-  <CategoryOverview :checked.sync="checked" />
+  <CategoryOverview :checked.sync="checked" @deleted="checked = []" />
 </template>
 
 <script>
