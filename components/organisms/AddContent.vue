@@ -146,7 +146,7 @@ export default {
     isPluginVisible: false,
     plugins: [],
     options: [
-      { plugin: 'medium', retrieve: false, publish: false },
+      { plugin: 'medium', retrieve: true, publish: false },
       { plugin: 'devto', retrieve: true, publish: false },
       { plugin: 'hashnode', retrieve: true, publish: false }
     ]

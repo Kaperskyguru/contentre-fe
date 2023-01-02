@@ -1,6 +1,6 @@
 <template>
   <span :class="{ 'z-0': addZIndex }">
-    <a v-if="options.url" :href="options.url" target="_blank">
+    <a v-if="options.url" :href="website" target="_blank">
       <span
         class="
           inline-grid
@@ -169,6 +169,14 @@ export default defineComponent({
   data: () => ({
     isImageValid: true
   }),
+
+  computed: {
+    website() {
+      if (this.options.url.includes('http')) return this.options.url
+
+      return `https://${this.options.url}`
+    }
+  },
 
   methods: {
     imgError(event) {
