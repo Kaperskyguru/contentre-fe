@@ -1,9 +1,6 @@
 <template>
-  <div class="relative w-full h-[100vh]">
-    <section
-      class="absolute top-0 left-0 z-20 w-full md:sticky"
-      :class="{ 'h-[10vh]': !isProfileCompleted }"
-    >
+  <div class="relative w-full">
+    <section class="sticky">
       <div
         v-if="!isProfileCompleted"
         class="justify-center items-center w-full"
@@ -15,14 +12,7 @@
       </div>
       <MyHeader :user="currentUser" class="z-20 w-full" @logout="onLogout" />
     </section>
-    <!-- mt-16   -->
-    <Nuxt
-      class="h-[90vh] md:py-4"
-      :class="[
-        { 'md:mt-14 pt-64 ': !isProfileCompleted },
-        { 'pt-24': isProfileCompleted }
-      ]"
-    />
+    <Nuxt class="py-4" />
     <Toast />
   </div>
 </template>

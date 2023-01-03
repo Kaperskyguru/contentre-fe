@@ -87,10 +87,11 @@
       <div class="grid grid-cols-5 mt-2">
         <div v-for="(client, i) in clients" :key="i" class="my-2 text-center">
           <a :href="client.profile" class="text-xs profilelink-a">
-            <img
-              class="mx-auto w-12 h-12 leading-6 rounded-full border"
-              :src="generateIcon(client.icon)"
-              alt=""
+            <Avatar
+              class="mx-auto"
+              :name="client.name"
+              :src="client.icon"
+              size="small"
             />
             {{ client.name }}</a
           >
@@ -123,7 +124,8 @@ export default {
 
   computed: {
     profileLink() {
-      return `${process?.env?.FE_URL}/l/${this.currentUser.username}`
+      const url = `${process?.env?.FE_URL ?? 'https://contentre.io'}`
+      return `${url}/l/${this.currentUser.username}`
     }
   },
   apollo: {
@@ -133,12 +135,6 @@ export default {
       update(data) {
         return data.getClients.clients.filter((client) => client.profile)
       }
-    }
-  },
-
-  methods: {
-    generateIcon(icon) {
-      return icon ?? 'https://contentre.io/favicon.ico'
     }
   }
 }

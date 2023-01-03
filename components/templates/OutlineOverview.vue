@@ -1,16 +1,12 @@
 <template>
   <span v-fragment>
-    <Card
-      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
-    >
+    <Card class="flex flex-row gap-2 justify-between items-center">
       <PageTitle>Outlines</PageTitle>
 
       <Button appearance="primary" @click="addOutline"> Create Outline </Button>
     </Card>
 
-    <Card
-      class="flex flex-row gap-2 justify-between items-center py-4 mb-6 md:p-5"
-    >
+    <Card class="flex flex-row gap-2 justify-between items-center">
       <div>
         <ContentFilter
           :remove="removeFilters"

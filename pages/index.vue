@@ -16,7 +16,7 @@
     </Card>
 
     <!-- Chart -->
-    <Card
+    <!-- <Card
       class="
         grid grid-cols-1
         2xl:grid-cols-3
@@ -65,7 +65,7 @@
           </div>
         </div>
       </div>
-    </Card>
+    </Card> -->
 
     <!-- table -->
     <Card class="pb-6 min-h-96">
