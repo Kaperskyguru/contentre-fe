@@ -1,5 +1,5 @@
 body {
-  @apply text-base bg-gradient-to-b from-linen to-whitesmoke;
+  @apply text-base bg-gradient-to-b from-linen to-whitesmoke min-h-screen;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
