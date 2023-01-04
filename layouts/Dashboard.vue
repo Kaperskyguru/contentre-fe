@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-full">
-    <section class="sticky">
+    <section class="fixed top-0 left-0 z-20 w-full">
       <div
         v-if="!isProfileCompleted"
         class="justify-center items-center w-full"
@@ -10,9 +10,17 @@
           your Writing Portfolios</Warning
         >
       </div>
-      <MyHeader :user="currentUser" class="z-20 w-full" @logout="onLogout" />
+      <MyHeader :user="currentUser" class="w-full" @logout="onLogout" />
     </section>
-    <Nuxt class="py-4" />
+    <Nuxt
+      class="md:py-4"
+      :class="[
+        {
+          'mt-[254px] md:mt-36 lg:mt-[137px] ': !isProfileCompleted
+        },
+        { 'md:mt-20 mt-24': isProfileCompleted }
+      ]"
+    />
     <Toast />
   </div>
 </template>
@@ -93,4 +101,9 @@ export default {
 </script>
 
 <style>
+@media only screen and (min-width: 768px) {
+  .fixedbar {
+    @apply mt-36;
+  }
+}
 </style>
