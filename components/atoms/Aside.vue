@@ -373,6 +373,24 @@
           </ul>
         </div>
       </div>
+
+      <Hyperlink
+        :to="{ path: '/settings/apps' }"
+        class="
+          group
+          flex
+          items-center
+          p-2
+          font-gilroy
+          text-lg
+          font-medium
+          text-gray-500
+          rounded-lg
+        "
+      >
+        <ProfileIcon />
+        <span class="flex-1 ml-3 whitespace-nowrap">Integrations</span>
+      </Hyperlink>
     </Card>
     <Card class="hidden mt-6 md:block">
       <div class="overflow-hidden rounded-lg shadow-lg aside-footer">

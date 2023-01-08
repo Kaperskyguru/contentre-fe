@@ -1,25 +1,119 @@
+<!-- eslint-disable tailwindcss/enforces-negative-arbitrary-values -->
 <template>
-  <div id="editor" class="overflow-hidden mx-4 w-full min-h-full md:mx-0">
+  <div
+    id="editor"
+    class="overflow-hidden relative mx-4 w-full min-h-full md:mx-0"
+  >
     <client-only>
       <floating-menu
         v-if="editor"
+        id="floatMenu"
         class="z-50"
         :editor="editor"
         :tippy-options="{ duration: 100, maxWidth: '100%', placement: 'left' }"
       >
-        <button @click="onUploadImage">
-          <image-icon />
-        </button>
-        <button
-          :class="{ 'is-active': editor.isActive('codeBlock') }"
-          @click="editor.chain().focus().toggleCodeBlock().run()"
-        >
-          <CodePreIcon />
-        </button>
+        <div class="relative">
+          <button @click="openMenu">
+            <AddIcon />
+          </button>
+
+          <div
+            v-if="menu"
+            v-click-outside="onClickOutside"
+            x-transition:enter="transition ease-out duration-100"
+            x-transition:enter-start="transform opacity-0 scale-95"
+            x-transition:enter-end="transform opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-75"
+            x-transition:leave-start="transform opacity-100 scale-100"
+            x-transition:leave-end="transform opacity-0 scale-95"
+            class="
+              absolute
+              top-auto
+              -left-[10px]
+              z-[100]
+              py-3
+              mt-2
+              w-60
+              bg-white
+              dark:bg-gray-800
+              rounded-lg
+              border border-btn-green
+              dark:border-transparent
+              shadow-lg
+            "
+          >
+            <ul class="space-y-3 font-bold text-black dark:text-white">
+              <li class="font-medium" @click="openMagicWrite">
+                <button
+                  class="
+                    flex
+                    items-center
+                    space-x-2
+                    transition-colors
+                    duration-200
+                  "
+                >
+                  <WriteIcon />
+                  <P>Magic Write</P>
+                </button>
+              </li>
+              <li class="font-medium" @click="onUploadImage">
+                <button
+                  class="
+                    flex
+                    items-center
+                    space-x-2
+                    transition-colors
+                    duration-200
+                  "
+                >
+                  <ImageIcon />
+                  <p>Image</p>
+                </button>
+              </li>
+              <li class="font-medium" @click="onUploadImage('video')">
+                <button
+                  class="
+                    flex
+                    items-center
+                    space-x-2
+                    transition-colors
+                    duration-200
+                  "
+                >
+                  <VideoIcon />
+                  <p>Video</p>
+                </button>
+              </li>
+
+              <li class="font-medium" @click="openCodeSnippet">
+                <button
+                  class="
+                    flex
+                    items-center
+                    space-x-2
+                    transition-colors
+                    duration-200
+                  "
+                >
+                  <CodePreIcon />
+                  <p>Code Snippet</p>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <GenerateIdea v-model="isMagicWriteOpen" />
+          <GenerateCodeSnippet
+            v-model="isCodeSnippetOpen"
+            @code="editor.chain().focus().toggleCodeBlock().run()"
+          />
+        </div>
       </floating-menu>
 
       <bubble-menu
         v-if="editor"
+        id="bubble"
         :editor="editor"
         :tippy-options="{ duration: 100 }"
       >
@@ -75,7 +169,7 @@
       </bubble-menu>
 
       <!-- Top Menu -->
-      <div class="w-full bg-white">
+      <div id="bubble" class="w-full bg-white">
         <div
           id="d-wysiwyg-semantic-container"
           class="flex justify-center w-full border-b-2"
@@ -218,10 +312,10 @@
       </div>
     </client-only>
 
-    <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload Image">
+    <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload media">
       <div class="block w-full text-gray-700 bg-white">
         <div class="justify-between w-full text-gray-700 bg-white">
-          <UploadImage @uploaded="uploadedImage" />
+          <UploadImage :type="mediaType" @uploaded="uploadedImage" />
         </div>
       </div>
     </Dialog>
@@ -233,6 +327,7 @@
 </template>
   
   <script>
+import vClickOutside from 'v-click-outside'
 import {
   Editor,
   EditorContent,
@@ -275,6 +370,7 @@ export default {
     QuoteIcon: () => import('~/assets/icons/editor/quote.svg?inline'),
     CenterIcon: () => import('~/assets/icons/editor/center.svg?inline'),
     ImageIcon: () => import('~/assets/icons/editor/ImageIcon.vue'),
+    AddIcon: () => import('~/assets/icons/editor/add.svg?inline'),
     JustifyIcon: () => import('~/assets/icons/editor/justify.svg?inline'),
     LinkIcon: () => import('~/assets/icons/editor/link.svg?inline'),
     UnLinkIcon: () => import('~/assets/icons/editor/unlink.svg?inline'),
@@ -293,7 +389,12 @@ export default {
     SnippetIcon: () => import('~/assets/icons/editor/snippet.svg?inline'),
     OutlineIcon: () => import('~/assets/icons/editor/outline.svg?inline'),
     SummaryIcon: () => import('~/assets/icons/editor/summary.svg?inline'),
-    BriefIcon: () => import('~/assets/icons/editor/brief.svg?inline')
+    BriefIcon: () => import('~/assets/icons/editor/brief.svg?inline'),
+    VideoIcon: () => import('~/assets/icons/editor/video.svg?inline'),
+    WriteIcon: () => import('~/assets/icons/editor/write.svg?inline')
+  },
+  directives: {
+    clickOutside: vClickOutside.directive
   },
   mixins: [currentUser],
 
@@ -303,16 +404,19 @@ export default {
       default: () => {}
     }
   },
-
   data() {
     return {
       selected: '2',
       isUpgradeModalVisible: false,
       editor: null,
+      menu: false,
+      isMagicWriteOpen: false,
+      isCodeSnippetOpen: false,
       availableHeadings: [2, 3, 4, 5, 6],
       showOptions: false,
       focused: false,
-      isImageModalVisible: false
+      isImageModalVisible: false,
+      mediaType: 'image'
     }
   },
 
@@ -400,6 +504,10 @@ export default {
   },
 
   methods: {
+    openMenu() {
+      this.menu = !this.menu
+    },
+
     generateContent(content, title) {
       this.editor.commands.setContent(
         `${title}
@@ -514,7 +622,8 @@ export default {
       this.focused = val
     },
 
-    onUploadImage() {
+    onUploadImage(type = 'image') {
+      this.mediaType = type
       this.isImageModalVisible = true
     },
 
@@ -541,6 +650,25 @@ export default {
       this.editor.commands.toggleHeading({ level: Number(header) })
     },
 
+    generateIdeas() {},
+
+    openMagicWrite() {
+      this.isMagicWriteOpen = !this.isMagicWriteOpen
+      this.menu = false
+      this.isCodeSnippetOpen = false
+    },
+
+    openCodeSnippet() {
+      this.isCodeSnippetOpen = !this.isCodeSnippetOpen
+      this.menu = false
+      this.isMagicWriteOpen = false
+    },
+
+    onClickOutside() {
+      this.menu = false
+      this.isMagicWriteOpen = false
+      this.isCodeSnippetOpen = false
+    },
     toggleLink() {
       if (this.editor.isActive('link')) {
         this.editor.chain().focus().unsetLink().run()
@@ -573,8 +701,20 @@ export default {
 }
 </script>
 <style lang="scss">
-#editor button {
+#editor #bubble button {
   @apply p-2 hover:bg-black hover:text-white;
+}
+
+#editor #floatMenu button {
+  @apply p-2;
+}
+
+#editor #floatMenu ul li {
+  @apply hover:bg-gray-100;
+}
+
+#editor #floatMenu ul {
+  @apply list-none p-0;
 }
 
 #editor h1.heading {

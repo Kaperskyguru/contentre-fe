@@ -33,7 +33,7 @@
             Upload
           </a>
         </li>
-        <li v-if="type === 'image'" class="mr-2">
+        <li class="mr-2">
           <a
             id="profaily-tab"
             href="#profaily"
@@ -52,10 +52,10 @@
             aria-controls="profaily"
             aria-selected="false"
           >
-            Gallery
+            Resources
           </a>
         </li>
-        <li class="mr-2">
+        <li v-if="type === 'image'" class="mr-2">
           <a
             id="link-tab"
             href="#link"
@@ -82,7 +82,6 @@
 
     <div id="myTabContent">
       <div
-        v-if="type === 'image'"
         id="profaily"
         class="hidden w-full"
         role="tabpanel"
@@ -196,6 +195,7 @@
       </div>
 
       <div
+        v-if="type === 'image'"
         id="link"
         class="hidden w-full"
         role="tabpanel"
@@ -257,6 +257,7 @@ export default {
   computed: {
     acceptedFiles() {
       if (this.type === 'pdf') return '.pdf'
+      if (this.type === 'video') return 'video/mp4,video/x-m4v,video/*'
       return '.jpeg,.jpg,.png,image/jpeg,image/png'
     }
   },
@@ -298,6 +299,7 @@ export default {
 
         if (this.type === 'image') data = await this.uploadImage(files)
         if (this.type === 'pdf') data = await this.uploadPDF(files)
+        if (this.type === 'video') data = await this.uploadVideo(files)
 
         this.$toast.positive('Media created successfully')
         this.filters = {
@@ -311,6 +313,8 @@ export default {
         this.uploading = false
       }
     },
+
+    async uploadVideo() {},
 
     uploadPDF(files) {
       const pdfURL = ''
