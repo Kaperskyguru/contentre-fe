@@ -206,7 +206,14 @@ export default {
         ...this.apps,
         [name]: app.data
       }
+
+      if (app.isMain) this.apps.isMain = name
+
       this.$toast.positive(`${name} plugin added successfully`)
+    },
+
+    getSlug(isMain, name) {
+      if (isMain) return name
     },
 
     uploadedImage(data) {

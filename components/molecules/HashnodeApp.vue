@@ -59,6 +59,17 @@
             </CheckField>
           </div>
         </div>
+
+        <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
+          <div class="flex flex-col space-y-3">
+            <CheckField
+              id="hashnode_set_a_main_blog"
+              v-model="hashnode_isMainBlog"
+              class="text-gray-100"
+              >Set as main blog
+            </CheckField>
+          </div>
+        </div>
       </div>
 
       <!-- Retrieve -->
@@ -131,6 +142,7 @@ export default {
   data: () => ({
     hashnode_action: 'Publish',
     hashnode_hideFromFeed: false,
+    hashnode_isMainBlog: false,
     hashnode_content_canonical_url: '',
     hashnode_publication_id: '',
     hashnode_page_number: 0,
@@ -167,7 +179,11 @@ export default {
         hostname: this.hashnode_by_hostname,
         slug: this.hashnode_by_slug
       }
-      this.$emit('add', { name: this.app.slug, data: hashnode })
+      this.$emit('add', {
+        name: this.app.slug,
+        data: hashnode,
+        isMain: this.hashnode_isMainBlog
+      })
     }
   }
 }
