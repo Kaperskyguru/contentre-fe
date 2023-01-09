@@ -42,17 +42,6 @@
 
         <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
           <div class="flex flex-col space-y-3">
-            <CheckField
-              id="medium_notify_followers"
-              v-model="medium_notifyFollowers"
-              class="text-gray-100"
-              >Notify Followers
-            </CheckField>
-          </div>
-        </div>
-
-        <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
-          <div class="flex flex-col space-y-3">
             <DropdownField
               v-model="medium_publish_status"
               placeholder="Publish Status"
@@ -62,6 +51,22 @@
               <option value="draft">DRAFT</option>
               <option value="unlisted">UNLISTED</option>
             </DropdownField>
+          </div>
+        </div>
+
+        <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
+          <div class="flex flex-col space-y-3">
+            <CheckField v-model="medium_notifyFollowers" class="text-gray-100"
+              >Notify Followers
+            </CheckField>
+          </div>
+        </div>
+
+        <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
+          <div class="flex flex-col space-y-3">
+            <CheckField v-model="medium_isMainBlog" class="text-gray-100"
+              >Set as main blog
+            </CheckField>
           </div>
         </div>
       </div>
@@ -113,8 +118,9 @@ export default {
   data: () => ({
     medium_action: 'Publish',
     medium_notifyFollowers: false,
+    medium_isMainBlog: false,
     medium_content_canonical_url: '',
-    medium_publish_status: 'DRAFT',
+    medium_publish_status: 'draft',
     medium_by_id: null
   }),
 
@@ -145,7 +151,11 @@ export default {
         publishedStatus: this.medium_publish_status,
         contentId: this.medium_by_id ?? undefined
       }
-      this.$emit('add', { name: this.app.slug, data: medium })
+      this.$emit('add', {
+        name: this.app.slug,
+        data: medium,
+        isMain: this.medium_isMainBlog
+      })
     }
   }
 }

@@ -29,24 +29,14 @@
       </div>
 
       <div v-if="isPublish" class="p-5 my-5 bg-white border border-btn-green">
-        <div class="flex flex-col justify-start pb-5 mb-3 space-x-2">
-          <div class="mr-3">Content Format</div>
-          <div class="flex flex-col mt-2 space-y-3">
-            <CheckField
-              v-model="devto_content_format"
-              type="radio"
-              value="HTML"
+        <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
+          <div class="flex flex-col space-y-3">
+            <TextField
+              id="devto_series"
+              v-model="devto_series"
               class="text-gray-100"
-              >HTML</CheckField
-            >
-            <CheckField
-              v-model="devto_content_format"
-              :disabled="true"
-              type="radio"
-              value="MARKDOWN"
-              class="text-gray-100"
-              >MARKDOWN</CheckField
-            >
+              label="Series"
+            />
           </div>
         </div>
 
@@ -63,17 +53,6 @@
 
         <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
           <div class="flex flex-col space-y-3">
-            <CheckField
-              id="devto_notify_followers"
-              v-model="devto_notifyFollowers"
-              class="text-gray-100"
-              >Notify Followers
-            </CheckField>
-          </div>
-        </div>
-
-        <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
-          <div class="flex flex-col space-y-3">
             <DropdownField
               v-model="devto_publish_status"
               placeholder="Publish Status"
@@ -81,8 +60,15 @@
             >
               <option value="public">PUBLIC</option>
               <option value="draft">DRAFT</option>
-              <option value="unlisted">UNLISTED</option>
             </DropdownField>
+          </div>
+        </div>
+
+        <div class="flex flex-row justify-start pb-5 mb-3 space-x-2">
+          <div class="flex flex-col space-y-3">
+            <CheckField v-model="devto_isMainBlog" class="text-gray-100"
+              >Set as main blog
+            </CheckField>
           </div>
         </div>
       </div>
@@ -180,11 +166,10 @@ export default {
 
   data: () => ({
     devto_action: 'Publish',
-    devto_notifyFollowers: false,
+    devto_isMainBlog: false,
     devto_content_canonical_url: '',
-    devto_content_format: 'HTML',
+    devto_series: '',
     devto_publish_status: 'DRAFT',
-    devto_username: '',
     devto_page_number: 1,
     devto_perpage: 30,
     devto_by_id: null,
@@ -213,12 +198,10 @@ export default {
     addDevto() {
       const devto = {
         action: this.devto_action,
-        contentFormat: this.devto_content_format,
-        notifyFollowers: this.devto_notifyFollowers,
         canonicalUrl: this.devto_content_canonical_url,
         publishedStatus: this.devto_publish_status,
+        series: this.devto_series,
         page: this.devto_page_number,
-        username: this.devto_username,
         contentId: this.devto_by_id ?? undefined,
         per_page: this.devto_perpage,
         contentStatus:
@@ -226,7 +209,11 @@ export default {
             ? undefined
             : this.devto_content_status
       }
-      this.$emit('add', { name: this.app.slug, data: devto })
+      this.$emit('add', {
+        name: this.app.slug,
+        data: devto,
+        isMain: this.devto_isMainBlog
+      })
     }
   }
 }
