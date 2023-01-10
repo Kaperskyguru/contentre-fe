@@ -65,3 +65,12 @@ export const GET_CONTENT = gql`
   }
   ${contentFragments.content}
 `
+
+export const GENERATE_WITH_AI = gql`
+  query generateWithAI($input: GenerateWithAIInput!) {
+    generateWithAI(input: $input) {
+      title
+      content
+    }
+  }
+`
