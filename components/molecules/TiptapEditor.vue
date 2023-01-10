@@ -57,34 +57,6 @@
                   <P>Magic Write</P>
                 </button>
               </li>
-              <li class="font-medium" @click="onUploadImage">
-                <button
-                  class="
-                    flex
-                    items-center
-                    space-x-2
-                    transition-colors
-                    duration-200
-                  "
-                >
-                  <ImageIcon />
-                  <p>Image</p>
-                </button>
-              </li>
-              <li class="font-medium" @click="onUploadImage('video')">
-                <button
-                  class="
-                    flex
-                    items-center
-                    space-x-2
-                    transition-colors
-                    duration-200
-                  "
-                >
-                  <VideoIcon />
-                  <p>Video</p>
-                </button>
-              </li>
 
               <li class="font-medium" @click="openCodeSnippet">
                 <button
@@ -100,12 +72,53 @@
                   <p>Code Snippet</p>
                 </button>
               </li>
+
+              <li class="font-medium" @click="onUploadImage">
+                <button
+                  class="
+                    flex
+                    items-center
+                    space-x-2
+                    transition-colors
+                    duration-200
+                  "
+                >
+                  <ImageIcon />
+                  <p>Image</p>
+                </button>
+              </li>
+              <!-- <li class="font-medium" @click="onUploadImage('video')">
+                <button
+                  :disabled="true"
+                  class="
+                    flex
+                    items-center
+                    space-x-2
+                    transition-colors
+                    duration-200
+                  "
+                >
+                  <VideoIcon />
+                  <p>Video</p>
+                </button>
+              </li> -->
             </ul>
           </div>
 
-          <GenerateIdea v-model="isMagicWriteOpen" />
+          <GenerateIdea
+            v-model="isMagicWriteOpen"
+            @isPremium="isUpgradeModalVisible = true"
+            @generate="onGenerate"
+          />
           <GenerateCodeSnippet
             v-model="isCodeSnippetOpen"
+            @generate="onGenerateCode"
+            @isPremium="
+              () => {
+                hasExceededLimit = true
+                isUpgradeModalVisible = true
+              }
+            "
             @code="editor.chain().focus().toggleCodeBlock().run()"
           />
         </div>
@@ -193,11 +206,6 @@
               <Tooltip label="Generate Content Brief">
                 <button @click="generateBrief">
                   <BriefIcon />
-                </button>
-              </Tooltip>
-              <Tooltip label="Generate Code Snippet">
-                <button @click="generateCodeSnippet">
-                  <SnippetIcon />
                 </button>
               </Tooltip>
             </span>
@@ -321,7 +329,11 @@
     </Dialog>
 
     <Dialog v-model="isUpgradeModalVisible" :is-large="true">
-      <UpgradeModal @back="back">This is a premium feature</UpgradeModal>
+      <UpgradeModal @back="back">{{
+        hasExceededLimit
+          ? 'You have exceeded your free limit'
+          : 'This is a premium feature'
+      }}</UpgradeModal>
     </Dialog>
   </div>
 </template>
@@ -386,11 +398,11 @@ export default {
     CodePreIcon: () => import('~/assets/icons/editor/codePre.svg?inline'),
     H1Icon: () => import('~/assets/icons/editor/H1.svg?inline'),
     ClearIcon: () => import('~/assets/icons/editor/clear.svg?inline'),
-    SnippetIcon: () => import('~/assets/icons/editor/snippet.svg?inline'),
+    // SnippetIcon: () => import('~/assets/icons/editor/snippet.svg?inline'),
     OutlineIcon: () => import('~/assets/icons/editor/outline.svg?inline'),
     SummaryIcon: () => import('~/assets/icons/editor/summary.svg?inline'),
     BriefIcon: () => import('~/assets/icons/editor/brief.svg?inline'),
-    VideoIcon: () => import('~/assets/icons/editor/video.svg?inline'),
+    // VideoIcon: () => import('~/assets/icons/editor/video.svg?inline'),
     WriteIcon: () => import('~/assets/icons/editor/write.svg?inline')
   },
   directives: {
@@ -409,6 +421,7 @@ export default {
       selected: '2',
       isUpgradeModalVisible: false,
       editor: null,
+      hasExceededLimit: false,
       menu: false,
       isMagicWriteOpen: false,
       isCodeSnippetOpen: false,
@@ -459,7 +472,6 @@ export default {
         Text,
         Link,
         Placeholder.configure({
-          showOnlyWhenEditable: false,
           placeholder: ({ node }) => {
             if (node.type.name === 'heading') {
               return 'Title here'
@@ -506,6 +518,21 @@ export default {
   methods: {
     openMenu() {
       this.menu = !this.menu
+    },
+
+    onGenerate(data) {
+      this.editor.commands.insertContent(`
+      <p>${data.content}</p>
+      `)
+    },
+
+    onGenerateCode(data) {
+      this.editor.commands.insertContent(data.content, {
+        updateSelection: false,
+        parseOptions: {
+          preserveWhitespace: false
+        }
+      })
     },
 
     generateContent(content, title) {
@@ -564,6 +591,7 @@ export default {
         this.$emit('create:success', true)
       } catch (error) {
         if (error.message.includes('You have exceeded your outline limit.')) {
+          this.hasExceededLimit = true
           this.isUpgradeModalVisible = true
           return
         }
@@ -580,15 +608,7 @@ export default {
       const title = this.getTitle()
       console.log(title)
     },
-    generateCodeSnippet() {
-      if (!this.isPremium) {
-        this.isUpgradeModalVisible = true
-        return
-      }
 
-      const title = this.getTitle()
-      console.log(title)
-    },
     generateSummary() {
       if (!this.isPremium) {
         this.isUpgradeModalVisible = true
@@ -653,6 +673,11 @@ export default {
     generateIdeas() {},
 
     openMagicWrite() {
+      if (!this.isPremium) {
+        this.isUpgradeModalVisible = true
+        return
+      }
+
       this.isMagicWriteOpen = !this.isMagicWriteOpen
       this.menu = false
       this.isCodeSnippetOpen = false

@@ -33,20 +33,24 @@
       </div>
       <div class="py-2 text-lg font-bold">
         <TextField
+          v-model="$v.fieldTitle.$model"
           class="w-full h-full"
-          :show-border="false"
           :rows="3"
           autofocus
-          @keypress="generateIdeas"
+          :error="getValidationMessage($v.fieldTitle)"
         />
       </div>
-      <div class="text-black"><p>Press the return key</p></div>
+      <div class="flex justify-end">
+        <Button :waiting="sending" @click="generateIdeas">Generate</Button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import vClickOutside from 'v-click-outside'
+import { required, minLength } from '~/plugins/validators'
+import { GENERATE_WITH_AI } from '~/graphql'
 export default {
   name: 'GenerateIdea',
   directives: {
@@ -68,10 +72,17 @@ export default {
     }
   },
 
+  validations: {
+    honeyPot: {},
+    fieldTitle: { required, minLength: minLength(2) }
+  },
+
   emits: ['answer', 'update:visible'],
 
   data: () => ({
-    visibleModel: false
+    visibleModel: false,
+    sending: false,
+    fieldTitle: null
   }),
 
   watch: {
@@ -88,8 +99,39 @@ export default {
       this.visibleModel = false
     },
 
-    generateIdeas() {
-      this.$emit('generate')
+    async generateIdeas() {
+      if (await this.isValidationInvalid()) return
+
+      this.sending = true
+
+      try {
+        const {
+          data: { generateWithAI: AIContent }
+        } = await this.$apollo.query({
+          query: GENERATE_WITH_AI,
+          variables: {
+            input: {
+              title: this.fieldTitle ?? undefined
+            }
+          }
+        })
+
+        this.sending = false
+        this.visibleModel = false
+        this.$emit('generate', {
+          title: AIContent.title,
+          content: AIContent.content
+        })
+      } catch (error) {
+        if (error.message.includes('Generate idea is a premium')) {
+          this.$emit('isPremium')
+          this.visibleModel = false
+          return
+        }
+
+        this.$toast.negative(error.message)
+        this.visibleModel = false
+      }
     }
   }
 }

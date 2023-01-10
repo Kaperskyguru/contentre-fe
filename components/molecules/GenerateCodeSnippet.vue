@@ -33,18 +33,21 @@
       </div>
       <div class="py-2 text-lg font-bold">
         <TextField
-          class="w-full h-full"
-          :show-border="false"
+          v-model="$v.fieldTitle.$model"
+          class="w-full h-full border-silver"
           :rows="3"
+          placeholder="Create a function in javascript that calculates fibonacci numbers."
+          label=""
+          :error="getValidationMessage($v.fieldTitle)"
           autofocus
-          @keypress="generateIdeas"
         />
       </div>
+
       <div class="flex justify-between text-black">
-        <p>Press the return key</p>
         <CheckField v-model="manualCode" @changed="onManualCode"
           >Type Code manually</CheckField
         >
+        <Button :waiting="sending" @click="generate">Generate</Button>
       </div>
     </div>
   </div>
@@ -52,8 +55,10 @@
   
   <script>
 import vClickOutside from 'v-click-outside'
+import { CREATE_SNIPPET } from '~/graphql'
+import { required, minLength } from '~/plugins/validators'
 export default {
-  name: 'GenerateIdea',
+  name: 'GenerateCodeSnippet',
   directives: {
     clickOutside: vClickOutside.directive
   },
@@ -64,6 +69,11 @@ export default {
   model: {
     prop: 'visible',
     event: 'update:visible'
+  },
+
+  validations: {
+    honeyPot: {},
+    fieldTitle: { required, minLength: minLength(2) }
   },
 
   props: {
@@ -77,7 +87,9 @@ export default {
 
   data: () => ({
     visibleModel: false,
-    manualCode: false
+    manualCode: false,
+    sending: false,
+    fieldTitle: null
   }),
 
   watch: {
@@ -100,9 +112,39 @@ export default {
       this.visibleModel = false
     },
 
-    generateIdeas() {
-      this.$emit('generate')
-      this.visibleModel = false
+    async generate() {
+      if (await this.isValidationInvalid()) return
+
+      this.sending = true
+
+      try {
+        const {
+          data: { createSnippet: AIContent }
+        } = await this.$apollo.mutate({
+          mutation: CREATE_SNIPPET,
+          variables: {
+            input: {
+              title: this.fieldTitle ?? undefined
+            }
+          }
+        })
+
+        this.sending = false
+        this.$emit('generate', {
+          title: AIContent.title,
+          content: AIContent.content
+        })
+
+        this.visibleModel = false
+      } catch (error) {
+        if (error.message.includes('You have exceeded your snippet limit.')) {
+          this.$emit('isPremium')
+          this.visibleModel = false
+          return
+        }
+        this.$toast.negative(error.message)
+        this.visibleModel = false
+      }
     }
   }
 }
