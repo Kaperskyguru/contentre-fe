@@ -204,35 +204,13 @@
             "
           />
         </div>
-      </section>
 
-      <!-- <section v-if="!isEditing" class="p-3 mb-6 border">
         <div class="mb-6">
-          <DropdownField
-            v-model="$v.fieldTemplate.$model"
-            type="text"
-            :disabled="disabled"
-            class="w-full text-sm text-darksilver"
-            label="Select a template"
-            placeholder="Select your template"
-            :error="getValidationMessage($v.fieldTemplate)"
+          <CheckField v-model="showInDirectory" class="text-gray-100"
+            >Show in writer's directory for hiring</CheckField
           >
-            <option
-              v-for="template in templates"
-              :key="template.id"
-              :value="template.id"
-            >
-              {{ template.title === 'Blank' ? 'Use Default' : template.title }}
-            </option>
-          </DropdownField>
         </div>
-        <CheckField
-          v-model="shouldCustomize"
-          class="text-gray-100"
-          @changed="onShouldCustomize"
-          >Customize New Template</CheckField
-        >
-      </section> -->
+      </section>
 
       <div
         class="
@@ -322,6 +300,7 @@ export default {
     fieldCategory: '',
     fieldClient: '',
     shouldCustomize: false,
+    showInDirectory: false,
     passwordProtected: false,
     fieldGoogleAnalyticId: '',
     fieldDescription: '',
@@ -342,6 +321,7 @@ export default {
     fieldCategory: {},
     fieldTemplate: {},
     fieldPassword: {},
+    showInDirectory: {},
     fieldTitle: {
       required
     },
@@ -446,6 +426,7 @@ export default {
         this.fieldGoogleAnalyticId = this.portfolio?.googleAnalyticId
         this.fieldPassword = this.portfolio?.password
         this.fieldCustomDomain = this.portfolio?.domain
+        this.showInDirectory = this.portfolio?.showInDirectory
       } else {
         this.fieldTitle = ''
         this.fieldURL = ''
@@ -494,6 +475,7 @@ export default {
           password: this.fieldPassword,
           shouldCustomize: this.shouldCustomize,
           description: this.fieldDescription,
+          showInDirectory: this.showInDirectory,
           customDomain:
             this.fieldCustomDomain === this.portfolio?.domain
               ? undefined

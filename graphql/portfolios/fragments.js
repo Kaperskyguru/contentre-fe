@@ -18,6 +18,7 @@ export const portfolioFragments = {
       }
       url
       type
+      showInDirectory
       description
       googleAnalyticId
       domain
