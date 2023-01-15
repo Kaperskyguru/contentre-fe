@@ -43,7 +43,7 @@
       />
     </Card>
 
-    <Card class="min-h-96">
+    <Card class="h-full md:h-[750px]">
       <TagOverview :checked.sync="checked" :filters="filters" />
     </Card>
 
