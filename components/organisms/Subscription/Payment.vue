@@ -160,6 +160,26 @@ export default {
     }
   },
 
+  watch: {
+    '$route.query': {
+      immediate: true,
+      deep: true,
+      handler(query) {
+        this.plan = query?.plan
+      }
+    }
+  },
+
+  async mounted() {
+    await this.$segment({
+      operation: 'identify'
+    })
+
+    await this.$segment({
+      eventName: 'Viewed Payment Page'
+    })
+  },
+
   apollo: {
     plans: {
       query: GET_SUBSCRIPTION_PLANS,
@@ -169,16 +189,6 @@ export default {
           items: data.getSubscriptionPlans,
           total: data.getSubscriptionPlans.length
         }
-      }
-    }
-  },
-
-  watch: {
-    '$route.query': {
-      immediate: true,
-      deep: true,
-      handler(query) {
-        this.plan = query?.plan
       }
     }
   },
@@ -206,9 +216,20 @@ export default {
         query: { ...this.$route.query, plan }
       })
     },
-    makePayment(name) {
+    async makePayment(name) {
       const plan = this.getPlanCode({
         channel: name
+      })
+
+      await this.$segment({
+        operation: 'identify'
+      })
+
+      await this.$segment({
+        data: {
+          plan
+        },
+        eventName: 'Click Pay Button'
       })
 
       this.$emit('makePayment', plan)

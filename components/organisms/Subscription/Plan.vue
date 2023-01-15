@@ -347,6 +347,16 @@ export default {
     }
   },
 
+  async mounted() {
+    await this.$segment({
+      operation: 'identify'
+    })
+
+    await this.$segment({
+      eventName: 'Viewed Plan Page'
+    })
+  },
+
   methods: {
     onShowYear() {
       this.showYear = true
