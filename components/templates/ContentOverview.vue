@@ -253,7 +253,7 @@ export default {
       fetchPolicy: 'cache-and-network',
       variables() {
         return {
-          size: 12,
+          size: 30,
           skip: 0,
           filters: {
             terms: this.filters?.terms,
