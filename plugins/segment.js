@@ -18,7 +18,7 @@ export default (context, inject) => {
       data = {
         ...(data || {}),
         email: currentUser?.email ?? null,
-        companyId: currentUser?.activeCompany?.id ?? null
+        teamId: currentUser?.activeTeam?.id ?? null
       }
     }
     if (process.env.DISABLE_SEGMENT) {

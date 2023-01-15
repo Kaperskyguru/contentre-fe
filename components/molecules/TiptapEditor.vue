@@ -73,6 +73,49 @@
                 </button>
               </li>
 
+              <li class="font-medium" @click="openGenerateOutline">
+                <button
+                  class="
+                    flex
+                    items-center
+                    space-x-2
+                    transition-colors
+                    duration-200
+                  "
+                >
+                  <OutlineIcon />
+                  <p>Generate Outline</p>
+                </button>
+              </li>
+              <!-- <li class="font-medium" @click="generateSummary">
+                <button
+                  class="
+                    flex
+                    items-center
+                    space-x-2
+                    transition-colors
+                    duration-200
+                  "
+                >
+                  <SummaryIcon />
+                  <p>Generate Summary</p>
+                </button>
+              </li>
+              <li class="font-medium" @click="generateBrief">
+                <button
+                  class="
+                    flex
+                    items-center
+                    space-x-2
+                    transition-colors
+                    duration-200
+                  "
+                >
+                  <BriefIcon />
+                  <p>Generate Brief</p>
+                </button>
+              </li> -->
+
               <li class="font-medium" @click="onUploadImage">
                 <button
                   class="
@@ -109,6 +152,12 @@
             v-model="isMagicWriteOpen"
             @isPremium="isUpgradeModalVisible = true"
             @generate="onGenerate"
+          />
+          <GenerateOutline
+            v-model="isOutlineOpen"
+            :title="getTitle()"
+            @isPremium="isUpgradeModalVisible = true"
+            @generate="onGenerateOutline"
           />
           <GenerateCodeSnippet
             v-model="isCodeSnippetOpen"
@@ -192,24 +241,6 @@
             id="d-wysisyg-controls"
             class="flex overflow-x-auto px-2 w-full md:justify-center"
           >
-            <span>
-              <Tooltip label="Generate Outline">
-                <button @click="createOutline">
-                  <OutlineIcon />
-                </button>
-              </Tooltip>
-              <Tooltip label="Generate Summary">
-                <button @click="generateSummary">
-                  <SummaryIcon />
-                </button>
-              </Tooltip>
-              <Tooltip label="Generate Content Brief">
-                <button @click="generateBrief">
-                  <BriefIcon />
-                </button>
-              </Tooltip>
-            </span>
-
             <span>
               <button
                 :class="{
@@ -364,7 +395,6 @@ import { lowlight } from 'lowlight'
 import CodeBlockComponent from '../atoms/CodeBlock'
 import { currentUser } from '~/components/mixins'
 import { isArray } from '~/plugins/utils'
-import { CREATE_OUTLINE } from '~/graphql'
 
 const CustomDocument = Document.extend({
   content: 'heading block*',
@@ -400,8 +430,8 @@ export default {
     ClearIcon: () => import('~/assets/icons/editor/clear.svg?inline'),
     // SnippetIcon: () => import('~/assets/icons/editor/snippet.svg?inline'),
     OutlineIcon: () => import('~/assets/icons/editor/outline.svg?inline'),
-    SummaryIcon: () => import('~/assets/icons/editor/summary.svg?inline'),
-    BriefIcon: () => import('~/assets/icons/editor/brief.svg?inline'),
+    // SummaryIcon: () => import('~/assets/icons/editor/summary.svg?inline'),
+    // BriefIcon: () => import('~/assets/icons/editor/brief.svg?inline'),
     // VideoIcon: () => import('~/assets/icons/editor/video.svg?inline'),
     WriteIcon: () => import('~/assets/icons/editor/write.svg?inline')
   },
@@ -424,6 +454,7 @@ export default {
       hasExceededLimit: false,
       menu: false,
       isMagicWriteOpen: false,
+      isOutlineOpen: false,
       isCodeSnippetOpen: false,
       availableHeadings: [2, 3, 4, 5, 6],
       showOptions: false,
@@ -535,6 +566,24 @@ export default {
       })
     },
 
+    onGenerateOutline(data) {
+      if (!data) return
+      // this.editor.commands.insertContent(data.content, {
+      //   updateSelection: false,
+      //   parseOptions: {
+      //     preserveWhitespace: false
+      //   }
+      // })
+
+      this.editor.commands.setContent(
+        `<h1>${data.title}</h1>
+         ${data.content}
+         ${this.editor
+           .getHTML()
+           .replace(/^<h1.+?h1>/, '')
+           .replace(/^<h2.+?Outline.*?<\/ul>/, '')}`
+      )
+    },
     generateContent(content, title) {
       this.editor.commands.setContent(
         `${title}
@@ -552,53 +601,6 @@ export default {
       return doc
     },
 
-    async createOutline() {
-      const title = this.getTitle()
-      try {
-        const res = await this.$apollo.mutate({
-          mutation: CREATE_OUTLINE,
-          update: (cache, { data: { createOutline: outline } }) => {
-            return {
-              ...outline
-            }
-          },
-          variables: {
-            input: {
-              title
-            }
-          }
-        })
-
-        const outline = res.data.createOutline
-
-        if (!outline.content) {
-          this.$toast.negative('Outline not created')
-          this.$emit('create:success', false)
-          return
-        }
-
-        this.editor.commands.setContent(
-          `<h1>${title}</h1>
-         ${outline.content}
-         ${this.editor
-           .getHTML()
-           .replace(/^<h1.+?h1>/, '')
-           .replace(/^<h2.+?Outline.*?<\/ul>/, '')}`
-        )
-
-        this.$toast.positive('Outline created successfully')
-
-        this.$emit('create:success', true)
-      } catch (error) {
-        if (error.message.includes('You have exceeded your outline limit.')) {
-          this.hasExceededLimit = true
-          this.isUpgradeModalVisible = true
-          return
-        }
-
-        this.$toast.negative(error.message)
-      }
-    },
     generateBrief() {
       if (!this.isPremium) {
         this.isUpgradeModalVisible = true
@@ -671,6 +673,12 @@ export default {
     },
 
     generateIdeas() {},
+    openGenerateOutline() {
+      this.isOutlineOpen = !this.isOutlineOpen
+      this.menu = false
+      this.isCodeSnippetOpen = false
+      this.isMagicWriteOpen = false
+    },
 
     openMagicWrite() {
       if (!this.isPremium) {

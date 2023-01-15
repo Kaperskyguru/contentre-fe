@@ -346,9 +346,17 @@ export default {
     honeyPot: {}
   },
 
-  mounted() {
+  async mounted() {
     this.fieldStreet = this.user?.homeAddress
     this.fieldCountry = this.user?.country
+
+    await this.$segment({
+      operation: 'identify'
+    })
+
+    await this.$segment({
+      eventName: 'Viewed Address Page'
+    })
   },
 
   methods: {

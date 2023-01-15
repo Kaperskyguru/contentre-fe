@@ -25,6 +25,7 @@
           <Button
             class="w-full"
             :disabled="!hasTitle"
+            :waiting="saved"
             appearance="outline"
             @click.prevent="updateDraft"
           >
@@ -33,6 +34,7 @@
 
           <Button
             class="w-full"
+            :waiting="sending"
             :disabled="!hasTitle"
             @click.prevent="onPublish"
           >
@@ -131,6 +133,7 @@ export default {
   data: () => ({
     content: null,
     apps: {},
+    sending: false,
     defaultContent: null,
     isImageModalVisible: false,
     isContentSettingVisible: false,
@@ -299,6 +302,7 @@ export default {
     async updateDraft() {
       if (!this.noteId) return
 
+      this.sending = true
       const draft = await this.getDraft(this.noteId)
       const input = {
         content: this.settings?.content ?? draft?.content,
@@ -310,7 +314,7 @@ export default {
         ...input
       })
 
-      return await this.$apollo.mutate({
+      await this.$apollo.mutate({
         mutation: UPDATE_NOTE,
         variables: {
           id: this.noteId,
@@ -321,6 +325,8 @@ export default {
           return !this.noteId
         }
       })
+
+      this.sending = false
     },
 
     findFirstImage(content) {
@@ -436,6 +442,7 @@ export default {
       if (!this.noteId) return // Create new
       const input = await this.generateInput()
 
+      this.sending = true
       try {
         await this.addContent(input)
         this.$store.commit('subscription/increment')
@@ -445,6 +452,8 @@ export default {
       } catch (error) {
         await this.updateDraft(input)
         this.$toast.negative(error.message)
+      } finally {
+        this.sending = false
       }
     },
 

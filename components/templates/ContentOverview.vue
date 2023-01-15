@@ -38,13 +38,12 @@
     </Card>
 
     <!-- table -->
-    <Card>
+    <Card class="h-full md:h-[750px]">
       <DataGrid
         :columns="columns"
         :checked.sync="computedChecked"
         :items="contents.items"
         :total="contents.total"
-        class="h-96 md:h-full"
         :loading="$apollo.queries.contents.loading"
         :item-clickable="true"
         @load-more-data="fetchMore"
@@ -144,7 +143,7 @@ export default {
         'TOTAL_CONTENTS'
       )
       if (subValue === 0) return false
-      return this.totalNumber >= subValue //! (this.totalNumber >= subValue)
+      return this.totalNumber >= subValue
     },
     computedChecked: {
       get() {
