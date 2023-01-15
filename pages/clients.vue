@@ -41,7 +41,7 @@
       />
     </Card>
 
-    <Card class="min-h-96">
+    <Card class="h-full md:h-[750px]">
       <ClientOverview :checked.sync="checked" :filters="filters" />
     </Card>
     <Dialog v-model="isConfirmModalVisible">
