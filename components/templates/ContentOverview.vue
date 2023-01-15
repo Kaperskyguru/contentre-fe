@@ -144,7 +144,7 @@ export default {
         'TOTAL_CONTENTS'
       )
       if (subValue === 0) return false
-      return this.totalNumber >= subValue //! (this.totalNumber >= subValue)
+      return this.totalNumber >= subValue
     },
     computedChecked: {
       get() {
