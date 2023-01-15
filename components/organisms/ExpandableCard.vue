@@ -12,7 +12,7 @@
             class="items-center space-y-2 md:flex md:space-y-0 md:space-x-4"
             :class="headerContentClass"
           >
-            <!-- <Logo v-if="expanded" size="small" /> -->
+            <Logo v-if="expanded" size="small" />
 
             <slot v-if="!hasHeaderExpandedSlot || !expanded" name="header">
               <strong>&nbsp;</strong>
@@ -27,7 +27,7 @@
           </div>
 
           <Tooltip :label="expanded ? $t('close') : $t('expand')">
-            <!-- <ToggleButton
+            <ToggleButton
               v-model="expandedModel"
               :class="[{ hidden: hideToggle }, toggleClass]"
               class="text-darksilver hover:text-black"
@@ -39,7 +39,7 @@
               <div slot="icon-inactive" class="custom-icon" role="presentation">
                 <IconExpand />
               </div>
-            </ToggleButton> -->
+            </ToggleButton>
           </Tooltip>
         </header>
 
@@ -55,8 +55,8 @@
 import { Portal } from '@linusborg/vue-simple-portal'
 import Card from '~/components/atoms/Card.vue'
 import Tooltip from '~/components/atoms/Tooltip.vue'
-// import Logo from '~/components/molecules/Logo.vue'
-// import ToggleButton from '~/components/molecules/ToggleButton.vue'
+import Logo from '~/components/molecules/Logo.vue'
+import ToggleButton from '~/components/molecules/ToggleButton.vue'
 
 export default {
   name: 'ExpandableCard',
@@ -64,11 +64,11 @@ export default {
   components: {
     Card,
     Tooltip,
-    // Logo,
-    // ToggleButton,
-    Portal
-    // IconClose: () => import('~/assets/icons/close.svg?inline'),
-    // IconExpand: () => import('~/assets/icons/expand.svg?inline')
+    Logo,
+    ToggleButton,
+    Portal,
+    IconClose: () => import('~/assets/icons/close.svg?inline'),
+    IconExpand: () => import('~/assets/icons/expand.svg?inline')
   },
 
   model: {

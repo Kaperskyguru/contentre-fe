@@ -38,13 +38,12 @@
     </Card>
 
     <!-- table -->
-    <Card>
+    <Card class="h-full md:h-[750px]">
       <DataGrid
         :columns="columns"
         :checked.sync="computedChecked"
         :items="contents.items"
         :total="contents.total"
-        class="h-96 md:h-full"
         :loading="$apollo.queries.contents.loading"
         :item-clickable="true"
         @load-more-data="fetchMore"
@@ -107,6 +106,7 @@ export default {
   },
 
   data: () => ({
+    isExpandedCard: false,
     contentId: null,
     isAddMultipleContent: false,
     isUpgradeModalVisible: false,
@@ -253,7 +253,7 @@ export default {
       fetchPolicy: 'cache-and-network',
       variables() {
         return {
-          size: 30,
+          size: 12,
           skip: 0,
           filters: {
             terms: this.filters?.terms,
@@ -304,6 +304,8 @@ export default {
       }
     },
     fetchMore(sizeAndSkip) {
+      console.log('hereeeeee')
+
       const itemsKey = 'contents'
       const queryName = 'getContents'
       this.$apollo.queries.contents.fetchMore({
