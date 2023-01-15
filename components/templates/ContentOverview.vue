@@ -106,7 +106,6 @@ export default {
   },
 
   data: () => ({
-    isExpandedCard: false,
     contentId: null,
     isAddMultipleContent: false,
     isUpgradeModalVisible: false,
@@ -304,8 +303,6 @@ export default {
       }
     },
     fetchMore(sizeAndSkip) {
-      console.log('hereeeeee')
-
       const itemsKey = 'contents'
       const queryName = 'getContents'
       this.$apollo.queries.contents.fetchMore({
