@@ -103,6 +103,19 @@ export default {
           component: () => 'DataGridCellIcon',
           componentOptions: this.getLastUpdatedComponentOptions
         }
+
+        // {
+        //   title: 'Action',
+        //   // key: 'status',
+        //   titleClass: 'lg:w-36 xl:w-50 2xl:w-70',
+        //   // dataClass: ({ status }) => {
+        //   //   return `${status ? 'xs:py-2' : 'xs:py-2'} lg:py-0`
+        //   // },
+        //   // component: () => {
+        //   //   return 'DataGridCellStatus'
+        //   // },
+        //   componentOptions: this.getStatusComponentOptions
+        // }
       ]
     }
   },
@@ -208,6 +221,15 @@ export default {
           }
         : {}
     },
+
+    // getStatusComponentOptions({ status }) {
+    //   return status
+    //     ? {
+    //         style: !status ? 'secondary' : undefined,
+    //         value: status || 'No status provided'
+    //       }
+    //     : {}
+    // },
 
     getLastUpdatedComponentOptions({ updatedAt }) {
       return !updatedAt
