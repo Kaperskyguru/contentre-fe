@@ -43,6 +43,7 @@
 
     <LazyContentsFilters
       v-model="filtersShowFloatingPanel"
+      :options="options"
       :filter-columns="filterColumns"
       :clients="clients"
       :categories="categories"
@@ -50,6 +51,7 @@
       :tags="tags"
       :remove="remove"
       :show-sort-by="showSortBy"
+      @reset="onResetFilters"
       @close-panel="onChangeFilters"
     >
       <slot />
@@ -79,6 +81,11 @@ export default {
     categories: {
       type: [Array, Object],
       default: null
+    },
+
+    options: {
+      type: Object,
+      default: () => {}
     },
 
     topics: {
@@ -115,6 +122,14 @@ export default {
   methods: {
     onClickOpenFilters() {
       this.filtersShowFloatingPanel = !this.filtersShowFloatingPanel
+    },
+
+    onResetFilters(data) {
+      if (!data) return
+
+      this.filters = data
+
+      this.$emit('reset', this.filters)
     },
 
     onChangeFilters(data) {

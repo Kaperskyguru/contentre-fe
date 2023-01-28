@@ -57,7 +57,7 @@ export default {
           stats.push({
             ...item,
             value: parseInt(this.stats.users),
-            increment: parseFloat(this.stats.userPercent).toFixed(2)
+            increment: parseFloat(this.stats.userPercent)
           })
         }
 
@@ -65,15 +65,15 @@ export default {
           stats.push({
             ...item,
             value: parseInt(this.stats.newUser),
-            increment: parseFloat(this.stats.newUserPercent).toFixed(2)
+            increment: parseFloat(this.stats.newUserPercent)
           })
         }
 
         if (item.key === 'views') {
           stats.push({
             ...item,
-            value: parseInt(this.stats.views).toFixed(2),
-            increment: parseFloat(this.stats.viewsPercent).toFixed(2)
+            value: parseInt(this.stats.views),
+            increment: parseFloat(this.stats.viewsPercent)
           })
         }
 

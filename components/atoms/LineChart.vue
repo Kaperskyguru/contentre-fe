@@ -4,6 +4,7 @@ import { Line } from 'vue-chartjs'
 export default {
   name: 'LineChart',
   extends: Line,
+  // eslint-disable-next-line vue/require-prop-types
   props: ['chartData', 'options'],
   data: () => ({ chart: null }),
   mounted() {
