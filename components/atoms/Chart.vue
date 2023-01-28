@@ -1,6 +1,13 @@
 <template>
-  <div class="line-chart-wrapper" :style="computedStyles">
+  <div :style="computedStyles">
+    <BarChart
+      v-if="type === 'bar'"
+      :styles="styles"
+      :chart-data="chartData"
+      :options="computedChartOptions"
+    />
     <LineChart
+      v-else
       :styles="styles"
       :chart-data="chartData"
       :options="computedChartOptions"
@@ -10,7 +17,8 @@
 
 <script>
 export default {
-  name: 'BarChart',
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Chart',
   props: {
     title: {
       type: String,
@@ -21,12 +29,23 @@ export default {
       type: [String, Number],
       default: 0.0
     },
-
+    type: { type: String, default: '' },
     data: {
       type: [Array, Object],
       default: () => {}
     },
-
+    unit: {
+      type: String,
+      default: 'day'
+    },
+    locale: {
+      type: String,
+      default: 'en-US'
+    },
+    records: {
+      type: Number,
+      default: 0
+    },
     options: {
       type: Object,
       default: null
@@ -44,7 +63,7 @@ export default {
     },
     computeChartData() {
       return this.data?.data
-        ? this.data?.data
+        ? this.data?.stats
         : [
             {
               data: this.data?.current,
@@ -107,7 +126,7 @@ export default {
           ]
         },
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: true
       }
     },
 

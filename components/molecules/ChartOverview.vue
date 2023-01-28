@@ -38,7 +38,16 @@
     <div v-else-if="noData" class="text-xl text-center">
       <NoData @clear="$emit('clear')" />
     </div>
-    <Chart v-else :data="data" :percent="percent" :options="getChartOptions" />
+    <Chart
+      v-else
+      :unit="unit"
+      :type="type"
+      :records="records"
+      :locale="locale"
+      :data="data"
+      :percent="percent"
+      :options="getChartOptions"
+    />
   </div>
 </template>
 
@@ -57,10 +66,24 @@ export default {
       type: [String, Number],
       default: 0.0
     },
+    type: { type: String, default: '' },
+    unit: {
+      type: String,
+      default: 'day'
+    },
+    locale: {
+      type: String,
+      default: 'en-US'
+    },
+    records: {
+      type: Number,
+      default: 0
+    },
     isUnderDevelopment: {
       type: Boolean,
       default: false
     },
+    isTraffic: { type: Boolean, default: false },
     data: {
       type: [Array, Object],
       default: () => {}
@@ -73,6 +96,7 @@ export default {
   },
   computed: {
     noData() {
+      if (this.isTraffic) return false
       if (Array.isArray(this.data)) return true
 
       if (!this.data?.current && !this.data?.last) {
@@ -111,6 +135,9 @@ export default {
                 zeroLineColor: 'transparent'
               },
               ticks: {
+                minRotation: 0,
+                maxRotation: 0,
+                autoSkipPadding: 1,
                 fontColor: '#CBD5E0',
                 fontWeight: 'bold'
               }

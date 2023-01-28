@@ -16,6 +16,41 @@ export const GET_PORTFOLIOS = gql`
   ${portfolioFragments.portfolio}
 `
 
+export const GET_PORTFOLIO_STATS = gql`
+  query getPortfolioStats($filters: PortfolioFiltersInput) {
+    getPortfolioStats(filters: $filters) {
+      stats {
+        totalPageViews {
+          value
+          change
+        }
+        totalUniques {
+          value
+          change
+        }
+        totalBounces {
+          value
+          change
+        }
+        totalUsers {
+          value
+          change
+        }
+      }
+      analytics {
+        pageviews {
+          t
+          y
+        }
+        sessions {
+          t
+          y
+        }
+      }
+    }
+  }
+`
+
 export const GET_TEMPLATES = gql`
   query getTemplates($size: Int, $skip: Int, $filters: TemplateFiltersInput) {
     getTemplates(size: $size, skip: $skip, filters: $filters) {

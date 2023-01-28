@@ -121,6 +121,7 @@
         <DateField
           v-model="$v.fieldFromDate.$model"
           class="flex-1"
+          :full-calendar="options.isFullCalendar"
           :max="fieldToDate ? new Date(fieldToDate) : new Date()"
           :label="'Starting date'"
           :error="getValidationMessage($v.fieldFromDate)"
@@ -130,6 +131,7 @@
           v-model="$v.fieldToDate.$model"
           class="flex-1"
           from="right"
+          :full-calendar="options.isFullCalendar"
           :min="fieldFromDate ? new Date(fieldFromDate) : null"
           :max="new Date()"
           :label="'Ending date'"
@@ -224,6 +226,13 @@ export default {
     activeConsent: {
       type: Object,
       default: null
+    },
+
+    options: {
+      type: Object,
+      default: () => ({
+        isFullCalendar: false
+      })
     },
 
     filterColumns: {
@@ -360,7 +369,10 @@ export default {
       if (this.remove.includes('tag')) delete filter.tags
       if (this.remove.includes('topic')) delete filter.topics
       if (this.remove.includes('client')) delete filter.clients
-      if (this.remove.includes('sortby')) delete filter.sortBy
+      if (this.remove.includes('sortby')) {
+        delete filter.sortBy
+        delete filter.desc
+      }
       if (this.remove.includes('amount')) {
         delete filter.toAmount
         delete filter.fromAmount
@@ -402,6 +414,7 @@ export default {
       })
       const input = this.getModifiedData(this.filterKeys)
       this.$emit('close-panel', input)
+      this.$emit('reset', input)
       this.showFloatingPanel = false
     },
 
