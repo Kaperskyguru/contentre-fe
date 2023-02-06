@@ -182,7 +182,7 @@ export default {
 
       if (this.imageBlob) {
         this.cloudinary = await this.$cloudinary.upload(this.imageBlob, {
-          folder: 'contentre/profiles/' + this.currentUser.id,
+          folder: `contentre/users/${this.currentUser.username}-${this.currentUser.id}/profiles`,
           upload_preset: 'yijnms7k'
         })
       }

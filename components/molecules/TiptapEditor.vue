@@ -116,7 +116,7 @@
                 </button>
               </li> -->
 
-              <li class="font-medium" @click="onUploadImage">
+              <li class="font-medium" @click="onUploadImage()">
                 <button
                   class="
                     flex
@@ -354,7 +354,7 @@
     <Dialog v-model="isImageModalVisible" :is-large="true" title="Upload media">
       <div class="block w-full text-gray-700 bg-white">
         <div class="justify-between w-full text-gray-700 bg-white">
-          <UploadImage :type="mediaType" @uploaded="uploadedImage" />
+          <UploadImage :media-type="mediaType" @uploaded="uploadedImage" />
         </div>
       </div>
     </Dialog>
@@ -651,10 +651,10 @@ export default {
 
     uploadedImage(data) {
       this.isImageModalVisible = false
-      if (data.length > 1) return
+      if (data?.length > 1) return
 
       const image = data[0]
-      if (!image.url) return
+      if (!image?.url) return
       this.editor.chain().focus().setImage({ src: image.url }).run()
     },
 

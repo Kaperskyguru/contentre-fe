@@ -55,7 +55,7 @@
             Resources
           </a>
         </li>
-        <li v-if="type === 'image'" class="mr-2">
+        <li v-if="mediaType === 'image'" class="mr-2">
           <a
             id="link-tab"
             href="#link"
@@ -185,7 +185,7 @@
                   :waiting="uploading"
                 >
                   <!-- <i class="fas fa-upload"></i> -->
-                  Upload {{ type }}
+                  Upload {{ mediaType }}
                 </Button>
                 <p class="mt-4">Or drop a file</p>
               </div>
@@ -195,7 +195,7 @@
       </div>
 
       <div
-        v-if="type === 'image'"
+        v-if="mediaType === 'image'"
         id="link"
         class="hidden w-full"
         role="tabpanel"
@@ -216,7 +216,7 @@
               <TextField
                 type="url"
                 class="p-4"
-                :placeholder="`Upload ${type} link`"
+                :placeholder="`Upload ${mediaType} link`"
               />
             </div>
 
@@ -240,7 +240,7 @@ export default {
       type: Boolean,
       default: false
     },
-    type: {
+    mediaType: {
       type: String,
       default: 'image'
     }
@@ -256,8 +256,8 @@ export default {
 
   computed: {
     acceptedFiles() {
-      if (this.type === 'pdf') return '.pdf'
-      if (this.type === 'video') return 'video/mp4,video/x-m4v,video/*'
+      if (this.mediaType === 'pdf') return '.pdf'
+      if (this.mediaType === 'video') return 'video/mp4,video/x-m4v,video/*'
       return '.jpeg,.jpg,.png,image/jpeg,image/png'
     }
   },
@@ -297,9 +297,9 @@ export default {
         const files = e.target.files
         this.uploading = true
 
-        if (this.type === 'image') data = await this.uploadImage(files)
-        if (this.type === 'pdf') data = await this.uploadPDF(files)
-        if (this.type === 'video') data = await this.uploadVideo(files)
+        if (this.mediaType === 'image') data = await this.uploadImage(files)
+        if (this.mediaType === 'pdf') data = await this.uploadPDF(files)
+        if (this.mediaType === 'video') data = await this.uploadVideo(files)
 
         this.$toast.positive('Media created successfully')
         this.filters = {
@@ -368,7 +368,7 @@ export default {
     async uploadToCloudinary(image) {
       if (image) {
         const cloudinary = await this.$cloudinary.upload(image, {
-          folder: 'contentre/media/images/' + this.currentUser.id,
+          folder: `contentre/users/${this.currentUser.username}-${this.currentUser.id}/media/images`,
           upload_preset: 'yijnms7k'
         })
 
