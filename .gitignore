@@ -93,6 +93,6 @@ sw.*
 .nuxt-storybook
 storybook-static
 
-package-lock.json
+yarn.lock
 
 TODO
