@@ -6,6 +6,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start -p $PORT",
+    "test": "echo 'working'",
     "generate": "nuxt generate",
     "deploy": "yarn generate && yarn start",
     "storybook:dev": "nuxt storybook -p 4001 -c nuxt.storybook.config.js",
