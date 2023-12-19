@@ -39,11 +39,11 @@ export const GET_PORTFOLIO_STATS = gql`
       }
       analytics {
         pageviews {
-          t
+          x
           y
         }
         sessions {
-          t
+          x
           y
         }
       }

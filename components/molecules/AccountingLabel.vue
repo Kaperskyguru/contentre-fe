@@ -22,7 +22,7 @@ export default defineComponent({
   },
 
   render(createElement) {
-    const value = this.value || '0'
+    const value = this.value || 0
     const isNumber = Number.isInteger(value)
     const formattedValue = isNumber
       ? new Intl.NumberFormat().format(value)

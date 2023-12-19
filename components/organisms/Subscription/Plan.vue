@@ -25,13 +25,7 @@
                     >Premium Yearly (Save 20%)</small
                   >
                   <h4
-                    class="
-                      mt-3
-                      text-[40px]
-                      font-medium
-                      leading-[40px]
-                      text-[#FFFFFF]
-                    "
+                    class="mt-3 text-[40px] font-medium leading-[40px] text-[#FFFFFF]"
                   >
                     $99.99
                     <sub class="text-[14px] font-extralight text-gray-300"
@@ -133,21 +127,13 @@
             </div>
 
             <div class="flex justify-center items-center mt-20 mb-5">
-              <nuxt-link :to="`/subscriptions?tab=Address&&plan=yearly`">
+              <NuxtLink :to="`/subscriptions?tab=Address&&plan=yearly`">
                 <button
-                  class="
-                    py-3
-                    px-10
-                    text-sm text-[#286963]
-                    bg-[#fff]
-                    rounded-md
-                    border border-[#286963]
-                    md:px-20
-                  "
+                  class="py-3 px-10 text-sm text-[#286963] bg-[#fff] rounded-md border border-[#286963] md:px-20"
                 >
                   Get Premium Yearly
                 </button>
-              </nuxt-link>
+              </NuxtLink>
             </div>
           </div>
 
@@ -162,13 +148,7 @@
                     >Premium Monthly</small
                   >
                   <h4
-                    class="
-                      mt-1
-                      text-[40px]
-                      font-medium
-                      leading-[40px]
-                      text-[#102A27]
-                    "
+                    class="mt-1 text-[40px] font-medium leading-[40px] text-[#102A27]"
                   >
                     $9.99
                     <sub class="text-[14px] font-extralight text-gray-300"
@@ -270,21 +250,13 @@
             </div>
 
             <div class="flex justify-center items-center mt-20 mb-5">
-              <nuxt-link :to="`/subscriptions?tab=Address&&plan=monthly`">
+              <NuxtLink :to="`/subscriptions?tab=Address&&plan=monthly`">
                 <button
-                  class="
-                    py-3
-                    px-10
-                    text-sm text-[#286963]
-                    bg-[bg-transparen]
-                    rounded-md
-                    border border-[#286963]
-                    md:px-24
-                  "
+                  class="py-3 px-10 text-sm text-[#286963] bg-[bg-transparen] rounded-md border border-[#286963] md:px-24"
                 >
                   Get Premium Monthly
                 </button>
-              </nuxt-link>
+              </NuxtLink>
             </div>
           </div>
         </div>

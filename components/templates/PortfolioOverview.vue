@@ -69,6 +69,7 @@
           title="Traffic Overview"
           is-traffic
           :records="records('day')"
+          :chart-options="getChartOptions()"
           :data="portfoliosStats.analytics"
         />
       </div>
@@ -218,15 +219,16 @@ export default {
           },
           analytics: {
             data: true,
-            labels: this.renderXLabel(
-              getDateArray(
+            isEmpty: analytics.pageviews.length < 1,
+            labels: {
+              data: getDateArray(
                 analytics.pageviews,
                 this.filters?.startDate ?? startDate,
                 this.filters?.endDate ?? endDate,
                 unit
               ),
               unit
-            ),
+            },
             stats: [
               {
                 data: getDateArray(
@@ -314,51 +316,45 @@ export default {
       const { startDate, endDate } = getDateRange(period)
       return getDateLength(startDate, endDate, unit ?? 'day')
     },
-    renderXLabel(data, unit) {
-      if (this.$apollo.queries.portfoliosStats.loading) return ''
 
-      const d = data.map((item, index) => {
-        const d = new Date(item.t)
-
-        // const sw = this.$refs.canvas.width / window.devicePixelRatio
-
-        switch (unit) {
-          case 'minute':
-            return index % 2 === 0 ? dateFormat(d, 'H:mm', this.locale) : ''
-          case 'hour':
-            return dateFormat(d, 'p', this.locale)
-          case 'day':
-            if (this.records(unit) > 25) {
-              // if (sw <= 275) {
-              //   return index % 10 === 0 ? dateFormat(d, 'M/d', this.locale) : ''
-              // }
-              // if (sw <= 550) {
-              //   return index % 5 === 0 ? dateFormat(d, 'M/d', this.locale) : ''
-              // }
-              // if (sw <= 700) {
-              //   return index % 2 === 0 ? dateFormat(d, 'M/d', this.locale) : ''
-              // }
-
-              return dateFormat(d, 'MMM d', this.locale)
+    getChartOptions() {
+      return {
+        period: this.filters?.period,
+        legend: {
+          display: true
+        },
+        scales: {
+          yAxes: [
+            {
+              gridLines: {
+                borderDash: [3.5, 3.5],
+                zeroLineColor: 'transparent'
+              },
+              ticks: {
+                fontColor: '#CBD5E0',
+                fontWeight: 'bold'
+              }
             }
-            // if (sw <= 375) {
-            //   return index % 2 === 0 ? dateFormat(d, 'MMM d', this.locale) : ''
-            // }
-            // if (sw <= 425) {
-            //   return dateFormat(d, 'MMM d', this.locale)
-            // }
-
-            return dateFormat(d, 'EEE M/d', this.locale)
-          case 'month':
-            // if (sw <= 330) {
-            //   return index % 2 === 0 ? dateFormat(d, 'MMM', this.locale) : ''
-            // }
-            return dateFormat(d, 'MMM', this.locale)
-          default:
-            return dateFormat(d, 'MMM', this.locale)
-        }
-      })
-      return d
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+                zeroLineColor: 'transparent'
+              },
+              ticks: {
+                minRotation: 0,
+                maxRotation: 0,
+                autoSkipPadding: 1,
+                fontColor: '#CBD5E0',
+                fontWeight: 'bold'
+              }
+            }
+          ]
+        },
+        responsive: true,
+        maintainAspectRatio: false
+      }
     },
 
     onFilters(v) {

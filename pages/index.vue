@@ -8,75 +8,14 @@
           Add Content
         </Button>
       </div>
-      <!-- </div> -->
     </Card>
 
     <Card>
       <StatOverview :columns="boxColumns" :stats="metadata.stats" />
     </Card>
 
-    <!-- Chart -->
-    <!-- <Card
-      class="
-        grid grid-cols-1
-        2xl:grid-cols-3
-        gap-4
-        w-full
-        md:grid-cols-2
-        lg:grid-cols-2
-        xl:grid-cols-3
-      "
-    >
-      <div class="p-4 bg-white rounded-lg shadow sm:p-6 md:col-span-2 xl:p-8">
-        <Loading
-          v-if="$apollo.queries.metadata.loading"
-          class="flex flex-1 items-center"
-        />
-        <ChartOverview
-          v-else
-          :data="metadata.revenue"
-          :percent="getPercentAmount"
-        />
-      </div>
-
-      <div class="p-2 bg-white rounded-lg shadow sm:p-3 xl:p-5">
-        <div class="overflow-hidden">
-          <header class="px-2 leading-tight">
-            <span class="text-2xl font-bold text-gray-900 sm:text-2xl"
-              >Client Overview</span
-            >
-
-            <h3 class="pb-4 font-normal text-gray-500">
-              Yearly Account Overview
-            </h3>
-          </header>
-
-          <div class="">
-            <Loading
-              v-if="$apollo.queries.contentImpact.loading"
-              class="flex flex-1 items-center"
-            />
-            <Column
-              v-else
-              type="doughnut"
-              :show-header="false"
-              :chart-data="contentImpact"
-            />
-          </div>
-        </div>
-      </div>
-    </Card> -->
-
-    <!-- table -->
     <Card class="pb-6 min-h-96">
-      <!-- <section class="container px-4 my-8 mx-auto bg-white">
-        <div class="flex justify-between items-center py-4">
-          <h2 class="font-gilroy text-2xl font-semibold leading-tight">
-            Clients
-          </h2>
-        </div> -->
       <ClientOverview :checked.sync="checked" placement="dashboard" />
-      <!-- </section> -->
     </Card>
     <Dialog v-model="isAddContent">
       <div class="block w-full text-gray-700 bg-white">
@@ -158,8 +97,12 @@ export default {
       query: GET_INDEX_METADATA,
       fetchPolicy: 'cache-and-network',
       update(data) {
+        const box = data.getIndexMetadata?.box
         return {
-          stats: data.getIndexMetadata?.box,
+          stats: {
+            ...box,
+            amount: box?.amount > 0 ? box.amount : 0
+          },
           revenue: {
             labels: data.getIndexMetadata?.revenue?.months,
             current: data.getIndexMetadata?.revenue?.data?.current,

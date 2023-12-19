@@ -1,8 +1,6 @@
 <template>
   <PageContent>
-    <Card
-      class="flex flex-row gap-2 justify-between items-center"
-    >
+    <Card class="flex flex-row gap-2 justify-between items-center">
       <PageTitle>Analytics</PageTitle>
 
       <ContentFilter :show-sort-by="false" @filters="onFilters" />
@@ -13,15 +11,7 @@
 
     <!-- Charts -->
     <Card
-      class="
-        grid grid-cols-1
-        2xl:grid-cols-3
-        gap-4
-        w-full
-        md:grid-cols-2
-        lg:grid-cols-2
-        xl:grid-cols-3
-      "
+      class="grid grid-cols-1 2xl:grid-cols-3 gap-4 w-full md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3"
     >
       <div
         class="p-4 bg-white rounded-lg shadow-lg sm:p-6 md:col-span-2 xl:p-8"
@@ -38,16 +28,7 @@
       </div>
 
       <div
-        class="
-          pt-4
-          w-full
-          bg-white
-          rounded-lg
-          shadow-lg
-          sm:col-span-2
-          md:col-span-1
-          lg:px-2
-        "
+        class="pt-4 w-full bg-white rounded-lg shadow-lg sm:col-span-2 md:col-span-1 lg:px-2"
       >
         <!-- Card -->
         <div class="overflow-hidden">
