@@ -96,6 +96,7 @@ export default {
   },
   computed: {
     noData() {
+      if (this.data.isEmpty) return true
       if (this.isTraffic) return false
       if (Array.isArray(this.data)) return true
 

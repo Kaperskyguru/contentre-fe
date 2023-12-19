@@ -28,9 +28,14 @@ export default {
       ...this.chartData
     }
 
-    this.chart.datasets[0].backgroundColor = gradient
-    this.chart.datasets[1].backgroundColor = gradient1
-    this.chart.datasets[1].borderColor = '#2D3748'
+    console.log(this.chart.datasets)
+
+    if (this.chart.datasets.length > 0)
+      this.chart.datasets[0].backgroundColor = gradient
+    if (this.chart.datasets.length > 1) {
+      this.chart.datasets[1].backgroundColor = gradient1
+      this.chart.datasets[1].borderColor = '#2D3748'
+    }
 
     this.renderChart(this.chartData, this.option)
   }

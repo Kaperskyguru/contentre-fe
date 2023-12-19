@@ -1,14 +1,6 @@
 <template>
   <div
-    class="
-      p-4
-      bg-white
-      rounded-lg
-      border
-      shadow-sm
-      hover:shadow-lg
-      transition-shadow
-    "
+    class="p-4 bg-white rounded-lg border shadow-sm hover:shadow-lg transition-shadow"
     :class="{
       'bg-gray-100': isUnderDevelopment
     }"

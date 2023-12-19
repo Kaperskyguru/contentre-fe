@@ -7,7 +7,7 @@
       >
         <p v-if="apps.total < 1">
           Please activate a plugin
-          <nuxt-link class="text-red-600" to="/settings/apps">here</nuxt-link>
+          <NuxtLink class="text-red-600" to="/settings/apps">here</NuxtLink>
         </p>
         <tab
           v-for="app in apps.total && apps.items"

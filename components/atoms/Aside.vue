@@ -8,17 +8,7 @@
       <!-- <CollapseSidebarButton /> -->
       <Hyperlink
         :to="{ name: 'index' }"
-        class="
-          group
-          flex
-          items-center
-          p-2
-          font-gilroy
-          text-lg
-          font-medium
-          text-gray-500
-          rounded-lg
-        "
+        class="group flex items-center p-2 font-gilroy text-lg font-medium text-gray-500 rounded-lg"
       >
         <span class="text-white">
           <DashboardIcon />
@@ -35,16 +25,7 @@
       >
         <Hyperlink
           to="#"
-          class="
-            group
-            flex
-            items-center
-            p-2
-            text-lg
-            font-medium
-            text-gray-500
-            rounded-lg
-          "
+          class="group flex items-center p-2 text-lg font-medium text-gray-500 rounded-lg"
         >
           <ContentIcon />
           <span class="flex-1 ml-3 whitespace-nowrap">Contents</span>
@@ -56,16 +37,7 @@
               'rotate-180': contentOpen,
               'rotate-0': !contentOpen
             }"
-            class="
-              inline
-              mt-1
-              ml-1
-              w-4
-              h-4
-              transition-transform
-              duration-200
-              md:-mt-1
-            "
+            class="inline mt-1 ml-1 w-4 h-4 transition-transform duration-200 md:-mt-1"
           >
             <path
               fill-rule="evenodd"
@@ -84,17 +56,7 @@
             <li>
               <Hyperlink
                 :to="{ name: 'contents' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  font-gilroy
-                  text-base
-                  font-medium
-                  text-gray-500
-                  rounded-lg
-                "
+                class="group flex items-center p-2 font-gilroy text-base font-medium text-gray-500 rounded-lg"
               >
                 <!-- <ContentIcon /> -->
                 <span class="flex-1 ml-3 whitespace-nowrap">All Contents</span>
@@ -104,17 +66,7 @@
             <li>
               <Hyperlink
                 :to="{ name: 'contents/add', query: { type: 'note' } }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  font-gilroy
-                  text-base
-                  font-medium
-                  text-gray-500
-                  rounded-lg
-                "
+                class="group flex items-center p-2 font-gilroy text-base font-medium text-gray-500 rounded-lg"
               >
                 <!-- <AddIcon /> -->
                 <span class="flex-1 ml-3 whitespace-nowrap"
@@ -126,17 +78,7 @@
             <li>
               <Hyperlink
                 :to="{ name: 'contents/outlines' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  font-gilroy
-                  text-base
-                  font-medium
-                  text-gray-500
-                  rounded-lg
-                "
+                class="group flex items-center p-2 font-gilroy text-base font-medium text-gray-500 rounded-lg"
               >
                 <!-- <OutlineIcon /> -->
                 <span class="flex-1 ml-3 whitespace-nowrap">Outlines</span>
@@ -146,17 +88,7 @@
             <li>
               <Hyperlink
                 :to="{ name: 'contents/briefs' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  font-gilroy
-                  text-base
-                  font-medium
-                  text-gray-500
-                  rounded-lg
-                "
+                class="group flex items-center p-2 font-gilroy text-base font-medium text-gray-500 rounded-lg"
               >
                 <!-- <BriefIcon /> -->
                 <span class="flex-1 ml-3 whitespace-nowrap">Briefs</span>
@@ -166,17 +98,7 @@
             <li>
               <Hyperlink
                 :to="{ name: 'contents/snippets' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  font-gilroy
-                  text-base
-                  font-medium
-                  text-gray-500
-                  rounded-lg
-                "
+                class="group flex items-center p-2 font-gilroy text-base font-medium text-gray-500 rounded-lg"
               >
                 <!-- <SnippetIcon /> -->
                 <span class="flex-1 ml-3 whitespace-nowrap">Snippets</span>
@@ -186,17 +108,7 @@
             <li>
               <Hyperlink
                 :to="{ name: 'notebooks' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  font-gilroy
-                  text-base
-                  font-medium
-                  text-gray-500
-                  rounded-lg
-                "
+                class="group flex items-center p-2 font-gilroy text-base font-medium text-gray-500 rounded-lg"
               >
                 <!-- <NoteIcon /> -->
                 <span class="flex-1 ml-3 whitespace-nowrap">Notes</span>
@@ -208,17 +120,7 @@
 
       <Hyperlink
         :to="{ name: 'analytics' }"
-        class="
-          group
-          flex
-          items-center
-          p-2
-          font-gilroy
-          text-lg
-          font-medium
-          text-gray-500
-          rounded-lg
-        "
+        class="group flex items-center p-2 font-gilroy text-lg font-medium text-gray-500 rounded-lg"
       >
         <AnalyticIcon />
         <span class="flex-1 ml-3 whitespace-nowrap">Analytics</span>
@@ -226,17 +128,7 @@
 
       <Hyperlink
         :to="{ name: 'portfolios' }"
-        class="
-          group
-          flex
-          items-center
-          p-2
-          font-gilroy
-          text-lg
-          font-medium
-          text-gray-500
-          rounded-lg
-        "
+        class="group flex items-center p-2 font-gilroy text-lg font-medium text-gray-500 rounded-lg"
       >
         <PortfolioIcon />
         <span class="flex-1 ml-3 whitespace-nowrap">Portfolios</span>
@@ -244,17 +136,7 @@
 
       <Hyperlink
         :to="{ name: 'clients' }"
-        class="
-          group
-          flex
-          items-center
-          p-2
-          font-gilroy
-          text-lg
-          font-medium
-          text-gray-500
-          rounded-lg
-        "
+        class="group flex items-center p-2 font-gilroy text-lg font-medium text-gray-500 rounded-lg"
       >
         <ProfileIcon />
         <span class="flex-1 ml-3 whitespace-nowrap">Clients</span>
@@ -269,16 +151,7 @@
       >
         <Hyperlink
           to="#"
-          class="
-            group
-            flex
-            items-center
-            p-2
-            text-lg
-            font-medium
-            text-gray-500
-            rounded-lg
-          "
+          class="group flex items-center p-2 text-lg font-medium text-gray-500 rounded-lg"
         >
           <GroupingIcon />
           <span class="flex-1 ml-3 whitespace-nowrap">Groupings</span>
@@ -290,16 +163,7 @@
               'rotate-180': groupingOpen,
               'rotate-0': !groupingOpen
             }"
-            class="
-              inline
-              mt-1
-              ml-1
-              w-4
-              h-4
-              transition-transform
-              duration-200
-              md:-mt-1
-            "
+            class="inline mt-1 ml-1 w-4 h-4 transition-transform duration-200 md:-mt-1"
           >
             <path
               fill-rule="evenodd"
@@ -317,17 +181,7 @@
             <li>
               <Hyperlink
                 :to="{ name: 'categories' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  font-gilroy
-                  text-base
-                  font-medium
-                  text-gray-500
-                  rounded-lg
-                "
+                class="group flex items-center p-2 font-gilroy text-base font-medium text-gray-500 rounded-lg"
               >
                 <span class="flex-1 ml-3 whitespace-nowrap">Categories</span>
               </Hyperlink>
@@ -336,17 +190,7 @@
             <li>
               <Hyperlink
                 :to="{ name: 'topics' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  font-gilroy
-                  text-base
-                  font-medium
-                  text-gray-500
-                  rounded-lg
-                "
+                class="group flex items-center p-2 font-gilroy text-base font-medium text-gray-500 rounded-lg"
               >
                 <span class="flex-1 ml-3 whitespace-nowrap">Topics</span>
               </Hyperlink>
@@ -355,17 +199,7 @@
             <li>
               <Hyperlink
                 :to="{ name: 'tags' }"
-                class="
-                  group
-                  flex
-                  items-center
-                  p-2
-                  font-gilroy
-                  text-base
-                  font-medium
-                  text-gray-500
-                  rounded-lg
-                "
+                class="group flex items-center p-2 font-gilroy text-base font-medium text-gray-500 rounded-lg"
               >
                 <span class="flex-1 ml-3 whitespace-nowrap">Tags</span>
               </Hyperlink>
@@ -376,17 +210,7 @@
 
       <Hyperlink
         :to="{ path: '/settings/apps' }"
-        class="
-          group
-          flex
-          items-center
-          p-2
-          font-gilroy
-          text-lg
-          font-medium
-          text-gray-500
-          rounded-lg
-        "
+        class="group flex items-center p-2 font-gilroy text-lg font-medium text-gray-500 rounded-lg"
       >
         <ProfileIcon />
         <span class="flex-1 ml-3 whitespace-nowrap">Integrations</span>

@@ -12,7 +12,7 @@ export default {
     Paddle.Checkout.open({ product: 822998 })
   },
 
-  method: {
+  methods: {
     openPayment() {
       Paddle.Checkout.open({ product: 822998 })
     }

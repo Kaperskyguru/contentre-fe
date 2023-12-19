@@ -44,18 +44,7 @@
             ref="panel"
             elevation="large"
             padding="large"
-            class="
-              flex
-              overflow-hidden
-              relative
-              flex-col
-              !pb-4
-              space-y-2
-              w-full
-              max-w-[88vw]
-              md:max-w-[30rem]
-              z-5
-            "
+            class="flex overflow-hidden relative flex-col !pb-4 space-y-2 w-full max-w-[88vw] md:max-w-[30rem] z-5"
             :class="{
               'xl:w-1/3': !inside,
               'rounded-l-none': from === 'left' && !inside,
@@ -65,13 +54,7 @@
             :style="attrStyle"
           >
             <header
-              class="
-                flex
-                justify-between
-                items-start
-                pb-4
-                border-b border-whitesmoke
-              "
+              class="flex justify-between items-start pb-4 border-b border-whitesmoke"
               :class="{
                 'flex-row-reverse': from === 'right'
               }"
@@ -93,32 +76,14 @@
             </header>
             <div
               v-if="waiting"
-              class="
-                flex flex-col flex-1
-                justify-center
-                items-center
-                space-y-6
-                drop-shadow
-                md:overflow-hidden
-              "
+              class="flex flex-col flex-1 justify-center items-center space-y-6 drop-shadow md:overflow-hidden"
             >
               <Loading class="opacity-20" />
             </div>
             <slot v-else name="card">
               <div class="flex overflow-hidden relative flex-1 -m-6">
                 <div
-                  class="
-                    absolute
-                    top-0
-                    right-4
-                    left-2
-                    z-40
-                    h-4
-                    bg-gradient-to-b
-                    from-white
-                    to-transparent
-                    pointer-events-none
-                  "
+                  class="absolute top-0 right-4 left-2 z-40 h-4 bg-gradient-to-b from-white to-transparent pointer-events-none"
                 />
 
                 <div class="overflow-auto flex-auto py-4 px-6">
@@ -126,18 +91,7 @@
                 </div>
 
                 <div
-                  class="
-                    absolute
-                    right-4
-                    bottom-0
-                    left-2
-                    z-40
-                    h-4
-                    bg-gradient-to-b
-                    from-transparent
-                    to-white
-                    pointer-events-none
-                  "
+                  class="absolute right-4 bottom-0 left-2 z-40 h-4 bg-gradient-to-b from-transparent to-white pointer-events-none"
                 />
 
                 <LazyWarnDialog
